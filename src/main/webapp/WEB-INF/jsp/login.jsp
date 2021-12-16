@@ -29,7 +29,7 @@
 			New here? Click <a href="/register">here</a> to register.
 		</p>
 
-		<form:form action="/login" method="post">
+		<form:form action="/j_spring_security_check" method="post">
 			<div class="mb-3 mt-3">
 				<input
 					type="text" class="form-control"
@@ -39,6 +39,10 @@
 				<input
 					type="password" class="form-control"
 					placeholder="Password" name="password">
+			</div>
+			
+			<div class="mb-3">
+				<input type="checkbox" name="remember-me" /> Remember Me? 
 			</div>
 
 			<button type="submit" class="btn btn-success container-fluid">Login</button>

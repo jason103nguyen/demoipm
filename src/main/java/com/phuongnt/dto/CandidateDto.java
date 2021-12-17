@@ -36,8 +36,6 @@ public class CandidateDto {
 	
 	private String result;
 	
-	private UserAppDto userApp;
-	
 	public CandidateDto() {}
 	
 	public CandidateDto(Candidate candicate) {
@@ -57,17 +55,6 @@ public class CandidateDto {
 		this.evaluation = candicate.getEvaluation();
 		this.note = candicate.getNote();
 		this.result = candicate.getResult();
-		
-		UserAppDto userAppDto = new UserAppDto(candicate.getUserApp());
-		this.userApp = userAppDto;
-	}
-
-	public UserAppDto getUserApp() {
-		return userApp;
-	}
-
-	public void setUserApp(UserAppDto userApp) {
-		this.userApp = userApp;
 	}
 
 	public int getId() {

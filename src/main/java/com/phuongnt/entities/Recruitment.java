@@ -1,6 +1,8 @@
 package com.phuongnt.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.phuongnt.dto.RecruitmentDto;
@@ -25,6 +28,13 @@ public class Recruitment {
 	@ManyToOne
 	@JoinColumn(name = "career_id")
 	private Career career;
+	
+	@ManyToOne
+	@JoinColumn(name = "job_id")
+	private Job job;
+	
+	@OneToMany(mappedBy = "recruitment")
+	private List<RecruitmentSkill> listRecruitmentSkill = new ArrayList<RecruitmentSkill>();
 	
 	@Column(name = "number")
 	private int number;
@@ -55,6 +65,22 @@ public class Recruitment {
 		this.maxSalary = recruitmentDto.getMaxSalary();
 		this.startRecruitment = recruitmentDto.getStartRecruitment();
 		this.endRecruitment = recruitmentDto.getEndRecruitment();
+	}
+
+	public Job getJob() {
+		return job;
+	}
+
+	public void setJob(Job job) {
+		this.job = job;
+	}
+
+	public List<RecruitmentSkill> getListRecruitmentSkill() {
+		return listRecruitmentSkill;
+	}
+
+	public void setListRecruitmentSkill(List<RecruitmentSkill> listRecruitmentSkill) {
+		this.listRecruitmentSkill = listRecruitmentSkill;
 	}
 
 	public int getId() {

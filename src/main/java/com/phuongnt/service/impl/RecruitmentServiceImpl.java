@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.phuongnt.dao.RecruitmentDao;
 import com.phuongnt.dto.RecruitmentDto;
+import com.phuongnt.dto.SkillDto;
 import com.phuongnt.entities.Recruitment;
+import com.phuongnt.entities.RecruitmentSkill;
+import com.phuongnt.entities.Skill;
 import com.phuongnt.service.RecruitmentService;
 
 @Service
@@ -59,6 +62,26 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 		}
 		
 		return listRecruitmentDto;
+	}
+	
+	@Override
+	public List<SkillDto> readAllSkillByRecruitment(int id) throws Exception {
+
+		Optional<Recruitment> recruitment = recruitmentDao.findById(id);
+		List<SkillDto> listSkill = null;
+		if (recruitment.isEmpty()) {
+			throw new Exception("The id doesn't exists");
+		} else {
+			List<RecruitmentSkill> listRecruitmentSkill = recruitment.get().getListRecruitmentSkill();
+			listSkill = new ArrayList<SkillDto>();
+			for(RecruitmentSkill recruitmentSkill : listRecruitmentSkill) {
+				Skill skill = recruitmentSkill.getSkill();
+				SkillDto skillDto = new SkillDto(skill);
+				listSkill.add(skillDto);
+			}
+			
+		}
+		return listSkill;
 	}
 
 	@Override

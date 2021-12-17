@@ -43,9 +43,6 @@ public class UserApp {
 	@Column(name = "role")
 	private String role;
 	
-	@OneToMany(mappedBy = "userApp")
-	private List<Candidate> listCandidate = new ArrayList<Candidate>();
-	
 	public UserApp() {}
 	
 	public UserApp(UserAppDto userAppDto) {
@@ -61,26 +58,6 @@ public class UserApp {
 		this.password = encrytedPassword;
 		
 		this.role = userAppDto.getRole();
-		
-		List<CandidateDto> listCandidateDto = userAppDto.getListCandidate();
-		if(listCandidateDto != null) {
-			for (CandidateDto candidateDto : listCandidateDto) {
-				Candidate candidate = new Candidate(candidateDto);
-				this.listCandidate.add(candidate);
-			}
-		}
-	}
-	
-	public void addCandidate(Candidate candidate) {
-		listCandidate.add(candidate);
-	}
-	
-	public List<Candidate> getListCandidate() {
-		return listCandidate;
-	}
-
-	public void setListCandidate(List<Candidate> listCandidate) {
-		this.listCandidate = listCandidate;
 	}
 
 	public int getId() {

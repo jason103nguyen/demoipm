@@ -64,10 +64,6 @@ public class Candidate {
 	@Column(name = "result")
 	private String result;
 	
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private UserApp userApp;
-	
 	public Candidate() {}
 	
 	public Candidate(CandidateDto candicateDto) {
@@ -87,17 +83,6 @@ public class Candidate {
 		this.evaluation = candicateDto.getEvaluation();
 		this.note = candicateDto.getNote();
 		this.result = candicateDto.getResult();
-		
-		UserApp userApp = new UserApp(candicateDto.getUserApp());
-		this.userApp = userApp;
-	}
-
-	public UserApp getUserApp() {
-		return userApp;
-	}
-
-	public void setUserApp(UserApp userApp) {
-		this.userApp = userApp;
 	}
 
 	public int getId() {

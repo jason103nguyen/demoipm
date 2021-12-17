@@ -22,8 +22,6 @@ public class UserAppDto {
 	
 	private String role;
 	
-	private List<CandidateDto> listCandidateDto = new ArrayList<CandidateDto>();
-	
 	public UserAppDto() {}
 	
 	public UserAppDto(UserApp userApp) {
@@ -36,23 +34,6 @@ public class UserAppDto {
 		this.password = userApp.getPassword();
 		this.role = userApp.getRole();
 		
-		List<Candidate> listCandidate = userApp.getListCandidate();
-		for (Candidate candidate : listCandidate) {
-			CandidateDto candidateDto = new CandidateDto(candidate);
-			this.listCandidateDto.add(candidateDto);
-		}
-	}
-
-	public void addCandidate(CandidateDto candidate) {
-		listCandidateDto.add(candidate);
-	}
-	
-	public List<CandidateDto> getListCandidate() {
-		return listCandidateDto;
-	}
-
-	public void setListCandidate(List<CandidateDto> listCandidate) {
-		this.listCandidateDto = listCandidate;
 	}
 
 	public int getId() {

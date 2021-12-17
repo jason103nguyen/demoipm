@@ -20,12 +20,6 @@ public class SkillController {
 	@Autowired
 	private UserAppService userAppService;
 	
-	@GetMapping(value = "/")
-	public String hello() {
-		
-		return "hello";
-	}
-	
 	@GetMapping(value = "/user-info")
 	public String userInfo() {
 		
@@ -42,12 +36,6 @@ public class SkillController {
 	public String error403() {
 		
 		return "403Page";
-	}
-	
-	@GetMapping(value = "/home")
-	public String home() {
-		
-		return "homepage";
 	}
 	
 	@GetMapping(value = "/register")

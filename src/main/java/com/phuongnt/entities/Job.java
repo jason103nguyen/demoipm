@@ -42,16 +42,6 @@ public class Job {
 		super();
 		this.id = jobDto.getId();
 		this.name = jobDto.getName();
-		
-		List<JobSkillDto> listJobSkillDto = jobDto.getListJobSkillDto();
-		
-		if (listJobSkillDto != null) {
-			for (JobSkillDto jobSkillDto : listJobSkillDto) {
-				JobSkill jobSkill = new JobSkill(jobSkillDto);
-				this.listJobSkill.add(jobSkill);
-			}
-		}
-		
 		Career career = new Career(jobDto.getCareer());
 		this.career = career;
 	}

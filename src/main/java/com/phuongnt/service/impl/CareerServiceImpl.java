@@ -11,7 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.phuongnt.dao.CareerDao;
 import com.phuongnt.dto.CareerDto;
+import com.phuongnt.dto.SkillDto;
 import com.phuongnt.entities.Career;
+import com.phuongnt.entities.Recruitment;
+import com.phuongnt.entities.RecruitmentSkill;
+import com.phuongnt.entities.Skill;
 import com.phuongnt.service.CareerService;
 
 @Service

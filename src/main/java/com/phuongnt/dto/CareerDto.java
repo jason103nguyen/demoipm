@@ -26,18 +26,6 @@ public class CareerDto {
 		this.id = career.getId();
 		this.name = career.getName();
 		this.description = career.getDescription();
-		
-		List<Job> listJob = career.getListJob();
-		for (Job job : listJob) {
-			JobDto jobDto = new JobDto(job);
-			this.listJobDto.add(jobDto);
-		}
-		
-		List<Recruitment> listRecruitment = career.getListRecruitment();
-		for (Recruitment recruitment : listRecruitment) {
-			RecruitmentDto recruitmentDto = new RecruitmentDto(recruitment);
-			this.listRecruitmentDto.add(recruitmentDto);
-		}
 	}
 
 	public List<RecruitmentDto> getListRecruitmentDto() {
@@ -46,10 +34,6 @@ public class CareerDto {
 
 	public void setListRecruitmentDto(List<RecruitmentDto> listRecruitmentDto) {
 		this.listRecruitmentDto = listRecruitmentDto;
-	}
-
-	public void addCareer(JobDto job) {
-		listJobDto.add(job);
 	}
 
 	public int getId() {

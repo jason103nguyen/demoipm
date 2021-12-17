@@ -49,17 +49,27 @@ INSERT INTO job_skill (job_id, skill_id)
 VALUES (3, 3);
 
 -- RECRUITMENT --
-INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id) 
-VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 1);
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id) 
+VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 1, 1);
 
-INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id) 
-VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 2);
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id) 
+VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 2, 2);
 
-INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id) 
-VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 3);
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id) 
+VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 3, 3);
+
+-- RECRUITMENT_SKILL --
+INSERT INTO recruitment_skill (recruitment_id, skill_id) 
+VALUES (1, 1);
+
+INSERT INTO recruitment_skill (recruitment_id, skill_id) 
+VALUES (2, 2);
+
+INSERT INTO recruitment_skill (recruitment_id, skill_id) 
+VALUES (3, 3);
 
 -- CANDIDATE --
-INSERT INTO candidate (full_name, phone, email, sex, birth_day) 
+INSERT INTO candidate (full_name, phone, email, sex, birth_day)
 VALUES ('Vo Van A', '0123456789', 'avo@gmail.com', 'nam', '1996/3/10');
 
 INSERT INTO candidate (full_name, phone, email, sex, birth_day) 
@@ -67,11 +77,4 @@ VALUES ('Vo Van B', '0123456789', 'bvo@gmail.com', 'nam', '1996/3/10');
 
 INSERT INTO candidate (full_name, phone, email, sex, birth_day) 
 VALUES ('Vo Van C', '0123456789', 'cvo@gmail.com', 'nam', '1996/3/10');
-
-
-
-
-
-
-
 

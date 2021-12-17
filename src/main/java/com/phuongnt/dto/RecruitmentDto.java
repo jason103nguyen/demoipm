@@ -1,6 +1,8 @@
 package com.phuongnt.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.phuongnt.entities.Recruitment;
 
@@ -20,6 +22,10 @@ public class RecruitmentDto {
 	
 	private Date endRecruitment;
 	
+	private JobDto jobDto;
+	
+	private List<SkillDto> listSkill = new ArrayList<SkillDto>();
+	
 	public RecruitmentDto() {}
 	
 	public RecruitmentDto(Recruitment recruitment) {
@@ -29,11 +35,30 @@ public class RecruitmentDto {
 		CareerDto careerDto = new CareerDto(recruitment.getCareer());
 		this.career = careerDto;
 		
+		JobDto jobDto = new JobDto(recruitment.getJob());
+		this.jobDto = jobDto;
+		
 		this.number = recruitment.getNumber();
 		this.minSalary = recruitment.getMinSalary();
 		this.maxSalary = recruitment.getMaxSalary();
 		this.startRecruitment = recruitment.getStartRecruitment();
 		this.endRecruitment = recruitment.getEndRecruitment();
+	}
+	
+	public List<SkillDto> getListSkill() {
+		return listSkill;
+	}
+
+	public void setListSkill(List<SkillDto> listSkill) {
+		this.listSkill = listSkill;
+	}
+
+	public JobDto getJobDto() {
+		return jobDto;
+	}
+
+	public void setJobDto(JobDto jobDto) {
+		this.jobDto = jobDto;
 	}
 
 	public int getId() {

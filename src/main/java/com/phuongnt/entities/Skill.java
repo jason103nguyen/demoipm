@@ -39,17 +39,6 @@ public class Skill {
 		this.id = skillDto.getId();
 		this.name = skillDto.getName();
 		this.description = skillDto.getDescription();
-		
-		List<JobSkillDto> listJobSkillDto = skillDto.getListJobSkillDto();
-		
-		if (listJobSkillDto != null) {
-			if (listJobSkillDto != null) {
-				for (JobSkillDto jobSkillDto : listJobSkillDto) {
-					JobSkill jobSkill = new JobSkill(jobSkillDto);
-					this.listJobSkill.add(jobSkill);
-				}
-			}
-		}
 	}
 	
 	public int getId() {

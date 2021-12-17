@@ -22,12 +22,6 @@ public class JobDto {
 		this.id = job.getId();
 		this.name = job.getName();
 		
-		List<JobSkill> listJobSkill = job.getListJobSkill();
-		for (JobSkill jobSkill : listJobSkill) {
-			JobSkillDto jobSkillDto = new JobSkillDto(jobSkill);
-			this.listJobSkillDto.add(jobSkillDto);
-		}
-		
 		CareerDto careerDto = new CareerDto(job.getCareer());
 		this.career = careerDto;
 	}

@@ -1,7 +1,5 @@
 package com.phuongnt.entities;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,9 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.phuongnt.dto.RecruitmentDto;
 import com.phuongnt.dto.RecruitmentSkillDto;
-import com.phuongnt.dto.SkillDto;
 
 @Entity
 @Table(name = "recruitment_skill")

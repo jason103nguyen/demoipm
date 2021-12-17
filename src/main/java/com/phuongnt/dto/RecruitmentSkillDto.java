@@ -1,8 +1,6 @@
 package com.phuongnt.dto;
 
-import com.phuongnt.entities.Recruitment;
 import com.phuongnt.entities.RecruitmentSkill;
-import com.phuongnt.entities.Skill;
 
 public class RecruitmentSkillDto {
 

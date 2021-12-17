@@ -1,3 +1,4 @@
+
 -- USER_APP --
 INSERT INTO user_app (email, full_name, phone, role, username) 
 VALUES ('a103nguyen@gmail.com' ,'Nguyen Van A', '0123456789', 'ROLE_ADMIN', 'a103nguyen');

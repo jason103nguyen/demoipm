@@ -3,7 +3,6 @@ package com.phuongnt.dto;
 import java.util.List;
 
 import com.phuongnt.entities.Job;
-import com.phuongnt.entities.JobSkill;
 
 public class JobDto {
 

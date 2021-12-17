@@ -3,7 +3,6 @@ package com.phuongnt.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.phuongnt.entities.Candidate;
 import com.phuongnt.entities.UserApp;
 
 public class UserAppDto {
@@ -22,6 +21,8 @@ public class UserAppDto {
 	
 	private String role;
 	
+	private List<UserRoleDto> listUserRole = new ArrayList<UserRoleDto>();
+	
 	public UserAppDto() {}
 	
 	public UserAppDto(UserApp userApp) {
@@ -33,7 +34,14 @@ public class UserAppDto {
 		this.username = userApp.getUsername();
 		this.password = userApp.getPassword();
 		this.role = userApp.getRole();
-		
+	}
+
+	public List<UserRoleDto> getListUserRole() {
+		return listUserRole;
+	}
+
+	public void setListUserRole(List<UserRoleDto> listUserRole) {
+		this.listUserRole = listUserRole;
 	}
 
 	public int getId() {

@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.phuongnt.dto.JobDto;
-import com.phuongnt.dto.JobSkillDto;
 
 import javax.persistence.OneToMany;
 

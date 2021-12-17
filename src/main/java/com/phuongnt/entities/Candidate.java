@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.phuongnt.dto.CandidateDto;
@@ -43,26 +43,19 @@ public class Candidate {
 	@Column(name = "status")
 	private String status;
 	
-	@Column(name = "round")
-	private int round;
-	
-	@Column(name = "time_interview")
-	private Date timeInterview;
-	
 	@Column(name = "sex")
 	private String sex;
 	
 	@Column(name = "birth_day")
 	private Date birthDay;
 	
-	@Column(name = "evaluation")
-	private String evaluation;
+	@OneToOne
+	@JoinColumn(name = "interview_id")
+	private Interview interview;
 	
-	@Column(name = "note")
-	private String note;
-	
-	@Column(name = "result")
-	private String result;
+	@OneToOne
+	@JoinColumn(name = "entry_test_id")
+	private EntryTest entryTest;
 	
 	public Candidate() {}
 	
@@ -76,13 +69,30 @@ public class Candidate {
 		this.email = candicateDto.getEmail();
 		this.info = candicateDto.getInfo();
 		this.status = candicateDto.getStatus();
-		this.round = candicateDto.getRound();
-		this.timeInterview = candicateDto.getTimeInterview();
 		this.sex = candicateDto.getSex();
 		this.birthDay = candicateDto.getBirthDay();
-		this.evaluation = candicateDto.getEvaluation();
-		this.note = candicateDto.getNote();
-		this.result = candicateDto.getResult();
+		
+		Interview interview = new Interview(candicateDto.getInterview());
+		this.interview = interview;
+		
+		EntryTest entryTest = new EntryTest(candicateDto.getEntryTest());
+		this.entryTest = entryTest;
+	}
+
+	public EntryTest getEntryTest() {
+		return entryTest;
+	}
+
+	public void setEntryTest(EntryTest entryTest) {
+		this.entryTest = entryTest;
+	}
+
+	public Interview getInterview() {
+		return interview;
+	}
+
+	public void setInterview(Interview interview) {
+		this.interview = interview;
 	}
 
 	public int getId() {
@@ -149,22 +159,6 @@ public class Candidate {
 		this.status = status;
 	}
 
-	public int getRound() {
-		return round;
-	}
-
-	public void setRound(int round) {
-		this.round = round;
-	}
-
-	public Date getTimeInterview() {
-		return timeInterview;
-	}
-
-	public void setTimeInterview(Date timeInterview) {
-		this.timeInterview = timeInterview;
-	}
-
 	public String getSex() {
 		return sex;
 	}
@@ -179,30 +173,6 @@ public class Candidate {
 
 	public void setBirthDay(Date birthDay) {
 		this.birthDay = birthDay;
-	}
-
-	public String getEvaluation() {
-		return evaluation;
-	}
-
-	public void setEvaluation(String evaluation) {
-		this.evaluation = evaluation;
-	}
-
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
-
-	public String getResult() {
-		return result;
-	}
-
-	public void setResult(String result) {
-		this.result = result;
 	}
 
 }

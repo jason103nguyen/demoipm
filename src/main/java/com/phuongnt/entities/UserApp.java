@@ -13,7 +13,6 @@ import javax.persistence.Table;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.phuongnt.dto.CandidateDto;
 import com.phuongnt.dto.UserAppDto;
 
 @Entity
@@ -43,6 +42,9 @@ public class UserApp {
 	@Column(name = "role")
 	private String role;
 	
+	@OneToMany(mappedBy = "userApp")
+	private List<UserRole> listUserRole = new ArrayList<UserRole>();
+	
 	public UserApp() {}
 	
 	public UserApp(UserAppDto userAppDto) {
@@ -58,6 +60,14 @@ public class UserApp {
 		this.password = encrytedPassword;
 		
 		this.role = userAppDto.getRole();
+	}
+	
+	public List<UserRole> getListUserRole() {
+		return listUserRole;
+	}
+
+	public void setListUserRole(List<UserRole> listUserRole) {
+		this.listUserRole = listUserRole;
 	}
 
 	public int getId() {

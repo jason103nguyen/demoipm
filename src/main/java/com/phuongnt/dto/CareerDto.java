@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.phuongnt.entities.Career;
-import com.phuongnt.entities.Job;
-import com.phuongnt.entities.Recruitment;
 
 public class CareerDto {
 

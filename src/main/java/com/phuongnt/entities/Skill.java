@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.phuongnt.dto.JobSkillDto;
 import com.phuongnt.dto.SkillDto;
 
 @Entity

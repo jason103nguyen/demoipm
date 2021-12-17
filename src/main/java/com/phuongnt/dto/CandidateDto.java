@@ -22,19 +22,13 @@ public class CandidateDto {
 	
 	private String status;
 	
-	private int round;
-	
-	private Date timeInterview;
-	
 	private String sex;
 	
 	private Date birthDay;
 	
-	private String evaluation;
+	private InterviewDto interview;
 	
-	private String note;
-	
-	private String result;
+	private EntryTestDto entryTest;
 	
 	public CandidateDto() {}
 	
@@ -48,13 +42,31 @@ public class CandidateDto {
 		this.email = candicate.getEmail();
 		this.info = candicate.getInfo();
 		this.status = candicate.getStatus();
-		this.round = candicate.getRound();
-		this.timeInterview = candicate.getTimeInterview();
 		this.sex = candicate.getSex();
 		this.birthDay = candicate.getBirthDay();
-		this.evaluation = candicate.getEvaluation();
-		this.note = candicate.getNote();
-		this.result = candicate.getResult();
+		
+		InterviewDto interviewDto = new InterviewDto(candicate.getInterview());
+		this.interview = interviewDto;
+		
+		EntryTestDto entryTestDto = new EntryTestDto(candicate.getEntryTest());
+		this.entryTest = entryTestDto;
+	}
+
+	
+	public InterviewDto getInterview() {
+		return interview;
+	}
+
+	public void setInterview(InterviewDto interview) {
+		this.interview = interview;
+	}
+
+	public EntryTestDto getEntryTest() {
+		return entryTest;
+	}
+
+	public void setEntryTest(EntryTestDto entryTest) {
+		this.entryTest = entryTest;
 	}
 
 	public int getId() {
@@ -121,22 +133,6 @@ public class CandidateDto {
 		this.status = status;
 	}
 
-	public int getRound() {
-		return round;
-	}
-
-	public void setRound(int round) {
-		this.round = round;
-	}
-
-	public Date getTimeInterview() {
-		return timeInterview;
-	}
-
-	public void setTimeInterview(Date timeInterview) {
-		this.timeInterview = timeInterview;
-	}
-
 	public String getSex() {
 		return sex;
 	}
@@ -151,30 +147,6 @@ public class CandidateDto {
 
 	public void setBirthDay(Date birthDay) {
 		this.birthDay = birthDay;
-	}
-
-	public String getEvaluation() {
-		return evaluation;
-	}
-
-	public void setEvaluation(String evaluation) {
-		this.evaluation = evaluation;
-	}
-
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
-
-	public String getResult() {
-		return result;
-	}
-
-	public void setResult(String result) {
-		this.result = result;
 	}
 
 }

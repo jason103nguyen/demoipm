@@ -2,7 +2,6 @@ package com.phuongnt.dto;
 
 import java.util.List;
 
-import com.phuongnt.entities.JobSkill;
 import com.phuongnt.entities.Skill;
 
 public class SkillDto {

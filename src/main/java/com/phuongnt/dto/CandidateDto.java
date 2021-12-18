@@ -1,6 +1,8 @@
 package com.phuongnt.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.phuongnt.entities.Candidate;
 
@@ -26,9 +28,9 @@ public class CandidateDto {
 	
 	private Date birthDay;
 	
-	private InterviewDto interview;
+	private List<InterviewDto> listInterview = new ArrayList<InterviewDto>();
 	
-	private EntryTestDto entryTest;
+	private List<EntryTestDto> listEntryTest = new ArrayList<EntryTestDto>();
 	
 	public CandidateDto() {}
 	
@@ -44,29 +46,22 @@ public class CandidateDto {
 		this.status = candicate.getStatus();
 		this.sex = candicate.getSex();
 		this.birthDay = candicate.getBirthDay();
-		
-		InterviewDto interviewDto = new InterviewDto(candicate.getInterview());
-		this.interview = interviewDto;
-		
-		EntryTestDto entryTestDto = new EntryTestDto(candicate.getEntryTest());
-		this.entryTest = entryTestDto;
 	}
 
-	
-	public InterviewDto getInterview() {
-		return interview;
+	public List<InterviewDto> getListInterview() {
+		return listInterview;
 	}
 
-	public void setInterview(InterviewDto interview) {
-		this.interview = interview;
+	public void setListInterview(List<InterviewDto> listInterview) {
+		this.listInterview = listInterview;
 	}
 
-	public EntryTestDto getEntryTest() {
-		return entryTest;
+	public List<EntryTestDto> getListEntryTest() {
+		return listEntryTest;
 	}
 
-	public void setEntryTest(EntryTestDto entryTest) {
-		this.entryTest = entryTest;
+	public void setListEntryTest(List<EntryTestDto> listEntryTest) {
+		this.listEntryTest = listEntryTest;
 	}
 
 	public int getId() {

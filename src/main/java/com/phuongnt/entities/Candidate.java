@@ -1,6 +1,8 @@
 package com.phuongnt.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -49,13 +52,11 @@ public class Candidate {
 	@Column(name = "birth_day")
 	private Date birthDay;
 	
-	@OneToOne
-	@JoinColumn(name = "interview_id")
-	private Interview interview;
+	@OneToMany(mappedBy = "candidate")
+	private List<Interview> listInterview = new ArrayList<Interview>();
 	
-	@OneToOne
-	@JoinColumn(name = "entry_test_id")
-	private EntryTest entryTest;
+	@OneToMany(mappedBy = "candidate")
+	private List<EntryTest> listEntryTest = new ArrayList<EntryTest>();
 	
 	public Candidate() {}
 	
@@ -71,28 +72,22 @@ public class Candidate {
 		this.status = candicateDto.getStatus();
 		this.sex = candicateDto.getSex();
 		this.birthDay = candicateDto.getBirthDay();
-		
-		Interview interview = new Interview(candicateDto.getInterview());
-		this.interview = interview;
-		
-		EntryTest entryTest = new EntryTest(candicateDto.getEntryTest());
-		this.entryTest = entryTest;
 	}
 
-	public EntryTest getEntryTest() {
-		return entryTest;
+	public List<Interview> getListInterview() {
+		return listInterview;
 	}
 
-	public void setEntryTest(EntryTest entryTest) {
-		this.entryTest = entryTest;
+	public void setListInterview(List<Interview> listInterview) {
+		this.listInterview = listInterview;
 	}
 
-	public Interview getInterview() {
-		return interview;
+	public List<EntryTest> getListEntryTest() {
+		return listEntryTest;
 	}
 
-	public void setInterview(Interview interview) {
-		this.interview = interview;
+	public void setListEntryTest(List<EntryTest> listEntryTest) {
+		this.listEntryTest = listEntryTest;
 	}
 
 	public int getId() {

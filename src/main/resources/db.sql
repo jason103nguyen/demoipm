@@ -1,13 +1,32 @@
+-- ROLE_APP --
+INSERT INTO role_app (role_name) 
+VALUES ('ROLE_ADMIN');
+
+INSERT INTO role_app (role_name) 
+VALUES ('ROLE_INTERVIEWER');
+
+INSERT INTO role_app (role_name) 
+VALUES ('ROLE_HR');
 
 -- USER_APP --
-INSERT INTO user_app (email, full_name, phone, role, username) 
-VALUES ('a103nguyen@gmail.com' ,'Nguyen Van A', '0123456789', 'ROLE_ADMIN', 'a103nguyen');
+INSERT INTO user_app (email, full_name, phone, username) 
+VALUES ('a103nguyen@gmail.com' ,'Nguyen Van A', '0123456789', 'a103nguyen');
 
-INSERT INTO user_app (email, full_name, phone, role, username) 
-VALUES ('b103nguyen@gmail.com' ,'Nguyen Van B', '0123456789', 'ROLE_HR', 'b103nguyen');
+INSERT INTO user_app (email, full_name, phone, username) 
+VALUES ('b103nguyen@gmail.com' ,'Nguyen Van B', '0123456789', 'b103nguyen');
 
-INSERT INTO user_app (email, full_name, phone, role, username) 
-VALUES ('c103nguyen@gmail.com' ,'Nguyen Van C', '0123456789', 'ROLE_INTERVIEWER', 'c103nguyen');
+INSERT INTO user_app (email, full_name, phone, username) 
+VALUES ('c103nguyen@gmail.com' ,'Nguyen Van C', '0123456789', 'c103nguyen');
+
+-- USER_ROLE --
+INSERT INTO user_role (user_id, role_id) 
+VALUES (1, 1);
+
+INSERT INTO user_role (user_id, role_id) 
+VALUES (2, 2);
+
+INSERT INTO user_role (user_id, role_id) 
+VALUES (3, 3);
 
 -- SKILL --
 INSERT INTO skill (name, description) 
@@ -79,3 +98,22 @@ VALUES ('Vo Van B', '0123456789', 'bvo@gmail.com', 'nam', '1996/3/10');
 INSERT INTO candidate (full_name, phone, email, sex, birth_day) 
 VALUES ('Vo Van C', '0123456789', 'cvo@gmail.com', 'nam', '1996/3/10');
 
+-- ENTRYTEST --
+INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
+VALUES ('2021/12/18', 'FT_1', 'PASS', 85, 'Java_Test', 1);
+
+INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
+VALUES ('2021/12/18', 'FT_1', 'PASS', 85, 'C_Test', 2);
+
+INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
+VALUES ('2021/12/18', 'FT_1', 'PASS', 85, 'Python_Test', 3);
+
+-- INTERVIEW --
+INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id)
+VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 1);
+
+INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id)
+VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 2);
+
+INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id)
+VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 3);

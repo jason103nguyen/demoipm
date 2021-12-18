@@ -9,14 +9,14 @@ INSERT INTO role_app (role_name)
 VALUES ('ROLE_HR');
 
 -- USER_APP --
-INSERT INTO user_app (email, full_name, phone, username) 
-VALUES ('a103nguyen@gmail.com' ,'Nguyen Van A', '0123456789', 'a103nguyen');
+INSERT INTO user_app (email, full_name, phone, username, password) 
+VALUES ('a103nguyen@gmail.com' ,'Nguyen Van A', '0123456789', 'a103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK');
 
-INSERT INTO user_app (email, full_name, phone, username) 
-VALUES ('b103nguyen@gmail.com' ,'Nguyen Van B', '0123456789', 'b103nguyen');
+INSERT INTO user_app (email, full_name, phone, username, password) 
+VALUES ('b103nguyen@gmail.com' ,'Nguyen Van B', '0123456789', 'b103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK');
 
-INSERT INTO user_app (email, full_name, phone, username) 
-VALUES ('c103nguyen@gmail.com' ,'Nguyen Van C', '0123456789', 'c103nguyen');
+INSERT INTO user_app (email, full_name, phone, username, password) 
+VALUES ('c103nguyen@gmail.com' ,'Nguyen Van C', '0123456789', 'c103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK');
 
 -- USER_ROLE --
 INSERT INTO user_role (user_id, role_id) 

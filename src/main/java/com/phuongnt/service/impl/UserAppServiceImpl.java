@@ -15,7 +15,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.phuongnt.dao.RoleAppDao;
 import com.phuongnt.dao.UserAppDao;
+import com.phuongnt.dao.UserRoleDao;
 import com.phuongnt.dto.UserAppDto;
 import com.phuongnt.entities.UserApp;
 import com.phuongnt.service.UserAppService;
@@ -26,6 +28,12 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
 
 	@Autowired
 	private UserAppDao userAppDao;
+	
+	@Autowired
+	private RoleAppDao roleAppDao;
+	
+	@Autowired
+	private UserRoleDao userRoleDao;
 	
 	@Override
 	public void create(UserAppDto userAppDto) {
@@ -92,11 +100,15 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
             throw new UsernameNotFoundException("User " + username + " was not found in the database");
         }
 
-        System.out.println("Found User: " + userApp);
+        List<String> roleNames = roleAppDao.getRoleNames(userApp.getId());
 
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
-        GrantedAuthority authority = new SimpleGrantedAuthority(userApp.getRole());
-        grantList.add(authority);
+        if (roleNames != null) {
+            for (String role : roleNames) {
+                GrantedAuthority authority = new SimpleGrantedAuthority(role);
+                grantList.add(authority);
+            }
+        }
 
         UserDetails userDetails = (UserDetails) new User(userApp.getUsername(),
                 userApp.getPassword(), grantList);

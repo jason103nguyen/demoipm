@@ -8,7 +8,7 @@
 		<version>2.6.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.phuongnt</groupId>
+	<groupId>com.demoipm</groupId>
 	<artifactId>demoipm</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demoipm</name>

@@ -1,8 +1,9 @@
 package com.demoipm.service;
 
-import java.util.List;
-
 import com.demoipm.dto.UserAppDto;
+import com.demoipm.dto.usermanage.UserListPageResponseDto;
+
+import java.util.List;
 
 public interface UserAppService {
 
@@ -15,4 +16,6 @@ public interface UserAppService {
 	void update(UserAppDto userAppDto);
 	
 	void deleteById(int id);
+
+	UserListPageResponseDto readByCondition(String searchWord, int pageNo, int entriesNo);
 }

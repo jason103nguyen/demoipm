@@ -33,7 +33,7 @@ public class CandidateServiceImpl implements CandidateService {
 
 		Optional<Candidate> candidate = candidateDao.findById(id);
 		CandidateDto candidateDto = null;
-		if (candidate.isEmpty()) {
+		if (!candidate.isPresent()) {
 			throw new Exception("The id doesn't exists");
 		} else {
 			candidateDto = new CandidateDto(candidate.get());

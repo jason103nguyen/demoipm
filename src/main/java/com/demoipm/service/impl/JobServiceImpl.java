@@ -33,7 +33,7 @@ public class JobServiceImpl implements JobService {
 
 		Optional<Job> job = jobDao.findById(id);
 		JobDto jobDto = null;
-		if (job.isEmpty()) {
+		if (!job.isPresent()) {
 			throw new Exception("The id doesn't exists");
 		} else {
 			jobDto = new JobDto(job.get());

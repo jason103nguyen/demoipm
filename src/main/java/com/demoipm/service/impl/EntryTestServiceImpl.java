@@ -33,7 +33,7 @@ public class EntryTestServiceImpl implements EntryTestService {
 
 		Optional<EntryTest> entryTest = entryTestDao.findById(id);
 		EntryTestDto entryTestDto = null;
-		if (entryTest.isEmpty()) {
+		if (!entryTest.isPresent()) {
 			throw new Exception("The id doesn't exists");
 		} else {
 			entryTestDto = new EntryTestDto(entryTest.get());

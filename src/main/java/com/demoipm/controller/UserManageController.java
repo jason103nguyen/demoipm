@@ -21,14 +21,17 @@ public class UserManageController {
 
     @Secured("ROLE_ADMIN")
     @RequestMapping("/manage-user")
-    public String getUserList(@RequestParam("searchWord") String searchWord,
-                              @RequestParam("pageNo") int pageNo,
-                              @RequestParam("entriesNo") int entriesNo,
+    public String getUserList(@RequestParam(value = "searchWord", required = false) String searchWord,
+                              @RequestParam(value = "pageNo", required = false) Integer pageNo,
+                              @RequestParam(value = "entriesNo", required = false) Integer entriesNo,
                               Model model) {
         LOGGER.info("Start get user list with search word {}, page {}, entries no {}", searchWord, pageNo, entriesNo);
+        entriesNo = entriesNo != null ? entriesNo : 10;
+        pageNo = pageNo != null ? pageNo : 1;
+        searchWord = searchWord != null ? searchWord : "";
         UserListPageResponseDto responseDto = userAppService.readByCondition(searchWord, pageNo, entriesNo);
         model.addAttribute("response", responseDto);
         LOGGER.info("End get user list with search word {}, page {}, entries no {}", searchWord, pageNo, entriesNo);
-        return "/manage-user";
+        return "manageuser/manage-user";
     }
 }

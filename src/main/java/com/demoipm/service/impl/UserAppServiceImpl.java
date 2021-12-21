@@ -133,7 +133,7 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
         try {
             // Get data from database with pagination and search word
             Pageable pageable = PageRequest.of(pageNo - 1, entriesNo, Sort.Direction.ASC, "username");
-            Page<UserApp> userPage = userAppDao.findAllByFullNameLikeOrPhoneLikeOrEmailLikeOrUsernameLike("%" + searchWord + "%", pageable);
+            Page<UserApp> userPage = userAppDao.findListByCondition("%" + searchWord + "%", pageable);
 
             // Prepare response dto
             responseDto.setCurrentPage(pageNo - 1);

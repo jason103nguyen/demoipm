@@ -3,6 +3,7 @@ package com.demoipm.service;
 import java.util.List;
 
 import com.demoipm.dto.CandidateDto;
+import com.demoipm.dto.InterviewDto;
 
 public interface CandidateService {
 
@@ -15,4 +16,8 @@ public interface CandidateService {
 	void update(CandidateDto candidateDto);
 	
 	void deleteById(int id);
+	
+	List<CandidateDto> readCandidatePassEntryTest();
+
+	List<InterviewDto> getListInterviewByCandidate(int id);
 }

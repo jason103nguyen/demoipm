@@ -22,6 +22,9 @@ public class Interview {
 	@Column(name = "interview_id")
 	private int id;
 	
+	@Column(name = "round")
+	private int round;
+	
 	@Column(name = "time_interview")
 	private Date timeInterview;
 	
@@ -58,6 +61,16 @@ public class Interview {
 		
 		Candidate candidate = new Candidate(interview.getCandidate());
 		this.candidate = candidate;
+		
+		this.round = interview.getRound();
+	}
+
+	public int getRound() {
+		return round;
+	}
+
+	public void setRound(int round) {
+		this.round = round;
 	}
 
 	public Candidate getCandidate() {

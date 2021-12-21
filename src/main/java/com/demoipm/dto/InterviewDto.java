@@ -8,6 +8,8 @@ public class InterviewDto {
 
 	private int id;
 	
+	private int round;
+	
 	private Date timeInterview;
 	
 	private String local;
@@ -36,6 +38,16 @@ public class InterviewDto {
 		
 		CandidateDto candidateDto = new CandidateDto(interview.getCandidate());
 		this.candidate = candidateDto;
+		
+		this.round = interview.getRound();
+	}
+
+	public int getRound() {
+		return round;
+	}
+
+	public void setRound(int round) {
+		this.round = round;
 	}
 
 	public CandidateDto getCandidate() {

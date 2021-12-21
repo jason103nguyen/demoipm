@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,9 +15,16 @@
 </head>
 
 <body>
-	<div class="container p-5 my-5 bg-dark text-white">
-		<h1>403 ERROR Phương</h1>
-	</div>
-</body>
+<div class="container-fluid p-5 bg-primary text-white text-center">
+	<h1>Project: Interview Process Management</h1>
+	<h2>ERROR</h2> 
+</div>
 
+<div class="container p-5 my-5 border">
+	<h1>Oh no! We are a error here! Let's fix them</h1>
+	Info error: <span${msgError}></span><br/>
+
+	<a href="/homepage">Go to home page</a>	
+</div>
+</body>
 </html>

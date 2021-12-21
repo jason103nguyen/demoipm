@@ -19,9 +19,7 @@ public class Main {
 	@GetMapping(value = "/test")
 	public String test() {
 		
-		 List<String> roleNames = roleAppDao.getRoleNames(1);
-		
-		System.out.println("ROLE: " + roleNames.get(0));
+		int i = 3/0;
 		return "hello";
 	}
 }

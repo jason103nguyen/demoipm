@@ -89,31 +89,34 @@ INSERT INTO recruitment_skill (recruitment_id, skill_id)
 VALUES (3, 3);
 
 -- CANDIDATE --
-INSERT INTO candidate (full_name, phone, email, sex, birth_day)
-VALUES ('Vo Van A', '0123456789', 'avo@gmail.com', 'nam', '1996/3/10');
+INSERT INTO candidate (full_name, phone, email, sex, birth_day, status)
+VALUES ('Vo Van A', '0123456789', 'avo@gmail.com', 'nam', '1996/3/10', 'INPROCESS');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day) 
-VALUES ('Vo Van B', '0123456789', 'bvo@gmail.com', 'nam', '1996/3/10');
+INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
+VALUES ('Vo Van B', '0123456789', 'bvo@gmail.com', 'nam', '1996/3/10', 'INPROCESS');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day) 
-VALUES ('Vo Van C', '0123456789', 'cvo@gmail.com', 'nam', '1996/3/10');
+INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
+VALUES ('Vo Van C', '0123456789', 'cvo@gmail.com', 'nam', '1996/3/10', 'INPROCESS');
 
 -- ENTRYTEST --
 INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2021/12/18', 'FT_1', 'PASS', 85, 'Java_Test', 1);
+VALUES ('2021-12-20 15:05:00', 'FT_1', 'PASS', 85, 'Java_Test', 1);
 
 INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2021/12/18', 'FT_1', 'PASS', 85, 'C_Test', 2);
+VALUES ('2021-12-20 15:05:00', 'FT_1', 'PASS', 85, 'C_Test', 2);
 
 INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2021/12/18', 'FT_1', 'PASS', 85, 'Python_Test', 3);
+VALUES ('2021-12-20 15:05:00', 'FT_1', 'PASS', 40, 'Python_Test', 3);
 
 -- INTERVIEW --
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id)
-VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 1);
+INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2021-12-20 15:05:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 1, 1);
 
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id)
-VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 2);
+INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2021-12-21 15:05:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 1, 2);
 
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id)
-VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 3);
+INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2021-12-20 15:05:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 2, 1);
+
+INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2021-12-20 15:05:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 3, 1);

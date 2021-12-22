@@ -8,6 +8,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demoipm.dto.CandidateDto;
@@ -53,6 +54,21 @@ public class CandidateController {
 		}
 		
 		return "candidate/viewCandidateInformation";
+	}
+	
+	@GetMapping(value = "/view-candidate-information/{id}")
+	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
+	public String viewCandidateInfoById(@PathVariable(name = "id") int id, Model model) {
+		
+		CandidateDto candidateDto = null;
+		try {
+			candidateDto = candidateServiceImpl.readById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("candidate", candidateDto);
+		return "candidate/viewInfoDetailCandidate";
 	}
 	
 }

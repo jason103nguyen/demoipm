@@ -25,6 +25,12 @@ public class Candidate {
 	@Column(name = "candidate_id")
 	private int id;
 	
+	@Column(name = "activity")
+	private String activity;
+	
+	@Column(name = "experience_year")
+	private Integer experienceYear;
+	
 	@Column(name = "skill")
 	private String skill;
 	
@@ -63,19 +69,37 @@ public class Candidate {
 	
 	public Candidate() {}
 	
-	public Candidate(CandidateDto candicateDto) {
+	public Candidate(CandidateDto candidateDto) {
 		super();
-		this.id = candicateDto.getId();
-		this.fullName = candicateDto.getFullName();
-		this.cmnd = candicateDto.getCmnd();
-		this.dateCmnd = candicateDto.getDateCmnd();
-		this.phone = candicateDto.getPhone();
-		this.email = candicateDto.getEmail();
-		this.info = candicateDto.getInfo();
-		this.status = candicateDto.getStatus();
-		this.sex = candicateDto.getSex();
-		this.birthDay = candicateDto.getBirthDay();
-		this.skill = candicateDto.getSkill();
+		this.id = candidateDto.getId();
+		this.fullName = candidateDto.getFullName();
+		this.cmnd = candidateDto.getCmnd();
+		this.dateCmnd = candidateDto.getDateCmnd();
+		this.phone = candidateDto.getPhone();
+		this.email = candidateDto.getEmail();
+		this.info = candidateDto.getInfo();
+		this.status = candidateDto.getStatus();
+		this.sex = candidateDto.getSex();
+		this.birthDay = candidateDto.getBirthDay();
+		this.skill = candidateDto.getSkill();
+		this.experienceYear = candidateDto.getExperienceYear();
+		this.activity = candidateDto.getActivity();
+	}
+
+	public String getActivity() {
+		return activity;
+	}
+
+	public void setActivity(String activity) {
+		this.activity = activity;
+	}
+
+	public Integer getExperienceYear() {
+		return experienceYear;
+	}
+
+	public void setExperienceYear(Integer experienceYear) {
+		this.experienceYear = experienceYear;
 	}
 
 	public String getSkill() {

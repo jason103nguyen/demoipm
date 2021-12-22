@@ -65,9 +65,10 @@
 						</table>
 					</td>
 
-					<td><form:form action="#" method="get">
-							<button type="submit" name="" value=""
-								class="btn btn-warning m-1">Chi tiết</button>
+					<td><form:form
+							action="/view-candidate-information/${candidate.id}" method="get">
+							<button type="submit" class="btn btn-warning m-1">Chi
+								tiết</button>
 						</form:form></td>
 
 					<td>${candidate.status}</td>
@@ -77,12 +78,11 @@
 				%>
 			</c:forEach>
 
-
 		</tbody>
 
 	</table>
 
 	<c:if test="${empty listCandidate}">
-		<td>No result</td>
+		<td>There is no candidate</td>
 	</c:if>
 </div>

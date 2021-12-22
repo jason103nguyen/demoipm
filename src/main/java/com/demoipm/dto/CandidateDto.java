@@ -10,6 +10,8 @@ public class CandidateDto {
 
 	private int id;
 	
+	private String skill;
+	
 	private String fullName;
 	
 	private String cmnd;
@@ -46,6 +48,15 @@ public class CandidateDto {
 		this.status = candicate.getStatus();
 		this.sex = candicate.getSex();
 		this.birthDay = candicate.getBirthDay();
+		this.skill = candicate.getSkill();
+	}
+
+	public String getSkill() {
+		return skill;
+	}
+
+	public void setSkill(String skill) {
+		this.skill = skill;
 	}
 
 	public List<InterviewDto> getListInterview() {

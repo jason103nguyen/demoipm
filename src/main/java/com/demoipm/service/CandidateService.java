@@ -20,4 +20,6 @@ public interface CandidateService {
 	List<CandidateDto> readCandidatePassEntryTest();
 
 	List<InterviewDto> getListInterviewByCandidate(int id);
+
+	List<CandidateDto> searchCandidate(String content);
 }

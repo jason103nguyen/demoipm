@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <div>
+
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -17,6 +18,7 @@
 		</thead>
 
 		<tbody>
+
 			<%
 			int count = 1;
 			%>
@@ -56,8 +58,7 @@
 										<td class="pb-0"><form:form action="#" method="get">
 												<button type="submit" name="" value=""
 													class="btn btn-warning btn-sm">Chọn</button>
-											</form:form>
-										</td>
+											</form:form></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -68,14 +69,20 @@
 							<button type="submit" name="" value=""
 								class="btn btn-warning m-1">Chi tiết</button>
 						</form:form></td>
-						
+
 					<td>${candidate.status}</td>
 				</tr>
 				<%
 				count++;
 				%>
 			</c:forEach>
+
+
 		</tbody>
 
 	</table>
+
+	<c:if test="${empty listCandidate}">
+		<td>No result</td>
+	</c:if>
 </div>

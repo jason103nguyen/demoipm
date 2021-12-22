@@ -25,6 +25,9 @@ public class Candidate {
 	@Column(name = "candidate_id")
 	private int id;
 	
+	@Column(name = "skill")
+	private String skill;
+	
 	@Column(name = "full_name")
 	private String fullName;
 	
@@ -72,6 +75,15 @@ public class Candidate {
 		this.status = candicateDto.getStatus();
 		this.sex = candicateDto.getSex();
 		this.birthDay = candicateDto.getBirthDay();
+		this.skill = candicateDto.getSkill();
+	}
+
+	public String getSkill() {
+		return skill;
+	}
+
+	public void setSkill(String skill) {
+		this.skill = skill;
 	}
 
 	public List<Interview> getListInterview() {

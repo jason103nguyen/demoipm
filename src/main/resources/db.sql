@@ -89,14 +89,14 @@ INSERT INTO recruitment_skill (recruitment_id, skill_id)
 VALUES (3, 3);
 
 -- CANDIDATE --
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status)
-VALUES ('Vo Van A', '0123456789', 'avo@gmail.com', 'nam', '1996/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, phone, email, sex, birth_day, status, skill)
+VALUES ('Vo Van A', '0123456789', 'avo@gmail.com', 'nam', '1996/3/10', 'INPROCESS', 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van B', '0123456789', 'bvo@gmail.com', 'nam', '1996/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, phone, email, sex, birth_day, status, skill) 
+VALUES ('Vo Van B', '0123456789', 'bvo@gmail.com', 'nam', '1996/3/10', 'INPROCESS', 'C');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van C', '0123456789', 'cvo@gmail.com', 'nam', '1996/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, phone, email, sex, birth_day, status, skill) 
+VALUES ('Vo Van C', '0123456789', 'cvo@gmail.com', 'nam', '1996/3/10', 'INPROCESS', 'Python');
 
 -- ENTRYTEST --
 INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)

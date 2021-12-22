@@ -114,4 +114,17 @@ public class CandidateServiceImpl implements CandidateService {
 		return listInterviewDto;
 	}
 
+	@Override
+	public List<CandidateDto> searchCandidate(String content) {
+
+		List<Candidate> listCandidate = candidateDao.search(content);
+		List<CandidateDto> listCandidateDto = new ArrayList<CandidateDto>();
+		
+		for(Candidate candidate : listCandidate) {
+			CandidateDto candidateDto = new CandidateDto(candidate);
+			listCandidateDto.add(candidateDto);
+		}
+		return listCandidateDto;
+	}
+
 }

@@ -22,4 +22,8 @@ public interface CandidateService {
 	List<InterviewDto> getListInterviewByCandidate(int id);
 
 	List<CandidateDto> searchCandidate(String content);
+
+	List<CandidateDto> filterCandidateByAge(int minAge, int maxAge);
+
+	List<CandidateDto> filterCandidateBySkill(List<Integer> listId) throws Exception;
 }

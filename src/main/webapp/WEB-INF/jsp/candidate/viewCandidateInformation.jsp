@@ -23,6 +23,12 @@
 
 		<jsp:include page="tableCandidate.jsp" />
 		
+		
+		<div class="row">
+			<div class="col-sm-4"><jsp:include page="filterCandidate.jsp" /></div>
+			<div class="col-sm-8"><jsp:include page="filterCandidateBySkill.jsp" /></div>
+		</div>
+
 	</div>
 </body>
 

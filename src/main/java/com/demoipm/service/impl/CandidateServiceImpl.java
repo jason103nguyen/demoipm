@@ -1,5 +1,6 @@
 package com.demoipm.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.demoipm.dao.CandidateDao;
 import com.demoipm.dao.EntryTestDao;
 import com.demoipm.dao.InterviewDao;
+import com.demoipm.dao.SkillCandidateDao;
 import com.demoipm.dto.CandidateDto;
 import com.demoipm.dto.InterviewDto;
 import com.demoipm.entities.Candidate;
@@ -31,6 +33,9 @@ public class CandidateServiceImpl implements CandidateService {
 	
 	@Autowired
 	private InterviewDao interviewDao;
+	
+	@Autowired
+	private SkillCandidateDao skillCandidateDao;
 	
 	@Override
 	public void create(CandidateDto candidateDto) {
@@ -116,7 +121,7 @@ public class CandidateServiceImpl implements CandidateService {
 
 	@Override
 	public List<CandidateDto> searchCandidate(String content) {
-
+		
 		List<Candidate> listCandidate = candidateDao.search(content);
 		List<CandidateDto> listCandidateDto = new ArrayList<CandidateDto>();
 		
@@ -124,6 +129,53 @@ public class CandidateServiceImpl implements CandidateService {
 			CandidateDto candidateDto = new CandidateDto(candidate);
 			listCandidateDto.add(candidateDto);
 		}
+		return listCandidateDto;
+	}
+
+	@Override
+	public List<CandidateDto> filterCandidateByAge(int minAge, int maxAge) {
+		
+		LocalDate currentDate = LocalDate.now();
+		int fromYearInt = currentDate.getYear() - maxAge;
+		LocalDate fromYear = LocalDate.of(fromYearInt, 1, 1);
+		
+		int toYearInt = currentDate.getYear() - minAge;
+		LocalDate toYear = LocalDate.of(toYearInt, 12, 31);
+		
+		List<EntryTest> listEntryTest = entryTestDao.readPassEntryTestfromYearToYearBirthDay(fromYear, toYear);
+		List<CandidateDto> listCandidateDto = new ArrayList<CandidateDto>();
+
+		for (EntryTest entryTest : listEntryTest) {
+			Candidate candidate = entryTest.getCandidate();
+			CandidateDto candidateDto = new CandidateDto(candidate);
+			listCandidateDto.add(candidateDto);
+		}
+		
+		return listCandidateDto;
+	}
+
+	@Override
+	public List<CandidateDto> filterCandidateBySkill(List<Integer> listId) throws Exception {
+
+		if (listId == null) {
+			throw new Exception("The list id is null");
+		}
+		
+		List<Candidate> listCandidate = candidateDao.getCandidateBySkillAndPassEntryTest(listId);
+		
+		List<CandidateDto> listCandidateDto = convertToListDto(listCandidate);
+		return listCandidateDto;
+	}
+	
+	private List<CandidateDto> convertToListDto(List<Candidate> listCandidate) {
+		
+		List<CandidateDto> listCandidateDto = new ArrayList<CandidateDto>();
+		
+		for(Candidate candidate : listCandidate) {
+			CandidateDto candidateDto = new CandidateDto(candidate);
+			listCandidateDto.add(candidateDto);
+		}
+		
 		return listCandidateDto;
 	}
 

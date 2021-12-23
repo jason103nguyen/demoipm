@@ -13,13 +13,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demoipm.dto.CandidateDto;
 import com.demoipm.dto.InterviewDto;
+import com.demoipm.dto.SkillDto;
 import com.demoipm.service.CandidateService;
+import com.demoipm.service.SkillService;
 
 @Controller
 public class CandidateController {
 
 	@Autowired
 	private CandidateService candidateServiceImpl;
+	
+	@Autowired
+	private SkillService skillServiceImpl;
 	
 	@GetMapping(value = {"/view-candidate-information"})
 	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
@@ -32,14 +37,26 @@ public class CandidateController {
 			candidateDto.setListInterview(listInterviewDto);
 		}
 		
+		List<SkillDto> listSkillDto = new ArrayList<SkillDto>();
+		try {
+			listSkillDto = skillServiceImpl.readAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("listSkill", listSkillDto);
 		model.addAttribute("listCandidate", listCandidate);
 		return "candidate/viewCandidateInformation";
 	}
 	
 	@GetMapping(value = "/find-candidate")
 	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
-	public String findCandidate(@RequestParam(name = "content") String content, Model model) {
+	public String findCandidate(@RequestParam(name = "content") String content,
+			Model model) {
 		
+		if (content == null) {
+			return "redirect:/view-candidate-information";
+		}
 		List<CandidateDto> listCandidate = candidateServiceImpl.searchCandidate(content);
 		
 		for (CandidateDto candidateDto : listCandidate) {
@@ -52,6 +69,54 @@ public class CandidateController {
 		} else {
 			model.addAttribute("listCandidate", listCandidate);
 		}
+		
+		return "candidate/viewCandidateInformation";
+	}
+	
+	@GetMapping(value = "/filter-candidate-age")
+	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
+	public String filterCandidateByAge(@RequestParam(name = "minAge") int minAge,
+			@RequestParam(name = "maxAge") int maxAge, Model model) {
+		
+		List<CandidateDto> listCandidate = candidateServiceImpl.filterCandidateByAge(minAge, maxAge);
+		
+		for (CandidateDto candidateDto : listCandidate) {
+			List<InterviewDto> listInterviewDto = candidateServiceImpl.getListInterviewByCandidate(candidateDto.getId());
+			candidateDto.setListInterview(listInterviewDto);
+		}
+		
+		model.addAttribute("listCandidate", listCandidate);
+		
+		return "candidate/viewCandidateInformation";
+	}
+	
+	@GetMapping(value = "/filter-candidate-skill")
+	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
+	public String filterCandidateBySkill(@RequestParam(name = "skillId") List<Integer> listId, Model model) {
+		
+		List<CandidateDto> listCandidate = new ArrayList<CandidateDto>();
+		
+		try {
+			listCandidate = candidateServiceImpl.filterCandidateBySkill(listId);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		for (CandidateDto candidateDto : listCandidate) {
+			List<InterviewDto> listInterviewDto = candidateServiceImpl.getListInterviewByCandidate(candidateDto.getId());
+			candidateDto.setListInterview(listInterviewDto);
+		}
+		
+		List<SkillDto> listSkillDto = new ArrayList<SkillDto>();
+		try {
+			listSkillDto = skillServiceImpl.readAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("listSkill", listSkillDto);
+		model.addAttribute("listCandidate", listCandidate);
 		
 		return "candidate/viewCandidateInformation";
 	}

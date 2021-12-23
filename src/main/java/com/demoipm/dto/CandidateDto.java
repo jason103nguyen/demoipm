@@ -1,5 +1,6 @@
 package com.demoipm.dto;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,11 +33,13 @@ public class CandidateDto {
 	
 	private String sex;
 	
-	private Date birthDay;
+	private LocalDate birthDay;
 	
 	private List<InterviewDto> listInterview = new ArrayList<InterviewDto>();
 	
 	private List<EntryTestDto> listEntryTest = new ArrayList<EntryTestDto>();
+	
+	private List<SkillCandidateDto> listSkillCandidate = new ArrayList<SkillCandidateDto>();
 	
 	public CandidateDto() {}
 	
@@ -55,6 +58,14 @@ public class CandidateDto {
 		this.skill = candidate.getSkill();
 		this.experienceYear = candidate.getExperienceYear();
 		this.activity = candidate.getActivity();
+	}
+
+	public List<SkillCandidateDto> getListSkillCandidate() {
+		return listSkillCandidate;
+	}
+
+	public void setListSkillCandidate(List<SkillCandidateDto> listSkillCandidate) {
+		this.listSkillCandidate = listSkillCandidate;
 	}
 
 	public String getActivity() {
@@ -169,11 +180,11 @@ public class CandidateDto {
 		this.sex = sex;
 	}
 
-	public Date getBirthDay() {
+	public LocalDate getBirthDay() {
 		return birthDay;
 	}
 
-	public void setBirthDay(Date birthDay) {
+	public void setBirthDay(LocalDate birthDay) {
 		this.birthDay = birthDay;
 	}
 

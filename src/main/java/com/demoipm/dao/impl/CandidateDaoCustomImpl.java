@@ -1,6 +1,8 @@
 package com.demoipm.dao.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +13,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.demoipm.Constant.EntryTestInfo;
 import com.demoipm.dao.CandidateDaoCustom;
 import com.demoipm.entities.Candidate;
 
@@ -29,13 +32,40 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		Path<String> fullNamePath = candidate.get("fullName");
 		Path<String> statusPath = candidate.get("status");
 		
-		List<Predicate> predicate = new ArrayList<Predicate>();
-		predicate.add(cb.like(fullNamePath, "%" + content + "%"));
-		predicate.add(cb.like(statusPath, content));
+		List<Predicate> predicateContent = new ArrayList<Predicate>();
+		predicateContent.add(cb.like(fullNamePath, "%" + content + "%"));
+		predicateContent.add(cb.like(statusPath, content));
 		
-		query.select(candidate).where(cb.or(predicate.toArray(new Predicate[predicate.size()])));
+		Predicate predicateOr = cb.or(predicateContent.toArray(new Predicate[predicateContent.size()]));
+
+		query.select(candidate).where(predicateOr);
 		return entityManager.createQuery(query).getResultList();
 		
+	}
+
+	@Override
+	public List<Candidate> filterCandidateByAge(LocalDate fromYear, LocalDate toYear) {
+
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Candidate> query = cb.createQuery(Candidate.class);
+		Root<Candidate> candidate = query.from(Candidate.class);
+		
+		Predicate betweenYearBirthDay = cb.between(candidate.get("birthDay"), fromYear, toYear);
+
+		query.select(candidate).where(betweenYearBirthDay);
+		return entityManager.createQuery(query).getResultList();
+	}
+
+	@Override
+	public List<Candidate> getCandidateBySkillAndPassEntryTest(List<Integer> listId) {
+		
+		List<Candidate> listCandidate = entityManager.createQuery("SELECT c FROM Candidate c "
+		+ "JOIN c.listEntryTest et JOIN c.listSkillCandidate sc WHERE et.point >= ?1 AND sc.skill.id IN (?2)", Candidate.class)
+		.setParameter(1, EntryTestInfo.POINT_PASS_ENTRY_TEST)
+		.setParameter(2, listId)
+		.getResultList();
+		
+		return listCandidate;
 	}
 
 }

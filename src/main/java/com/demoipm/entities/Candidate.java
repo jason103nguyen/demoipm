@@ -1,5 +1,6 @@
 package com.demoipm.entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,9 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.demoipm.dto.CandidateDto;
@@ -59,13 +58,16 @@ public class Candidate {
 	private String sex;
 	
 	@Column(name = "birth_day")
-	private Date birthDay;
+	private LocalDate birthDay;
 	
 	@OneToMany(mappedBy = "candidate")
 	private List<Interview> listInterview = new ArrayList<Interview>();
 	
 	@OneToMany(mappedBy = "candidate")
 	private List<EntryTest> listEntryTest = new ArrayList<EntryTest>();
+	
+	@OneToMany(mappedBy = "candidate")
+	private List<SkillCandidate> listSkillCandidate = new ArrayList<SkillCandidate>();
 	
 	public Candidate() {}
 	
@@ -84,6 +86,14 @@ public class Candidate {
 		this.skill = candidateDto.getSkill();
 		this.experienceYear = candidateDto.getExperienceYear();
 		this.activity = candidateDto.getActivity();
+	}
+
+	public List<SkillCandidate> getListSkillCandidate() {
+		return listSkillCandidate;
+	}
+
+	public void setListSkillCandidate(List<SkillCandidate> listSkillCandidate) {
+		this.listSkillCandidate = listSkillCandidate;
 	}
 
 	public String getActivity() {
@@ -198,11 +208,11 @@ public class Candidate {
 		this.sex = sex;
 	}
 
-	public Date getBirthDay() {
+	public LocalDate getBirthDay() {
 		return birthDay;
 	}
 
-	public void setBirthDay(Date birthDay) {
+	public void setBirthDay(LocalDate birthDay) {
 		this.birthDay = birthDay;
 	}
 

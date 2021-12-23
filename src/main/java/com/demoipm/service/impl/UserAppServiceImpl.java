@@ -5,10 +5,16 @@ import com.demoipm.dao.RoleAppDao;
 import com.demoipm.dao.UserAppDao;
 import com.demoipm.dao.UserRoleDao;
 import com.demoipm.dto.UserAppDto;
+import com.demoipm.dto.general.ResponseDto;
+import com.demoipm.dto.usermanage.UserCreateRequestDto;
 import com.demoipm.dto.usermanage.UserListPageResponseDto;
 import com.demoipm.dto.usermanage.UserResponseDto;
+import com.demoipm.entities.RoleApp;
 import com.demoipm.entities.UserApp;
+import com.demoipm.entities.UserRole;
 import com.demoipm.service.UserAppService;
+import com.demoipm.utils.EncrytedPasswordUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,6 +165,39 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
         } finally {
             LOGGER.info("End readByCondition with searchWord {}, pageNo {}, entriesNo {}", searchWord, pageNo, entriesNo);
             return responseDto;
+        }
+    }
+
+    @Override
+    public void createNewUser(UserCreateRequestDto requestDto, ResponseDto responseDto) {
+        LOGGER.info("Start createNewUser with {}", requestDto);
+        try {
+            // Mapping dto to entity
+            UserApp entity = new UserApp();
+            entity.setFullName(requestDto.getFullName());
+            entity.setEmail(requestDto.getEmail());
+            entity.setPhone(requestDto.getPhone());
+            entity.setUsername(requestDto.getUsername());
+            entity.setPassword(EncrytedPasswordUtils.encrytePassword(requestDto.getPassword()));
+
+            // Get and set role by request
+            List<RoleApp> roleAppEntities = roleAppDao.getAllByRoleNameIn(requestDto.getRoles());
+            List<UserRole> userRoles = roleAppEntities.stream().map(roleApp -> {
+                UserRole userRole = new UserRole();
+                userRole.setUserApp(entity);
+                userRole.setRoleApp(roleApp);
+                return userRole;
+            }).collect(Collectors.toList());
+            entity.setListUserRole(userRoles);
+
+            userAppDao.save(entity);
+            userRoleDao.saveAll(userRoles);
+        } catch (Throwable t) {
+            LOGGER.error("Has error when createNewUser", t);
+            responseDto.setError(true);
+            responseDto.setMessage(MessageConst.INTERNAL_SERVER_ERROR);
+        } finally {
+            LOGGER.info("End createNewUser with {}", requestDto);
         }
     }
 }

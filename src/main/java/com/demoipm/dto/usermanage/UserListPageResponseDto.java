@@ -1,6 +1,6 @@
 package com.demoipm.dto.usermanage;
 
-import com.demoipm.dto.ResponseDto;
+import com.demoipm.dto.general.ResponseDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 

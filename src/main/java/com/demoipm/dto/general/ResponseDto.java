@@ -1,4 +1,4 @@
-package com.demoipm.dto;
+package com.demoipm.dto.general;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -155,11 +155,7 @@ public class CandidateServiceImpl implements CandidateService {
 	}
 
 	@Override
-	public List<CandidateDto> filterCandidateBySkill(List<Integer> listId) throws Exception {
-
-		if (listId == null) {
-			throw new Exception("The list id is null");
-		}
+	public List<CandidateDto> filterCandidateBySkill(List<Integer> listId) {
 		
 		List<Candidate> listCandidate = candidateDao.getCandidateBySkillAndPassEntryTest(listId);
 		

@@ -235,6 +235,12 @@ VALUES ('2022-8-1 15:00:00', 'FT_1', 'PASS', 100, 'Python_Test', 10);
 
 -- INTERVIEW --
 INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15 15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 5, 1);
+
+INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-16 15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 5, 2);
+
+INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
 VALUES ('2022-4-15 15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 6, 1);
 
 INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)

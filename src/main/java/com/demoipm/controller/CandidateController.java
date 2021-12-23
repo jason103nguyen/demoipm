@@ -92,16 +92,15 @@ public class CandidateController {
 	
 	@GetMapping(value = "/filter-candidate-skill")
 	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
-	public String filterCandidateBySkill(@RequestParam(name = "skillId") List<Integer> listId, Model model) {
+	public String filterCandidateBySkill(@RequestParam(name = "skillId", required = false) List<Integer> listId, Model model) {
 		
 		List<CandidateDto> listCandidate = new ArrayList<CandidateDto>();
 		
-		try {
-			listCandidate = candidateServiceImpl.filterCandidateBySkill(listId);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		if (listId == null) {
+			return "redirect:/view-candidate-information";
 		}
+		
+		listCandidate = candidateServiceImpl.filterCandidateBySkill(listId);
 		
 		for (CandidateDto candidateDto : listCandidate) {
 			List<InterviewDto> listInterviewDto = candidateServiceImpl.getListInterviewByCandidate(candidateDto.getId());

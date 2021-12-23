@@ -1,7 +1,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<hr/>
 <div class="container border">
 	<form action="/filter-candidate-age" method="get">
 		<p>

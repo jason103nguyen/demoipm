@@ -25,5 +25,5 @@ public interface CandidateService {
 
 	List<CandidateDto> filterCandidateByAge(int minAge, int maxAge);
 
-	List<CandidateDto> filterCandidateBySkill(List<Integer> listId) throws Exception;
+	List<CandidateDto> filterCandidateBySkill(List<Integer> listId);
 }

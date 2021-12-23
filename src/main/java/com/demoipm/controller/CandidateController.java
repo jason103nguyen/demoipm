@@ -37,6 +37,13 @@ public class CandidateController {
 			candidateDto.setListInterview(listInterviewDto);
 		}
 		
+		showAllSkill(model);
+		model.addAttribute("listCandidate", listCandidate);
+		return "candidate/viewCandidateInformation";
+	}
+	
+	private void showAllSkill(Model model) {
+		
 		List<SkillDto> listSkillDto = new ArrayList<SkillDto>();
 		try {
 			listSkillDto = skillServiceImpl.readAll();
@@ -45,8 +52,6 @@ public class CandidateController {
 		}
 		
 		model.addAttribute("listSkill", listSkillDto);
-		model.addAttribute("listCandidate", listCandidate);
-		return "candidate/viewCandidateInformation";
 	}
 	
 	@GetMapping(value = "/find-candidate")
@@ -70,6 +75,7 @@ public class CandidateController {
 			model.addAttribute("listCandidate", listCandidate);
 		}
 		
+		showAllSkill(model);
 		return "candidate/viewCandidateInformation";
 	}
 	
@@ -85,6 +91,7 @@ public class CandidateController {
 			candidateDto.setListInterview(listInterviewDto);
 		}
 		
+		showAllSkill(model);
 		model.addAttribute("listCandidate", listCandidate);
 		
 		return "candidate/viewCandidateInformation";
@@ -107,14 +114,7 @@ public class CandidateController {
 			candidateDto.setListInterview(listInterviewDto);
 		}
 		
-		List<SkillDto> listSkillDto = new ArrayList<SkillDto>();
-		try {
-			listSkillDto = skillServiceImpl.readAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		model.addAttribute("listSkill", listSkillDto);
+		showAllSkill(model);
 		model.addAttribute("listCandidate", listCandidate);
 		
 		return "candidate/viewCandidateInformation";
@@ -131,6 +131,7 @@ public class CandidateController {
 			e.printStackTrace();
 		}
 		
+		showAllSkill(model);
 		model.addAttribute("candidate", candidateDto);
 		return "candidate/viewInfoDetailCandidate";
 	}

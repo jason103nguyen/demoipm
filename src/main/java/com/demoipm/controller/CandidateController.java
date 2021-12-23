@@ -81,8 +81,12 @@ public class CandidateController {
 	
 	@GetMapping(value = "/filter-candidate-age")
 	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
-	public String filterCandidateByAge(@RequestParam(name = "minAge") int minAge,
-			@RequestParam(name = "maxAge") int maxAge, Model model) {
+	public String filterCandidateByAge(@RequestParam(name = "minAge", required = false) Integer minAge,
+			@RequestParam(name = "maxAge", required = false) Integer maxAge, Model model) {
+		
+		if (minAge == null || maxAge == null) {
+			return "redirect:/view-candidate-information";
+		}
 		
 		List<CandidateDto> listCandidate = candidateServiceImpl.filterCandidateByAge(minAge, maxAge);
 		

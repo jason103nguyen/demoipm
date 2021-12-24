@@ -9,6 +9,7 @@ import com.demoipm.dto.general.ResponseDto;
 import com.demoipm.dto.usermanage.UserCreateRequestDto;
 import com.demoipm.dto.usermanage.UserListPageResponseDto;
 import com.demoipm.dto.usermanage.UserResponseDto;
+import com.demoipm.dto.usermanage.UserUpdateRequestDto;
 import com.demoipm.entities.RoleApp;
 import com.demoipm.entities.UserApp;
 import com.demoipm.entities.UserRole;
@@ -34,6 +35,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -142,7 +144,8 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
             Page<UserApp> userPage = userAppDao.findListByCondition("%" + searchWord + "%", pageable);
 
             // Prepare response dto
-            responseDto.setCurrentPage(pageNo - 1);
+            responseDto.setSearchWord(searchWord);
+            responseDto.setCurrentPage(pageNo);
             responseDto.setEntriesNo(entriesNo);
             responseDto.setTotalPage(userPage.getTotalPages());
             responseDto.setTotalEntries(userPage.getTotalElements());
@@ -188,7 +191,6 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
                 userRole.setRoleApp(roleApp);
                 return userRole;
             }).collect(Collectors.toList());
-            entity.setListUserRole(userRoles);
 
             userAppDao.save(entity);
             userRoleDao.saveAll(userRoles);
@@ -199,5 +201,90 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
         } finally {
             LOGGER.info("End createNewUser with {}", requestDto);
         }
+    }
+
+    @Override
+    public UserUpdateRequestDto readUserByUsername(String username, ResponseDto responseDto) {
+        LOGGER.info("Start readUserByUsername with {}", username);
+        UserUpdateRequestDto userDto = new UserUpdateRequestDto();
+        try {
+            UserApp userApp = userAppDao.findUsername(username);
+            if (userApp != null) {
+                userDto.setEmail(userApp.getEmail());
+                userDto.setFullName(userApp.getFullName());
+                userDto.setPhone(userApp.getPhone());
+                userDto.setUsername(userApp.getUsername());
+                List<String> roles = userApp.getListUserRole().stream().map(userRole -> {
+                    return userRole.getRoleApp().getRoleName();
+                }).collect(Collectors.toList());
+                userDto.setRoles(roles);
+            } else {
+                responseDto.setError(true);
+                responseDto.setMessage(MessageConst.USERNAME_NOT_EXISTED);
+            }
+        } catch (Throwable t) {
+            LOGGER.error("Has error when readUserByUsername", t);
+            responseDto.setError(true);
+            responseDto.setMessage(MessageConst.INTERNAL_SERVER_ERROR);
+        }
+        LOGGER.info("End readUserByUsername with {}", username);
+        return userDto;
+    }
+
+    @Override
+    public void updateExistedUser(UserUpdateRequestDto requestDto, ResponseDto responseDto) {
+        LOGGER.info("Start updateExistedUser with {}", requestDto);
+        try {
+            // Mapping dto to entity
+            UserApp entity = userAppDao.findUsername(requestDto.getUsername());
+            if (entity == null) {
+                LOGGER.error("User name not existed {}", requestDto.getUsername());
+                responseDto.setError(true);
+                responseDto.setMessage(MessageConst.USERNAME_NOT_EXISTED);
+                return;
+            }
+            entity.setFullName(requestDto.getFullName());
+            entity.setEmail(requestDto.getEmail());
+            entity.setPhone(requestDto.getPhone());
+            entity.setUsername(requestDto.getUsername());
+
+            // Get and set role by request
+            Set<String> existedRoles = entity.getListUserRole().stream().map(userRole -> {
+                return userRole.getRoleApp().getRoleName();
+            }).collect(Collectors.toSet());
+            List<String> requestRoles = requestDto.getRoles().stream().filter(role -> !existedRoles.contains(role)).collect(Collectors.toList());
+
+            List<RoleApp> roleAppEntities = roleAppDao.getAllByRoleNameIn(requestRoles);
+            List<UserRole> userRoles = roleAppEntities.stream().map(roleApp -> {
+                UserRole userRole = new UserRole();
+                userRole.setUserApp(entity);
+                userRole.setRoleApp(roleApp);
+                return userRole;
+            }).collect(Collectors.toList());
+
+            userAppDao.save(entity);
+            userRoleDao.saveAll(userRoles);
+        } catch (Throwable t) {
+            LOGGER.error("Has error when updateExistedUser", t);
+            responseDto.setError(true);
+            responseDto.setMessage(MessageConst.INTERNAL_SERVER_ERROR);
+        } finally {
+            LOGGER.info("End updateExistedUser with {}", requestDto);
+        }
+    }
+
+    @Override
+    public void deleteUserByUsername(String username) {
+        LOGGER.info("Start deleteUserByUsername with {}", username);
+        try {
+            UserApp userApp = userAppDao.findUsername(username);
+            if (userApp != null) {
+                userRoleDao.deleteAll(userApp.getListUserRole());
+                userAppDao.delete(userApp);
+            }
+        } catch (Throwable t) {
+            LOGGER.error("Has error deleteUserByUsername", t);
+        }
+        LOGGER.info("End deleteUserByUsername with {}", username);
     }
 }

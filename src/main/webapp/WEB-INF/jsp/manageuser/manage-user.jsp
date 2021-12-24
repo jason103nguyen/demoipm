@@ -3,8 +3,8 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <%@page contentType="text/html" pageEncoding="UTF-8" %>
     <title>Quản lý User</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,13 +15,14 @@
 
     <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
 <div class="container p-5 my-5 border">
     <div class="row">
         <div class="col-sm-3">
-            <jsp:include page="../logoFpt.jsp" />
+            <jsp:include page="../logoFpt.jsp"/>
         </div>
 
         <div class="col-sm-9">
@@ -32,7 +33,9 @@
                     <div class="d-flex align-items-end">
                         <div>
                             <input type="text" class="form-control" id="search" placeholder="Nhập từ khóa..."
-                                            name="searchWord">
+                                   name="searchWord" value="${response.getSearchWord()}">
+                            <input type="number" name="entriesNo" value="${response.getEntriesNo()}" hidden>
+                            <input type="number" name="pageNo" value="${response.getCurrentPage()}" hidden>
                         </div>
 
                         <div>
@@ -46,11 +49,33 @@
 
     <div class="row mt-3">
         <div class="col-sm-3">
-            <jsp:include page="../menu.jsp" />
+            <jsp:include page="../menu.jsp"/>
         </div>
 
         <div class="col-sm-9">
-            <table class="table">
+            <c:if test="${response.userList != null && response.userList.size() > 0}">
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" tabindex="-1" aria-disabled="true">Entries</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="${pageContext.request.contextPath}/manage-user?entriesNo=1&searchWord=${response.getSearchWord()}">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="${pageContext.request.contextPath}/manage-user?entriesNo=2&searchWord=${response.getSearchWord()}">2</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="${pageContext.request.contextPath}/manage-user?entriesNo=3&searchWord=${response.getSearchWord()}">3</a>
+                        </li>
+                    </ul>
+                </nav>
+            </c:if>
+
+            <table class="table table-bordered">
                 <tr class="text-center">
                     <th>STT</th>
                     <th>Họ và tên</th>
@@ -72,8 +97,13 @@
                                 ${role}<br>
                             </c:forEach>
                         </td>
-                        <td class="align-middle"><a href="#">Cập nhật</a></td>
-                        <td class="align-middle"><a href="#">Xóa</a></td>
+                        <td class="align-middle">
+                            <a href="${pageContext.request.contextPath}/update-user-page?username=${user.username}">Cập
+                                nhật</a></td>
+                        <td class="align-middle">
+                            <a href="${pageContext.request.contextPath}/delete-user?username=${user.username}"
+                               onclick="return confirm('Bạn có chắc muốn xóa user này ?')">Xóa</a>
+                        </td>
                     </tr>
                 </c:forEach>
                 <c:if test="${response.userList == null || response.userList.size() == 0}">
@@ -82,6 +112,33 @@
                     </tr>
                 </c:if>
             </table>
+
+            <c:if test="${response.userList != null && response.userList.size() > 0}">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item ${response.getCurrentPage() == 1 ? 'disabled' : ''}">
+                            <a class="page-link"
+                               href="${pageContext.request.contextPath}/manage-user?entriesNo=${response.getEntriesNo()}&pageNo=${response.getCurrentPage()-1}&searchWord=${response.getSearchWord()}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <c:forEach begin="1" end="${response.getTotalPage()}" varStatus="pageNo">
+                            <li class="page-item ${response.getCurrentPage() == pageNo.count ? 'active' : ''}">
+                                <a class="page-link"
+                                   href="${pageContext.request.contextPath}/manage-user?entriesNo=${response.getEntriesNo()}&pageNo=${pageNo.count}&searchWord=${response.getSearchWord()}">${pageNo.count}</a>
+                            </li>
+                        </c:forEach>
+                        <li class="page-item ${response.getCurrentPage() == response.getTotalPage() ? 'disabled' : ''}">
+                            <a class="page-link"
+                               href="${pageContext.request.contextPath}/manage-user?entriesNo=${response.getEntriesNo()}&pageNo=${response.getCurrentPage()+1}&searchWord=${response.getSearchWord()}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </c:if>
         </div>
     </div>
 

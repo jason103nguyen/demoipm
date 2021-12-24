@@ -11,11 +11,20 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserListPageResponseDto extends ResponseDto implements Serializable {
 
+    private String searchWord;
     private int currentPage;
     private int entriesNo;
     private int totalPage;
     private long totalEntries;
     private List<UserResponseDto> userList;
+
+    public String getSearchWord() {
+        return searchWord;
+    }
+
+    public void setSearchWord(String searchWord) {
+        this.searchWord = searchWord;
+    }
 
     public int getCurrentPage() {
         return currentPage;

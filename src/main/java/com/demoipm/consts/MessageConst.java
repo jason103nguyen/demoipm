@@ -13,4 +13,6 @@ public class MessageConst {
     public static final String USERNAME_CANNOT_BE_BLANK = "Username cannot be blank";
     public static final String USERNAME_EXCEED_LENGTH = "Username max length exceed";
     public static final String PASSWORD_LENGTH_INVALID = "Password length invalid";
+    public static final String USERNAME_NOT_EXISTED = "Username not existed";
+    public static final String USERNAME_REQUIRED = "Username is required";
 }

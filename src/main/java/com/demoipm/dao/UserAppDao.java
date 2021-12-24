@@ -13,10 +13,10 @@ public interface UserAppDao extends CrudRepository<UserApp, Integer> {
     UserApp findUsername(@Param(value = "username") String username);
 
     @Query("SELECT u FROM UserApp u WHERE u.fullName LIKE :searchWord " +
-            "OR u.phone LIKE :searchWord " +
             "OR u.email LIKE :searchWord " +
             "OR u.username LIKE :searchWord " +
-            "OR u.phone LIKE :searchWord " +
             "OR u.phone LIKE :searchWord")
     Page<UserApp> findListByCondition(@Param(value = "searchWord") String searchWord, Pageable pageable);
+
+    void deleteByUsername(String username);
 }

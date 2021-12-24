@@ -175,4 +175,19 @@ public class CandidateServiceImpl implements CandidateService {
 		return listCandidateDto;
 	}
 
+	@Override
+	public List<CandidateDto> readCandidatePassEntryTest(Integer page) {
+
+		List<Candidate> listCandidate = candidateDao.readCandidatePassEntryTest(page);
+		List<CandidateDto> listCandidateDto = convertToListDto(listCandidate);
+		return listCandidateDto;
+	}
+
+	@Override
+	public Integer countCandidatePassEntryTest() {
+
+		Integer totalRow = candidateDao.countCandidatePassEntryTest();
+		return totalRow;
+	}
+
 }

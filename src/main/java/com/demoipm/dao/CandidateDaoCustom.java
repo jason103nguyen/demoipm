@@ -12,4 +12,8 @@ public interface CandidateDaoCustom {
 	List<Candidate> filterCandidateByAge(LocalDate fromYear, LocalDate toYear);
 	
 	List<Candidate> getCandidateBySkillAndPassEntryTest(List<Integer> listId);
+
+	List<Candidate> readCandidatePassEntryTest(Integer page);
+
+	Integer countCandidatePassEntryTest();
 }

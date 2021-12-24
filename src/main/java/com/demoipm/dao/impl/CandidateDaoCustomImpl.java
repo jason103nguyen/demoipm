@@ -14,6 +14,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.demoipm.Constant.EntryTestInfo;
+import com.demoipm.Constant.PaginationInfo;
 import com.demoipm.dao.CandidateDaoCustom;
 import com.demoipm.entities.Candidate;
 
@@ -66,6 +67,30 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		.getResultList();
 		
 		return listCandidate;
+	}
+
+	@Override
+	public List<Candidate> readCandidatePassEntryTest(Integer page) {
+
+		List<Candidate> listCandidate = entityManager.createQuery("SELECT c FROM Candidate c "
+		+ "JOIN c.listEntryTest et WHERE et.point >= ?1", Candidate.class)
+		.setParameter(1, EntryTestInfo.POINT_PASS_ENTRY_TEST)
+		.setMaxResults(PaginationInfo.MAX_RESULT)
+		.setFirstResult(page * PaginationInfo.MAX_RESULT)
+		.getResultList();
+		
+		return listCandidate;
+	}
+
+	@Override
+	public Integer countCandidatePassEntryTest() {
+
+		Long totalRow = entityManager.createQuery("SELECT COUNT(c.id) FROM Candidate c "
+		+ "JOIN c.listEntryTest et WHERE et.point >= ?1", Long.class)
+			.setParameter(1, EntryTestInfo.POINT_PASS_ENTRY_TEST)
+			.getSingleResult();
+
+		return totalRow.intValue();
 	}
 
 }

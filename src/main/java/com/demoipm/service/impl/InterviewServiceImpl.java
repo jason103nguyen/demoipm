@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import com.demoipm.dto.InterviewRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import com.demoipm.entities.Interview;
 import com.demoipm.service.InterviewService;
 
 @Service
+@Slf4j
 @Transactional
 public class InterviewServiceImpl implements InterviewService {
 
@@ -22,12 +25,35 @@ public class InterviewServiceImpl implements InterviewService {
 	private InterviewDao interviewDao;
 	
 	@Override
-	public void create(InterviewDto interviewDto) {
+	public void create(InterviewRequest interviewRequest) {
 
-		Interview interview = new Interview(interviewDto);
-		interviewDao.save(interview);
+		if(interviewDao.findById(interviewRequest.getId()).isPresent()){
+			log.error(String.format("User name: [%s] is existing"));
+		}
+		try {
+			interviewDao.save(parseInterviewRequestToEntities(interviewRequest));
+		} catch (Exception ex){
+			log.error("Create interview missing error: " + ex.getMessage());
+		}
+
 	}
 
+	private Interview parseInterviewRequestToEntities(InterviewRequest interviewRequest){
+		return Interview.builder()
+				.location(interviewRequest.getLocation())
+/*
+				.candidate(interviewRequest.getCandidate())
+*/
+				.timeInterview(interviewRequest.getTimeInterview())
+				.date(interviewRequest.getDate())
+/*
+				.nameInterviewer(interviewDao.findByCandidateId(interviewRequest.getCandidate().getId()).get().getNameInterviewer())
+*/
+				.nameInterviewer(interviewRequest.getNameInterview())
+				.build();
+	}
+
+/*
 	@Override
 	public InterviewDto readById(int id) throws Exception {
 
@@ -67,6 +93,7 @@ public class InterviewServiceImpl implements InterviewService {
 		Interview interview = new Interview(interviewDto);
 		interviewDao.save(interview);
 	}
+*/
 
 	@Override
 	public void deleteById(int id) {

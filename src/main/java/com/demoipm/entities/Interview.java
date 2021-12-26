@@ -1,5 +1,6 @@
 package com.demoipm.entities;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,9 +12,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.demoipm.dto.InterviewDto;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "interview")
 public class Interview {
 
@@ -25,8 +33,8 @@ public class Interview {
 	@Column(name = "time_interview")
 	private Date timeInterview;
 	
-	@Column(name = "local")
-	private String local;
+	@Column(name = "location")
+	private String location;
 	
 	@Column(name = "evaluation")
 	private String evaluation;
@@ -43,85 +51,12 @@ public class Interview {
 	@ManyToOne
 	@JoinColumn(name = "candidate_id")
 	private Candidate candidate;
-	
-	public Interview() {}
-	
-	public Interview(InterviewDto interview) {
-		super();
-		this.id = interview.getId();
-		this.timeInterview = interview.getTimeInterview();
-		this.local = interview.getLocal();
-		this.evaluation = interview.getEvaluation();
-		this.note = interview.getNote();
-		this.result = interview.getResult();
-		this.nameInterviewer = interview.getNameInterviewer();
-		
-		Candidate candidate = new Candidate(interview.getCandidate());
-		this.candidate = candidate;
-	}
 
-	public Candidate getCandidate() {
-		return candidate;
-	}
+	@Column(name = "contact_form")
+	private String contactForm;
 
-	public void setCandidate(Candidate candidate) {
-		this.candidate = candidate;
-	}
+	@Column(name = "date")
+	protected Date date;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Date getTimeInterview() {
-		return timeInterview;
-	}
-
-	public void setTimeInterview(Date timeInterview) {
-		this.timeInterview = timeInterview;
-	}
-
-	public String getLocal() {
-		return local;
-	}
-
-	public void setLocal(String local) {
-		this.local = local;
-	}
-
-	public String getEvaluation() {
-		return evaluation;
-	}
-
-	public void setEvaluation(String evaluation) {
-		this.evaluation = evaluation;
-	}
-
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
-
-	public String getResult() {
-		return result;
-	}
-
-	public void setResult(String result) {
-		this.result = result;
-	}
-
-	public String getNameInterviewer() {
-		return nameInterviewer;
-	}
-
-	public void setNameInterviewer(String nameInterviewer) {
-		this.nameInterviewer = nameInterviewer;
-	}
 	
 }

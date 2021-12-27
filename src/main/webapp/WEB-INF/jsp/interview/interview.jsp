@@ -10,9 +10,10 @@
        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-       <script>
-           flatpickr("input[type=date]", {});
-       </script>
+       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    </head>
    <body>
    <div class ="container">
@@ -68,6 +69,8 @@
                            <select type="text" id="contactForm" class="form-control" name="contactForm">
                                <option>Gửi Email</option>
                                <option>Liên Hệ Qua Điện Thoại</option>
+                               <option>Liên Hệ Qua Zalo</option>
+                               <option>Liên Hệ Qua Facebook</option>
                            </select>
                        </td>
                    </tr>
@@ -77,15 +80,41 @@
                            <input type="reset" value="Huỷ" class="btn btn-primary">
                        </td>
                        <td>
-                           <input type="submit" value="Liên Hệ" class="btn btn-primary">
+                           <button type="submit" id="submit" class="btn btn-primary">Liên Hệ</button>
                        </td>
                    </tr>
-
                    </tbody>
                </table>
            </form>
        </div>
    </div>
+<script>
+    $("#submit").click(function(){
+        var location = $("#location").val();
+        var timeInterview = $("#timeInterview").val();
+        var date = $("#date").val();
+        var nameInterview = $("#nameInterview").val();
+        if(!location == '' || !timeInterview == '' || !date == '' || !nameInterview == '') {
+            swal({
+                /*title: "Field Empty!",
+                text: "Please check the missing field!",
+                icon: "warning",
+                button: "Ok",*/
+                title: "Setup Successfully!",
+                icon: "success",
+                button: "Ok",
+            });
+        }/* else {
+            swal({
+                title: "Setup Successfully!",
+                icon: "success",
+                button: "Ok",
+            }).then(function () {
+                window.location ="/setup_success.jsp";
+            });
+        }*/
+    });
+</script>
 
 
    </body>

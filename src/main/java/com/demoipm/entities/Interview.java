@@ -58,5 +58,4 @@ public class Interview {
 	@Column(name = "date")
 	protected Date date;
 
-	
 }

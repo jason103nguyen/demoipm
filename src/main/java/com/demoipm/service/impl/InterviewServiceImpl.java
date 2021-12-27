@@ -1,8 +1,5 @@
 package com.demoipm.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -12,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.demoipm.dao.InterviewDao;
-import com.demoipm.dto.InterviewDto;
 import com.demoipm.entities.Interview;
 import com.demoipm.service.InterviewService;
 

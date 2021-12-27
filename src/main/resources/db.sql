@@ -108,7 +108,7 @@ VALUES ('2021/12/18', 'FT_1', 'PASS', 85, 'C_Test', 2);
 INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
 VALUES ('2021/12/18', 'FT_1', 'PASS', 85, 'Python_Test', 3);
 
--- INTERVIEW --
+/*-- INTERVIEW --
 INSERT INTO interview (time_interview, location, evaluation, note, result, name_interviewer, candidate_id)
 VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 1);
 
@@ -116,4 +116,4 @@ INSERT INTO interview (time_interview, location, evaluation, note, result, name_
 VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 2);
 
 INSERT INTO interview (time_interview, location, evaluation, note, result, name_interviewer, candidate_id)
-VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 3);
+VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 3);*/

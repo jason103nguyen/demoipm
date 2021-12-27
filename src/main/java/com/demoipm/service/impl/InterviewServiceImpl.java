@@ -2,12 +2,10 @@ package com.demoipm.service.impl;
 
 
 import javax.transaction.Transactional;
-
 import com.demoipm.dto.InterviewRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.demoipm.dao.InterviewDao;
 import com.demoipm.entities.Interview;
 import com.demoipm.service.InterviewService;
@@ -29,19 +27,13 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	private Interview parseInterviewRequestToEntities(InterviewRequest interviewRequest){
-		return Interview.builder()
-				.location(interviewRequest.getLocation())
-/*
-				.candidate(interviewRequest.getCandidate())
-*/
-				.timeInterview(interviewRequest.getTimeInterview())
-				.date(interviewRequest.getDate())
-/*
-				.nameInterviewer(interviewDao.findByCandidateId(interviewRequest.getCandidate().getId()).get().getNameInterviewer())
-*/
-				.contactForm(interviewRequest.getContactForm())
-				.nameInterviewer(interviewRequest.getNameInterview())
-				.build();
+		Interview interview = new Interview();
+		interview.setLocation(interviewRequest.getLocation());
+		interview.setTimeInterview(interviewRequest.getTimeInterview());
+		interview.setNameInterviewer(interviewRequest.getNameInterviewer());
+		interview.setDate(interviewRequest.getDate());
+		interview.setContactForm(interviewRequest.getContactForm());
+		return interview;
 	}
 
 	@Override

@@ -21,7 +21,7 @@
            <div >
                <h1>Hẹn Lịch Phỏng Vấn</h1>
            </div>
-           <form th:action="@{setup_success}" method="post" th:object="${interview}">
+           <form th:action="@{/interview/create}" method="post" th:object="${interviewRequest}">
                <table border = "0">
                    <tbody>
 
@@ -30,7 +30,7 @@
                            <label>Tên:</label>
                        </td>
                           <td>
-                              <input type="text" id="nameInterview" class="form-control" name="nameInterview">
+                              <input type="text" id="nameInterviewer" class="form-control" name="nameInterviewer">
                           </td>
                    </tr>
 

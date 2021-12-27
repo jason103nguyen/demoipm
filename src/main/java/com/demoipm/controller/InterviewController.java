@@ -18,13 +18,13 @@ public class InterviewController {
 
     @GetMapping("/interview/create")
     public String showForm(Model model){
-        model.addAttribute("InterviewRequest",new InterviewRequest());
+        model.addAttribute("interviewRequest",new InterviewRequest());
         return "interview/interview";
     }
 
     @PostMapping("/interview/create")
-    public String createForm(@ModelAttribute("InterviewRequest") InterviewRequest interviewRequest, BindingResult result,Model model){
-        model.addAttribute("InterviewRequest",interviewService.create(interviewRequest));
+    public String createForm(@ModelAttribute("interviewRequest") InterviewRequest interviewRequest, BindingResult result,Model model){
+        model.addAttribute("interviewRequest",interviewService.create(interviewRequest));
         System.out.println(interviewRequest);
         return "interview/setup_success";
     }

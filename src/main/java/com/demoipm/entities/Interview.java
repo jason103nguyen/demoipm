@@ -12,16 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 @Entity
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "interview")
 public class Interview {
 
@@ -31,7 +24,7 @@ public class Interview {
 	private int id;
 	
 	@Column(name = "time_interview")
-	private Date timeInterview;
+	private LocalTime timeInterview;
 	
 	@Column(name = "location")
 	private String location;
@@ -58,4 +51,99 @@ public class Interview {
 	@Column(name = "date")
 	protected Date date;
 
+	public Interview(){
+
+	}
+
+	public Interview(LocalTime timeInterview, String location, String evaluation, String note, String result, String nameInterviewer, Candidate candidate, String contactForm, Date date) {
+		this.timeInterview = timeInterview;
+		this.location = location;
+		this.evaluation = evaluation;
+		this.note = note;
+		this.result = result;
+		this.nameInterviewer = nameInterviewer;
+		this.candidate = candidate;
+		this.contactForm = contactForm;
+		this.date = date;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public LocalTime getTimeInterview() {
+		return timeInterview;
+	}
+
+	public void setTimeInterview(LocalTime timeInterview) {
+		this.timeInterview = timeInterview;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getEvaluation() {
+		return evaluation;
+	}
+
+	public void setEvaluation(String evaluation) {
+		this.evaluation = evaluation;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
+
+	public String getNameInterviewer() {
+		return nameInterviewer;
+	}
+
+	public void setNameInterviewer(String nameInterviewer) {
+		this.nameInterviewer = nameInterviewer;
+	}
+
+	public Candidate getCandidate() {
+		return candidate;
+	}
+
+	public void setCandidate(Candidate candidate) {
+		this.candidate = candidate;
+	}
+
+	public String getContactForm() {
+		return contactForm;
+	}
+
+	public void setContactForm(String contactForm) {
+		this.contactForm = contactForm;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 }

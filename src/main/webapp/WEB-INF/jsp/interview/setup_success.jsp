@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://thymeleaf.org">
+<html>
    <head>
        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
        <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,11 +11,11 @@
    <body>
    <div align="center">
        <h1>Setup Successfully!</h1>
-       <p th:text="${interview.nameInterview}"></p>
-       <p th:text="${interview.date}"></p>
-       <p th:text="${interview.timeInterview}"></p>
-       <p th:text="${interview.location}"></p>
-       <p th:text="${interview.contactForm}"></p>
+       <p th:text="${interviewRequest.nameInterviewer}"></p>
+       <p th:text="${interviewRequest.date}"></p>
+       <p th:text="${interviewRequest.timeInterview}"></p>
+       <p th:text="${interviewRequest.location}"></p>
+       <p th:text="${interviewRequest.contactForm}"></p>
        </div>
    </div>
 

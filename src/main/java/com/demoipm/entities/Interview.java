@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.demoipm.dto.CandidateDto;
 import com.demoipm.dto.InterviewDto;
 
 @Entity
@@ -63,6 +64,26 @@ public class Interview {
 		this.candidate = candidate;
 		
 		this.round = interview.getRound();
+	}
+	
+	public InterviewDto convertToDto() {
+		
+		InterviewDto interviewDto = new InterviewDto();
+		
+		interviewDto.setId(this.id); 
+		interviewDto.setTimeInterview(this.timeInterview); 
+		interviewDto.setLocal(this.local);
+		interviewDto.setEvaluation(this.evaluation);
+		interviewDto.setNote(this.note);
+		interviewDto.setResult(this.result);
+		interviewDto.setNameInterviewer(this.nameInterviewer);
+		
+		CandidateDto candidateDto = new CandidateDto(this.candidate);
+		interviewDto.setCandidate(candidateDto);
+		
+		interviewDto.setRound(this.round);
+		
+		return interviewDto;
 	}
 
 	public int getRound() {

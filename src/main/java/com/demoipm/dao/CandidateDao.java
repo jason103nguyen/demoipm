@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.demoipm.entities.Candidate;
+import com.demoipm.entities.Interview;
 
 public interface CandidateDao extends CrudRepository<Candidate, Integer>, CandidateDaoCustom {
 

@@ -19,7 +19,7 @@ public interface CandidateService {
 	
 	List<CandidateDto> readCandidatePassEntryTest();
 
-	List<InterviewDto> getListInterviewByCandidate(int id);
+	List<InterviewDto> getListInterviewByCandidateId(int id);
 
 	List<CandidateDto> searchCandidate(String content);
 
@@ -30,4 +30,13 @@ public interface CandidateService {
     List<CandidateDto> readCandidatePassEntryTest(Integer page);
 
     Integer countCandidatePassEntryTest();
+
+	List<CandidateDto> filterCandidateByAgeAndSkill(Integer minAge, Integer maxAge, List<Integer> listId);
+
+    List<CandidateDto> filterCandidateByContentAndSkill(String content, List<Integer> listId);
+
+    List<CandidateDto> filterCandidateByContentAndAge(String content, Integer minAge, Integer maxAge);
+
+	List<CandidateDto> filterCandidateByContentAndAgeAndSkill(String content, Integer minAge, Integer maxAge,
+			List<Integer> listId);
 }

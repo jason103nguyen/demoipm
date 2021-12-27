@@ -31,14 +31,14 @@ public class CandidateController {
 	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
 	public String viewCandidateInformation(Model model, @PathVariable(name = "page", required = false) Integer page) {
 		
-		if (page == null){
+		if (page == null) {
 			page = 0;
 		}
 
 		List<CandidateDto> listCandidate = candidateServiceImpl.readCandidatePassEntryTest(page);
 		
 		for (CandidateDto candidateDto : listCandidate) {
-			List<InterviewDto> listInterviewDto = candidateServiceImpl.getListInterviewByCandidate(candidateDto.getId());
+			List<InterviewDto> listInterviewDto = candidateServiceImpl.getListInterviewByCandidateId(candidateDto.getId());
 			candidateDto.setListInterview(listInterviewDto);
 		}
 		
@@ -46,6 +46,63 @@ public class CandidateController {
 		Integer totalPage = countCandidatePassEntryTest();
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("listCandidate", listCandidate);
+		return "candidate/viewCandidateInformation";
+	}
+
+	@GetMapping(value = "/filter-candidate")
+	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
+	public String filterCandidate(
+		@RequestParam(name = "content", required = false) String content,
+		@RequestParam(name = "minAge", required = false) Integer minAge,
+		@RequestParam(name = "maxAge", required = false) Integer maxAge, 
+		@RequestParam(name = "skillId", required = false) List<Integer> listId,
+		Model model) {
+		
+		List<CandidateDto> listCandidate = new ArrayList<CandidateDto>();
+		
+		if ((minAge == null || maxAge == null) && listId == null && content.equals("")) {
+
+			return "redirect:/view-all-candidate";
+		} else if ((minAge != null && maxAge != null) && listId == null && content.equals("")) {
+
+			listCandidate = candidateServiceImpl.filterCandidateByAge(minAge, maxAge);
+
+		} else if ((minAge == null || maxAge == null) && listId != null && content.equals("")) {
+
+			listCandidate = candidateServiceImpl.filterCandidateBySkill(listId);
+
+		} else if ((minAge == null || maxAge == null) && listId == null && !content.equals("")) {
+
+			listCandidate = candidateServiceImpl.searchCandidate(content);
+
+		} else if ((minAge != null || maxAge != null) && listId != null && content.equals("")) {
+
+			listCandidate = candidateServiceImpl.filterCandidateByAgeAndSkill(minAge, maxAge, listId);
+
+		} else if ((minAge == null || maxAge == null) && listId != null && !content.equals("")) {
+
+			listCandidate = candidateServiceImpl.filterCandidateByContentAndSkill(content, listId);
+
+		} else if ((minAge != null || maxAge != null) && listId == null && !content.equals("")) {
+
+			listCandidate = candidateServiceImpl.filterCandidateByContentAndAge(content, minAge, maxAge);
+
+		} else if ((minAge != null || maxAge != null) && listId != null && !content.equals("")) {
+
+			listCandidate = candidateServiceImpl.filterCandidateByContentAndAgeAndSkill(content, minAge, maxAge, listId);
+
+		}
+		
+		for (CandidateDto candidateDto : listCandidate) {
+			List<InterviewDto> listInterviewDto = candidateServiceImpl.getListInterviewByCandidateId(candidateDto.getId());
+			candidateDto.setListInterview(listInterviewDto);
+		}
+		
+		Integer totalPage = countCandidatePassEntryTest();
+		model.addAttribute("totalPage", totalPage);
+		showAllSkill(model);
+		model.addAttribute("listCandidate", listCandidate);
+		
 		return "candidate/viewCandidateInformation";
 	}
 	
@@ -65,82 +122,6 @@ public class CandidateController {
 		}
 		
 		model.addAttribute("listSkill", listSkillDto);
-	}
-	
-	@GetMapping(value = "/find-candidate")
-	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
-	public String findCandidate(@RequestParam(name = "content") String content,
-			Model model) {
-		
-		if (content == null) {
-			return "redirect:/vie-all-candidate";
-		}
-		List<CandidateDto> listCandidate = candidateServiceImpl.searchCandidate(content);
-		
-		for (CandidateDto candidateDto : listCandidate) {
-			List<InterviewDto> listInterviewDto = candidateServiceImpl.getListInterviewByCandidate(candidateDto.getId());
-			candidateDto.setListInterview(listInterviewDto);
-		}
-		
-		if (listCandidate.isEmpty()) {
-			
-		} else {
-			model.addAttribute("listCandidate", listCandidate);
-		}
-		
-		Integer totalPage = countCandidatePassEntryTest();
-		model.addAttribute("totalPage", totalPage);
-		showAllSkill(model);
-		return "candidate/viewCandidateInformation";
-	}
-	
-	@GetMapping(value = "/filter-candidate-age")
-	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
-	public String filterCandidateByAge(@RequestParam(name = "minAge", required = false) Integer minAge,
-			@RequestParam(name = "maxAge", required = false) Integer maxAge, Model model) {
-		
-		if (minAge == null || maxAge == null) {
-			return "redirect:/view-all-candidate";
-		}
-		
-		List<CandidateDto> listCandidate = candidateServiceImpl.filterCandidateByAge(minAge, maxAge);
-		
-		for (CandidateDto candidateDto : listCandidate) {
-			List<InterviewDto> listInterviewDto = candidateServiceImpl.getListInterviewByCandidate(candidateDto.getId());
-			candidateDto.setListInterview(listInterviewDto);
-		}
-		
-		Integer totalPage = countCandidatePassEntryTest();
-		model.addAttribute("totalPage", totalPage);
-		showAllSkill(model);
-		model.addAttribute("listCandidate", listCandidate);
-		
-		return "candidate/viewCandidateInformation";
-	}
-	
-	@GetMapping(value = {"/filter-candidate-skill"})
-	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
-	public String filterCandidateBySkill(@RequestParam(name = "skillId", required = false) List<Integer> listId, Model model) {
-		
-		List<CandidateDto> listCandidate = new ArrayList<CandidateDto>();
-		
-		if (listId == null) {
-			return "redirect:/view-all-candidate";
-		}
-		
-		listCandidate = candidateServiceImpl.filterCandidateBySkill(listId);
-		
-		for (CandidateDto candidateDto : listCandidate) {
-			List<InterviewDto> listInterviewDto = candidateServiceImpl.getListInterviewByCandidate(candidateDto.getId());
-			candidateDto.setListInterview(listInterviewDto);
-		}
-		
-		Integer totalPage = countCandidatePassEntryTest();
-		model.addAttribute("totalPage", totalPage);
-		showAllSkill(model);
-		model.addAttribute("listCandidate", listCandidate);
-		
-		return "candidate/viewCandidateInformation";
 	}
 	
 	@GetMapping(value = "/view-candidate-information/{id}")

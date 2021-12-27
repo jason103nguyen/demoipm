@@ -17,7 +17,9 @@
 </head>
 
 <body>
+	<form action="/filter-candidate" method="get">
 	<div class="container p-5 my-5 border">
+
 		<jsp:include page="title.jsp" />
 		<jsp:include page="search.jsp" />
 
@@ -26,12 +28,11 @@
 
 		<div class="row">
 			<div class="col-sm-4"><jsp:include page="filterCandidate.jsp" /></div>
-			<div class="col-sm-8"><jsp:include
-					page="filterCandidateBySkill.jsp" /></div>
 		</div>
 
 		<jsp:include page="pagination.jsp" />
 	</div>
+	</form>
 </body>
 
 </html>

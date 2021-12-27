@@ -32,4 +32,6 @@ public class InterviewRequest {
 
     private String nameInterview;
 
+    private String contactForm;
+
 }

@@ -24,7 +24,7 @@ public class InterviewController {
 
     @PostMapping("/interview/create")
     public String createForm(@ModelAttribute("InterviewRequest") InterviewRequest interviewRequest, BindingResult result,Model model){
-        model.addAttribute("InterviewRequest",interviewRequest);
+        model.addAttribute("InterviewRequest",interviewService.create(interviewRequest));
         System.out.println(interviewRequest);
         return "interview/setup_success";
     }

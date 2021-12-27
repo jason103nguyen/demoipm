@@ -15,6 +15,7 @@
        <p th:text="${interview.date}"></p>
        <p th:text="${interview.timeInterview}"></p>
        <p th:text="${interview.location}"></p>
+       <p th:text="${interview.contactForm}"></p>
        </div>
    </div>
 

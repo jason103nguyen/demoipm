@@ -17,7 +17,7 @@ import com.demoipm.service.PotentialCandidateService;
 public class PotentialCandidatesController {
 	
 	@Autowired
-	PotentialCandidateService potentialCandidateService;
+	private PotentialCandidateService potentialCandidateService;
 
 	@GetMapping("view-potential-candidates-info/{id}")
 	@Secured(value = "ROLE_HR")

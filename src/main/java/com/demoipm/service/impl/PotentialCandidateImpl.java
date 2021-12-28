@@ -18,17 +18,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class PotentialCandidateImpl implements PotentialCandidateService{
 
 	@Autowired
-	PotentialCandidateDao potentialCandidateDao;
+	private PotentialCandidateDao potentialCandidateDao;
 	
 	private ObjectMapper mapper;
 	
+	/**
+	 * Create Potential Candidate
+	 * 
+	 * @param candidateDto
+	 */
 	@Override
 	public void createPotentialCandidate(CandidateDto candidateDto) {
 		Candidate candidate = mapper.convertValue(candidateDto, Candidate.class);
 		potentialCandidateDao.save(candidate);
 	}
 	
-	
+	/**
+	 * Get Potential Candidate By ID
+	 * 
+	 * @param id
+	 * @return Potential Candidate
+	 */
 	@Override
 	public CandidateDto getPotentialCandidateByID(int id) {
 		

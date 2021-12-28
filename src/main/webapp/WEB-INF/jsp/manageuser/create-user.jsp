@@ -6,7 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <%@page contentType="text/html" pageEncoding="UTF-8"%>
-    <title>Tạo mới User</title>
+    <title>Create New User</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,7 +26,7 @@
         </div>
 
         <div class="col-sm-9">
-            <p class="h1 text-warning text-center">TẠO MỚI USER</p>
+            <p class="h1 text-warning text-center">CREATE NEW USER</p>
         </div>
     </div>
 

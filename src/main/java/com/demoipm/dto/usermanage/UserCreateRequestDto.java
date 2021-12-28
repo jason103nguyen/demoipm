@@ -1,6 +1,7 @@
 package com.demoipm.dto.usermanage;
 
 import com.demoipm.consts.MessageConst;
+import com.demoipm.consts.ValidateConst;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Length;
 
@@ -15,10 +16,10 @@ public class UserCreateRequestDto {
     @Length(max = 50, message = MessageConst.NAME_EXCEED_LENGTH)
     private String fullName;
 
-    @Pattern(regexp = "(84|0[3|5|7|8|9])+([0-9]{8})\\b", message = MessageConst.INVALID_PHONE)
+    @Pattern(regexp = ValidateConst.PHONE_REGEX, message = MessageConst.INVALID_PHONE)
     private String phone;
 
-    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = MessageConst.INVALID_EMAIL)
+    @Pattern(regexp = ValidateConst.EMAIL_REGEX, message = MessageConst.INVALID_EMAIL)
     private String email;
 
     @NotBlank(message = MessageConst.USERNAME_CANNOT_BE_BLANK)

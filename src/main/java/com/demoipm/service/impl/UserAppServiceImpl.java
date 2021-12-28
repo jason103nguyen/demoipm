@@ -15,7 +15,6 @@ import com.demoipm.entities.UserApp;
 import com.demoipm.entities.UserRole;
 import com.demoipm.service.UserAppService;
 import com.demoipm.utils.EncrytedPasswordUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +59,12 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
         userAppDao.save(userApp);
     }
 
+    /**
+     * Read user by id
+     * @param id
+     * @return
+     * @throws Exception
+     */
     @Override
     public UserAppDto readById(int id) throws Exception {
 
@@ -73,10 +78,15 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
         return userAppDto;
     }
 
+    /**
+     * Read all user from database
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<UserAppDto> readAll() throws Exception {
 
-        List<UserApp> listUserApp = (List<UserApp>) userAppDao.findAll();
+        List<UserApp> listUserApp = userAppDao.findAll();
         List<UserAppDto> listUserAppDto = new ArrayList<UserAppDto>();
 
         if (listUserApp.isEmpty()) {
@@ -93,6 +103,10 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
         return listUserAppDto;
     }
 
+    /**
+     * Update user
+     * @param userAppDto
+     */
     @Override
     public void update(UserAppDto userAppDto) {
 
@@ -100,6 +114,10 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
         userAppDao.save(userApp);
     }
 
+    /**
+     * Delete user by id
+     * @param id
+     */
     @Override
     public void deleteById(int id) {
 
@@ -108,6 +126,12 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
         }
     }
 
+    /**
+     * Get user detail from username
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -134,6 +158,13 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
         return userDetails;
     }
 
+    /**
+     * Get user list according to condition (search ,page number, entries number)
+     * @param searchWord
+     * @param pageNo
+     * @param entriesNo
+     * @return
+     */
     @Override
     public UserListPageResponseDto readByCondition(String searchWord, int pageNo, int entriesNo) {
         LOGGER.info("Start readByCondition with searchWord {}, pageNo {}, entriesNo {}", searchWord, pageNo, entriesNo);
@@ -149,18 +180,20 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
             responseDto.setEntriesNo(entriesNo);
             responseDto.setTotalPage(userPage.getTotalPages());
             responseDto.setTotalEntries(userPage.getTotalElements());
-            responseDto.setUserList(userPage.getContent().stream().map(userApp -> {
+            List<UserResponseDto> userList = userPage.getContent().stream().map(userApp -> {
                 UserResponseDto userDto = new UserResponseDto();
                 userDto.setEmail(userApp.getEmail());
                 userDto.setFullName(userApp.getFullName());
                 userDto.setPhone(userApp.getPhone());
                 userDto.setUsername(userApp.getUsername());
-                List<String> roles = userApp.getListUserRole().stream().map(userRole -> {
-                    return userRole.getRoleApp().getRoleName();
-                }).collect(Collectors.toList());
+                List<String> roles = userApp.getListUserRole().stream()
+                        .map(UserRole::getRoleApp)
+                        .map(RoleApp::getRoleName)
+                        .collect(Collectors.toList());
                 userDto.setRoles(roles);
                 return userDto;
-            }).collect(Collectors.toList()));
+            }).collect(Collectors.toList());
+            responseDto.setUserList(userList);
         } catch (Throwable t) {
             LOGGER.error("Has error when readByCondition", t);
             responseDto.setError(true);
@@ -171,6 +204,11 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
         }
     }
 
+    /**
+     * Create new user
+     * @param requestDto
+     * @param responseDto
+     */
     @Override
     public void createNewUser(UserCreateRequestDto requestDto, ResponseDto responseDto) {
         LOGGER.info("Start createNewUser with {}", requestDto);
@@ -203,6 +241,12 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
         }
     }
 
+    /**
+     * Read user by username
+     * @param username
+     * @param responseDto
+     * @return
+     */
     @Override
     public UserUpdateRequestDto readUserByUsername(String username, ResponseDto responseDto) {
         LOGGER.info("Start readUserByUsername with {}", username);
@@ -214,9 +258,10 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
                 userDto.setFullName(userApp.getFullName());
                 userDto.setPhone(userApp.getPhone());
                 userDto.setUsername(userApp.getUsername());
-                List<String> roles = userApp.getListUserRole().stream().map(userRole -> {
-                    return userRole.getRoleApp().getRoleName();
-                }).collect(Collectors.toList());
+                List<String> roles = userApp.getListUserRole().stream()
+                        .map(UserRole::getRoleApp)
+                        .map(RoleApp::getRoleName)
+                        .collect(Collectors.toList());
                 userDto.setRoles(roles);
             } else {
                 responseDto.setError(true);
@@ -231,6 +276,11 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
         return userDto;
     }
 
+    /**
+     * Update existed user
+     * @param requestDto
+     * @param responseDto
+     */
     @Override
     public void updateExistedUser(UserUpdateRequestDto requestDto, ResponseDto responseDto) {
         LOGGER.info("Start updateExistedUser with {}", requestDto);
@@ -249,10 +299,13 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
             entity.setUsername(requestDto.getUsername());
 
             // Get and set role by request
-            Set<String> existedRoles = entity.getListUserRole().stream().map(userRole -> {
-                return userRole.getRoleApp().getRoleName();
-            }).collect(Collectors.toSet());
-            List<String> requestRoles = requestDto.getRoles().stream().filter(role -> !existedRoles.contains(role)).collect(Collectors.toList());
+            Set<String> existedRoles = entity.getListUserRole().stream()
+                    .map(UserRole::getRoleApp)
+                    .map(RoleApp::getRoleName)
+                    .collect(Collectors.toSet());
+            List<String> requestRoles = requestDto.getRoles().stream()
+                    .filter(role -> !existedRoles.contains(role))
+                    .collect(Collectors.toList());
 
             List<RoleApp> roleAppEntities = roleAppDao.getAllByRoleNameIn(requestRoles);
             List<UserRole> userRoles = roleAppEntities.stream().map(roleApp -> {
@@ -273,6 +326,10 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
         }
     }
 
+    /**
+     * Delete user by username
+     * @param username
+     */
     @Override
     public void deleteUserByUsername(String username) {
         LOGGER.info("Start deleteUserByUsername with {}", username);

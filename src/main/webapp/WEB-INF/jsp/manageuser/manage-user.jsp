@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <%@page contentType="text/html" pageEncoding="UTF-8" %>
-    <title>Quản lý User</title>
+    <title>Manage User</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,20 +26,20 @@
         </div>
 
         <div class="col-sm-9">
-            <p class="h1 text-warning text-center">QUẢN LÝ USER</p>
+            <p class="h1 text-warning text-center">MANAGE USER</p>
             <div class="d-flex flex-row justify-content-between align-items-end">
-                <a href="${pageContext.request.contextPath}/create-user-page" class="btn btn-primary">Thêm mới</a>
+                <a href="${pageContext.request.contextPath}/create-user-page" class="btn btn-primary">Add new</a>
                 <form action="${pageContext.request.contextPath}/manage-user" method="get">
                     <div class="d-flex align-items-end">
                         <div>
-                            <input type="text" class="form-control" id="search" placeholder="Nhập từ khóa..."
+                            <input type="text" class="form-control" id="search" placeholder="Input keyword..."
                                    name="searchWord" value="${response.getSearchWord()}">
                             <input type="number" name="entriesNo" value="${response.getEntriesNo()}" hidden>
                             <input type="number" name="pageNo" value="${response.getCurrentPage()}" hidden>
                         </div>
 
                         <div>
-                            <button type="submit" class="btn btn-secondary">Tìm kiếm</button>
+                            <button type="submit" class="btn btn-secondary">Search</button>
                         </div>
                     </div>
                 </form>
@@ -77,13 +77,13 @@
 
             <table class="table table-bordered">
                 <tr class="text-center">
-                    <th>STT</th>
-                    <th>Họ và tên</th>
-                    <th>SĐT</th>
+                    <th>No.</th>
+                    <th>Fullname</th>
+                    <th>Phone</th>
                     <th>Email</th>
                     <th>Username</th>
                     <th>Role</th>
-                    <th colspan="2">Hành động</th>
+                    <th colspan="2">Action</th>
                 </tr>
                 <c:forEach items="${response.userList}" var="user" varStatus="theCount">
                     <tr>
@@ -98,17 +98,15 @@
                             </c:forEach>
                         </td>
                         <td class="align-middle">
-                            <a href="${pageContext.request.contextPath}/update-user-page?username=${user.username}">Cập
-                                nhật</a></td>
+                            <a href="${pageContext.request.contextPath}/update-user-page?username=${user.username}">Edit</a></td>
                         <td class="align-middle">
-                            <a href="${pageContext.request.contextPath}/delete-user?username=${user.username}"
-                               onclick="return confirm('Bạn có chắc muốn xóa user này ?')">Xóa</a>
+                            <a href="#" onclick="deleteUser(event, '${user.username}')">Delete</a>
                         </td>
                     </tr>
                 </c:forEach>
                 <c:if test="${response.userList == null || response.userList.size() == 0}">
                     <tr>
-                        <td class="text-center" colspan="8">Không có dữ liệu</td>
+                        <td class="text-center" colspan="8">No data available</td>
                     </tr>
                 </c:if>
             </table>
@@ -143,6 +141,21 @@
     </div>
 
 </div>
+
+<script>
+    function deleteUser(event, username) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Do you want to delete the user?',
+            showDenyButton: true,
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "${pageContext.request.contextPath}/delete-user?username=" + username;
+            }
+        })
+    }
+</script>
 </body>
 
 </html>

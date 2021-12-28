@@ -13,6 +13,5 @@
 		class="list-group-item list-group-item-action list-group-item-primary">QUẢN
 		LÝ QUÁ TRÌNH TUYỂN DỤNG</a>
 	<a href="${pageContext.request.contextPath}/manage-user"
-		class="list-group-item list-group-item-action list-group-item-warning">QUẢN
-		LÝ USER</a>
+		class="list-group-item list-group-item-action list-group-item-warning">MANAGE USER</a>
 </div>

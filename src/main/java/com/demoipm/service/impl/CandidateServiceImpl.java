@@ -10,14 +10,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.demoipm.Constant.PaginationInfo;
 import com.demoipm.dao.CandidateDao;
-import com.demoipm.dao.EntryTestDao;
 import com.demoipm.dao.InterviewDao;
-import com.demoipm.dao.SkillCandidateDao;
 import com.demoipm.dto.CandidateDto;
 import com.demoipm.dto.InterviewDto;
 import com.demoipm.entities.Candidate;
-import com.demoipm.entities.EntryTest;
 import com.demoipm.entities.Interview;
 import com.demoipm.service.CandidateService;
 
@@ -29,13 +27,7 @@ public class CandidateServiceImpl implements CandidateService {
 	private CandidateDao candidateDao;
 	
 	@Autowired
-	private EntryTestDao entryTestDao;
-	
-	@Autowired
 	private InterviewDao interviewDao;
-	
-	@Autowired
-	private SkillCandidateDao skillCandidateDao;
 	
 	@Override
 	public void create(CandidateDto candidateDto) {
@@ -93,18 +85,24 @@ public class CandidateServiceImpl implements CandidateService {
 	}
 
 	@Override
-	public List<CandidateDto> readCandidatePassEntryTest() {
+	public List<CandidateDto> filterCandidatePassEntryTest(Integer page) {
 
-		List<EntryTest> listEntryTest = entryTestDao.readPassEntryTest();
-		List<CandidateDto> listCandidateDto = new ArrayList<CandidateDto>();
-
-		for (EntryTest entryTest : listEntryTest) {
-			Candidate candidate = entryTest.getCandidate();
-			CandidateDto candidateDto = new CandidateDto(candidate);
-			listCandidateDto.add(candidateDto);
-		}
+		List<Candidate> listCandidate = candidateDao.filterCandidatePassEntryTest(page);
+		List<CandidateDto> listCandidateDto = convertToListDto(listCandidate);
 		
 		return listCandidateDto;
+	}
+
+	@Override
+	public Integer countPageCandidatePassEntryTest() {
+
+		return calculatorPage(candidateDao.countCandidatePassEntryTest());
+	}
+
+	private Integer calculatorPage(Integer totalRow) {
+
+		Integer totalPage = Math.round(totalRow/PaginationInfo.MAX_RESULT);
+		return totalPage;
 	}
 
 	@Override
@@ -116,9 +114,9 @@ public class CandidateServiceImpl implements CandidateService {
 	}
 
 	@Override
-	public List<CandidateDto> searchCandidate(String content) {
+	public List<CandidateDto> filterCandidateByContent(String content, Integer page) {
 		
-		List<Candidate> listCandidate = candidateDao.search(content);
+		List<Candidate> listCandidate = candidateDao.filterCandidateByContent(content, page);
 		List<CandidateDto> listCandidateDto = new ArrayList<CandidateDto>();
 		
 		for(Candidate candidate : listCandidate) {
@@ -129,7 +127,7 @@ public class CandidateServiceImpl implements CandidateService {
 	}
 
 	@Override
-	public List<CandidateDto> filterCandidateByAge(int minAge, int maxAge) {
+	public List<CandidateDto> filterCandidateByAge(int minAge, int maxAge, Integer page) {
 		
 		LocalDate currentDate = LocalDate.now();
 		int fromYearInt = currentDate.getYear() - maxAge;
@@ -138,26 +136,154 @@ public class CandidateServiceImpl implements CandidateService {
 		int toYearInt = currentDate.getYear() - minAge;
 		LocalDate toYear = LocalDate.of(toYearInt, 12, 31);
 		
-		List<EntryTest> listEntryTest = entryTestDao.readPassEntryTestfromYearToYearBirthDay(fromYear, toYear);
-		List<CandidateDto> listCandidateDto = new ArrayList<CandidateDto>();
-
-		for (EntryTest entryTest : listEntryTest) {
-			Candidate candidate = entryTest.getCandidate();
-			CandidateDto candidateDto = new CandidateDto(candidate);
-			listCandidateDto.add(candidateDto);
-		}
+		List<Candidate> listCandidate = candidateDao.filterCandidateByAge(fromYear, toYear, page);
+		List<CandidateDto> listCandidateDto = convertToListDto(listCandidate);
 		
 		return listCandidateDto;
 	}
 
 	@Override
-	public List<CandidateDto> filterCandidateBySkill(List<Integer> listId) {
+	public List<CandidateDto> filterCandidateBySkill(List<Integer> listId , Integer page) {
 		
-		List<Candidate> listCandidate = candidateDao.getCandidateBySkillAndPassEntryTest(listId);
+		List<Candidate> listCandidate = candidateDao.filterCandidateBySkillAndPassEntryTest(listId, page);
 		
 		List<CandidateDto> listCandidateDto = convertToListDto(listCandidate);
 		return listCandidateDto;
 	}
+
+	@Override
+	public List<CandidateDto> filterCandidateByAgeAndSkill(Integer minAge, Integer maxAge, 
+		List<Integer> listId, Integer page) {
+		
+		LocalDate currentDate = LocalDate.now();
+		int fromYearInt = currentDate.getYear() - maxAge;
+		LocalDate fromYear = LocalDate.of(fromYearInt, 1, 1);
+		
+		int toYearInt = currentDate.getYear() - minAge;
+		LocalDate toYear = LocalDate.of(toYearInt, 12, 31);
+		
+		List<Candidate> listCandidate = candidateDao.filterCandidateByAgeAndSkillAndPassEntryTest(fromYear, toYear, listId, page);
+		
+		List<CandidateDto> listCandidateDto = convertToListDto(listCandidate);
+		return listCandidateDto;
+	}
+
+	@Override
+	public List<CandidateDto> filterCandidateByContentAndSkill(String content, List<Integer> listId, 
+		Integer page) {
+		
+		List<Candidate> listCandidate = candidateDao.filterCandidateByContentAndSkillAndPassEntryTest(content, listId, page);
+		
+		List<CandidateDto> listCandidateDto = convertToListDto(listCandidate);
+		return listCandidateDto;
+	}
+
+	@Override
+	public List<CandidateDto> filterCandidateByContentAndAge(String content, Integer minAge, Integer maxAge, 
+		Integer page){
+
+		LocalDate currentDate = LocalDate.now();
+		int fromYearInt = currentDate.getYear() - maxAge;
+		LocalDate fromYear = LocalDate.of(fromYearInt, 1, 1);
+		
+		int toYearInt = currentDate.getYear() - minAge;
+		LocalDate toYear = LocalDate.of(toYearInt, 12, 31);
+
+		List<Candidate> listCandidate = candidateDao.filterCandidateByContentAndAgeAndPassEntryTest(content, fromYear, toYear, page);
+		
+		List<CandidateDto> listCandidateDto = convertToListDto(listCandidate);
+		return listCandidateDto;
+	}
+
+	@Override
+	public List<CandidateDto> filterCandidateByContentAndAgeAndSkill(String content, Integer minAge, Integer maxAge,
+			List<Integer> listId, Integer page) {
+
+		LocalDate currentDate = LocalDate.now();
+		int fromYearInt = currentDate.getYear() - maxAge;
+		LocalDate fromYear = LocalDate.of(fromYearInt, 1, 1);
+		
+		int toYearInt = currentDate.getYear() - minAge;
+		LocalDate toYear = LocalDate.of(toYearInt, 12, 31);
+
+		List<Candidate> listCandidate = candidateDao.filterCandidateByContentAndAgeAndSkillAndPassEntryTest(content, fromYear, 
+			toYear, listId, page);
+		
+		List<CandidateDto> listCandidateDto = convertToListDto(listCandidate);
+		return listCandidateDto;
+	}
+
+	@Override
+	public Integer countPageCandidateByContent(String content) {
+
+		return calculatorPage(candidateDao.countCandidateByContent(content));
+	}
+
+	@Override
+	public Integer countPageCandidateByAge(int minAge, int maxAge) {
+
+		LocalDate currentDate = LocalDate.now();
+		int fromYearInt = currentDate.getYear() - maxAge;
+		LocalDate fromYear = LocalDate.of(fromYearInt, 1, 1);
+		
+		int toYearInt = currentDate.getYear() - minAge;
+		LocalDate toYear = LocalDate.of(toYearInt, 12, 31);
+
+		return calculatorPage(candidateDao.countCandidateByAge(fromYear, toYear));
+	}
+
+	@Override
+	public Integer countPageCandidateBySkill(List<Integer> listId) {
+
+		return calculatorPage(candidateDao.countCandidateBySkillAndPassEntryTest(listId));
+	}
+
+	@Override
+	public Integer countPageCandidateByAgeAndSkill(Integer minAge, Integer maxAge, List<Integer> listId) {
+
+		LocalDate currentDate = LocalDate.now();
+		int fromYearInt = currentDate.getYear() - maxAge;
+		LocalDate fromYear = LocalDate.of(fromYearInt, 1, 1);
+		
+		int toYearInt = currentDate.getYear() - minAge;
+		LocalDate toYear = LocalDate.of(toYearInt, 12, 31);
+
+		return calculatorPage(candidateDao.countCandidateByAgeAndSkillAndPassEntryTest(fromYear, toYear, listId));
+	}
+
+	@Override
+	public Integer countPageCandidateByContentAndSkill(String content, List<Integer> listId) {
+
+		return calculatorPage(candidateDao.countCandidateByContentAndSkillAndPassEntryTest(content, listId));
+	}
+
+	@Override
+	public Integer countPageCandidateByContentAndAge(String content, Integer minAge, Integer maxAge) {
+
+		LocalDate currentDate = LocalDate.now();
+		int fromYearInt = currentDate.getYear() - maxAge;
+		LocalDate fromYear = LocalDate.of(fromYearInt, 1, 1);
+		
+		int toYearInt = currentDate.getYear() - minAge;
+		LocalDate toYear = LocalDate.of(toYearInt, 12, 31);
+
+		return calculatorPage(candidateDao.countCandidateByContentAndAgeAndPassEntryTest(content, fromYear, toYear));
+	}
+
+	@Override
+	public Integer countPageCandidateByContentAndAgeAndSkill(String content, Integer minAge, Integer maxAge,
+			List<Integer> listId) {
+
+		LocalDate currentDate = LocalDate.now();
+		int fromYearInt = currentDate.getYear() - maxAge;
+		LocalDate fromYear = LocalDate.of(fromYearInt, 1, 1);
+		
+		int toYearInt = currentDate.getYear() - minAge;
+		LocalDate toYear = LocalDate.of(toYearInt, 12, 31);
+
+		return calculatorPage(candidateDao.countCandidateByContentAndAgeAndSkillAndPassEntryTest(content, fromYear, toYear, listId));
+	}
+
 	
 	private List<CandidateDto> convertToListDto(List<Candidate> listCandidate) {
 		
@@ -181,79 +307,6 @@ public class CandidateServiceImpl implements CandidateService {
 		}
 		
 		return listInterviewDto;
-	}
-
-	@Override
-	public List<CandidateDto> readCandidatePassEntryTest(Integer page) {
-
-		List<Candidate> listCandidate = candidateDao.readCandidatePassEntryTest(page);
-		List<CandidateDto> listCandidateDto = convertToListDto(listCandidate);
-		return listCandidateDto;
-	}
-
-	@Override
-	public Integer countCandidatePassEntryTest() {
-
-		Integer totalRow = candidateDao.countCandidatePassEntryTest();
-		return totalRow;
-	}
-
-	@Override
-	public List<CandidateDto> filterCandidateByAgeAndSkill(Integer minAge, Integer maxAge, List<Integer> listId) {
-		
-		LocalDate currentDate = LocalDate.now();
-		int fromYearInt = currentDate.getYear() - maxAge;
-		LocalDate fromYear = LocalDate.of(fromYearInt, 1, 1);
-		
-		int toYearInt = currentDate.getYear() - minAge;
-		LocalDate toYear = LocalDate.of(toYearInt, 12, 31);
-		
-		List<Candidate> listCandidate = candidateDao.filterCandidateByAgeAndSkillAndPassEntryTest(fromYear, toYear, listId);
-		
-		List<CandidateDto> listCandidateDto = convertToListDto(listCandidate);
-		return listCandidateDto;
-	}
-
-	@Override
-	public List<CandidateDto> filterCandidateByContentAndSkill(String content, List<Integer> listId) {
-		
-		List<Candidate> listCandidate = candidateDao.filterCandidateByContentAndSkillAndPassEntryTest(content, listId);
-		
-		List<CandidateDto> listCandidateDto = convertToListDto(listCandidate);
-		return listCandidateDto;
-	}
-
-	@Override
-	public List<CandidateDto> filterCandidateByContentAndAge(String content, Integer minAge, Integer maxAge){
-
-		LocalDate currentDate = LocalDate.now();
-		int fromYearInt = currentDate.getYear() - maxAge;
-		LocalDate fromYear = LocalDate.of(fromYearInt, 1, 1);
-		
-		int toYearInt = currentDate.getYear() - minAge;
-		LocalDate toYear = LocalDate.of(toYearInt, 12, 31);
-
-		List<Candidate> listCandidate = candidateDao.filterCandidateByContentAndAgeAndPassEntryTest(content, fromYear, toYear);
-		
-		List<CandidateDto> listCandidateDto = convertToListDto(listCandidate);
-		return listCandidateDto;
-	}
-
-	@Override
-	public List<CandidateDto> filterCandidateByContentAndAgeAndSkill(String content, Integer minAge, Integer maxAge,
-			List<Integer> listId) {
-
-		LocalDate currentDate = LocalDate.now();
-		int fromYearInt = currentDate.getYear() - maxAge;
-		LocalDate fromYear = LocalDate.of(fromYearInt, 1, 1);
-		
-		int toYearInt = currentDate.getYear() - minAge;
-		LocalDate toYear = LocalDate.of(toYearInt, 12, 31);
-
-		List<Candidate> listCandidate = candidateDao.filterCandidateByContentAndAgeAndSkillAndPassEntryTest(content, fromYear, toYear, listId);
-		
-		List<CandidateDto> listCandidateDto = convertToListDto(listCandidate);
-		return listCandidateDto;
 	}
 
 	private Integer convertAgeToYearBorn(Integer age){

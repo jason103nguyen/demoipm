@@ -5,8 +5,8 @@
 <div class="container mt-3">
 	<ul class="pagination justify-content-center">
 		<c:forEach var="page" begin="1" end="${totalPage}">
-			<li class="page-item"><a class="page-link"
-				href="/view-all-candidate/${page-1}">${page}</a></li>
+			<button type=submit name="page" value="${page-1}" class="btn btn-success">${page}</button>
 		</c:forEach>
 	</ul>
+	<p></p>
 </div>

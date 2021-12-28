@@ -3,32 +3,50 @@ package com.demoipm.dao;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.data.repository.query.Param;
-
 import com.demoipm.entities.Candidate;
 import com.demoipm.entities.Interview;
 
 public interface CandidateDaoCustom {
 
-	List<Candidate> search(String content);
+	public List<Interview> findListInterviewByCandidateId(int id);
 	
-	List<Candidate> filterCandidateByAge(LocalDate fromYear, LocalDate toYear);
+	public List<Candidate> filterCandidateByContent(String content, Integer page);
 	
-	List<Candidate> getCandidateBySkillAndPassEntryTest(List<Integer> listId);
-
-	List<Candidate> readCandidatePassEntryTest(Integer page);
-
-	Integer countCandidatePassEntryTest();
+	public List<Candidate> filterCandidateByAge(LocalDate fromYear, LocalDate toYear, Integer page);
 	
-	List<Candidate> filterCandidateByAgeAndSkillAndPassEntryTest(LocalDate fromYear, LocalDate toYear, List<Integer> listId);
+	public List<Candidate> filterCandidateBySkillAndPassEntryTest(List<Integer> listId, Integer page);
+	
+	public List<Candidate> filterCandidateByAgeAndSkillAndPassEntryTest(
+			LocalDate fromYear, LocalDate toYear, List<Integer> listId, Integer page);
+	
+	public List<Candidate> filterCandidateByContentAndSkillAndPassEntryTest(String content, 
+		List<Integer> listId, Integer page);
+	
+	public List<Candidate> filterCandidateByContentAndAgeAndPassEntryTest(String content, 
+		LocalDate fromYear, LocalDate toYear, Integer page);
+	
+	public List<Candidate> filterCandidateByContentAndAgeAndSkillAndPassEntryTest(String content, LocalDate fromYear,
+		LocalDate toYear, List<Integer> listId, Integer page);
+	
+	public List<Candidate> filterCandidatePassEntryTest(Integer page);
 
-	List<Interview> findListInterviewByCandidateId(int id);
-
-	List<Candidate> filterCandidateByContentAndSkillAndPassEntryTest(String content, List<Integer> listId);
-
-	List<Candidate> filterCandidateByContentAndAgeAndPassEntryTest(String content, LocalDate fromYear, LocalDate toYear);
-
-	List<Candidate> filterCandidateByContentAndAgeAndSkillAndPassEntryTest(String content, LocalDate fromYear,
+	public Integer countCandidateByContent(String content);
+	
+	public Integer countCandidateByAge(LocalDate fromYear, LocalDate toYear);
+	
+	public Integer countCandidateBySkillAndPassEntryTest(List<Integer> listId);
+	
+	public Integer countCandidateByAgeAndSkillAndPassEntryTest(
+			LocalDate fromYear, LocalDate toYear, List<Integer> listId);
+	
+	public Integer countCandidateByContentAndSkillAndPassEntryTest(String content, List<Integer> listId);
+	
+	public Integer countCandidateByContentAndAgeAndPassEntryTest(String content, LocalDate fromYear, 
+		LocalDate toYear);
+	
+	public Integer countCandidateByContentAndAgeAndSkillAndPassEntryTest(String content, LocalDate fromYear,
 	LocalDate toYear, List<Integer> listId);
+	
+	public Integer countCandidatePassEntryTest();
 
 }

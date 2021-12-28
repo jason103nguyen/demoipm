@@ -25,7 +25,7 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 	private EntityManager entityManager;
 	
 	@Override
-	public List<Candidate> search(String content) {
+	public List<Candidate> filterCandidateByContent(String content, Integer page) {
 		
 		List<Candidate> listCandidate = entityManager.createQuery(
 				"SELECT c FROM Candidate c " +
@@ -34,27 +34,66 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 				"c.fullName LIKE '%' || :content || '%'", Candidate.class)
 				.setParameter("point", EntryTestInfo.POINT_PASS_ENTRY_TEST)
 				.setParameter("content", content)
+				.setMaxResults(PaginationInfo.MAX_RESULT)
+				.setFirstResult(page * PaginationInfo.MAX_RESULT)
 				.getResultList();
 				
 		return listCandidate;
 		
 	}
-
+	
 	@Override
-	public List<Candidate> filterCandidateByAge(LocalDate fromYear, LocalDate toYear) {
-
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Candidate> query = cb.createQuery(Candidate.class);
-		Root<Candidate> candidate = query.from(Candidate.class);
+	public Integer countCandidateByContent(String content) {
 		
-		Predicate betweenYearBirthDay = cb.between(candidate.get("birthDay"), fromYear, toYear);
-
-		query.select(candidate).where(betweenYearBirthDay);
-		return entityManager.createQuery(query).getResultList();
+		Long totalRow = entityManager.createQuery(
+				"SELECT COUNT(c) FROM Candidate c " +
+				"JOIN c.listEntryTest et " +
+				"WHERE et.point >= :point AND " +
+				"c.fullName LIKE '%' || :content || '%'", Long.class)
+				.setParameter("point", EntryTestInfo.POINT_PASS_ENTRY_TEST)
+				.setParameter("content", content)
+				.getSingleResult();
+				
+		return totalRow.intValue();
+		
 	}
 
 	@Override
-	public List<Candidate> getCandidateBySkillAndPassEntryTest(List<Integer> listId) {
+	public List<Candidate> filterCandidateByAge(LocalDate fromYear, LocalDate toYear, Integer page) {
+
+		List<Candidate> listCandidate = entityManager.createQuery(
+				"SELECT c FROM Candidate c " 
+				+ " JOIN c.listEntryTest et " 
+				+ " WHERE et.point >= :point " 
+				+ " AND c.birthDay BETWEEN :fromYear AND :toYear", Candidate.class)
+				.setParameter("point", EntryTestInfo.POINT_PASS_ENTRY_TEST)
+				.setParameter("fromYear", fromYear)
+				.setParameter("toYear", toYear)
+				.setMaxResults(PaginationInfo.MAX_RESULT)
+				.setFirstResult(page * PaginationInfo.MAX_RESULT)
+				.getResultList();
+				
+		return listCandidate;
+	}
+
+	@Override
+	public Integer countCandidateByAge(LocalDate fromYear, LocalDate toYear) {
+
+		Long totalRow = entityManager.createQuery(
+				"SELECT COUNT(c) FROM Candidate c " 
+				+ " JOIN c.listEntryTest et " 
+				+ " WHERE et.point >= :point " 
+				+ " AND c.birthDay BETWEEN :fromYear AND :toYear", Long.class)
+				.setParameter("point", EntryTestInfo.POINT_PASS_ENTRY_TEST)
+				.setParameter("fromYear", fromYear)
+				.setParameter("toYear", toYear)
+				.getSingleResult();
+				
+		return totalRow.intValue();
+	}
+
+	@Override
+	public List<Candidate> filterCandidateBySkillAndPassEntryTest(List<Integer> listId, Integer page) {
 		
 		List<Candidate> listCandidate = entityManager.createQuery(
 			"SELECT DISTINCT c FROM Candidate c"
@@ -64,19 +103,6 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 			+ " AND sc.skill.id IN (?2)", Candidate.class)
 		.setParameter(1, EntryTestInfo.POINT_PASS_ENTRY_TEST)
 		.setParameter(2, listId)
-		.getResultList();
-		
-		return listCandidate;
-	}
-
-	@Override
-	public List<Candidate> readCandidatePassEntryTest(Integer page) {
-
-		List<Candidate> listCandidate = entityManager.createQuery(
-			"SELECT c FROM Candidate c "
-			+ " JOIN c.listEntryTest et " 
-			+ " WHERE et.point >= ?1", Candidate.class)
-		.setParameter(1, EntryTestInfo.POINT_PASS_ENTRY_TEST)
 		.setMaxResults(PaginationInfo.MAX_RESULT)
 		.setFirstResult(page * PaginationInfo.MAX_RESULT)
 		.getResultList();
@@ -85,21 +111,24 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 	}
 
 	@Override
-	public Integer countCandidatePassEntryTest() {
-
+	public Integer countCandidateBySkillAndPassEntryTest(List<Integer> listId) {
+		
 		Long totalRow = entityManager.createQuery(
-			"SELECT COUNT(c.id) FROM Candidate c "
-			+ "JOIN c.listEntryTest et " 
-			+ " WHERE et.point >= ?1", Long.class)
-			.setParameter(1, EntryTestInfo.POINT_PASS_ENTRY_TEST)
-			.getSingleResult();
-
+			"SELECT COUNT(DISTINCT c) FROM Candidate c"
+			+ " JOIN c.listEntryTest et " 
+			+ " JOIN c.listSkillCandidate sc " 
+			+ " WHERE et.point >= ?1 " 
+			+ " AND sc.skill.id IN (?2)", Long.class)
+		.setParameter(1, EntryTestInfo.POINT_PASS_ENTRY_TEST)
+		.setParameter(2, listId)
+		.getSingleResult();
+		
 		return totalRow.intValue();
 	}
 
 	@Override
 	public List<Candidate> filterCandidateByAgeAndSkillAndPassEntryTest(
-			LocalDate fromYear, LocalDate toYear, List<Integer> listId) {
+			LocalDate fromYear, LocalDate toYear, List<Integer> listId, Integer page) {
 		
 		List<Candidate> listCandidate = entityManager.createQuery(
 				"SELECT DISTINCT c FROM Candidate c " 
@@ -112,9 +141,31 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 				.setParameter(2, listId)
 				.setParameter(3, fromYear)
 				.setParameter(4, toYear)
+				.setMaxResults(PaginationInfo.MAX_RESULT)
+				.setFirstResult(page * PaginationInfo.MAX_RESULT)
 				.getResultList();
 				
 		return listCandidate;
+	}
+
+	@Override
+	public Integer countCandidateByAgeAndSkillAndPassEntryTest(
+			LocalDate fromYear, LocalDate toYear, List<Integer> listId) {
+		
+		Long totalRow = entityManager.createQuery(
+				"SELECT COUNT(DISTINCT c) FROM Candidate c " 
+				+ " JOIN c.listEntryTest et " 
+				+ " JOIN c.listSkillCandidate sc "
+				+ " WHERE et.point >= ?1 " 
+				+ " AND sc.skill.id IN (?2) " 
+				+ " AND c.birthDay BETWEEN ?3 AND ?4", Long.class)
+				.setParameter(1, EntryTestInfo.POINT_PASS_ENTRY_TEST)
+				.setParameter(2, listId)
+				.setParameter(3, fromYear)
+				.setParameter(4, toYear)
+				.getSingleResult();
+				
+		return totalRow.intValue();
 	}
 
 	@Override
@@ -131,7 +182,8 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 	}
 
 	@Override
-	public List<Candidate> filterCandidateByContentAndSkillAndPassEntryTest(String content, List<Integer> listId) {
+	public List<Candidate> filterCandidateByContentAndSkillAndPassEntryTest(String content, List<Integer> listId,
+		Integer page) {
 		
 		List<Candidate> listCandidate = entityManager.createQuery(
 				"SELECT DISTINCT c FROM Candidate c "
@@ -143,13 +195,34 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 				.setParameter(1, EntryTestInfo.POINT_PASS_ENTRY_TEST)
 				.setParameter(2, listId)
 				.setParameter("content", content)
+				.setMaxResults(PaginationInfo.MAX_RESULT)
+				.setFirstResult(page * PaginationInfo.MAX_RESULT)
 				.getResultList();
 				
 		return listCandidate;
 	}
 
 	@Override
-	public List<Candidate> filterCandidateByContentAndAgeAndPassEntryTest(String content, LocalDate fromYear, LocalDate toYear) {
+	public Integer countCandidateByContentAndSkillAndPassEntryTest(String content, List<Integer> listId) {
+		
+		Long totalRow = entityManager.createQuery(
+				"SELECT COUNT (DISTINCT c) FROM Candidate c "
+				+ " JOIN c.listEntryTest et " 
+				+ " JOIN c.listSkillCandidate sc "
+				+ " WHERE et.point >= ?1 " 
+				+ " AND sc.skill.id IN (?2) " 
+				+ " AND c.fullName LIKE '%' || :content || '%'", Long.class)
+				.setParameter(1, EntryTestInfo.POINT_PASS_ENTRY_TEST)
+				.setParameter(2, listId)
+				.setParameter("content", content)
+				.getSingleResult();
+				
+		return totalRow.intValue();
+	}
+
+	@Override
+	public List<Candidate> filterCandidateByContentAndAgeAndPassEntryTest(String content, LocalDate fromYear, 
+		LocalDate toYear, Integer page) {
 
 		List<Candidate> listCandidate = entityManager.createQuery(
 				"SELECT c FROM Candidate c "
@@ -161,14 +234,34 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 				.setParameter("fromYear", fromYear)
 				.setParameter("toYear", toYear)
 				.setParameter("content", content)
+				.setMaxResults(PaginationInfo.MAX_RESULT)
+				.setFirstResult(page * PaginationInfo.MAX_RESULT)
 				.getResultList();
 				
 		return listCandidate;
 	}
 
 	@Override
+	public Integer countCandidateByContentAndAgeAndPassEntryTest(String content, LocalDate fromYear, LocalDate toYear) {
+
+		Long listCandidate = entityManager.createQuery(
+				"SELECT COUNT (DISTINCT c) FROM Candidate c "
+				+ " JOIN c.listEntryTest et "
+				+ " WHERE et.point >= :point AND "
+				+ " c.birthDay BETWEEN :fromYear AND :toYear AND "
+				+ " c.fullName LIKE '%' || :content || '%'", Long.class)
+				.setParameter("point", EntryTestInfo.POINT_PASS_ENTRY_TEST)
+				.setParameter("fromYear", fromYear)
+				.setParameter("toYear", toYear)
+				.setParameter("content", content)
+				.getSingleResult();
+				
+		return listCandidate.intValue();
+	}
+
+	@Override
 	public List<Candidate> filterCandidateByContentAndAgeAndSkillAndPassEntryTest(String content, LocalDate fromYear,
-	LocalDate toYear, List<Integer> listId) {
+	LocalDate toYear, List<Integer> listId, Integer page) {
 
 		List<Candidate> listCandidate = entityManager.createQuery(
 				"SELECT DISTINCT c FROM Candidate c "
@@ -182,9 +275,62 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 				.setParameter("fromYear", fromYear)
 				.setParameter("toYear", toYear)
 				.setParameter("listId", listId)
+				.setMaxResults(PaginationInfo.MAX_RESULT)
+				.setFirstResult(page * PaginationInfo.MAX_RESULT)
 				.getResultList();
 				
 		return listCandidate;
+	}
+
+	@Override
+	public Integer countCandidateByContentAndAgeAndSkillAndPassEntryTest(String content, LocalDate fromYear,
+	LocalDate toYear, List<Integer> listId) {
+
+		Long totalRow = entityManager.createQuery(
+				"SELECT COUNT(DISTINCT c) FROM Candidate c "
+				+ " JOIN c.listEntryTest et JOIN c.listSkillCandidate sc "
+				+ " WHERE "
+				+ " et.point >= :point AND "
+				+ " c.birthDay BETWEEN :fromYear AND :toYear AND "
+				+ " c.fullName LIKE '%' || :content || '%' AND "
+				+ " sc.Skill.id IN (:listId)", Long.class)
+				.setParameter("point", EntryTestInfo.POINT_PASS_ENTRY_TEST)
+				.setParameter("fromYear", fromYear)
+				.setParameter("toYear", toYear)
+				.setParameter("listId", listId)
+				.getSingleResult();
+				
+		return totalRow.intValue();
+	}
+
+	@Override
+	public List<Candidate> filterCandidatePassEntryTest(Integer page) {
+
+		List<Candidate> listCandidate = entityManager.createQuery(
+				"SELECT DISTINCT c FROM Candidate c "
+				+ " JOIN c.listEntryTest et "
+				+ " WHERE "
+				+ " et.point >= :point", Candidate.class)
+				.setParameter("point", EntryTestInfo.POINT_PASS_ENTRY_TEST)
+				.setMaxResults(PaginationInfo.MAX_RESULT)
+				.setFirstResult(page * PaginationInfo.MAX_RESULT)
+				.getResultList();
+				
+		return listCandidate;
+	}
+
+	@Override
+	public Integer countCandidatePassEntryTest() {
+
+		Long totalRow = entityManager.createQuery(
+				"SELECT COUNT(DISTINCT c) FROM Candidate c "
+				+ " JOIN c.listEntryTest et "
+				+ " WHERE "
+				+ " et.point >= :point", Long.class)
+				.setParameter("point", EntryTestInfo.POINT_PASS_ENTRY_TEST)
+				.getSingleResult();
+				
+		return totalRow.intValue();
 	}
 
 }

@@ -96,23 +96,11 @@
         var nameInterview = $("#nameInterview").val();
         if(!location == '' || !timeInterview == '' || !date == '' || !nameInterview == '') {
             swal({
-                /*title: "Field Empty!",
-                text: "Please check the missing field!",
-                icon: "warning",
-                button: "Ok",*/
                 title: "Setup Successfully!",
                 icon: "success",
                 button: "Ok",
             });
-        }/* else {
-            swal({
-                title: "Setup Successfully!",
-                icon: "success",
-                button: "Ok",
-            }).then(function () {
-                window.location ="/setup_success.jsp";
-            });
-        }*/
+        }
     });
 </script>
 

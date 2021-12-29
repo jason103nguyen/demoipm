@@ -18,7 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body>
+<body class="bg-light">
 <div class="container p-5 my-5 border">
     <div class="row">
         <div class="col-sm-3">
@@ -75,7 +75,7 @@
                 </nav>
             </c:if>
 
-            <table class="table table-bordered">
+            <table class="table table-bordered table-striped">
                 <tr class="text-center">
                     <th>No.</th>
                     <th>Fullname</th>

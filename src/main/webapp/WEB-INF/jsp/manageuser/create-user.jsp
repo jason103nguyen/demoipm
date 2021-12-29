@@ -18,7 +18,7 @@
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body>
+<body class="bg-light">
 <div class="container p-5 my-5 border">
     <div class="row">
         <div class="col-sm-3">

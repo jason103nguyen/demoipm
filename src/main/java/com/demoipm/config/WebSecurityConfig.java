@@ -32,9 +32,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsServiceImpl;
 
-	@Autowired
-	private DataSource dataSource;
-
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -57,6 +54,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 
+		// Set cookie for 15 days when choose remember me
+		http.rememberMe().key("uniqueAndSecret").tokenValiditySeconds(1296000);
+
 		http.authorizeRequests().and().formLogin()
 				.loginProcessingUrl("/j_spring_security_check")
 				.loginPage("/login")
@@ -66,17 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.passwordParameter("password")
 				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
 
-		http.authorizeRequests().and()
-				.rememberMe().tokenRepository(this.persistentTokenRepository())
-				.tokenValiditySeconds(1 * 24 * 60 * 60);
-
-	}
-
-	@Bean
-	public PersistentTokenRepository persistentTokenRepository() {
-		JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
-		db.setDataSource(dataSource);
-		return db;
 	}
 
 	@Bean

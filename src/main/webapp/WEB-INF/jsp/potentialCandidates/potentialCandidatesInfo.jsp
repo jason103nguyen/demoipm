@@ -17,7 +17,7 @@
 	
 	<div><h1 class="Title">Info Potential Candidates</h1></div>
 </div>
-<a href="#"><button style="margin-left: 100px; margin: 30px;" >Back</button> </a>
+<a href="view-potential-candidates-list"><button style="margin-left: 100px; margin: 30px;" >Back</button> </a>
 
 <div class="InfoCandidate">
 

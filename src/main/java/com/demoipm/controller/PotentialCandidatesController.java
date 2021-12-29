@@ -1,16 +1,15 @@
 package com.demoipm.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demoipm.dto.CandidateDto;
-import com.demoipm.entities.Candidate;
-import com.demoipm.service.CandidateService;
 import com.demoipm.service.PotentialCandidateService;
 
 @Controller
@@ -19,9 +18,9 @@ public class PotentialCandidatesController {
 	@Autowired
 	private PotentialCandidateService potentialCandidateService;
 
-	@GetMapping("view-potential-candidates-info/{id}")
+	@GetMapping("view-potential-candidates-info")
 	@Secured(value = "ROLE_HR")
-	public String viewPotentialCandidatesInfo(@PathVariable("id") int id, Model model) throws Exception {
+	public String viewPotentialCandidatesInfo(@RequestParam("id") int id, Model model) throws Exception {
 		
 		CandidateDto candidateDto = potentialCandidateService.getPotentialCandidateByID(id);
 		
@@ -29,6 +28,17 @@ public class PotentialCandidatesController {
 		
 		return "potentialCandidates/potentialCandidatesInfo";
 		
+	}
+	
+	@GetMapping("view-potential-candidates-list")
+	@Secured(value = "ROLE_HR")
+	public String viewPotentialCandidatesList(Model model) {
+		
+		List<CandidateDto> listCandidateDto = potentialCandidateService.getAllPotentialCandidate();
+		
+		model.addAttribute("listCandidateDto", listCandidateDto);
+		
+		return "potentialCandidates/potentialCandidatesList";
 	}
 
 }

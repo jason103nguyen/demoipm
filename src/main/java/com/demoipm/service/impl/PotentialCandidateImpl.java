@@ -13,6 +13,9 @@ import com.demoipm.entities.Candidate;
 import com.demoipm.service.PotentialCandidateService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Transactional
 public class PotentialCandidateImpl implements PotentialCandidateService{
@@ -24,7 +27,7 @@ public class PotentialCandidateImpl implements PotentialCandidateService{
 	
 	/**
 	 * Create Potential Candidate
-	 * 
+	 * (
 	 * @param candidateDto
 	 */
 	@Override
@@ -48,5 +51,30 @@ public class PotentialCandidateImpl implements PotentialCandidateService{
 			candidateDto = new CandidateDto(candidate.get());
 		}
 		return candidateDto;
+	}
+	
+	/**
+	 * Get all PotentialCandidate
+	 * 
+	 * 
+	 * @return List All PotentialCandidate
+	 */
+	
+	@Override
+	public List<CandidateDto> getAllPotentialCandidate(){
+		
+		List<CandidateDto> listCandidateDto = new ArrayList<>();
+		
+		try {	
+			List<Candidate> listCandidate = potentialCandidateDao.findAll();
+			
+			for(Candidate candidate : listCandidate) {
+				CandidateDto candidateDto = new CandidateDto(candidate);
+				listCandidateDto.add(candidateDto);
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listCandidateDto;
 	}
 }

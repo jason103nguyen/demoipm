@@ -64,7 +64,6 @@ public class PotentialCandidateImpl implements PotentialCandidateService{
 	public List<CandidateDto> getAllPotentialCandidate(){
 		
 		List<CandidateDto> listCandidateDto = new ArrayList<>();
-		
 		try {	
 			List<Candidate> listCandidate = potentialCandidateDao.findAll();
 			

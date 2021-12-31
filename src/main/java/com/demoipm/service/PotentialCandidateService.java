@@ -25,7 +25,7 @@ public interface PotentialCandidateService {
 	 * Get all PotentialCandidate
 	 * 
 	 * 
-	 * @return List All PotentialCandidate
+	 * @return List All PotentialCandidates
 	 */
 	List<CandidateDto> getAllPotentialCandidate();
 

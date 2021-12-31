@@ -30,8 +30,8 @@ public class PotentialCandidatesController {
 		
 	}
 	
-	@GetMapping("view-potential-candidates-list")
 	@Secured(value = "ROLE_HR")
+	@GetMapping("view-potential-candidates-list")
 	public String viewPotentialCandidatesList(Model model) {
 		
 		List<CandidateDto> listCandidateDto = potentialCandidateService.getAllPotentialCandidate();

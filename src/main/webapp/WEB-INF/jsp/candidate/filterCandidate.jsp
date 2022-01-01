@@ -3,13 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<div class="container">
+<div class="container border border-secondary rounded" style="background-color: #008B8B">
 	<div class="row">
 		<div class="col">
 			<div class="d-flex">
-				<div class="p-2"><label for="minAge" class="form-label">Tuổi từ</label></div>
+				<div class="p-2"><label for="minAge" class="form-label">From Age</label></div>
 				<div class="p-2"><input type="text" class="form-control" name="minAge" id="minAge"></div>
-				<div class="p-2"><label for="maxAge" class="form-label">Đến </label></div>
+				<div class="p-2"><label for="maxAge" class="form-label">To </label></div>
 				<div class="p-2"><input type="text" class="form-control" name="maxAge" id="maxAge"></div>
 			</div>
 		</div>

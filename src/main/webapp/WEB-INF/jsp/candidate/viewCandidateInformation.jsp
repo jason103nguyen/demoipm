@@ -18,11 +18,19 @@
 
 <body>
 	<form action="/view-all-candidate" method="get">
-	<div class="container p-5 my-5 border">
-
-		<jsp:include page="title.jsp" />
+	<div class="container p-3 my-3 border rounded" style="background-color:#F5F5DC;">
 		
-		<jsp:include page="search.jsp" />
+		<div class="row">
+		
+		  <div class="col-sm-8">
+		  	<jsp:include page="title.jsp" />
+		  	<jsp:include page="search.jsp" />
+		  </div>
+		  
+		  <div class="col-sm-4">
+		  	<img src="../img/logoFptNoBackground.png" alt="logo fpt" width="80%">
+		  </div>
+		</div>
 
 		<jsp:include page="tableCandidate.jsp" />
 

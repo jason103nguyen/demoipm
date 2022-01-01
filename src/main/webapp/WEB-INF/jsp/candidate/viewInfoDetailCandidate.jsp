@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<div class="container p-5 my-5 border">
+	<div class="container p-3 my-3 border rounded" style="background-color:#F5F5DC;">
 		<jsp:include page="fragTitleInfoDetailCandidate.jsp" />
 		<jsp:include page="fragTableInfoDetailCandidate.jsp" />
 		

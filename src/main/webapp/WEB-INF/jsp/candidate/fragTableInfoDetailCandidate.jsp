@@ -4,11 +4,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <div>
 
-	<table class="table table-striped">
+	<table class="table table-dark table-striped text-white">
 
 		<tbody>
 			<tr>
-				<th>Họ và tên</th>
+				<th>Full Name</th>
 				<td>${candidate.fullName}</td>
 			</tr>
 			

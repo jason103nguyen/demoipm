@@ -4,16 +4,16 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <div>
 
-	<table class="table table-striped">
+	<table class="table table-dark table-striped text-white rounded">
 		<thead>
 			<tr>
 				<th>STT</th>
-				<th>Họ Và Tên</th>
-				<th>Vòng</th>
-				<th>Ngày giờ phỏng vấn</th>
-				<th>Phỏng vấn</th>
-				<th>Thông tin</th>
-				<th>Trạng thái</th>
+				<th>Full Name</th>
+				<th>Round</th>
+				<th>Time Interview</th>
+				<th>Interview</th>
+				<th>Information</th>
+				<th>Status</th>
 			</tr>
 		</thead>
 
@@ -27,7 +27,7 @@
 					<td><%=count%></td>
 					<td>${candidate.fullName}</td>
 					<td>
-						<table class="table">
+						<table class="table text-white">
 							<tbody>
 								<c:forEach items="${candidate.listInterview}" var="interview">
 									<tr>
@@ -39,7 +39,7 @@
 					</td>
 
 					<td>
-						<table class="table">
+						<table class="table text-white">
 							<tbody>
 								<c:forEach items="${candidate.listInterview}" var="interview">
 									<tr>
@@ -51,13 +51,13 @@
 					</td>
 
 					<td>
-						<table class="table">
+						<table class="table text-white">
 							<tbody>
 								<c:forEach items="${candidate.listInterview}" var="interview">
 									<tr>
 										<td class="pb-0"><form:form action="#" method="get">
 												<button type="submit" name="" value=""
-													class="btn btn-warning btn-sm">Chọn</button>
+													class="btn btn-warning btn-sm">Choose</button>
 											</form:form></td>
 									</tr>
 								</c:forEach>
@@ -67,8 +67,7 @@
 
 					<td><form:form
 							action="/view-candidate-information/${candidate.id}" method="get">
-							<button type="submit" class="btn btn-warning m-1">Chi
-								tiết</button>
+							<button type="submit" class="btn btn-warning m-1">Detail</button>
 						</form:form></td>
 
 					<td>${candidate.status}</td>

@@ -76,4 +76,30 @@ public class PotentialCandidateImpl implements PotentialCandidateService{
 		}
 		return listCandidateDto;
 	}
+	
+	/**
+	 * Search Potential Candidate By Key Search
+	 * 
+	 * 
+	 * @param keySearch
+	 * @return List Potential Candidate
+	 */
+	
+	@Override
+	public List<CandidateDto> searchPotentialCandidate(String keySearch){
+		
+		List<CandidateDto> listCandidateDto = new ArrayList<CandidateDto>();
+		
+		try {
+			List<Candidate> listCandidate = potentialCandidateDao.ListSearchPotentialCandidate(keySearch);
+			for(Candidate candidate : listCandidate) {
+				CandidateDto candidateDto = new CandidateDto(candidate);
+				listCandidateDto.add(candidateDto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return listCandidateDto;	
+	}
 }

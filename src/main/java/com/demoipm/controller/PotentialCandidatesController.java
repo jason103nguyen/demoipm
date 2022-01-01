@@ -2,7 +2,9 @@ package com.demoipm.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,14 +33,19 @@ public class PotentialCandidatesController {
 	}
 	
 	@Secured(value = "ROLE_HR")
-	@GetMapping("view-potential-candidates-list")
-	public String viewPotentialCandidatesList(Model model) {
-		
-		List<CandidateDto> listCandidateDto = potentialCandidateService.getAllPotentialCandidate();
-		
-		model.addAttribute("listCandidateDto", listCandidateDto);
-		
+	@GetMapping( "view-potential-candidates-list")
+	public String viewPotentialCandidatesList(Model model, @Param("keySearch") String keySearch) {
+
+		if(keySearch == null) {
+			List<CandidateDto> listCandidateDto = potentialCandidateService.getAllPotentialCandidate();
+			model.addAttribute("listCandidateDto", listCandidateDto);
+			
+		} else {
+			List<CandidateDto> listSearchCandidateDto = potentialCandidateService.searchPotentialCandidate(keySearch);
+			model.addAttribute("listCandidateDto", listSearchCandidateDto);
+		}
 		return "potentialCandidates/potentialCandidatesList";
 	}
-
+	
+	
 }

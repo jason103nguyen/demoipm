@@ -29,4 +29,13 @@ public interface PotentialCandidateService {
 	 */
 	List<CandidateDto> getAllPotentialCandidate();
 
+	/**
+	 * Search Potential Candidate By Key Search
+	 * 
+	 * 
+	 * @param keySearch
+	 * @return List Potential Candidate
+	 */
+	List<CandidateDto> searchPotentialCandidate(String keySearch);
+
 }

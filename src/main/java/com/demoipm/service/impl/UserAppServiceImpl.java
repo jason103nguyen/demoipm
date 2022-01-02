@@ -15,6 +15,7 @@ import com.demoipm.entities.UserApp;
 import com.demoipm.entities.UserRole;
 import com.demoipm.service.UserAppService;
 import com.demoipm.utils.EncrytedPasswordUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,7 +173,12 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
         try {
             // Get data from database with pagination and search word
             Pageable pageable = PageRequest.of(pageNo - 1, entriesNo, Sort.Direction.ASC, "username");
-            Page<UserApp> userPage = userAppDao.findListByCondition("%" + searchWord + "%", pageable);
+            Page<UserApp> userPage = null;
+            if (StringUtils.isBlank(searchWord)) {
+                userPage = userAppDao.findAll(pageable);
+            } else {
+                userPage = userAppDao.fullTextSearchByCondition(searchWord, pageable);
+            }
 
             // Prepare response dto
             responseDto.setSearchWord(searchWord);

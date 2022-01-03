@@ -4,39 +4,48 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <div>
 
-	<table class="table table-dark table-striped text-white">
+	<div class="row">
+		<div class="col-sm-6">
+			<table class="table table-striped">
 
-		<tbody>
-			<tr>
-				<th>Full Name</th>
-				<td>${candidate.fullName}</td>
-			</tr>
-			
-			<tr>
-				<th>Email</th>
-				<td>${candidate.email}</td>
-			</tr>
-			
-			<tr>
-				<th>Phone</th>
-				<td>${candidate.phone}</td>
-			</tr>
-			
-			<tr>
-				<th>Experience</th>
-				<td>${candidate.experienceYear}</td>
-			</tr>
-			
-			<tr>
-				<th>Skill</th>
-				<td>${candidate.skill}</td>
-			</tr>
-			
-			<tr>
-				<th>Activity</th>
-				<td>${candidate.activity}</td>
-			</tr>
-		</tbody>
+				<tbody>
+					<tr>
+						<th>Full Name</th>
+						<td>${candidate.fullName}</td>
+					</tr>
 
-	</table>
+					<tr>
+						<th>Email</th>
+						<td>${candidate.email}</td>
+					</tr>
+
+					<tr>
+						<th>Phone</th>
+						<td>${candidate.phone}</td>
+					</tr>
+
+					<tr>
+						<th>Experience</th>
+						<td>${candidate.experienceYear}</td>
+					</tr>
+
+					<tr>
+						<th>Skill</th>
+						<td>${candidate.skill}</td>
+					</tr>
+
+					<tr>
+						<th>Activity</th>
+						<td>${candidate.activity}</td>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+
+		<div class="col-sm-6 border rounded">
+			
+		</div>
+	</div>
+
 </div>

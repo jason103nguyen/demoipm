@@ -48,5 +48,7 @@ public interface CandidateDaoCustom {
 	LocalDate toYear, List<Integer> listId);
 	
 	public Integer countCandidatePassEntryTest();
+	
+	public List<Candidate> filterCandidateByAge(Integer fromYear, Integer toYear, Integer page);
 
 }

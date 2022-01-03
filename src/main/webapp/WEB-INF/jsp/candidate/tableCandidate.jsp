@@ -4,13 +4,14 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <div>
 
-	<table class="table table-dark table-striped text-white rounded">
+	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>STT</th>
+				<th>No</th>
 				<th>Full Name</th>
 				<th>Round</th>
 				<th>Time Interview</th>
+				<th>Interviewer</th>
 				<th>Interview</th>
 				<th>Information</th>
 				<th>Status</th>
@@ -27,7 +28,7 @@
 					<td><%=count%></td>
 					<td>${candidate.fullName}</td>
 					<td>
-						<table class="table text-white">
+						<table class="table">
 							<tbody>
 								<c:forEach items="${candidate.listInterview}" var="interview">
 									<tr>
@@ -39,7 +40,7 @@
 					</td>
 
 					<td>
-						<table class="table text-white">
+						<table class="table">
 							<tbody>
 								<c:forEach items="${candidate.listInterview}" var="interview">
 									<tr>
@@ -51,14 +52,27 @@
 					</td>
 
 					<td>
-						<table class="table text-white">
+						<table class="table">
 							<tbody>
 								<c:forEach items="${candidate.listInterview}" var="interview">
 									<tr>
-										<td class="pb-0"><form:form action="#" method="get">
-												<button type="submit" name="" value=""
-													class="btn btn-warning btn-sm">Choose</button>
-											</form:form></td>
+										<td>${interview.nameInterviewer}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</td>
+
+					<td>
+						<table class="table">
+							<tbody>
+								<c:forEach items="${candidate.listInterview}" var="interview">
+									<tr>
+										<td class="pb-0">
+										<form action="/report-interview/${interview.id}" method="get">
+												<button type="submit" class="btn btn-warning btn-sm">Choose</button>
+										</form>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>

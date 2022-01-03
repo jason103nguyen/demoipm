@@ -75,6 +75,24 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 				
 		return listCandidate;
 	}
+	
+	@Override
+	public List<Candidate> filterCandidateByAge(Integer fromYear, Integer toYear, Integer page) {
+
+		List<Candidate> listCandidate = entityManager.createQuery(
+				"SELECT c FROM Candidate c " 
+				+ " JOIN c.listEntryTest et " 
+				+ " WHERE et.point >= :point " 
+				+ " AND YEAR(c.birthDay) BETWEEN :fromYear AND :toYear", Candidate.class)
+				.setParameter("point", EntryTestInfo.POINT_PASS_ENTRY_TEST)
+				.setParameter("fromYear", fromYear)
+				.setParameter("toYear", toYear)
+				.setMaxResults(PaginationInfo.MAX_RESULT)
+				.setFirstResult(page * PaginationInfo.MAX_RESULT)
+				.getResultList();
+				
+		return listCandidate;
+	}
 
 	@Override
 	public Integer countCandidateByAge(LocalDate fromYear, LocalDate toYear) {

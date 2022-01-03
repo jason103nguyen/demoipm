@@ -15,4 +15,6 @@ public interface RoleAppDao extends CrudRepository<RoleApp, Integer>{
 	public List<String> getRoleNames(int userId);
 
 	public List<RoleApp> getAllByRoleNameIn(List<String> roleNames);
+
+	List<RoleApp> findAll();
 }

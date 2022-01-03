@@ -35,7 +35,6 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -303,26 +302,14 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
             entity.setEmail(requestDto.getEmail());
             entity.setPhone(requestDto.getPhone());
             entity.setUsername(requestDto.getUsername());
-
-            // Get and set role by request
-            Set<String> existedRoles = entity.getListUserRole().stream()
-                    .map(UserRole::getRoleApp)
-                    .map(RoleApp::getRoleName)
-                    .collect(Collectors.toSet());
-            List<String> requestRoles = requestDto.getRoles().stream()
-                    .filter(role -> !existedRoles.contains(role))
-                    .collect(Collectors.toList());
-
-            List<RoleApp> roleAppEntities = roleAppDao.getAllByRoleNameIn(requestRoles);
-            List<UserRole> userRoles = roleAppEntities.stream().map(roleApp -> {
-                UserRole userRole = new UserRole();
-                userRole.setUserApp(entity);
-                userRole.setRoleApp(roleApp);
-                return userRole;
-            }).collect(Collectors.toList());
-
             userAppDao.save(entity);
-            userRoleDao.saveAll(userRoles);
+
+            List<RoleApp> allRoles = roleAppDao.findAll();
+            List<UserRole> userRolesToAdd = getListUserRolesToAdd(requestDto, entity, allRoles);
+            List<UserRole> userRolesToRemove = getListUserRolesToRemove(requestDto, entity, allRoles);
+            userRoleDao.saveAll(userRolesToAdd);
+            userRoleDao.deleteAll(userRolesToRemove);
+
         } catch (Throwable t) {
             LOGGER.error("Has error when updateExistedUser", t);
             responseDto.setError(true);
@@ -349,5 +336,59 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
             LOGGER.error("Has error deleteUserByUsername", t);
         }
         LOGGER.info("End deleteUserByUsername with {}", username);
+    }
+
+    /**
+     * Get list user role to remove
+     * @param requestDto
+     * @param entity
+     * @param allRoles
+     * @return
+     */
+    private List<UserRole> getListUserRolesToRemove(UserUpdateRequestDto requestDto, UserApp entity, List<RoleApp> allRoles) {
+        List<String> existedRoles = entity.getListUserRole().stream()
+                .map(UserRole::getRoleApp)
+                .map(RoleApp::getRoleName)
+                .collect(Collectors.toList());
+        List<String> requestRoles = requestDto.getRoles();
+
+        List<String> rolesToRemove = allRoles.stream()
+                .filter(roleApp ->
+                        !requestRoles.contains(roleApp.getRoleName()) && existedRoles.contains(roleApp.getRoleName()))
+                .map(RoleApp::getRoleName)
+                .collect(Collectors.toList());
+
+        List<UserRole> userRoles = entity.getListUserRole().stream()
+                .filter(userRoleDao -> rolesToRemove.contains(userRoleDao.getRoleApp().getRoleName()))
+                .collect(Collectors.toList());
+
+        return userRoles;
+    }
+
+    /**
+     * Get list user role to add
+     * @param requestDto
+     * @param entity
+     * @param allRoles
+     * @return
+     */
+    private List<UserRole> getListUserRolesToAdd(UserUpdateRequestDto requestDto, UserApp entity, List<RoleApp> allRoles) {
+        List<String> existedRoles = entity.getListUserRole().stream()
+                .map(UserRole::getRoleApp)
+                .map(RoleApp::getRoleName)
+                .collect(Collectors.toList());
+        List<String> requestRoles = requestDto.getRoles();
+
+        List<UserRole> userRoles = allRoles.stream()
+                .filter(roleApp ->
+                        requestRoles.contains(roleApp.getRoleName()) && !existedRoles.contains(roleApp.getRoleName()))
+                .map(roleApp -> {
+                    UserRole userRole = new UserRole();
+                    userRole.setUserApp(entity);
+                    userRole.setRoleApp(roleApp);
+                    return userRole;
+                }).collect(Collectors.toList());
+
+        return userRoles;
     }
 }

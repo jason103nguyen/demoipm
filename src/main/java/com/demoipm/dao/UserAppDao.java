@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface UserAppDao extends JpaRepository<UserApp, Integer>, UserAppCustomDao {
 
-    @Query("SELECT u FROM UserApp u WHERE u.username LIKE :username")
+    @Query("SELECT u FROM UserApp u WHERE u.username LIKE :username AND u.isDelete = false")
     UserApp findUsername(@Param(value = "username") String username);
 
 }

@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.SortableField;
@@ -20,8 +22,10 @@ import com.demoipm.dto.UserAppDto;
 
 @Entity
 @Table(name = "user_app")
+@SQLDelete(sql = "UPDATE user_app SET is_delete = true WHERE user_id = ?")
+@Where(clause = "is_delete = false")
 @Indexed
-public class UserApp {
+public class UserApp extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

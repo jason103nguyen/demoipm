@@ -19,7 +19,7 @@ public class BaseEntity {
 	private Date updatedDate;
 
 	@Column(name = "is_delete")
-	private boolean isDelete;
+	private Boolean isDelete;
 
 	public Date getCreatedDate() {
 		return createdDate;
@@ -37,11 +37,11 @@ public class BaseEntity {
 		this.updatedDate = updatedDate;
 	}
 
-	public boolean getIsDelete() {
+	public Boolean getIsDelete() {
 		return isDelete;
 	}
 
-	public void setIsDelete(boolean isDelete) {
+	public void setIsDelete(Boolean isDelete) {
 		this.isDelete = isDelete;
 	}
 	

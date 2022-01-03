@@ -38,4 +38,19 @@ public interface PotentialCandidateService {
 	 */
 	List<CandidateDto> searchPotentialCandidate(String keySearch);
 
+	/**
+	 * Delete Potential Candidate Info DB
+	 * 
+	 * @param id
+	 */
+	void deletePotentialCandidate(int id);
+
+	/**
+	 * Update PotentialCandidate Info To DB
+	 * 
+	 * 
+	 * @param candidateDto
+	 */
+	void updatePotentialCandidate(CandidateDto candidateDto);
+
 }

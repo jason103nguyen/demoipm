@@ -14,6 +14,7 @@ import com.demoipm.service.PotentialCandidateService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,18 +23,22 @@ public class PotentialCandidateImpl implements PotentialCandidateService{
 
 	@Autowired
 	private PotentialCandidateDao potentialCandidateDao;
-	
-	private ObjectMapper mapper;
-	
+		
 	/**
 	 * Create Potential Candidate
-	 * (
+	 * 
 	 * @param candidateDto
 	 */
 	@Override
 	public void createPotentialCandidate(CandidateDto candidateDto) {
-		Candidate candidate = mapper.convertValue(candidateDto, Candidate.class);
-		potentialCandidateDao.save(candidate);
+		
+		try {
+			Candidate candidate = new Candidate(candidateDto);
+			candidate.setCreatedDate(new Date());
+			potentialCandidateDao.save(candidate);	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
 	}
 	
 	/**
@@ -46,7 +51,7 @@ public class PotentialCandidateImpl implements PotentialCandidateService{
 	public CandidateDto getPotentialCandidateByID(int id) {
 		
 		CandidateDto candidateDto = null;
-		Optional<Candidate> candidate = potentialCandidateDao.findById(id);
+		Optional<Candidate> candidate = potentialCandidateDao.findByPotentialCandidateIdAndIsDelete(id, false);
 		if(candidate.isPresent()) {
 			candidateDto = new CandidateDto(candidate.get());
 		}
@@ -65,7 +70,7 @@ public class PotentialCandidateImpl implements PotentialCandidateService{
 		
 		List<CandidateDto> listCandidateDto = new ArrayList<>();
 		try {	
-			List<Candidate> listCandidate = potentialCandidateDao.findAll();
+			List<Candidate> listCandidate = potentialCandidateDao.findPotentialCandidateIsDelete(false);
 			
 			for(Candidate candidate : listCandidate) {
 				CandidateDto candidateDto = new CandidateDto(candidate);
@@ -102,4 +107,45 @@ public class PotentialCandidateImpl implements PotentialCandidateService{
 
 		return listCandidateDto;	
 	}
+	
+	/**
+	 * Update PotentialCandidate Info To DB
+	 * 
+	 * 
+	 * @param candidateDto
+	 */
+	
+	@Override
+	public void updatePotentialCandidate(CandidateDto candidateDto) {
+		try {
+			if(potentialCandidateDao.existsByPotentialCandidateIdAndIsDelete(candidateDto.getId(), false) == true) {			
+				Candidate candidate = new Candidate(candidateDto);		
+				candidate.setUpdatedDate(new Date());
+				potentialCandidateDao.save(candidate);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Delete Potential Candidate Info DB
+	 * 
+	 * @param id
+	 */
+	@Override
+	public void deletePotentialCandidate(int id) {
+		
+		try {
+			Optional<Candidate> candidate = potentialCandidateDao.findByPotentialCandidateIdAndIsDelete(id, false);
+			if(candidate.isPresent()) {
+				candidate.get().setIsDelete(true);
+				potentialCandidateDao.save(candidate.get());
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 }

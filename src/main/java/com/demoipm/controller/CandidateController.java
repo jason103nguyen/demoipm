@@ -8,7 +8,9 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demoipm.dto.CandidateDto;
@@ -17,6 +19,7 @@ import com.demoipm.dto.SkillDto;
 import com.demoipm.service.CandidateService;
 import com.demoipm.service.InterviewService;
 import com.demoipm.service.SkillService;
+import com.demoipm.service.impl.InterviewServiceImpl;
 
 @Controller
 public class CandidateController {
@@ -119,7 +122,6 @@ public class CandidateController {
 		return "candidate/viewInfoDetailCandidate";
 	}
 	
-
 	@GetMapping(value = "/report-interview/{idInterview}")
 	@Secured(value = {"ROLE_INTERVIEWER"})
 	public String reportInterviewByIdInterview(@PathVariable(name = "idInterview") int idInterview, Model model) {
@@ -133,6 +135,28 @@ public class CandidateController {
 		
 		model.addAttribute("interview", interviewDto);
 		return "candidate/reportInterview";
+	}
+	
+	@PostMapping(value = "/report-interview")
+	@Secured(value = {"ROLE_INTERVIEWER"})
+	public String updateReportInterview(@ModelAttribute(name = "interview") InterviewDto interviewResponse, Model model) {
+		
+		int idInterview = interviewResponse.getId();
+		InterviewDto interviewDto = null;
+		try {
+			interviewDto = interviewServiceImpl.readById(idInterview);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		interviewDto.setNameInterviewer(interviewResponse.getNameInterviewer());
+		interviewDto.setResult(interviewResponse.getResult());
+		interviewDto.setNote(interviewResponse.getNote());
+		
+		interviewServiceImpl.update(interviewDto);
+		
+		return "redirect:/view-all-candidate";
 	}
 	
 	private void showAllSkill(Model model) {

@@ -11,7 +11,7 @@
 		class="list-group-item list-group-item-action list-group-item-warning">QUẢN
 		LÝ KĨ NĂNG</a> <a href="#"
 		class="list-group-item list-group-item-action list-group-item-primary">QUẢN
-		LÝ QUÁ TRÌNH TUYỂN DỤNG</a> <a href="#"
-		class="list-group-item list-group-item-action list-group-item-warning">QUẢN
-		LÝ USER</a>
+		LÝ QUÁ TRÌNH TUYỂN DỤNG</a>
+	<a href="${pageContext.request.contextPath}/manage-user"
+		class="list-group-item list-group-item-action list-group-item-warning">MANAGE USER</a>
 </div>

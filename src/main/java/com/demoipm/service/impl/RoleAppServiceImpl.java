@@ -33,7 +33,7 @@ public class RoleAppServiceImpl implements RoleAppService {
 
 		Optional<RoleApp> roleApp = roleAppDao.findById(id);
 		RoleAppDto roleAppDto = null;
-		if (roleApp.isEmpty()) {
+		if (!roleApp.isPresent()) {
 			throw new Exception("The id doesn't exists");
 		} else {
 			roleAppDto = new RoleAppDto(roleApp.get());

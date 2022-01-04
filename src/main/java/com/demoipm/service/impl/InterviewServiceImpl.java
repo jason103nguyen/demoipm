@@ -33,7 +33,7 @@ public class InterviewServiceImpl implements InterviewService {
 
 		Optional<Interview> interview = interviewDao.findById(id);
 		InterviewDto interviewDto = null;
-		if (interview.isEmpty()) {
+		if (!interview.isPresent()) {
 			throw new Exception("The id doesn't exists");
 		} else {
 			interviewDto = new InterviewDto(interview.get());

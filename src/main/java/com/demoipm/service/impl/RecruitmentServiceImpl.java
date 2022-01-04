@@ -36,7 +36,7 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 
 		Optional<Recruitment> recruitment = recruitmentDao.findById(id);
 		RecruitmentDto recruitmentDto = null;
-		if (recruitment.isEmpty()) {
+		if (!recruitment.isPresent()) {
 			throw new Exception("The id doesn't exists");
 		} else {
 			recruitmentDto = new RecruitmentDto(recruitment.get());
@@ -69,7 +69,7 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 
 		Optional<Recruitment> recruitment = recruitmentDao.findById(id);
 		List<SkillDto> listSkill = null;
-		if (recruitment.isEmpty()) {
+		if (!recruitment.isPresent()) {
 			throw new Exception("The id doesn't exists");
 		} else {
 			List<RecruitmentSkill> listRecruitmentSkill = recruitment.get().getListRecruitmentSkill();

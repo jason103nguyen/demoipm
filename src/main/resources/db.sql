@@ -9,14 +9,14 @@ INSERT INTO role_app (role_name)
 VALUES ('ROLE_HR');
 
 -- USER_APP --
-INSERT INTO user_app (email, full_name, phone, username, password) 
-VALUES ('a103nguyen@gmail.com' ,'Nguyen Van A', '0123456789', 'a103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK');
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('a103nguyen@gmail.com' ,'Nguyen Van A', '0123456789', 'a103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK', false);
 
-INSERT INTO user_app (email, full_name, phone, username, password) 
-VALUES ('b103nguyen@gmail.com' ,'Nguyen Van B', '0123456789', 'b103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK');
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('b103nguyen@gmail.com' ,'Nguyen Van B', '0123456789', 'b103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK', false);
 
-INSERT INTO user_app (email, full_name, phone, username, password) 
-VALUES ('c103nguyen@gmail.com' ,'Nguyen Van C', '0123456789', 'c103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK');
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('c103nguyen@gmail.com' ,'Nguyen Van C', '0123456789', 'c103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK', false);
 
 -- USER_ROLE --
 INSERT INTO user_role (user_id, role_id) 
@@ -69,14 +69,14 @@ INSERT INTO job_skill (job_id, skill_id)
 VALUES (3, 3);
 
 -- RECRUITMENT --
-INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id) 
-VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 1, 1);
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 1, 1, false);
 
-INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id) 
-VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 2, 2);
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 2, 2, false);
 
-INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id) 
-VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 3, 3);
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 3, 3, false);
 
 -- RECRUITMENT_SKILL --
 INSERT INTO recruitment_skill (recruitment_id, skill_id) 

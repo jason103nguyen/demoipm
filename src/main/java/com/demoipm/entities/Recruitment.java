@@ -18,7 +18,7 @@ import com.demoipm.dto.RecruitmentDto;
 
 @Entity
 @Table(name = "recruitment")
-public class Recruitment {
+public class Recruitment extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

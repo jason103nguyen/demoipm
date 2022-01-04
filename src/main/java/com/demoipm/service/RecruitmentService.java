@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.demoipm.dto.RecruitmentDto;
 import com.demoipm.dto.SkillDto;
+import com.demoipm.dto.recruitmentmanage.RecruitmentListPageResponseDto;
 
 public interface RecruitmentService {
 
@@ -18,4 +19,12 @@ public interface RecruitmentService {
 	void deleteById(int id);
 	
 	public List<SkillDto> readAllSkillByRecruitment(int id) throws Exception;
+
+	/**
+	 * Read recruitment list by page number and entries number
+	 * @param pageNo
+	 * @param entriesNo
+	 * @return
+	 */
+    RecruitmentListPageResponseDto readByCondition(Integer pageNo, Integer entriesNo);
 }

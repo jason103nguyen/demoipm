@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 
 
-<title>List Potential Candidates</title>
+<title>Information Potential Candidates</title>
 </head>
 <body>
 
@@ -33,19 +33,41 @@
 		</div>
     
         <div class=" image d-flex flex-column justify-content-center align-items-center"> 
-
-		        <span class="name mt-3"><i class="fas fa-user-circle"></i> ${candidateDto.fullName}</span> 
-		        
-		        <span class="name mt-3"><i class="fas fa-envelope-open-text"></i> ${candidateDto.email}</span>
-		        
-		        <span class="name mt-3"><i class="fas fa-phone-square"></i> ${candidateDto.phone}</span>
-		        
-		        <span class="name mt-3"><i class="fas fa-chart-line"></i>  1 Year</span>
-		        
-		        <span class="name mt-3"> <i class="fas fa-edit"></i> Java</span>
-		        
-		        <span class="name mt-3"><i class="fas fa-wrench"></i> 2</span>    
-            
+        
+        <table>
+        
+        	<tr>
+        		<td><i class="fas fa-user-circle"></i></td>
+        		<td> <span class="name mt-3"> ${candidateDto.fullName}</span> </td>	
+        	</tr>
+        	
+        	
+        	<tr>
+        		<td><i class="fas fa-envelope-open-text"></i></td>
+        		<td> <span class="name mt-3"> ${candidateDto.email}</span> </td>	
+        	</tr>
+        	
+        	<tr>
+        		<td><i class="fas fa-phone-square"></i></td>
+        		<td><span class="name mt-3"> ${candidateDto.phone}</span></td>	
+        	</tr>
+        	
+        	<tr>
+        		<td><i class="fas fa-chart-line"></i></td>
+        		<td> <span class="name mt-3">  1 Year</span></td>	
+        	</tr>
+        	
+        	<tr>
+        		<td><i class="fas fa-edit"></i></td>
+        		<td> <span class="name mt-3">  Java</span></td>	
+        	</tr>
+        	
+        	<tr>
+        		<td><i class="fas fa-wrench"></i></td>
+        		<td> <span class="name mt-3"> 2</span>  </td>	
+        	</tr>
+        
+        </table>  
             <div class=" d-flex mt-2"><a href="view-potential-candidates-list"><button class="btn1 btn-dark">Back</button></a></div>
         </div>
     </div>

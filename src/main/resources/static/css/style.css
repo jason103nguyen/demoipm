@@ -46,9 +46,18 @@ body {
 .mt-3 {
     font-size: 22px;
     font-weight: bold;
-    color: #6600FF
+    color: #6600FF;
+   
 }
 
+td {
+	 text-align: center;
+	 padding: 10px;
+}
 
+tr:hover{
+    background-color:#FFFF66;
+    cursor:pointer;
+}
 
 

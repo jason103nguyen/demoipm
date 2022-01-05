@@ -25,7 +25,7 @@
 					</tr>
 
 					<tr>
-						<th>Experience</th>
+						<th>Experience (year)</th>
 						<td>${candidate.experienceYear}</td>
 					</tr>
 
@@ -43,8 +43,22 @@
 			</table>
 		</div>
 
-		<div class="col-sm-6 border rounded">
-			
+		<div class="col-sm-6">
+			<div class="row">
+				<c:forEach items="${candidate.listInterview}" var="interview">
+
+					<div class="col">
+						<div>
+							<b>Round:</b> ${interview.round} <br /> <b>Result:</b> ${interview.result} <br />
+							<b>Note:</b>
+							<div class="container border rounded" style="width: 100%; height: 200px;">
+								${interview.note}
+							</div>
+						</div>
+					</div>
+
+				</c:forEach>
+			</div>
 		</div>
 	</div>
 

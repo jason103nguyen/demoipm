@@ -115,9 +115,9 @@ public class CandidateController {
 			e.printStackTrace();
 		}
 		
-		showAllSkill(model);
-		Integer totalPage = candidateServiceImpl.countPageCandidatePassEntryTest();
-		model.addAttribute("totalPage", totalPage);
+		List<InterviewDto> listInterviewDto = candidateServiceImpl.getListInterviewByCandidateId(candidateDto.getId());
+		candidateDto.setListInterview(listInterviewDto);
+		
 		model.addAttribute("candidate", candidateDto);
 		return "candidate/viewInfoDetailCandidate";
 	}

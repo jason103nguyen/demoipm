@@ -8,7 +8,7 @@
     <title>Manage Recruitment</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
             rel="stylesheet">
@@ -76,7 +76,7 @@
                         <td class="align-middle">${recruit.job}</td>
                         <td class="align-middle">${recruit.career}</td>
                         <td class="align-middle">${recruit.quantity}</td>
-                        <td class="align-middle"><a href="#">Detail</a></td>
+                        <td class="align-middle"><a href="#" data-bs-toggle="modal" data-bs-target="#recruitment-detail" onclick="showDetail(event, '${recruit.id}')">Detail</a></td>
                         <td class="align-middle">
                             <a href="${pageContext.request.contextPath}/update-recruitment-page?id=${recruit.id}">Edit</a></td>
                         <td class="align-middle">
@@ -121,7 +121,55 @@
     </div>
 
 </div>
-
+<div id="recruitment-detail" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Recruitment detail</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Career</th>
+                        <td id="recruitment-detail-career"></td>
+                    </tr>
+                    <tr>
+                        <th>Job</th>
+                        <td id="recruitment-detail-job"></td>
+                    </tr>
+                    <tr>
+                        <th>Quantity</th>
+                        <td id="recruitment-detail-quantity"></td>
+                    </tr>
+                    <tr>
+                        <th>Min Salary</th>
+                        <td id="recruitment-detail-min"></td>
+                    </tr>
+                    <tr>
+                        <th>Max Salary</th>
+                        <td id="recruitment-detail-max"></td>
+                    </tr>
+                    <tr>
+                        <th>Start Date</th>
+                        <td id="recruitment-detail-start"></td>
+                    </tr>
+                    <tr>
+                        <th>End Date</th>
+                        <td id="recruitment-detail-end"></td>
+                    </tr>
+                    <tr>
+                        <th>Skills</th>
+                        <td id="recruitment-detail-skills"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     function deleteUser(event, id) {
         event.preventDefault();
@@ -134,6 +182,31 @@
                 window.location.href = "${pageContext.request.contextPath}/delete-recruiment?id=" + id;
             }
         })
+    }
+
+    function showDetail(event, id) {
+        event.preventDefault();
+        console.log($("#recruitment-detail-id").text(id));
+        $.ajax({
+            url: "${pageContext.request.contextPath}/api/get-recruitment-detail?id=" + id,
+            data: {
+                format: 'json'
+            },
+            error: function() {
+                $('#info').html('<p>An error has occurred</p>');
+            },
+            success: function(data) {
+                $("#recruitment-detail-career").text(data.career);
+                $("#recruitment-detail-job").text(data.job);
+                $("#recruitment-detail-quantity").text(data.quantity);
+                $("#recruitment-detail-min").text(data.minSalary);
+                $("#recruitment-detail-max").text(data.maxSalary);
+                $("#recruitment-detail-start").text(data.startDate);
+                $("#recruitment-detail-end").text(data.endDate);
+                $("#recruitment-detail-skills").text(data.skills);
+            },
+            type: 'GET'
+        });
     }
 </script>
 </body>

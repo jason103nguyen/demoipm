@@ -1,5 +1,6 @@
 package com.demoipm.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import com.demoipm.consts.MessageConst;
+import com.demoipm.dto.recruitmentmanage.RecruitmentDetailDTO;
 import com.demoipm.dto.recruitmentmanage.RecruitmentListPageResponseDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentResponseDto;
 import org.slf4j.Logger;
@@ -142,6 +144,39 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 			LOGGER.info("End readByCondition with pageNo {}, entriesNo {}", pageNo, entriesNo);
 			return responseDto;
 		}
+	}
+
+	@Override
+	public RecruitmentDetailDTO getRecruimentDetailById(Integer id) {
+		LOGGER.info("Start getRecruimentDetailById with id {}", id);
+		RecruitmentDetailDTO responseDTO = new RecruitmentDetailDTO();
+		try {
+			Recruitment recruitment = recruitmentDao.getById(id);
+			if (recruitment != null) {
+				responseDTO.setCareer(recruitment.getCareer().getName());
+				responseDTO.setJob(recruitment.getJob().getName());
+				responseDTO.setQuantity(recruitment.getNumber());
+				responseDTO.setMinSalary(recruitment.getMinSalary());
+				responseDTO.setMaxSalary(recruitment.getMaxSalary());
+				responseDTO.setStartDate(recruitment.getStartRecruitment());
+				responseDTO.setEndDate(recruitment.getEndRecruitment());
+				List<String> skills = recruitment.getListRecruitmentSkill()
+						.stream()
+						.map(RecruitmentSkill::getSkill)
+						.map(Skill::getName)
+						.collect(Collectors.toList());
+				responseDTO.setSkills(skills);
+			} else {
+				LOGGER.error("Recruitment id not existed");
+				responseDTO.setError(true);
+				responseDTO.setMessage(MessageConst.RESOURCE_NOT_FOUND);
+			}
+		} catch (Throwable t) {
+			LOGGER.error("Has error when getRecruimentDetailById", t);
+			responseDTO.setError(true);
+			responseDTO.setMessage(MessageConst.INTERNAL_SERVER_ERROR);
+		}
+		return responseDTO;
 	}
 
 }

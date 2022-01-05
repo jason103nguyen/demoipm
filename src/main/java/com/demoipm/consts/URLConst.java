@@ -17,4 +17,5 @@ public class URLConst {
      * URL constant for recruitment management
      */
     public static final String MANAGE_RECRUITMENT_URL = "/manage-recruitment";
+    public static final String API_GET_RECRUITMENT_DETAIL_URL = "api/get-recruitment-detail";
 }

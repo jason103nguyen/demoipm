@@ -91,12 +91,12 @@ public class PotentialCandidateImpl implements PotentialCandidateService{
 	 */
 	
 	@Override
-	public List<CandidateDto> searchPotentialCandidate(String keySearch){
+	public List<CandidateDto> searchPotentialCandidateIsDelete(String keySearch){
 		
 		List<CandidateDto> listCandidateDto = new ArrayList<CandidateDto>();
 		
 		try {
-			List<Candidate> listCandidate = potentialCandidateDao.ListSearchPotentialCandidate(keySearch);
+			List<Candidate> listCandidate = potentialCandidateDao.ListSearchPotentialCandidateIsDelete(keySearch, false);
 			for(Candidate candidate : listCandidate) {
 				CandidateDto candidateDto = new CandidateDto(candidate);
 				listCandidateDto.add(candidateDto);

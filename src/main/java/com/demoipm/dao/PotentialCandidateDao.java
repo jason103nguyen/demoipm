@@ -11,8 +11,8 @@ import com.demoipm.entities.Candidate;
 
 public interface PotentialCandidateDao extends JpaRepository<Candidate, Integer>{
 	
-	@Query("SELECT pc FROM Candidate pc WHERE CONCAT (pc.fullName, pc.email, pc.phone, pc.status) LIKE %:keySearch%")
-	public List<Candidate> ListSearchPotentialCandidate(@Param("keySearch") String keySearch);
+	@Query("SELECT pc FROM Candidate pc WHERE CONCAT (pc.fullName, pc.email, pc.phone, pc.status) LIKE %:keySearch% AND pc.isDelete = :isDelete")
+	public List<Candidate> ListSearchPotentialCandidateIsDelete(@Param("keySearch") String keySearch, Boolean isDelete);
 	
 	@Query("SELECT c FROM Candidate c WHERE c.isDelete = :isDelete")
 	public List<Candidate> findPotentialCandidateIsDelete(Boolean isDelete);

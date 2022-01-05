@@ -36,7 +36,7 @@ public interface PotentialCandidateService {
 	 * @param keySearch
 	 * @return List Potential Candidate
 	 */
-	List<CandidateDto> searchPotentialCandidate(String keySearch);
+	List<CandidateDto> searchPotentialCandidateIsDelete(String keySearch);
 
 	/**
 	 * Delete Potential Candidate Info DB

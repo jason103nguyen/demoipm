@@ -39,9 +39,8 @@ public class PotentialCandidatesController {
 		if(keySearch == null) {
 			List<CandidateDto> listCandidateDto = potentialCandidateService.getAllPotentialCandidate();
 			model.addAttribute("listCandidateDto", listCandidateDto);
-			
 		} else {
-			List<CandidateDto> listSearchCandidateDto = potentialCandidateService.searchPotentialCandidate(keySearch);
+			List<CandidateDto> listSearchCandidateDto = potentialCandidateService.searchPotentialCandidateIsDelete(keySearch);
 			model.addAttribute("listCandidateDto", listSearchCandidateDto);
 		}
 		return "potentialCandidates/potentialCandidatesList";

@@ -1,6 +1,7 @@
 package com.demoipm.dto.recruitmentmanage;
 
 import com.demoipm.dto.general.ResponseDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -22,8 +23,10 @@ public class RecruitmentDetailDTO extends ResponseDto implements Serializable {
 
     private double maxSalary;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy")
     private Date startDate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy")
     private Date endDate;
 
     private List<String> skills;

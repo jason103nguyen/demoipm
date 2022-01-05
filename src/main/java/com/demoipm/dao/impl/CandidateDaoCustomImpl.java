@@ -24,6 +24,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
+	/**
+	 * Filter candidate by content
+	 */
 	@Override
 	public List<Candidate> filterCandidateByContent(String content, Integer page) {
 		
@@ -42,6 +45,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		
 	}
 	
+	/**
+	 * Count candidate filter by content
+	 */
 	@Override
 	public Integer countCandidateByContent(String content) {
 		
@@ -58,6 +64,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		
 	}
 
+	/**
+	 * Filter candidate by age
+	 */
 	@Override
 	public List<Candidate> filterCandidateByAge(LocalDate fromYear, LocalDate toYear, Integer page) {
 
@@ -76,6 +85,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		return listCandidate;
 	}
 	
+	/**
+	 * Filter candidate by age
+	 */
 	@Override
 	public List<Candidate> filterCandidateByAge(Integer fromYear, Integer toYear, Integer page) {
 
@@ -94,6 +106,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		return listCandidate;
 	}
 
+	/**
+	 * Count candidate by age
+	 */
 	@Override
 	public Integer countCandidateByAge(LocalDate fromYear, LocalDate toYear) {
 
@@ -110,6 +125,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		return totalRow.intValue();
 	}
 
+	/**
+	 * Filter candidate by skill and pass entry test
+	 */
 	@Override
 	public List<Candidate> filterCandidateBySkillAndPassEntryTest(List<Integer> listId, Integer page) {
 		
@@ -128,6 +146,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		return listCandidate;
 	}
 
+	/**
+	 * Count candidate by skill and pass entry test
+	 */
 	@Override
 	public Integer countCandidateBySkillAndPassEntryTest(List<Integer> listId) {
 		
@@ -144,6 +165,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		return totalRow.intValue();
 	}
 
+	/**
+	 * Filter candidate by age, skill, and pass entry test
+	 */
 	@Override
 	public List<Candidate> filterCandidateByAgeAndSkillAndPassEntryTest(
 			LocalDate fromYear, LocalDate toYear, List<Integer> listId, Integer page) {
@@ -166,6 +190,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		return listCandidate;
 	}
 
+	/**
+	 * Count candidate by age, skill and pass entry test
+	 */
 	@Override
 	public Integer countCandidateByAgeAndSkillAndPassEntryTest(
 			LocalDate fromYear, LocalDate toYear, List<Integer> listId) {
@@ -186,6 +213,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		return totalRow.intValue();
 	}
 
+	/**
+	 * Get list interview by candidate id
+	 */
 	@Override
 	public List<Interview> findListInterviewByCandidateId(int id) {
 
@@ -199,6 +229,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		return listInterview;
 	}
 
+	/**
+	 * Filter candidate by content, skill, and pass entry test
+	 */
 	@Override
 	public List<Candidate> filterCandidateByContentAndSkillAndPassEntryTest(String content, List<Integer> listId,
 		Integer page) {
@@ -220,6 +253,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		return listCandidate;
 	}
 
+	/**
+	 * Count candidate by content, skill and pass entry test
+	 */
 	@Override
 	public Integer countCandidateByContentAndSkillAndPassEntryTest(String content, List<Integer> listId) {
 		
@@ -238,6 +274,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		return totalRow.intValue();
 	}
 
+	/**
+	 * Filter candidate by content, age and pass entry test
+	 */
 	@Override
 	public List<Candidate> filterCandidateByContentAndAgeAndPassEntryTest(String content, LocalDate fromYear, 
 		LocalDate toYear, Integer page) {
@@ -259,6 +298,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		return listCandidate;
 	}
 
+	/**
+	 * Count candidate by content, age, and pass entry test
+	 */
 	@Override
 	public Integer countCandidateByContentAndAgeAndPassEntryTest(String content, LocalDate fromYear, LocalDate toYear) {
 
@@ -277,6 +319,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		return listCandidate.intValue();
 	}
 
+	/**
+	 * Filter candidate by content, age, skill and pass entry test
+	 */
 	@Override
 	public List<Candidate> filterCandidateByContentAndAgeAndSkillAndPassEntryTest(String content, LocalDate fromYear,
 	LocalDate toYear, List<Integer> listId, Integer page) {
@@ -300,6 +345,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		return listCandidate;
 	}
 
+	/**
+	 * Count candidate by content, age, skill and pass entry test
+	 */
 	@Override
 	public Integer countCandidateByContentAndAgeAndSkillAndPassEntryTest(String content, LocalDate fromYear,
 	LocalDate toYear, List<Integer> listId) {
@@ -321,6 +369,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		return totalRow.intValue();
 	}
 
+	/**
+	 * Filter candidate pass entry test
+	 */
 	@Override
 	public List<Candidate> filterCandidatePassEntryTest(Integer page) {
 
@@ -337,6 +388,9 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		return listCandidate;
 	}
 
+	/**
+	 * Count candidate pass entry test
+	 */
 	@Override
 	public Integer countCandidatePassEntryTest() {
 

@@ -33,7 +33,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
 		Optional<UserRole> userRole = userRoleDao.findById(id);
 		UserRoleDto userRoleDto = null;
-		if (userRole.isEmpty()) {
+		if (!userRole.isPresent()) {
 			throw new Exception("The id doesn't exists");
 		} else {
 			userRoleDto = new UserRoleDto(userRole.get());

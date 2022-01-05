@@ -1,18 +1,13 @@
 package com.demoipm.service;
 
-import java.util.List;
-
-import com.demoipm.dto.EntryTestDto;
+import com.demoipm.dto.EntryTestRequest;
+import com.demoipm.entities.EntryTest;
 
 public interface EntryTestService {
 
-	void create(EntryTestDto entryTestDto);
-	
-	EntryTestDto readById(int id) throws Exception;
-	
-	List<EntryTestDto> readAll() throws Exception ;
-	
-	void update(EntryTestDto entryTestDto);
+	EntryTest create(EntryTestRequest entryTestRequest);
+
+	EntryTest update(EntryTestRequest entryTestRequest);
 	
 	void deleteById(int id);
 }

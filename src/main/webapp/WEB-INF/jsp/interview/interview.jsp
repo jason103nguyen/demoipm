@@ -25,7 +25,7 @@
                <table border = "0">
                    <tbody>
 
-                   <tr>
+                   <tr class="my-1">
                        <td>
                            <label>Tên:</label>
                        </td>

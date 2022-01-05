@@ -26,7 +26,6 @@ public class EntryTestDto {
 		super();
 		this.id = entryTest.getId();
 		this.timeEntryTest = entryTest.getTimeEntryTest();
-		this.local = entryTest.getLocal();
 		this.result = entryTest.getResult();
 		this.point = entryTest.getPoint();
 		this.nameTest = entryTest.getNameTest();

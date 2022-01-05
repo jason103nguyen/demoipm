@@ -9,55 +9,38 @@ public class AnswerEntryTest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "question_entry_test_id")
-    private int id;
+    private Integer id;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "question_id")
-    private QuestionEntryTest question;
+    private QuestionEntryTest question;*/
 
-    @Column(name = "answer")
-    private String answer;
+    @Column(name = "content")
+    private String content;
 
-    private boolean tick;
+    private boolean correct;
 
     public AnswerEntryTest(){
 
     }
 
-    public AnswerEntryTest(QuestionEntryTest question, String answer) {
-        this.question = question;
-        this.answer = answer;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public QuestionEntryTest getQuestion() {
-        return question;
+    public String getContent() {
+        return content;
     }
 
-    public void setQuestion(QuestionEntryTest question) {
-        this.question = question;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public boolean isTick() {
-        return tick;
-    }
-
-    public void setTick(boolean tick) {
-        this.tick = tick;
+    public AnswerEntryTest(boolean correct) {
+        this.correct = correct;
     }
 }

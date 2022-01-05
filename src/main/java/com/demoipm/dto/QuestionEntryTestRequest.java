@@ -1,55 +1,36 @@
-package com.demoipm.entities;
+package com.demoipm.dto;
 
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+public class QuestionEntryTestRequest {
 
-@Entity
-@Table(name = "question_entry_test")
-public class QuestionEntryTest {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "question_entry_test_id")
     private Integer id;
 
-    @Column(name = "content")
     private String content;
 
-    @Column(name = "level")
     private String level;
 
-    /*@OneToMany(mappedBy = "question",cascade = CascadeType.ALL)
-    private Set<AnswerEntryTest> answerEntryTestList = new HashSet<AnswerEntryTest>();*/
-
-    @Column(name = "option1")
     private String option1;
 
-    @Column(name = "option2")
     private String option2;
 
-    @Column(name = "option3")
     private String option3;
 
-    @Column(name = "option4")
     private String option4;
 
-    @Column(name = "answer")
     private String answer;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "entry_test_id")
-    private EntryTest entryTest;
-
-    public QuestionEntryTest(){
+    public QuestionEntryTestRequest(){
 
     }
 
-    public QuestionEntryTest(String content, String level, EntryTest entryTest) {
+    public QuestionEntryTestRequest(String content, String level, String option1, String option2, String option3, String option4, String answer) {
         this.content = content;
         this.level = level;
-        this.entryTest = entryTest;
+        this.option1 = option1;
+        this.option2 = option2;
+        this.option3 = option3;
+        this.option4 = option4;
+        this.answer = answer;
     }
 
     public Integer getId() {
@@ -114,13 +95,5 @@ public class QuestionEntryTest {
 
     public void setAnswer(String answer) {
         this.answer = answer;
-    }
-
-    public EntryTest getEntryTest() {
-        return entryTest;
-    }
-
-    public void setEntryTest(EntryTest entryTest) {
-        this.entryTest = entryTest;
     }
 }

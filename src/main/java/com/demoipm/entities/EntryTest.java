@@ -1,7 +1,6 @@
 package com.demoipm.entities;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -19,9 +18,6 @@ public class EntryTest {
 	@Column(name = "time_entry_test")
 	private Date timeEntryTest;
 	
-	@Column(name = "local")
-	private String local;
-	
 	@Column(name = "result")
 	private String result;
 	
@@ -30,27 +26,31 @@ public class EntryTest {
 	
 	@Column(name = "name_test")
 	private String nameTest;
+
+	@Column(name = "number_of_question")
+	private String numberofQuestion;
 	
 	@ManyToOne
 	@JoinColumn(name = "candidate_id")
 	private Candidate candidate;
 
+	@OneToMany(mappedBy = "entryTest", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	private Set<QuestionEntryTest> questionEntryTest = new HashSet<QuestionEntryTest>();
+
 	@OneToMany(mappedBy = "entryTest")
-	private List<QuestionEntryTest> questionEntryTest;
+	private List<JobSkill> listJobSkill = new ArrayList<JobSkill>();
 	
 	public EntryTest() {}
-	
-	public EntryTest(EntryTestDto entryTest) {
-		super();
-		this.id = entryTest.getId();
-		this.timeEntryTest = entryTest.getTimeEntryTest();
-		this.local = entryTest.getLocal();
-		this.result = entryTest.getResult();
-		this.point = entryTest.getPoint();
-		this.nameTest = entryTest.getNameTest();
-		
-		Candidate candidate = new Candidate(entryTest.getCandidate());
+
+	public EntryTest(Date timeEntryTest, String result, String point, String nameTest, String numberofQuestion, Candidate candidate, Set<QuestionEntryTest> questionEntryTest, List<JobSkill> listJobSkill) {
+		this.timeEntryTest = timeEntryTest;
+		this.result = result;
+		this.point = point;
+		this.nameTest = nameTest;
+		this.numberofQuestion = numberofQuestion;
 		this.candidate = candidate;
+		this.questionEntryTest = questionEntryTest;
+		this.listJobSkill = listJobSkill;
 	}
 
 	public int getId() {
@@ -67,14 +67,6 @@ public class EntryTest {
 
 	public void setTimeEntryTest(Date timeEntryTest) {
 		this.timeEntryTest = timeEntryTest;
-	}
-
-	public String getLocal() {
-		return local;
-	}
-
-	public void setLocal(String local) {
-		this.local = local;
 	}
 
 	public String getResult() {
@@ -109,4 +101,27 @@ public class EntryTest {
 		this.candidate = candidate;
 	}
 
+	public String getNumberofQuestion() {
+		return numberofQuestion;
+	}
+
+	public void setNumberofQuestion(String numberofQuestion) {
+		this.numberofQuestion = numberofQuestion;
+	}
+
+	public Set<QuestionEntryTest> getQuestionEntryTest() {
+		return questionEntryTest;
+	}
+
+	public void setQuestionEntryTest(Set<QuestionEntryTest> questionEntryTest) {
+		this.questionEntryTest = questionEntryTest;
+	}
+
+	public List<JobSkill> getListJobSkill() {
+		return listJobSkill;
+	}
+
+	public void setListJobSkill(List<JobSkill> listJobSkill) {
+		this.listJobSkill = listJobSkill;
+	}
 }

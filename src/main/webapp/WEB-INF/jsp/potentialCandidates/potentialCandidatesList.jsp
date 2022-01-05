@@ -93,7 +93,7 @@
 						</td>
 						<td>${listCandidateDto.status }</td>
 						<td>
-							<form:form action="#" method="get"> 					
+							<form:form action="delete-potential-candidates/${listCandidateDto.id }" method="get"> 					
 								<button type="submit" class="ButtonDelete">Delete</button> 	
 							</form:form>
 							

@@ -9,6 +9,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demoipm.dto.CandidateDto;
@@ -46,5 +47,11 @@ public class PotentialCandidatesController {
 		return "potentialCandidates/potentialCandidatesList";
 	}
 	
+	@Secured(value = "ROLE_HR")
+	@GetMapping( "delete-potential-candidates/{id}")
+	public String deletePotentialCandidate(@PathVariable("id") Integer id) {		
+		potentialCandidateService.deletePotentialCandidate(id);
+		return "redirect:/view-potential-candidates-list";
+	}
 	
 }

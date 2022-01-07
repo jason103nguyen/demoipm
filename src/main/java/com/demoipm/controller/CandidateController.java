@@ -33,7 +33,7 @@ public class CandidateController {
 	private InterviewService interviewServiceImpl;
 
 	/**
-	 * Method will be show information of all candidate
+	 * Method will be show information of all candidate.
 	 * @param content
 	 * @param minAge
 	 * @param maxAge

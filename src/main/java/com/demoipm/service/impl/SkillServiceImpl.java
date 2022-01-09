@@ -3,9 +3,13 @@ package com.demoipm.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import com.demoipm.dto.recruitmentmanage.SkillSelectionDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +21,8 @@ import com.demoipm.service.SkillService;
 @Service
 @Transactional
 public class SkillServiceImpl implements SkillService {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(SkillService.class);
 
 	@Autowired
 	private SkillDao skillDao;
@@ -73,6 +79,24 @@ public class SkillServiceImpl implements SkillService {
 
 		if (skillDao.existsById(id)) {
 			skillDao.deleteById(id);
+		}
+	}
+
+	@Override
+	public List<SkillSelectionDto> getAllSkill(Integer jobId) {
+		LOGGER.info("Start get all skill");
+		try {
+			List<Skill> skillEntities = skillDao.getAllSkillOfJob(jobId);
+			List<SkillSelectionDto> skillDtos = skillEntities.stream()
+					.map(skill ->
+							new SkillSelectionDto()
+									.setId(skill.getId())
+									.setSkill(skill.getName()))
+					.collect(Collectors.toList());
+			return skillDtos;
+		} catch (Throwable t) {
+			LOGGER.error("Has error when getAllSkill", t);
+			return new ArrayList<>();
 		}
 	}
 

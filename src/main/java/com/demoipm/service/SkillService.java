@@ -3,6 +3,7 @@ package com.demoipm.service;
 import java.util.List;
 
 import com.demoipm.dto.SkillDto;
+import com.demoipm.dto.recruitmentmanage.SkillSelectionDto;
 
 public interface SkillService {
 
@@ -15,4 +16,10 @@ public interface SkillService {
 	void update(SkillDto skillDto);
 	
 	void deleteById(int id);
+
+	/**
+	 * Get all skill
+	 * @return
+	 */
+    List<SkillSelectionDto> getAllSkill(Integer jobId);
 }

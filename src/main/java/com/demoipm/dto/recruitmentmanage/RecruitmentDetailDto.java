@@ -11,7 +11,7 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RecruitmentDetailDTO extends ResponseDto implements Serializable {
+public class RecruitmentDetailDto extends ResponseDto implements Serializable {
 
     private String career;
 

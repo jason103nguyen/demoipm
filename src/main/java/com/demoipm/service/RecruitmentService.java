@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.demoipm.dto.RecruitmentDto;
 import com.demoipm.dto.SkillDto;
-import com.demoipm.dto.recruitmentmanage.RecruitmentDetailDTO;
+import com.demoipm.dto.recruitmentmanage.RecruitmentDetailDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentListPageResponseDto;
 
 public interface RecruitmentService {
@@ -34,5 +34,5 @@ public interface RecruitmentService {
 	 * @param id
 	 * @return
 	 */
-	RecruitmentDetailDTO getRecruimentDetailById(Integer id);
+	RecruitmentDetailDto getRecruimentDetailById(Integer id);
 }

@@ -12,4 +12,5 @@ public class ViewConst {
      * URL constant for recruitment management
      */
     public static final String MANAGE_RECRUITMENT_PAGE = "managerecruitment/manage-recruitment";
+    public static final String CREATE_RECRUITMENT_PAGE = "managerecruitment/create-recruitment";
 }

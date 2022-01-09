@@ -1,6 +1,5 @@
 package com.demoipm.service.impl;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +8,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import com.demoipm.consts.MessageConst;
-import com.demoipm.dto.recruitmentmanage.RecruitmentDetailDTO;
+import com.demoipm.dto.recruitmentmanage.RecruitmentDetailDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentListPageResponseDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentResponseDto;
 import org.slf4j.Logger;
@@ -147,9 +146,9 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 	}
 
 	@Override
-	public RecruitmentDetailDTO getRecruimentDetailById(Integer id) {
+	public RecruitmentDetailDto getRecruimentDetailById(Integer id) {
 		LOGGER.info("Start getRecruimentDetailById with id {}", id);
-		RecruitmentDetailDTO responseDTO = new RecruitmentDetailDTO();
+		RecruitmentDetailDto responseDTO = new RecruitmentDetailDto();
 		try {
 			Recruitment recruitment = recruitmentDao.getById(id);
 			if (recruitment != null) {

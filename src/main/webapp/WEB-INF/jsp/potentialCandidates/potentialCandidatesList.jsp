@@ -44,7 +44,7 @@
 				</div>	
             </div>  
             
-            <form:form action="#" method="get"> 					
+            <form:form action="add-new-potential-candidates" method="get"> 					
 				<button type="submit" class="ButtonAddNew">Add New</button> 	
 			</form:form>   
         </div>
@@ -97,9 +97,12 @@
 								<button type="submit" class="ButtonDelete">Delete</button> 	
 							</form:form>
 							
-							<form:form action="#" method="get"> 
+							
+							<a href= "update-potential-candidates?id=${listCandidateDto.id }">
 								<button type="submit" class="ButtonUpdate">Update</button> 
-							</form:form>
+							</a>
+								
+							
 						</td>
 				    </tr>
 				  </tbody>

@@ -1,5 +1,8 @@
 package com.demoipm.entities;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,14 +15,16 @@ public class BaseEntity {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "created_date")
+	@CreationTimestamp
 	private Date createdDate;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "updated_date")
+	@UpdateTimestamp
 	private Date updatedDate;
 
 	@Column(name = "is_delete")
-	private Boolean isDelete;
+	private boolean isDelete;
 
 	public Date getCreatedDate() {
 		return createdDate;
@@ -37,11 +42,11 @@ public class BaseEntity {
 		this.updatedDate = updatedDate;
 	}
 
-	public Boolean getIsDelete() {
+	public boolean getIsDelete() {
 		return isDelete;
 	}
 
-	public void setIsDelete(Boolean isDelete) {
+	public void setIsDelete(boolean isDelete) {
 		this.isDelete = isDelete;
 	}
 	

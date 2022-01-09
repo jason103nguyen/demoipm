@@ -53,4 +53,5 @@ public interface PotentialCandidateService {
 	 */
 	void updatePotentialCandidate(CandidateDto candidateDto);
 
+
 }

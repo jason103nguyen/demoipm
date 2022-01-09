@@ -23,4 +23,6 @@ public interface PotentialCandidateDao extends JpaRepository<Candidate, Integer>
 	@Query("SELECT c FROM Candidate c WHERE EXISTS (SELECT c FROM Candidate c WHERE c.id = :id AND c.isDelete = :isDelete)")
 	public boolean existsByPotentialCandidateIdAndIsDelete(Integer id, Boolean isDelete);
 
+	@Query("SELECT c FROM Candidate c WHERE c.id = :id AND c.isDelete = :isDelete")
+	Candidate findByPotentialCandidateId(@Param("id") Integer id, Boolean isDelete);
 }

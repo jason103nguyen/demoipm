@@ -11,7 +11,6 @@ import com.demoipm.dao.PotentialCandidateDao;
 import com.demoipm.dto.CandidateDto;
 import com.demoipm.entities.Candidate;
 import com.demoipm.service.PotentialCandidateService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,6 +51,7 @@ public class PotentialCandidateImpl implements PotentialCandidateService{
 		
 		CandidateDto candidateDto = null;
 		Optional<Candidate> candidate = potentialCandidateDao.findByPotentialCandidateIdAndIsDelete(id, false);
+
 		if(candidate.isPresent()) {
 			candidateDto = new CandidateDto(candidate.get());
 		}
@@ -107,7 +107,7 @@ public class PotentialCandidateImpl implements PotentialCandidateService{
 
 		return listCandidateDto;	
 	}
-	
+
 	/**
 	 * Update PotentialCandidate Info To DB
 	 * 
@@ -117,12 +117,16 @@ public class PotentialCandidateImpl implements PotentialCandidateService{
 	
 	@Override
 	public void updatePotentialCandidate(CandidateDto candidateDto) {
+					
+		Candidate candidate = potentialCandidateDao.findByPotentialCandidateId(candidateDto.getId(), false);
+		
 		try {
-			if(potentialCandidateDao.existsByPotentialCandidateIdAndIsDelete(candidateDto.getId(), false) == true) {			
-				Candidate candidate = new Candidate(candidateDto);		
-				candidate.setUpdatedDate(new Date());
-				potentialCandidateDao.save(candidate);
-			}
+			  if(candidate != null) {
+				  candidate = new Candidate(candidateDto);  
+				  candidate.setUpdatedDate(new Date());
+				  potentialCandidateDao.save(candidate);	  
+			  }
+			 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

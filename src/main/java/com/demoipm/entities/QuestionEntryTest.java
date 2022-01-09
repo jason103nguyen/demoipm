@@ -2,8 +2,6 @@ package com.demoipm.entities;
 
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "question_entry_test")
@@ -17,12 +15,6 @@ public class QuestionEntryTest {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "level")
-    private String level;
-
-    /*@OneToMany(mappedBy = "question",cascade = CascadeType.ALL)
-    private Set<AnswerEntryTest> answerEntryTestList = new HashSet<AnswerEntryTest>();*/
-
     @Column(name = "option1")
     private String option1;
 
@@ -35,8 +27,21 @@ public class QuestionEntryTest {
     @Column(name = "option4")
     private String option4;
 
-    @Column(name = "answer")
-    private String answer;
+    @Column(name = "answer1")
+    private String answer1;
+
+    @Column(name = "answer2")
+    private String answer2;
+
+    @Column(name = "answer3")
+    private String answer3;
+
+    @Column(name = "answer4")
+    private String answer4;
+
+    @ManyToOne(targetEntity = Skill.class)
+    @JoinColumn(name = "skill_id", nullable = false)
+    private Skill skill;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "entry_test_id")
@@ -46,9 +51,8 @@ public class QuestionEntryTest {
 
     }
 
-    public QuestionEntryTest(String content, String level, EntryTest entryTest) {
+    public QuestionEntryTest(String content, EntryTest entryTest) {
         this.content = content;
-        this.level = level;
         this.entryTest = entryTest;
     }
 
@@ -66,14 +70,6 @@ public class QuestionEntryTest {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
     }
 
     public String getOption1() {
@@ -108,12 +104,36 @@ public class QuestionEntryTest {
         this.option4 = option4;
     }
 
-    public String getAnswer() {
-        return answer;
+    public String getAnswer1() {
+        return answer1;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setAnswer1(String answer1) {
+        this.answer1 = answer1;
+    }
+
+    public String getAnswer2() {
+        return answer2;
+    }
+
+    public void setAnswer2(String answer2) {
+        this.answer2 = answer2;
+    }
+
+    public String getAnswer3() {
+        return answer3;
+    }
+
+    public void setAnswer3(String answer3) {
+        this.answer3 = answer3;
+    }
+
+    public String getAnswer4() {
+        return answer4;
+    }
+
+    public void setAnswer4(String answer4) {
+        this.answer4 = answer4;
     }
 
     public EntryTest getEntryTest() {
@@ -122,5 +142,13 @@ public class QuestionEntryTest {
 
     public void setEntryTest(EntryTest entryTest) {
         this.entryTest = entryTest;
+    }
+
+    public Skill getSkill() {
+        return skill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
     }
 }

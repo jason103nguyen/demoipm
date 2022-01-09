@@ -1,13 +1,13 @@
 package com.demoipm.dto;
 
 
+import com.demoipm.entities.Skill;
+
 public class QuestionEntryTestRequest {
 
     private Integer id;
 
     private String content;
-
-    private String level;
 
     private String option1;
 
@@ -17,20 +17,31 @@ public class QuestionEntryTestRequest {
 
     private String option4;
 
-    private String answer;
+    private String answer1;
+
+    private String answer2;
+
+    private String answer3;
+
+    private String answer4;
+
+    private String skill;
 
     public QuestionEntryTestRequest(){
 
     }
 
-    public QuestionEntryTestRequest(String content, String level, String option1, String option2, String option3, String option4, String answer) {
+    public QuestionEntryTestRequest(String content, String option1, String option2, String option3, String option4, String answer1, String answer2, String answer3, String answer4, String skill) {
         this.content = content;
-        this.level = level;
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
         this.option4 = option4;
-        this.answer = answer;
+        this.answer1 = answer1;
+        this.answer2 = answer2;
+        this.answer3 = answer3;
+        this.answer4 = answer4;
+        this.skill = skill;
     }
 
     public Integer getId() {
@@ -47,14 +58,6 @@ public class QuestionEntryTestRequest {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
     }
 
     public String getOption1() {
@@ -89,11 +92,60 @@ public class QuestionEntryTestRequest {
         this.option4 = option4;
     }
 
-    public String getAnswer() {
-        return answer;
+    public String getAnswer1() {
+        return answer1;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setAnswer1(String answer1) {
+        this.answer1 = answer1;
+    }
+
+    public String getAnswer2() {
+        return answer2;
+    }
+
+    public void setAnswer2(String answer2) {
+        this.answer2 = answer2;
+    }
+
+    public String getAnswer3() {
+        return answer3;
+    }
+
+    public void setAnswer3(String answer3) {
+        this.answer3 = answer3;
+    }
+
+    public String getAnswer4() {
+        return answer4;
+    }
+
+    public void setAnswer4(String answer4) {
+        this.answer4 = answer4;
+    }
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
+    }
+
+    @Override
+    public String toString() {
+        return "QuestionEntryTestRequest{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", option1='" + option1 + '\'' +
+                ", option2='" + option2 + '\'' +
+                ", option3='" + option3 + '\'' +
+                ", option4='" + option4 + '\'' +
+                ", answer1='" + answer1 + '\'' +
+                ", answer2='" + answer2 + '\'' +
+                ", answer3='" + answer3 + '\'' +
+                ", answer4='" + answer4 + '\'' +
+                ", skill=" + skill +
+                '}';
     }
 }

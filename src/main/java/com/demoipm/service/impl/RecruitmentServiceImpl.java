@@ -1,6 +1,8 @@
 package com.demoipm.service.impl;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -8,9 +10,14 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import com.demoipm.consts.MessageConst;
+import com.demoipm.dao.RecruitmentSkillDao;
+import com.demoipm.dto.recruitmentmanage.RecruitmentCreateRequestDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentDetailDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentListPageResponseDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentResponseDto;
+import com.demoipm.dto.recruitmentmanage.RecruitmentSaveResponseDto;
+import com.demoipm.entities.Career;
+import com.demoipm.entities.Job;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +43,10 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 
 	@Autowired
 	private RecruitmentDao recruitmentDao;
-	
+
+	@Autowired
+	private RecruitmentSkillDao recruitmentSkillDao;
+
 	@Override
 	public void create(RecruitmentDto recruitmentDto) {
 
@@ -170,6 +180,49 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 				responseDTO.setError(true);
 				responseDTO.setMessage(MessageConst.RESOURCE_NOT_FOUND);
 			}
+		} catch (Throwable t) {
+			LOGGER.error("Has error when getRecruimentDetailById", t);
+			responseDTO.setError(true);
+			responseDTO.setMessage(MessageConst.INTERNAL_SERVER_ERROR);
+		}
+		return responseDTO;
+	}
+
+	@Override
+	public RecruitmentSaveResponseDto createRecruitment(RecruitmentCreateRequestDto requestDto) {
+		LOGGER.info("Start saveRecruitment with requestDto {}", requestDto);
+		RecruitmentSaveResponseDto responseDTO = new RecruitmentSaveResponseDto();
+		try {
+			Recruitment recruitment = new Recruitment();
+			// Mapping request dto to entity
+			recruitment.setNumber(requestDto.getQuantity());
+			recruitment.setMinSalary(requestDto.getMinSalary());
+			recruitment.setMaxSalary(requestDto.getMaxSalary());
+			recruitment.setStartRecruitment(Date.from(requestDto.getStartDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			recruitment.setEndRecruitment(Date.from(requestDto.getEndDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+			// Mapping career, job relationship
+			Career career = new Career();
+			career.setId(requestDto.getCareerId());
+			recruitment.setCareer(career);
+
+			Job job = new Job();
+			job.setId(requestDto.getJobId());
+			recruitment.setJob(job);
+
+			recruitmentDao.save(recruitment);
+
+			// Mapping skill relationship
+			List<RecruitmentSkill> recruitmentSkills = requestDto.getSkillIds().stream().map(skillId -> {
+				RecruitmentSkill recruitmentSkill = new RecruitmentSkill();
+				Skill skill = new Skill();
+				skill.setId(skillId);
+				recruitmentSkill.setSkill(skill);
+				recruitmentSkill.setRecruitment(recruitment);
+				return recruitmentSkill;
+			}).collect(Collectors.toList());
+			recruitmentSkillDao.saveAll(recruitmentSkills);
+
 		} catch (Throwable t) {
 			LOGGER.error("Has error when getRecruimentDetailById", t);
 			responseDTO.setError(true);

@@ -19,8 +19,9 @@ public class URLConst {
     public static final String MANAGE_RECRUITMENT_URL = "/manage-recruitment";
     public static final String API_GET_RECRUITMENT_DETAIL_URL = "/api/get-recruitment-detail";
     public static final String CREATE_RECRUITMENT_PAGE_URL = "/create-recruitment-page";
-    public static final String PROCESS_CREATE_RECRUITMENT_URL = "/process-create-recruitment";
+    public static final String API_PROCESS_CREATE_RECRUITMENT_URL = "/api/process-create-recruitment";
     public static final String API_GET_CAREER_SELECTION_URL = "/api/get-career-selection";
     public static final String API_GET_JOB_SELECTION_URL = "/api/get-job-selection";
     public static final String API_GET_SKILL_SELECTION_URL = "/api/get-skill-selection";
+    public static final String DELETE_RECRUITMENT_URL = "/delete-recruitment";
 }

@@ -1,10 +1,14 @@
 package com.demoipm.dto.recruitmentmanage;
 
+import com.demoipm.consts.MessageConst;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -14,20 +18,35 @@ import java.util.List;
 public class RecruitmentCreateRequestDto implements Serializable {
 
     private static final long serialVersionUID = -1604724206696748681L;
-    @NotNull
+
+    @NotNull(message = MessageConst.CAREER_CANNOT_BE_NULL)
     private Integer careerId;
-    @NotNull
+
+    @NotNull(message = MessageConst.JOB_CANNOT_BE_NULL)
     private Integer jobId;
-    @NotNull
+
+    @NotNull(message = MessageConst.INVALID_QUANTITY)
+    @Min(value = 1, message = MessageConst.INVALID_QUANTITY)
     private Integer quantity;
-    @NotNull
+
+    @NotNull(message = MessageConst.INVALID_SALARY)
+    @Min(value = 100, message = MessageConst.INVALID_SALARY)
     private Double minSalary;
-    @NotNull
+
+    @NotNull(message = MessageConst.INVALID_SALARY)
+    @Min(value = 100, message = MessageConst.INVALID_SALARY)
     private Double maxSalary;
-    @Past
+
+    @NotNull(message = MessageConst.INVALID_RECRUITMENT_DATE)
+    @FutureOrPresent(message = MessageConst.INVALID_RECRUITMENT_DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
-    @Past
+
+    @NotNull(message = MessageConst.INVALID_RECRUITMENT_DATE)
+    @Future(message = MessageConst.INVALID_RECRUITMENT_DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
+
     private List<Integer> skillIds;
 
     public Integer getCareerId() {

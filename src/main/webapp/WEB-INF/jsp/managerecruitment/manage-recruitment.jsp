@@ -179,7 +179,7 @@
             confirmButtonText: 'Yes',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "${pageContext.request.contextPath}/delete-recruiment?id=" + id;
+                window.location.href = "${pageContext.request.contextPath}/delete-recruitment?id=" + id;
             }
         })
     }

@@ -20,4 +20,13 @@ public class MessageConst {
      */
     public static final String USERNAME_NOT_EXISTED = "Username not existed";
     public static final String USERNAME_REQUIRED = "Username is required";
+
+    /**
+     * Create/update recruitment validation message
+     */
+    public static final String CAREER_CANNOT_BE_NULL = "Career can not be null";
+    public static final String JOB_CANNOT_BE_NULL = "Job can not be null";
+    public static final String INVALID_QUANTITY = "Invalid quantity";
+    public static final String INVALID_SALARY = "Invalid salary";
+    public static final String INVALID_RECRUITMENT_DATE = "Invalid recruitment date";
 }

@@ -1,5 +1,6 @@
 package com.demoipm.controller;
 
+import com.demoipm.consts.MessageConst;
 import com.demoipm.consts.URLConst;
 import com.demoipm.consts.ViewConst;
 import com.demoipm.dto.recruitmentmanage.CareerSelectionDto;
@@ -7,6 +8,7 @@ import com.demoipm.dto.recruitmentmanage.JobSelectionDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentCreateRequestDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentDetailDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentListPageResponseDto;
+import com.demoipm.dto.recruitmentmanage.RecruitmentSaveResponseDto;
 import com.demoipm.dto.recruitmentmanage.SkillSelectionDto;
 import com.demoipm.service.CareerService;
 import com.demoipm.service.JobService;
@@ -21,6 +23,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -80,13 +84,19 @@ public class RecruitmentManageController {
     }
 
     @Secured("ROLE_HR")
-    @PostMapping(URLConst.PROCESS_CREATE_RECRUITMENT_URL)
-    public String processCreateRecruitment(@Valid @ModelAttribute("recruitment") RecruitmentCreateRequestDto requestDto, BindingResult result) {
+    @PostMapping(URLConst.API_PROCESS_CREATE_RECRUITMENT_URL)
+    public ResponseEntity<RecruitmentSaveResponseDto> processCreateRecruitment(@Valid @ModelAttribute("recruitment") RecruitmentCreateRequestDto requestDto, BindingResult result) {
         LOGGER.info("Start process create recruitment");
-        if (result.hasErrors()) {
-            return ViewConst.CREATE_RECRUITMENT_PAGE;
+        RecruitmentSaveResponseDto responseDto = validateSaveRecruitmentRequest(requestDto, result);
+        if (responseDto.hasError()) {
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
         }
-        return URLConst.REDIRECT + URLConst.MANAGE_RECRUITMENT_URL;
+
+        responseDto = recruitmentService.createRecruitment(requestDto);
+        if (responseDto.hasError()) {
+            return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity(responseDto, HttpStatus.OK);
     }
 
     @Secured("ROLE_HR")
@@ -116,6 +126,15 @@ public class RecruitmentManageController {
         return new ResponseEntity<>(skillList, HttpStatus.OK);
     }
 
+    @Secured("ROLE_HR")
+    @RequestMapping(URLConst.DELETE_RECRUITMENT_URL)
+    public String deleteRecruitment(@RequestParam("id") Integer recruitmentId) {
+        LOGGER.info("Start deleteRecruitment with id {}", recruitmentId);
+        recruitmentService.deleteById(recruitmentId);
+        LOGGER.info("End deleteRecruitment with id {}", recruitmentId);
+        return URLConst.REDIRECT + URLConst.MANAGE_RECRUITMENT_URL;
+    }
+
     private Integer setDefaultPageNo(Integer pageNo) {
         if (pageNo == null || pageNo <= 0) {
             return 1;
@@ -128,6 +147,33 @@ public class RecruitmentManageController {
             return 10;
         }
         return entriesNo;
+    }
+
+    private RecruitmentSaveResponseDto validateSaveRecruitmentRequest(RecruitmentCreateRequestDto requestDto, BindingResult result) {
+        RecruitmentSaveResponseDto responseDto = new RecruitmentSaveResponseDto();
+        if (result.hasErrors()) {
+            responseDto.setError(true);
+            responseDto.setFieldErrors(result.getFieldErrors());
+            return responseDto;
+        }
+        List<FieldError> fieldErrors = new ArrayList<>();
+        if (requestDto.getStartDate().isAfter(requestDto.getEndDate())) {
+            FieldError startDateError = new FieldError("recruitment", "startDate", MessageConst.INVALID_RECRUITMENT_DATE);
+            FieldError endDateError = new FieldError("recruitment", "endDate", MessageConst.INVALID_RECRUITMENT_DATE);
+            fieldErrors.add(startDateError);
+            fieldErrors.add(endDateError);
+        }
+        if (requestDto.getMinSalary() > requestDto.getMaxSalary()) {
+            FieldError minSalaryError = new FieldError("recruitment", "minSalary", MessageConst.INVALID_SALARY);
+            FieldError maxSalaryError = new FieldError("recruitment", "maxSalary", MessageConst.INVALID_SALARY);
+            fieldErrors.add(minSalaryError);
+            fieldErrors.add(maxSalaryError);
+        }
+        if (fieldErrors.size() > 0) {
+            responseDto.setError(true);
+            responseDto.setFieldErrors(fieldErrors);
+        }
+        return responseDto;
     }
 
 }

@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.demoipm.dto.RecruitmentDto;
 import com.demoipm.dto.SkillDto;
+import com.demoipm.dto.recruitmentmanage.RecruitmentCreateRequestDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentDetailDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentListPageResponseDto;
+import com.demoipm.dto.recruitmentmanage.RecruitmentSaveResponseDto;
 
 public interface RecruitmentService {
 
@@ -35,4 +37,11 @@ public interface RecruitmentService {
 	 * @return
 	 */
 	RecruitmentDetailDto getRecruimentDetailById(Integer id);
+
+	/**
+	 * Save recruitment to db
+	 * @param requestDto
+	 * @return
+	 */
+    RecruitmentSaveResponseDto createRecruitment(RecruitmentCreateRequestDto requestDto);
 }

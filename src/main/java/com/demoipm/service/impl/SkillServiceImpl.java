@@ -33,7 +33,7 @@ public class SkillServiceImpl implements SkillService {
 
 		Optional<Skill> skill = skillDao.findById(id);
 		SkillDto skillDto = null;
-		if (skill.isEmpty()) {
+		if (!skill.isPresent()) {
 			throw new Exception("The id doesn't exists");
 		} else {
 			skillDto = new SkillDto(skill.get());

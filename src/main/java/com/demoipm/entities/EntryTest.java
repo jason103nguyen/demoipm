@@ -32,7 +32,7 @@ public class EntryTest {
 	private String result;
 	
 	@Column(name = "point")
-	private String point;
+	private int point;
 	
 	@Column(name = "name_test")
 	private String nameTest;
@@ -88,11 +88,11 @@ public class EntryTest {
 		this.result = result;
 	}
 
-	public String getPoint() {
+	public int getPoint() {
 		return point;
 	}
 
-	public void setPoint(String point) {
+	public void setPoint(int point) {
 		this.point = point;
 	}
 

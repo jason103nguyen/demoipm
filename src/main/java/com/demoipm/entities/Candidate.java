@@ -1,5 +1,6 @@
 package com.demoipm.entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,9 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.demoipm.dto.CandidateDto;
@@ -24,6 +23,15 @@ public class Candidate extends BaseEntity{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "candidate_id")
 	private int id;
+	
+	@Column(name = "activity")
+	private String activity;
+	
+	@Column(name = "experience_year")
+	private Integer experienceYear;
+	
+	@Column(name = "skill")
+	private String skill;
 	
 	@Column(name = "full_name")
 	private String fullName;
@@ -50,7 +58,7 @@ public class Candidate extends BaseEntity{
 	private String sex;
 	
 	@Column(name = "birth_day")
-	private Date birthDay;
+	private LocalDate birthDay;
 	
 	@OneToMany(mappedBy = "candidate")
 	private List<Interview> listInterview = new ArrayList<Interview>();
@@ -58,20 +66,58 @@ public class Candidate extends BaseEntity{
 	@OneToMany(mappedBy = "candidate")
 	private List<EntryTest> listEntryTest = new ArrayList<EntryTest>();
 	
+	@OneToMany(mappedBy = "candidate")
+	private List<SkillCandidate> listSkillCandidate = new ArrayList<SkillCandidate>();
+	
 	public Candidate() {}
 	
-	public Candidate(CandidateDto candicateDto) {
+	public Candidate(CandidateDto candidateDto) {
 		super();
-		this.id = candicateDto.getId();
-		this.fullName = candicateDto.getFullName();
-		this.cmnd = candicateDto.getCmnd();
-		this.dateCmnd = candicateDto.getDateCmnd();
-		this.phone = candicateDto.getPhone();
-		this.email = candicateDto.getEmail();
-		this.info = candicateDto.getInfo();
-		this.status = candicateDto.getStatus();
-		this.sex = candicateDto.getSex();
-		this.birthDay = candicateDto.getBirthDay();
+		this.id = candidateDto.getId();
+		this.fullName = candidateDto.getFullName();
+		this.cmnd = candidateDto.getCmnd();
+		this.dateCmnd = candidateDto.getDateCmnd();
+		this.phone = candidateDto.getPhone();
+		this.email = candidateDto.getEmail();
+		this.info = candidateDto.getInfo();
+		this.status = candidateDto.getStatus();
+		this.sex = candidateDto.getSex();
+		this.birthDay = candidateDto.getBirthDay();
+		this.skill = candidateDto.getSkill();
+		this.experienceYear = candidateDto.getExperienceYear();
+		this.activity = candidateDto.getActivity();
+	}
+
+	public List<SkillCandidate> getListSkillCandidate() {
+		return listSkillCandidate;
+	}
+
+	public void setListSkillCandidate(List<SkillCandidate> listSkillCandidate) {
+		this.listSkillCandidate = listSkillCandidate;
+	}
+
+	public String getActivity() {
+		return activity;
+	}
+
+	public void setActivity(String activity) {
+		this.activity = activity;
+	}
+
+	public Integer getExperienceYear() {
+		return experienceYear;
+	}
+
+	public void setExperienceYear(Integer experienceYear) {
+		this.experienceYear = experienceYear;
+	}
+
+	public String getSkill() {
+		return skill;
+	}
+
+	public void setSkill(String skill) {
+		this.skill = skill;
 	}
 
 	public List<Interview> getListInterview() {
@@ -162,11 +208,11 @@ public class Candidate extends BaseEntity{
 		this.sex = sex;
 	}
 
-	public Date getBirthDay() {
+	public LocalDate getBirthDay() {
 		return birthDay;
 	}
 
-	public void setBirthDay(Date birthDay) {
+	public void setBirthDay(LocalDate birthDay) {
 		this.birthDay = birthDay;
 	}
 

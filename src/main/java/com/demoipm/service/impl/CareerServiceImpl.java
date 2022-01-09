@@ -33,7 +33,7 @@ public class CareerServiceImpl implements CareerService {
 
 		Optional<Career> career = careerDao.findById(id);
 		CareerDto careerDto = null;
-		if (career.isEmpty()) {
+		if (!career.isPresent()) {
 			throw new Exception("The id doesn't exists");
 		} else {
 			careerDto = new CareerDto(career.get());

@@ -18,6 +18,7 @@ public interface PotentialCandidateService {
 	 * Create Potential Candidate
 	 * 
 	 * @param candidateDto
+	 * @return 
 	 */
 	void createPotentialCandidate(CandidateDto candidateDto);
 

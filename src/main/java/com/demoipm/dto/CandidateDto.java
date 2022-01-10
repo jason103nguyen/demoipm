@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
@@ -24,7 +25,8 @@ public class CandidateDto {
 	@NotBlank(message = MessageConst.ACTIVITY_CANNOT_BE_BLANK)
 	private String activity;
 	
-	@Min(message = MessageConst.EXPERIENCEYEAR_CANNOT_BE_BLANK, value = 0)
+	@Min(message = MessageConst.INVALID_EXPERIENCEYEAR_MESSAGE, value = 0)
+	@NotNull(message = MessageConst.EXPERIENCEYEAR_CANNOT_BE_BLANK)
 	private Integer experienceYear;
 	
 	@NotBlank(message = MessageConst.SKILL_CANNOT_BE_BLANK) 
@@ -39,7 +41,7 @@ public class CandidateDto {
 	
 	private Date dateCmnd;
 	
-	@Pattern(regexp = "(^$|[0-9]{10})", message = MessageConst.INVALID_PHONE)
+	@Pattern(regexp = ValidateConst.PHONE_REGEX, message = MessageConst.INVALID_PHONE)
 	private String phone;
 	
 	@Pattern(regexp = ValidateConst.EMAIL_REGEX, message = MessageConst.INVALID_EMAIL)
@@ -50,11 +52,12 @@ public class CandidateDto {
 	@NotBlank(message = MessageConst.STATUS_CANNOT_BE_BLANK)
 	private String status;
 	
-	@NotBlank(message = MessageConst.GENDER_CANNOT_BE_BLANK) 
+	@NotBlank(message = MessageConst.GENDER_CANNOT_BE_BLANK)
 	private String sex;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Past(message = MessageConst.INVALID_DATE_MESSAGE)
+	@NotNull(message = MessageConst.BIRTHDAY_CANNOT_BE_BLANK)
 	private LocalDate birthDay;
 	
 	private List<InterviewDto> listInterview = new ArrayList<InterviewDto>();

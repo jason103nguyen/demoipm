@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demoipm.dto.CandidateDto;
-import com.demoipm.entities.Candidate;
 import com.demoipm.service.PotentialCandidateService;
 
 @Controller
@@ -74,14 +73,14 @@ public class PotentialCandidatesController {
 	public String postCreatePotentialCandidate(@ModelAttribute("candidateDto") @Valid CandidateDto candidateDto,
 			BindingResult result) {	
 		
-		potentialCandidateService.createPotentialCandidate(candidateDto);
 		if (result.hasErrors()) {
 			return "potentialCandidates/create-PotentialCandidate";
-		}
+		}	
+		potentialCandidateService.createPotentialCandidate(candidateDto);
+		
 		return "redirect:/view-potential-candidates-list";
 	}
 	
-
 	@Secured(value = "ROLE_HR")
 	@GetMapping("update-potential-candidates")
 	public String getUpdatePotentialCandidate(@RequestParam("id") int id, Model model) {
@@ -96,11 +95,11 @@ public class PotentialCandidatesController {
 	@PostMapping("update-potential-candidates")
 	public String postUpdatePotentialCandidate(@ModelAttribute("candidateDto") @Valid CandidateDto candidateDto, BindingResult result) {
 	
-		 potentialCandidateService.updatePotentialCandidate(candidateDto);
-		
 		if (result.hasErrors()) {
 			return "potentialCandidates/update-PotentialCandidate";
 		}
+		potentialCandidateService.updatePotentialCandidate(candidateDto);
+		 
 		return "redirect:/view-potential-candidates-list";
 	}
 }

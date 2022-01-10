@@ -19,8 +19,7 @@ public class MessageConst {
      */
     public static final String USERNAME_NOT_EXISTED = "Username not existed";
     public static final String USERNAME_REQUIRED = "Username is required";
-    
-    
+
     /**
      * Create/update new potential candidate validation message
      * 
@@ -34,5 +33,7 @@ public class MessageConst {
     public static final String BIRTHDAY_CANNOT_BE_BLANK = "Birthday cannot be blank ";
     public static final String INVALID_DATE_MESSAGE = "The Birthday invalid - Please again";
     public static final String STATUS_CANNOT_BE_BLANK = "Status cannot be blank";
-    
+    public static final String PHONE_CANNOT_BE_BLANK = "Status cannot be blank";
+    public static final String INVALID_EXPERIENCEYEAR_MESSAGE = "The Please input Experience Year";
+
 }

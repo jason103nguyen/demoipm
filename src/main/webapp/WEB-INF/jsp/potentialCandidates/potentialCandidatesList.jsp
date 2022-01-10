@@ -14,7 +14,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
             
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/StyleList.css">        
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/StyleList.css"> 
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>       
             
 </head>
 <body>
@@ -93,16 +95,13 @@
 						</td>
 						<td>${listCandidateDto.status }</td>
 						<td>
-							<form:form action="delete-potential-candidates/${listCandidateDto.id }" method="get"> 					
-								<button type="submit" class="ButtonDelete">Delete</button> 	
-							</form:form>
-							
-							
+			
+							<a href= "delete-potential-candidates/${listCandidateDto.id }" onclick="deletePotentialCandidates(event, '${listCandidateDto.id }')">
+								<button type="submit" class="ButtonDelete">Delete</button> 
+							</a>	
 							<a href= "update-potential-candidates?id=${listCandidateDto.id }">
 								<button type="submit" class="ButtonUpdate">Update</button> 
-							</a>
-								
-							
+							</a>	
 						</td>
 				    </tr>
 				  </tbody>
@@ -122,5 +121,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    function deletePotentialCandidates(event, id) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Do you want to delete the Potential Candidate?',
+            showDenyButton: true,
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "${pageContext.request.contextPath}/delete-potential-candidates/" + id;
+            }
+        })
+    }
+</script>
 </body>
 </html>

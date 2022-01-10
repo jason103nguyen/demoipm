@@ -24,6 +24,7 @@ public class MessageConst {
     /**
      * Create/update recruitment validation message
      */
+    public static final String RECRUITMENT_CANNOT_BE_NULL = "Recruitment can not be null";
     public static final String CAREER_CANNOT_BE_NULL = "Career can not be null";
     public static final String JOB_CANNOT_BE_NULL = "Job can not be null";
     public static final String INVALID_QUANTITY = "Invalid quantity";

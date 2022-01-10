@@ -9,6 +9,7 @@ import com.demoipm.dto.recruitmentmanage.RecruitmentCreateRequestDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentDetailDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentListPageResponseDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentSaveResponseDto;
+import com.demoipm.dto.recruitmentmanage.RecruitmentUpdateRequestDto;
 import com.demoipm.dto.recruitmentmanage.SkillSelectionDto;
 import com.demoipm.service.CareerService;
 import com.demoipm.service.JobService;
@@ -133,6 +134,33 @@ public class RecruitmentManageController {
         recruitmentService.deleteById(recruitmentId);
         LOGGER.info("End deleteRecruitment with id {}", recruitmentId);
         return URLConst.REDIRECT + URLConst.MANAGE_RECRUITMENT_URL;
+    }
+
+    @Secured("ROLE_HR")
+    @RequestMapping(URLConst.UPDATE_RECRUITMENT_PAGE_URL)
+    public String updateRecruitmentPage(@RequestParam(value = "id") Integer id,
+                                        Model model) {
+        LOGGER.info("Start show update recruitment page");
+        RecruitmentUpdateRequestDto recruitment = recruitmentService.getRecruitmentUpdateInfo(id);
+        model.addAttribute("recruitment", recruitment);
+        return ViewConst.UPDATE_RECRUITMENT_PAGE;
+    }
+
+    @Secured("ROLE_HR")
+    @PostMapping(URLConst.API_PROCESS_UPDATE_RECRUITMENT_URL)
+    public ResponseEntity<RecruitmentSaveResponseDto> processUpdateRecruitment(@Valid @ModelAttribute("recruitment") RecruitmentUpdateRequestDto requestDto,
+                                                                               BindingResult result) {
+        LOGGER.info("Start process update recruitment");
+        RecruitmentSaveResponseDto responseDto = validateSaveRecruitmentRequest(requestDto, result);
+        if (responseDto.hasError()) {
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+        }
+
+        responseDto = recruitmentService.updateRecruitment(requestDto);
+        if (responseDto.hasError()) {
+            return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity(responseDto, HttpStatus.OK);
     }
 
     private Integer setDefaultPageNo(Integer pageNo) {

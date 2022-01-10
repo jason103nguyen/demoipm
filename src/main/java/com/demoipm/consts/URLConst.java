@@ -24,4 +24,6 @@ public class URLConst {
     public static final String API_GET_JOB_SELECTION_URL = "/api/get-job-selection";
     public static final String API_GET_SKILL_SELECTION_URL = "/api/get-skill-selection";
     public static final String DELETE_RECRUITMENT_URL = "/delete-recruitment";
+    public static final String UPDATE_RECRUITMENT_PAGE_URL = "/update-recruitment-page";
+    public static final String API_PROCESS_UPDATE_RECRUITMENT_URL = "/api/process-update-recruitment";
 }

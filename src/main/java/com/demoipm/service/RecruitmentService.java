@@ -8,6 +8,7 @@ import com.demoipm.dto.recruitmentmanage.RecruitmentCreateRequestDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentDetailDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentListPageResponseDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentSaveResponseDto;
+import com.demoipm.dto.recruitmentmanage.RecruitmentUpdateRequestDto;
 
 public interface RecruitmentService {
 
@@ -44,4 +45,18 @@ public interface RecruitmentService {
 	 * @return
 	 */
     RecruitmentSaveResponseDto createRecruitment(RecruitmentCreateRequestDto requestDto);
+
+	/**
+	 * Get recruitment update info by id
+	 * @param id
+	 * @return
+	 */
+	RecruitmentUpdateRequestDto getRecruitmentUpdateInfo(Integer id);
+
+	/**
+	 * Update recruitment by request
+	 * @param requestDto
+	 * @return
+	 */
+	RecruitmentSaveResponseDto updateRecruitment(RecruitmentUpdateRequestDto requestDto);
 }

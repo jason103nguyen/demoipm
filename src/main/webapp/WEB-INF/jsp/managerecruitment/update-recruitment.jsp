@@ -7,7 +7,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <%@page contentType="text/html" pageEncoding="UTF-8"%>
-    <title>Create New Recruitment</title>
+    <title>Update Recruitment</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -29,7 +29,7 @@
         </div>
 
         <div class="col-sm-9">
-            <p class="h1 text-warning text-center">CREATE NEW RECRUITMENT</p>
+            <p class="h1 text-warning text-center">UPDATE RECRUITMENT</p>
         </div>
     </div>
 
@@ -44,13 +44,15 @@
                     ${response.getMessage()}
                 </div>
             </c:if>
-            <form:form id="recruitment-create-form" modelAttribute="recruitment" action="${pageContext.request.contextPath}/process-create-recruitment" method="post">
+            <form:form id="recruitment-update-form" modelAttribute="recruitment" action="${pageContext.request.contextPath}/process-update-recruitment" method="post">
+                <form:input path="recruitmentId" hidden="hidden" />
                 <table class="table">
                     <tr>
                         <td class="w-50">
                             <div class="mb-3">
                                 <label for="career-selection" class="form-label fw-bold">Career</label>
                                 <form:select id="career-selection" class="form-select" aria-label="Default select example" path="careerId">
+                                    <option value="${recruitment.careerId}" selected>${recruitment.careerName}</option>
                                 </form:select>
                                 <span id="careerId-error" class="error form-text text-danger fst-italic"></span>
                             </div>
@@ -59,6 +61,7 @@
                             <div class="mb-3">
                                 <label for="job-selection" class="form-label fw-bold">Job</label>
                                 <form:select id="job-selection" class="form-select" aria-label="Default select example" path="jobId">
+                                    <option value="${recruitment.jobId}" selected>${recruitment.jobName}</option>
                                 </form:select>
                                 <span id="jobId-error" class="error form-text text-danger fst-italic"></span>
                             </div>
@@ -93,6 +96,9 @@
                             <div class="mb-3">
                                 <label for="skill-selection" class="form-label fw-bold">Needed skills</label>
                                 <form:select id="skill-selection" class="form-select" multiple="multiple" aria-label="multiple select" path="skillIds">
+                                    <c:forEach begin="0" end="${recruitment.skillIds.size() - 1}" varStatus="loop">
+                                        <option value="${recruitment.getSkillIds().get(loop.index)}" selected>${recruitment.getSkillNames().get(loop.index)}</option>
+                                    </c:forEach>
                                 </form:select>
                                 <span id="skillIds-error" class="error form-text text-danger fst-italic"></span>
                             </div>
@@ -114,7 +120,7 @@
                         </td>
                     </tr>
                 </table>
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </form:form>
 
         </div>
@@ -184,14 +190,14 @@
     });
 
     $(".error").hide();
-    $("#recruitment-create-form").submit(function (event) {
+    $("#recruitment-update-form").submit(function (event) {
         event.preventDefault();
-        let formData = $("#recruitment-create-form").serializeArray();
+        let formData = $("#recruitment-update-form").serializeArray();
         console.log(formData);
         $(".error").hide();
         $.ajax({
             type: "POST",
-            url: "${pageContext.request.contextPath}${URLConst.API_PROCESS_CREATE_RECRUITMENT_URL}",
+            url: "${pageContext.request.contextPath}${URLConst.API_PROCESS_UPDATE_RECRUITMENT_URL}",
             data: formData,
             dataType: "json",
             encode: true,
@@ -200,7 +206,7 @@
                 switch (response.status) {
                     case 200:
                         Swal.fire({
-                            title: 'Recruitment saved successfully',
+                            title: 'Recruitment updated successfully',
                             icon: 'success',
                             confirmButtonText: 'OK',
                             allowOutsideClick: false,

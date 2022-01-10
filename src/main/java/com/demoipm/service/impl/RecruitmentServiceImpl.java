@@ -16,6 +16,7 @@ import com.demoipm.dto.recruitmentmanage.RecruitmentDetailDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentListPageResponseDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentResponseDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentSaveResponseDto;
+import com.demoipm.dto.recruitmentmanage.RecruitmentUpdateRequestDto;
 import com.demoipm.entities.Career;
 import com.demoipm.entities.Job;
 import org.slf4j.Logger;
@@ -211,6 +212,100 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 			recruitment.setJob(job);
 
 			recruitmentDao.save(recruitment);
+
+			// Mapping skill relationship
+			List<RecruitmentSkill> recruitmentSkills = requestDto.getSkillIds().stream().map(skillId -> {
+				RecruitmentSkill recruitmentSkill = new RecruitmentSkill();
+				Skill skill = new Skill();
+				skill.setId(skillId);
+				recruitmentSkill.setSkill(skill);
+				recruitmentSkill.setRecruitment(recruitment);
+				return recruitmentSkill;
+			}).collect(Collectors.toList());
+			recruitmentSkillDao.saveAll(recruitmentSkills);
+
+		} catch (Throwable t) {
+			LOGGER.error("Has error when getRecruimentDetailById", t);
+			responseDTO.setError(true);
+			responseDTO.setMessage(MessageConst.INTERNAL_SERVER_ERROR);
+		}
+		return responseDTO;
+	}
+
+	@Override
+	public RecruitmentUpdateRequestDto getRecruitmentUpdateInfo(Integer id) {
+		LOGGER.info("Start getRecruitmentUpdateInfo with id {}", id);
+		RecruitmentUpdateRequestDto responseDTO = new RecruitmentUpdateRequestDto();
+		try {
+			Recruitment recruitment = recruitmentDao.getById(id);
+			// Mapping recruitment info
+			responseDTO.setRecruitmentId(recruitment.getId());
+			responseDTO.setStartDate(recruitment.getStartRecruitment()
+					.toInstant()
+					.atZone(ZoneId.systemDefault())
+					.toLocalDate());
+			responseDTO.setEndDate(recruitment.getEndRecruitment()
+					.toInstant()
+					.atZone(ZoneId.systemDefault())
+					.toLocalDate());
+			responseDTO.setQuantity(recruitment.getNumber());
+			responseDTO.setMinSalary(recruitment.getMinSalary());
+			responseDTO.setMaxSalary(recruitment.getMaxSalary());
+
+			// Mapping recruitment relationship
+			responseDTO.setCareerId(recruitment.getCareer().getId());
+			responseDTO.setCareerName(recruitment.getCareer().getName());
+
+			responseDTO.setJobId(recruitment.getJob().getId());
+			responseDTO.setJobName(recruitment.getJob().getName());
+
+			List<Integer> skillIds = new ArrayList<>();
+			List<String> skillNames = new ArrayList<>();
+			recruitment.getListRecruitmentSkill().stream().forEach(recruitmentSkill -> {
+				skillIds.add(recruitmentSkill.getSkill().getId());
+				skillNames.add(recruitmentSkill.getSkill().getName());
+			});
+			responseDTO.setSkillIds(skillIds);
+			responseDTO.setSkillNames(skillNames);
+
+		} catch (Throwable t) {
+			LOGGER.error("Has error when getRecruitmentUpdateInfo", t);
+			responseDTO = null;
+		}
+		return responseDTO;
+	}
+
+	@Override
+	public RecruitmentSaveResponseDto updateRecruitment(RecruitmentUpdateRequestDto requestDto) {
+		LOGGER.info("Start updateRecruitment with request {}", requestDto);
+		RecruitmentSaveResponseDto responseDTO = new RecruitmentSaveResponseDto();
+		try {
+			Recruitment recruitment = recruitmentDao.getById(requestDto.getRecruitmentId());
+			if (recruitment == null) {
+				responseDTO.setError(true);
+				responseDTO.setMessage(MessageConst.RESOURCE_NOT_FOUND);
+			}
+
+			// Mapping request dto to entity
+			recruitment.setNumber(requestDto.getQuantity());
+			recruitment.setMinSalary(requestDto.getMinSalary());
+			recruitment.setMaxSalary(requestDto.getMaxSalary());
+			recruitment.setStartRecruitment(Date.from(requestDto.getStartDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			recruitment.setEndRecruitment(Date.from(requestDto.getEndDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+			// Mapping career, job relationship
+			Career career = new Career();
+			career.setId(requestDto.getCareerId());
+			recruitment.setCareer(career);
+
+			Job job = new Job();
+			job.setId(requestDto.getJobId());
+			recruitment.setJob(job);
+
+			recruitmentDao.save(recruitment);
+
+			// Delete all current skill relationship
+			recruitmentSkillDao.deleteAll(recruitment.getListRecruitmentSkill());
 
 			// Mapping skill relationship
 			List<RecruitmentSkill> recruitmentSkills = requestDto.getSkillIds().stream().map(skillId -> {

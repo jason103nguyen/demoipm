@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demoipm.consts.URLConst;
 import com.demoipm.consts.ViewConst;
@@ -19,9 +20,12 @@ import com.demoipm.dto.CandidateDto;
 import com.demoipm.dto.InterviewDto;
 import com.demoipm.dto.SkillDto;
 import com.demoipm.dto.candidatefilter.CandidateFilter;
+import com.demoipm.dto.general.ResponseDto;
+import com.demoipm.dto.usermanage.UserUpdateRequestDto;
 import com.demoipm.service.CandidateService;
 import com.demoipm.service.InterviewService;
 import com.demoipm.service.SkillService;
+import com.demoipm.service.UserAppService;
 
 @Controller
 public class CandidateController {
@@ -34,6 +38,9 @@ public class CandidateController {
 	
 	@Autowired
 	private InterviewService interviewServiceImpl;
+	
+	@Autowired
+	private UserAppService userAppServiceImpl;
 
 	/**
 	 * Method will be show information of all candidate.
@@ -49,21 +56,17 @@ public class CandidateController {
 	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
 	public String viewCandidateInformation(Model model) {
 
-		int page = 0;
-	
 		List<CandidateDto> listCandidate = new ArrayList<CandidateDto>();
-		Integer totalPage = 0;
-		listCandidate = candidateServiceImpl.filterCandidatePassEntryTest(page);
-		totalPage = candidateServiceImpl.countPageCandidatePassEntryTest();
+		CandidateFilter candidateFilter = new CandidateFilter();
+		
+		listCandidate = candidateServiceImpl.filter(candidateFilter);
 		
 		for (CandidateDto candidateDto : listCandidate) {
 			List<InterviewDto> listInterviewDto = candidateServiceImpl.getListInterviewByCandidateId(candidateDto.getId());
 			candidateDto.setListInterview(listInterviewDto);
 		}
 		
-		CandidateFilter candidateFilter = new CandidateFilter();
 		model.addAttribute("candidateFilter", candidateFilter);
-		model.addAttribute("totalPage", totalPage);
 		showAllSkill(model);
 		model.addAttribute("listCandidate", listCandidate);
 		
@@ -130,6 +133,22 @@ public class CandidateController {
 			interviewDto = interviewServiceImpl.readById(idInterview);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String username = null;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		
+		if(username != null) {
+			ResponseDto responseDto = new ResponseDto();
+			UserUpdateRequestDto userUpdateRequestDto = userAppServiceImpl.readUserByUsername(username, responseDto);
+			String nameInterviewer = userUpdateRequestDto.getFullName();
+			interviewDto.setNameInterviewer(nameInterviewer);
 		}
 		
 		model.addAttribute("interview", interviewDto);

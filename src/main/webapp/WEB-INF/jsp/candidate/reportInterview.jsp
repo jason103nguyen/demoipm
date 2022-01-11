@@ -38,8 +38,7 @@
 					<label for="nameInterviewer">Interviewer:</label>
 				</div>
 				<div class="p-2 align-self-center">
-					<form:input type="text" class="form-control"
-						id="nameInterviewer" path="nameInterviewer"></form:input>
+					<form:input type="text" class="form-control" id="nameInterviewer" path="nameInterviewer"></form:input>
 				</div>
 				<div class="p-2 align-self-center">
 					<label for="result">Result:</label>

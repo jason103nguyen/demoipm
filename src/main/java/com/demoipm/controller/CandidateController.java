@@ -3,6 +3,8 @@ package com.demoipm.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.demoipm.consts.RoleConst;
 import com.demoipm.consts.URLConst;
 import com.demoipm.consts.ViewConst;
 import com.demoipm.dto.CandidateDto;
@@ -30,6 +33,8 @@ import com.demoipm.service.UserAppService;
 @Controller
 public class CandidateController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(CandidateController.class);
+	
 	@Autowired
 	private CandidateService candidateServiceImpl;
 	
@@ -53,9 +58,10 @@ public class CandidateController {
 	 * @return
 	 */
 	@GetMapping(value = {URLConst.VIEW_CANDIDATE_URL})
-	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
+	@Secured(value = {RoleConst.ROLE_HR, RoleConst.ROLE_INTERVIEWER})
 	public String viewCandidateInformation(Model model) {
-
+		
+		LOGGER.info("Start view candidate information");
 		List<CandidateDto> listCandidate = new ArrayList<CandidateDto>();
 		CandidateFilter candidateFilter = new CandidateFilter();
 		
@@ -70,14 +76,18 @@ public class CandidateController {
 		showAllSkill(model);
 		model.addAttribute("listCandidate", listCandidate);
 		
+		LOGGER.info("End view candidate information");
 		return ViewConst.MANAGE_CANDIDATE_PAGE;
 	}
 	
 	@PostMapping(value = {URLConst.VIEW_CANDIDATE_URL})
-	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
+	@Secured(value = {RoleConst.ROLE_HR, RoleConst.ROLE_INTERVIEWER})
 	public String viewCandidateInformation(
 		@ModelAttribute(name = "candidateFilter") CandidateFilter candidateFilter, Model model) {
 	
+		LOGGER.info("Start filter candidate information with content is {}, skills is {}, max age is {}, min age is {}", 
+				candidateFilter.getContent(), candidateFilter.getListSkills().toString(), 
+				String.valueOf(candidateFilter.getMaxAge()), String.valueOf(candidateFilter.getMinAge()));
 		List<CandidateDto> listCandidate = new ArrayList<CandidateDto>();
 		
 		listCandidate = candidateServiceImpl.filter(candidateFilter);
@@ -91,6 +101,10 @@ public class CandidateController {
 		showAllSkill(model);
 		model.addAttribute("listCandidate", listCandidate);
 		
+		LOGGER.info("End filter candidate information with content is {}, skills is {}, max age is {}, min age is {}", 
+				candidateFilter.getContent(), candidateFilter.getListSkills().toString(), 
+				String.valueOf(candidateFilter.getMaxAge()), String.valueOf(candidateFilter.getMinAge()));
+		
 		return ViewConst.MANAGE_CANDIDATE_PAGE;
 	}
 	
@@ -101,9 +115,10 @@ public class CandidateController {
 	 * @return
 	 */
 	@GetMapping(value = "/view-candidate-information/{id}")
-	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
+	@Secured(value = {RoleConst.ROLE_HR, RoleConst.ROLE_INTERVIEWER})
 	public String viewCandidateInfoById(@PathVariable(name = "id") int id, Model model) {
 		
+		LOGGER.info("Start view candidate information by id is {}", id);
 		CandidateDto candidateDto = null;
 		try {
 			candidateDto = candidateServiceImpl.readById(id);
@@ -115,6 +130,8 @@ public class CandidateController {
 		candidateDto.setListInterview(listInterviewDto);
 		
 		model.addAttribute("candidate", candidateDto);
+		
+		LOGGER.info("End view candidate information by id is {}", id);
 		return "candidate/viewInfoDetailCandidate";
 	}
 	
@@ -125,9 +142,10 @@ public class CandidateController {
 	 * @return
 	 */
 	@GetMapping(value = "/report-interview/{idInterview}")
-	@Secured(value = {"ROLE_INTERVIEWER"})
+	@Secured(value = {RoleConst.ROLE_INTERVIEWER})
 	public String reportInterviewByIdInterview(@PathVariable(name = "idInterview") int idInterview, Model model) {
 		
+		LOGGER.info("Start report interview at id interview {}", idInterview);
 		InterviewDto interviewDto = null;
 		try {
 			interviewDto = interviewServiceImpl.readById(idInterview);
@@ -152,6 +170,8 @@ public class CandidateController {
 		}
 		
 		model.addAttribute("interview", interviewDto);
+		
+		LOGGER.info("End report interview at id interview {}", idInterview);
 		return "candidate/reportInterview";
 	}
 	
@@ -162,9 +182,10 @@ public class CandidateController {
 	 * @return
 	 */
 	@PostMapping(value = "/report-interview")
-	@Secured(value = {"ROLE_INTERVIEWER"})
+	@Secured(value = {RoleConst.ROLE_INTERVIEWER})
 	public String updateReportInterview(@ModelAttribute(name = "interview") InterviewDto interviewResponse, Model model) {
 		
+		LOGGER.info("Start update report interview");
 		int idInterview = interviewResponse.getId();
 		InterviewDto interviewDto = null;
 		try {
@@ -180,6 +201,7 @@ public class CandidateController {
 		
 		interviewServiceImpl.update(interviewDto);
 		
+		LOGGER.info("End update report interview");
 		return "redirect:/view-all-candidate";
 	}
 	

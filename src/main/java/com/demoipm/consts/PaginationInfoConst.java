@@ -1,6 +1,6 @@
-package com.demoipm.Constant;
+package com.demoipm.consts;
 
-public class PaginationInfo {
+public class PaginationInfoConst {
 
 	/**
 	 * Max row show in one page

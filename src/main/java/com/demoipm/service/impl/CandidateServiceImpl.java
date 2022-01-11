@@ -11,11 +11,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.demoipm.Constant.PaginationInfo;
+import com.demoipm.consts.PaginationInfoConst;
 import com.demoipm.dao.CandidateDao;
 import com.demoipm.dao.InterviewDao;
 import com.demoipm.dto.CandidateDto;
 import com.demoipm.dto.InterviewDto;
+import com.demoipm.dto.candidatefilter.CandidateFilter;
 import com.demoipm.entities.Candidate;
 import com.demoipm.entities.Interview;
 import com.demoipm.service.CandidateService;
@@ -128,7 +129,7 @@ public class CandidateServiceImpl implements CandidateService {
 	 */
 	private Integer calculatorPage(Integer totalRow) {
 
-		Integer totalPage = Math.round(totalRow/PaginationInfo.MAX_RESULT);
+		Integer totalPage = Math.round(totalRow/PaginationInfoConst.MAX_RESULT);
 		return totalPage;
 	}
 
@@ -354,6 +355,17 @@ public class CandidateServiceImpl implements CandidateService {
 		LocalDate toYear = LocalDate.of(toYearInt, 12, 31);
 
 		return calculatorPage(candidateDao.countCandidateByContentAndAgeAndSkillAndPassEntryTest(content, fromYear, toYear, listId));
+	}
+	
+	/**
+	 * Filter candidate
+	 */
+	@Override
+	public List<CandidateDto> filter(CandidateFilter candidateFilter) {
+
+		List<Candidate> listEntity = candidateDao.filter(candidateFilter);
+		
+		return convertToListDto(listEntity);
 	}
 
 	/**

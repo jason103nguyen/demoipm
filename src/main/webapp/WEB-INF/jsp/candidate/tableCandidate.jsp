@@ -69,9 +69,9 @@
 								<c:forEach items="${candidate.listInterview}" var="interview">
 									<tr>
 										<td class="pb-0">
-										<form action="/report-interview/${interview.id}" method="get">
+											<form:form action="/report-interview/${interview.id}" method="get">
 												<button type="submit" class="btn btn-warning btn-sm">Choose</button>
-										</form>
+											</form:form>
 										</td>
 									</tr>
 								</c:forEach>
@@ -79,10 +79,11 @@
 						</table>
 					</td>
 
-					<td><form:form
-							action="/view-candidate-information/${candidate.id}" method="get">
-							<button type="submit" class="btn btn-warning m-1">Detail</button>
-						</form:form></td>
+					<td>
+						<form:form action="/view-candidate-information/${candidate.id}" method="get">
+							<button type="submit" class="btn btn-warning m-1 bi bi-ticket-detailed">  Detail</button>
+						</form:form>
+					</td>
 
 					<td>${candidate.status}</td>
 				</tr>

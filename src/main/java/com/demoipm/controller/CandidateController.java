@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.demoipm.consts.URLConst;
+import com.demoipm.consts.ViewConst;
 import com.demoipm.dto.CandidateDto;
 import com.demoipm.dto.InterviewDto;
 import com.demoipm.dto.SkillDto;
+import com.demoipm.dto.candidatefilter.CandidateFilter;
 import com.demoipm.service.CandidateService;
 import com.demoipm.service.InterviewService;
 import com.demoipm.service.SkillService;
@@ -42,75 +45,50 @@ public class CandidateController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping(value = {"/view-all-candidate"})
+	@GetMapping(value = {URLConst.VIEW_CANDIDATE_URL})
 	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
-	public String viewCandidateInformation(
-		@RequestParam(name = "content", required = false) String content,
-		@RequestParam(name = "minAge", required = false) Integer minAge,
-		@RequestParam(name = "maxAge", required = false) Integer maxAge, 
-		@RequestParam(name = "skillId", required = false) List<Integer> listId,
-		@RequestParam(name = "page", required = false) Integer page,
-		Model model) {
+	public String viewCandidateInformation(Model model) {
 
-		if (page == null) {
-			page = 0;
-		}
+		int page = 0;
 	
 		List<CandidateDto> listCandidate = new ArrayList<CandidateDto>();
 		Integer totalPage = 0;
-		
-		if (ageIsEmpty(minAge, maxAge) && listIdIsEmpty(listId) && contentIsEmpty(content)) {
-
-			listCandidate = candidateServiceImpl.filterCandidatePassEntryTest(page);
-			totalPage = candidateServiceImpl.countPageCandidatePassEntryTest();
-
-		} else if (!ageIsEmpty(minAge, maxAge) && listIdIsEmpty(listId) && contentIsEmpty(content)) {
-
-			listCandidate = candidateServiceImpl.filterCandidateByAge(minAge, maxAge, page);
-			totalPage = candidateServiceImpl.countPageCandidateByAge(minAge, maxAge);
-
-		} else if (ageIsEmpty(minAge, maxAge) && !listIdIsEmpty(listId) && contentIsEmpty(content)) {
-
-			listCandidate = candidateServiceImpl.filterCandidateBySkill(listId, page);
-			totalPage = candidateServiceImpl.countPageCandidateBySkill(listId);
-
-		} else if (ageIsEmpty(minAge, maxAge) && listIdIsEmpty(listId) && !contentIsEmpty(content)) {
-
-			listCandidate = candidateServiceImpl.filterCandidateByContent(content, page);
-			totalPage = candidateServiceImpl.countPageCandidateByContent(content);
-
-		} else if (!ageIsEmpty(minAge, maxAge) && !listIdIsEmpty(listId) && contentIsEmpty(content)) {
-
-			listCandidate = candidateServiceImpl.filterCandidateByAgeAndSkill(minAge, maxAge, listId, page);
-			totalPage = candidateServiceImpl.countPageCandidateByAgeAndSkill(minAge, maxAge, listId);
-
-		} else if (ageIsEmpty(minAge, maxAge) && !listIdIsEmpty(listId) && !contentIsEmpty(content)) {
-
-			listCandidate = candidateServiceImpl.filterCandidateByContentAndSkill(content, listId, page);
-			totalPage = candidateServiceImpl.countPageCandidateByContentAndSkill(content, listId);
-
-		} else if (!ageIsEmpty(minAge, maxAge) && listIdIsEmpty(listId) && !contentIsEmpty(content)) {
-
-			listCandidate = candidateServiceImpl.filterCandidateByContentAndAge(content, minAge, maxAge, page);
-			totalPage = candidateServiceImpl.countPageCandidateByContentAndAge(content, minAge, maxAge);
-
-		} else if (!ageIsEmpty(minAge, maxAge) && !listIdIsEmpty(listId) && !contentIsEmpty(content)) {
-
-			listCandidate = candidateServiceImpl.filterCandidateByContentAndAgeAndSkill(content, minAge, maxAge, listId, page);
-			totalPage = candidateServiceImpl.countPageCandidateByContentAndAgeAndSkill(content, minAge, maxAge, listId);
-
-		}
+		listCandidate = candidateServiceImpl.filterCandidatePassEntryTest(page);
+		totalPage = candidateServiceImpl.countPageCandidatePassEntryTest();
 		
 		for (CandidateDto candidateDto : listCandidate) {
 			List<InterviewDto> listInterviewDto = candidateServiceImpl.getListInterviewByCandidateId(candidateDto.getId());
 			candidateDto.setListInterview(listInterviewDto);
 		}
 		
+		CandidateFilter candidateFilter = new CandidateFilter();
+		model.addAttribute("candidateFilter", candidateFilter);
 		model.addAttribute("totalPage", totalPage);
 		showAllSkill(model);
 		model.addAttribute("listCandidate", listCandidate);
 		
-		return "candidate/viewCandidateInformation";
+		return ViewConst.MANAGE_CANDIDATE_PAGE;
+	}
+	
+	@PostMapping(value = {URLConst.VIEW_CANDIDATE_URL})
+	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
+	public String viewCandidateInformation(
+		@ModelAttribute(name = "candidateFilter") CandidateFilter candidateFilter, Model model) {
+	
+		List<CandidateDto> listCandidate = new ArrayList<CandidateDto>();
+		
+		listCandidate = candidateServiceImpl.filter(candidateFilter);
+		
+		for (CandidateDto candidateDto : listCandidate) {
+			List<InterviewDto> listInterviewDto = candidateServiceImpl.getListInterviewByCandidateId(candidateDto.getId());
+			candidateDto.setListInterview(listInterviewDto);
+		}
+		
+		model.addAttribute("candidateFilter", candidateFilter);
+		showAllSkill(model);
+		model.addAttribute("listCandidate", listCandidate);
+		
+		return ViewConst.MANAGE_CANDIDATE_PAGE;
 	}
 	
 	/**
@@ -202,51 +180,4 @@ public class CandidateController {
 		model.addAttribute("listSkill", listSkillDto);
 	}
 	
-	/**
-	 * Check age is empty
-	 * @param minAge
-	 * @param maxAge
-	 * @return
-	 */
-	private boolean ageIsEmpty(Integer minAge, Integer maxAge) {
-		
-		if (minAge == null || maxAge == null) {
-			return true;
-		} else {
-			return false;
-		}
-		
-	}
-	
-	/**
-	 * Check content is empty
-	 * @param content
-	 * @return
-	 */
-	private boolean contentIsEmpty(String content) {
-		
-		if( content == null) {
-			return true;
-		} else if (content.isEmpty() || content.isBlank()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	/**
-	 * Check list contain skills selected is empty
-	 * @param listId
-	 * @return
-	 */
-	private boolean listIdIsEmpty(List<Integer> listId) {
-		
-		if(listId == null) {
-			return true;
-		} else if (listId.isEmpty()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 }

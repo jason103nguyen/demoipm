@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.demoipm.dto.CandidateDto;
 import com.demoipm.dto.InterviewDto;
+import com.demoipm.dto.candidatefilter.CandidateFilter;
 
 public interface CandidateService {
 
@@ -184,4 +185,11 @@ public interface CandidateService {
 	 */
 	public Integer countPageCandidateByContentAndAgeAndSkill(String content, Integer minAge, Integer maxAge,
 			List<Integer> listId);
+
+	/**
+	 * Filter candidate
+	 * @param candidateFilter
+	 * @return
+	 */
+	List<CandidateDto> filter(CandidateFilter candidateFilter);
 }

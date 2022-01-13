@@ -14,7 +14,7 @@ public class EntryTestDto {
 	
 	private String result;
 	
-	private String point;
+	private int point;
 	
 	private String nameTest;
 	
@@ -66,11 +66,11 @@ public class EntryTestDto {
 		this.result = result;
 	}
 
-	public String getPoint() {
+	public int getPoint() {
 		return point;
 	}
 
-	public void setPoint(String point) {
+	public void setPoint(int point) {
 		this.point = point;
 	}
 

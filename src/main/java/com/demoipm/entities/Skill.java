@@ -30,10 +30,7 @@ public class Skill {
 	
 	@OneToMany(mappedBy = "skill")
 	private List<JobSkill> listJobSkill = new ArrayList<JobSkill>();
-
-	@OneToMany(mappedBy = "skill", targetEntity = QuestionEntryTest.class)
-	private List<QuestionEntryTest> listQuestion = new ArrayList<QuestionEntryTest>();
-
+	
 	public Skill() {}
 
 	public Skill(SkillDto skillDto) {

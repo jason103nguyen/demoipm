@@ -1,6 +1,5 @@
 package com.demoipm.entities;
 
-import java.time.LocalTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
+import com.demoipm.dto.InterviewDto;
 
 @Entity
 @Table(name = "interview")
@@ -24,10 +23,10 @@ public class Interview {
 	private int id;
 	
 	@Column(name = "time_interview")
-	private LocalTime timeInterview;
+	private Date timeInterview;
 	
-	@Column(name = "location")
-	private String location;
+	@Column(name = "local")
+	private String local;
 	
 	@Column(name = "evaluation")
 	private String evaluation;
@@ -44,24 +43,20 @@ public class Interview {
 	@ManyToOne
 	@JoinColumn(name = "candidate_id")
 	private Candidate candidate;
-
-	@Column(name = "contact_form")
-	private String contactForm;
-
-	@Column(name = "date")
-	protected Date date;
-
-	public Interview(){
-
-	}
-
-	public Interview(LocalTime timeInterview, String location, String evaluation, String note, String result, String nameInterviewer, Candidate candidate, String contactForm, Date date) {
-		this.timeInterview = timeInterview;
-		this.location = location;
-		this.evaluation = evaluation;
-		this.note = note;
-		this.result = result;
-		this.nameInterviewer = nameInterviewer;
+	
+	public Interview() {}
+	
+	public Interview(InterviewDto interview) {
+		super();
+		this.id = interview.getId();
+		this.timeInterview = interview.getTimeInterview();
+		this.local = interview.getLocal();
+		this.evaluation = interview.getEvaluation();
+		this.note = interview.getNote();
+		this.result = interview.getResult();
+		this.nameInterviewer = interview.getNameInterviewer();
+		
+		Candidate candidate = new Candidate(interview.getCandidate());
 		this.candidate = candidate;
 		this.contactForm = contactForm;
 		this.date = date;
@@ -75,20 +70,20 @@ public class Interview {
 		this.id = id;
 	}
 
-	public LocalTime getTimeInterview() {
+	public Date getTimeInterview() {
 		return timeInterview;
 	}
 
-	public void setTimeInterview(LocalTime timeInterview) {
+	public void setTimeInterview(Date timeInterview) {
 		this.timeInterview = timeInterview;
 	}
 
-	public String getLocation() {
-		return location;
+	public String getLocal() {
+		return local;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLocal(String local) {
+		this.local = local;
 	}
 
 	public String getEvaluation() {
@@ -122,28 +117,5 @@ public class Interview {
 	public void setNameInterviewer(String nameInterviewer) {
 		this.nameInterviewer = nameInterviewer;
 	}
-
-	public Candidate getCandidate() {
-		return candidate;
-	}
-
-	public void setCandidate(Candidate candidate) {
-		this.candidate = candidate;
-	}
-
-	public String getContactForm() {
-		return contactForm;
-	}
-
-	public void setContactForm(String contactForm) {
-		this.contactForm = contactForm;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
+	
 }

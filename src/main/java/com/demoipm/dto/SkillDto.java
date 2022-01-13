@@ -1,8 +1,10 @@
 package com.demoipm.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.demoipm.entities.Skill;
+import com.demoipm.entities.SkillCandidate;
 
 public class SkillDto {
 
@@ -14,6 +16,8 @@ public class SkillDto {
 	
 	private List<JobSkillDto> listJobSkillDto;
 	
+	private List<SkillCandidateDto> listSkillCandidate = new ArrayList<SkillCandidateDto>();
+	
 	public SkillDto() {}
 
 	public SkillDto(Skill skill) {
@@ -21,6 +25,14 @@ public class SkillDto {
 		this.id = skill.getId();
 		this.name = skill.getName();
 		this.description = skill.getDescription();
+	}
+
+	public List<SkillCandidateDto> getListSkillCandidate() {
+		return listSkillCandidate;
+	}
+
+	public void setListSkillCandidate(List<SkillCandidateDto> listSkillCandidate) {
+		this.listSkillCandidate = listSkillCandidate;
 	}
 
 	public int getId() {

@@ -1,6 +1,7 @@
 package com.demoipm.service.impl;
 
 import com.demoipm.dao.QuestionDao;
+import com.demoipm.dao.SkillDao;
 import com.demoipm.dto.EntryTestRequest;
 import com.demoipm.dto.QuestionEntryTestRequest;
 import com.demoipm.entities.EntryTest;
@@ -20,11 +21,13 @@ public class QuestionEntryTestServiceImpl implements QuestionService{
     @Autowired
     private QuestionDao questionDao;
 
+    @Autowired
+    private SkillDao skillDao;
 
     @Override
     public QuestionEntryTest create(QuestionEntryTestRequest questionEntryTestRequest) {
-        Skill skill = findBySkill(questionEntryTestRequest.getSkill());
         QuestionEntryTest questionEntryTest = parseEntryQuestionTestRequestToEntities(questionEntryTestRequest);
+        Skill skill = getSkillByName(questionEntryTestRequest.getSkill());
         questionEntryTest.setSkill(skill);
         return questionDao.save(questionEntryTest);
     }
@@ -35,10 +38,11 @@ public class QuestionEntryTestServiceImpl implements QuestionService{
         return questionDao.save(questionEntryTest);
     }
 
-    @Override
-    public Skill findBySkill(String skill) {
-        return questionDao.findBySkill(skill);
+    private Skill getSkillByName(String name){
+        Skill skill = skillDao.findByName(name).orElse(null);
+        return skill;
     }
+
 
     private QuestionEntryTest parseEntryQuestionTestRequestToEntities(QuestionEntryTestRequest questionEntryTestRequest){
         QuestionEntryTest questionEntryTest = new QuestionEntryTest();

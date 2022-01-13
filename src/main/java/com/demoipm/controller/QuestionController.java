@@ -26,7 +26,7 @@ public class QuestionController {
     @PostMapping("/question/create")
     public String createQuestionForm(@ModelAttribute("questionRequest") QuestionEntryTestRequest questionEntryTestRequest, BindingResult result, Model model){
         model.addAttribute("questionRequest",questionService.create(questionEntryTestRequest));
-        System.out.println(questionEntryTestRequest);
+        System.out.println("question là : " + questionEntryTestRequest);
         return "entrytest/questionentrytest";
     }
 }

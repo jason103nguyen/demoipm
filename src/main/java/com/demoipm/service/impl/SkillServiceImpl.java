@@ -76,4 +76,9 @@ public class SkillServiceImpl implements SkillService {
 		}
 	}
 
+	@Override
+	public Optional<Skill> findByName(String name) {
+		 return skillDao.findByName(name);
+	}
+
 }

@@ -40,7 +40,7 @@ public class QuestionEntryTest {
     private String answer4;
 
     @ManyToOne(targetEntity = Skill.class)
-    @JoinColumn(name = "skill_id", nullable = false)
+    @JoinColumn(name = "skill_id")
     private Skill skill;
 
     @ManyToOne(fetch = FetchType.EAGER)

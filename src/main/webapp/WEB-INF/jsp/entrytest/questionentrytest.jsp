@@ -78,11 +78,11 @@
                                                <div class="input-group mb-4">
                                                    <div class="form-control" style="border:none">
                                                        <p><b>Lĩnh vực</b></p>
-                                                       <select type="text" id="" class="form-control" name="">
-                                                           <option selected> Skill</option>
-                                                           <option value="1">Java</option>
-                                                           <option value="2">C</option>
-                                                           <option value="3">Python</option>
+                                                       <select type="text" id="skill" class="form-control" name="skill">
+                                                           <option> Skill</option>
+                                                           <option>Java</option>
+                                                           <option>C</option>
+                                                           <option>Python</option>
                                                        </select>
                                                    </div>
                                                </div>
@@ -129,7 +129,6 @@
                        </div>
                        <div class="row justify-content-center">
                            <button class="btn btn-info col-3"> <i class="fa fa-save"></i> Lưu thay đổi</button>
-                           <button class="btn btn-danger col-3"> <i class="fa fa-times"></i> Hủy </button>
                        </div>
                    </div>
                </div>

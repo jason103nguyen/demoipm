@@ -14,7 +14,5 @@ public interface QuestionService {
 
 	QuestionEntryTest update(QuestionEntryTestRequest questionEntryTestRequest);
 
-	Skill findBySkill(String skill);
-
 	void deleteById(int id);
 }

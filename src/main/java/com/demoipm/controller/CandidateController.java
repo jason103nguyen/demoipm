@@ -22,6 +22,7 @@ import com.demoipm.service.SkillService;
 
 @Controller
 public class CandidateController {
+/*
 
 	@Autowired
 	private CandidateService candidateServiceImpl;
@@ -32,7 +33,8 @@ public class CandidateController {
 	@Autowired
 	private InterviewService interviewServiceImpl;
 
-	/**
+	*/
+/**
 	 * Method will be show information of all candidate
 	 * @param content
 	 * @param minAge
@@ -41,7 +43,8 @@ public class CandidateController {
 	 * @param page
 	 * @param model
 	 * @return
-	 */
+	 *//*
+
 	@GetMapping(value = {"/view-all-candidate"})
 	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
 	public String viewCandidateInformation(
@@ -113,12 +116,14 @@ public class CandidateController {
 		return "candidate/viewCandidateInformation";
 	}
 	
-	/**
+	*/
+/**
 	 * Method will be show information of candidate 
 	 * @param id
 	 * @param model
 	 * @return
-	 */
+	 *//*
+
 	@GetMapping(value = "/view-candidate-information/{id}")
 	@Secured(value = {"ROLE_HR", "ROLE_INTERVIEWER"})
 	public String viewCandidateInfoById(@PathVariable(name = "id") int id, Model model) {
@@ -137,12 +142,14 @@ public class CandidateController {
 		return "candidate/viewInfoDetailCandidate";
 	}
 	
-	/**
+	*/
+/**
 	 * Method will show information interview of candidate
 	 * @param idInterview
 	 * @param model
 	 * @return
-	 */
+	 *//*
+
 	@GetMapping(value = "/report-interview/{idInterview}")
 	@Secured(value = {"ROLE_INTERVIEWER"})
 	public String reportInterviewByIdInterview(@PathVariable(name = "idInterview") int idInterview, Model model) {
@@ -158,12 +165,14 @@ public class CandidateController {
 		return "candidate/reportInterview";
 	}
 	
-	/**
+	*/
+/**
 	 * Method update result interview
 	 * @param interviewResponse
 	 * @param model
 	 * @return
-	 */
+	 *//*
+
 	@PostMapping(value = "/report-interview")
 	@Secured(value = {"ROLE_INTERVIEWER"})
 	public String updateReportInterview(@ModelAttribute(name = "interview") InterviewDto interviewResponse, Model model) {
@@ -186,10 +195,12 @@ public class CandidateController {
 		return "redirect:/view-all-candidate";
 	}
 	
-	/**
+	*/
+/**
 	 * Add all skill on view
 	 * @param model
-	 */
+	 *//*
+
 	private void showAllSkill(Model model) {
 		
 		List<SkillDto> listSkillDto = new ArrayList<SkillDto>();
@@ -202,12 +213,14 @@ public class CandidateController {
 		model.addAttribute("listSkill", listSkillDto);
 	}
 	
-	/**
+	*/
+/**
 	 * Check age is empty
 	 * @param minAge
 	 * @param maxAge
 	 * @return
-	 */
+	 *//*
+
 	private boolean ageIsEmpty(Integer minAge, Integer maxAge) {
 		
 		if (minAge == null || maxAge == null) {
@@ -218,12 +231,15 @@ public class CandidateController {
 		
 	}
 	
-	/**
+	*/
+/**
 	 * Check content is empty
 	 * @param content
 	 * @return
-	 */
-	private boolean contentIsEmpty(String content) {
+	 *//*
+
+	*/
+/*private boolean contentIsEmpty(String content) {
 		
 		if( content == null) {
 			return true;
@@ -232,13 +248,16 @@ public class CandidateController {
 		} else {
 			return false;
 		}
-	}
+	}*//*
+
 	
-	/**
+	*/
+/**
 	 * Check list contain skills selected is empty
 	 * @param listId
 	 * @return
-	 */
+	 *//*
+
 	private boolean listIdIsEmpty(List<Integer> listId) {
 		
 		if(listId == null) {
@@ -249,4 +268,5 @@ public class CandidateController {
 			return false;
 		}
 	}
+*/
 }

@@ -98,7 +98,7 @@ VALUES ('Vo Van B', '0123456789', 'bvo@gmail.com', 'nam', '1996/3/10');
 INSERT INTO candidate (full_name, phone, email, sex, birth_day) 
 VALUES ('Vo Van C', '0123456789', 'cvo@gmail.com', 'nam', '1996/3/10');
 
--- ENTRYTEST --
+/*-- ENTRYTEST --
 INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
 VALUES ('2021/12/18', 'FT_1', 'PASS', 85, 'Java_Test', 1);
 
@@ -116,4 +116,4 @@ INSERT INTO interview (time_interview, local, evaluation, note, result, name_int
 VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 2);
 
 INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id)
-VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 3);
+VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 3);*/

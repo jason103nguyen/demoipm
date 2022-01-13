@@ -4,11 +4,7 @@ import java.util.Date;
 
 import com.demoipm.entities.Candidate;
 import com.demoipm.entities.Interview;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
 public class InterviewDto {
 
 	private int id;
@@ -75,6 +71,75 @@ public class InterviewDto {
 	}
 */
 
+	public int getId() {
+		return id;
+	}
 
-	
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getRound() {
+		return round;
+	}
+
+	public void setRound(int round) {
+		this.round = round;
+	}
+
+	public Date getTimeInterview() {
+		return timeInterview;
+	}
+
+	public void setTimeInterview(Date timeInterview) {
+		this.timeInterview = timeInterview;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getEvaluation() {
+		return evaluation;
+	}
+
+	public void setEvaluation(String evaluation) {
+		this.evaluation = evaluation;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
+
+	public String getNameInterviewer() {
+		return nameInterviewer;
+	}
+
+	public void setNameInterviewer(String nameInterviewer) {
+		this.nameInterviewer = nameInterviewer;
+	}
+
+	public CandidateDto getCandidate() {
+		return candidate;
+	}
+
+	public void setCandidate(CandidateDto candidate) {
+		this.candidate = candidate;
+	}
 }

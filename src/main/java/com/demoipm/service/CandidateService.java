@@ -53,5 +53,12 @@ public interface CandidateService {
 	 * @param candidateFilter
 	 * @return
 	 */
-	List<CandidateDto> filter(CandidateFilter candidateFilter);
+	List<CandidateDto> filter(CandidateFilter candidateFilter, Integer page);
+
+	/**
+	 * Count row
+	 * @param candidateFilter
+	 * @return
+	 */
+	Integer countRow(CandidateFilter candidateFilter);
 }

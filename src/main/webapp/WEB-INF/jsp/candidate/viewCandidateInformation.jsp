@@ -29,12 +29,12 @@
 		  	<p class="h1 text-warning">LIST OF CANDIDATES</p>
 		  	
 		  	<!-- Search information candidate -->
-			<form:form action="/view-all-candidate" method="post" modelAttribute="candidateFilter">
+			<form action="/view-all-candidate" method="get">
 				<div class="input-group mb-3 w-100">
-					<form:input type="text" class="form-control" placeholder="Search name candidate" path="content"></form:input>
+					<input type="text" class="form-control" placeholder="Search name candidate" name="content" value="${candidateFilter.content}"></input>
 					<button class="btn btn-success bi bi-search" type="submit">  Search</button>
 				</div>
-			</form:form>
+			</form>
 		  </div>
 		  
 		  <div class="col-sm-4">
@@ -45,7 +45,7 @@
 		<jsp:include page="tableCandidate.jsp" />
 
 		<!-- Filter Candidate -->
-		<form:form action="/view-all-candidate" method="post" modelAttribute="candidateFilter">
+		<form action="/view-all-candidate" method="get">
 		<div class="container border-secondary rounded" style="background-color: #D2B48C">
 			<div class="row">
 			
@@ -53,9 +53,9 @@
 				<div class="col-sm-5">
 					<div class="d-flex">
 						<div class="p-2"><label for="minAge" class="form-label">From Age</label></div>
-						<div class="p-2"><form:input type="text" class="form-control" path="minAge" id="minAge"></form:input></div>
+						<div class="p-2"><input type="text" class="form-control" name="minAge" value="${candidateFilter.minAge}" id="minAge"></input></div>
 						<div class="p-2"><label for="maxAge" class="form-label">To </label></div>
-						<div class="p-2"><form:input type="text" class="form-control" path="maxAge" id="maxAge"></form:input></div>
+						<div class="p-2"><input type="text" class="form-control" name="maxAge" value="${candidateFilter.maxAge}" id="maxAge"></input></div>
 					</div>
 				</div>
 				
@@ -64,7 +64,13 @@
 					<div class="d-flex flex-wrap">
 						<c:forEach items="${listSkill}" var="skill">
 							<div class="p-4 py-1 form-check">
-								<form:checkbox class="form-check-input" id="check1" path="listSkills" value="${skill.id}"/>
+								<input type=checkbox class="form-check-input" id="check1" name="listSkills" value="${skill.id}" 
+									
+									<c:if test="${candidateFilter.listSkills.contains(skill.id)}">
+										checked
+									</c:if>
+
+								/>
 								<label class="form-check-label">${skill.name}</label>
 							</div>
 						</c:forEach>
@@ -74,13 +80,28 @@
 				<!-- Button apply filter -->
 				<div class="col-sm-1 pt-3" align="center">
 					<button class="btn btn-success bi bi-funnel" type="submit">Filter</button>
-					<form:input type="hidden" path="content"></form:input>
+					<input type="hidden" name="content" value="${candidateFilter.content}" ></input>
 				</div>
 			</div>
 		</div>
-		</form:form>
+		</form>
 
-		<jsp:include page="pagination.jsp" />
+		<!--Pagination-->
+		<div class="container mt-3">
+			<ul class="pagination justify-content-center">
+				<c:forEach var="page" begin="1" end="${totalPage}">
+					<li class="page-item"><a class="page-link" href="/view-all-candidate?
+						page=${page - 1}
+						&content=${candidateFilter.content}
+						&maxAge=${candidateFilter.maxAge}
+						&minAge=${candidateFilter.minAge}
+						<c:forEach items="${candidateFilter.listSkills}" var="skillPage">
+							&listSkills=${skillPage}
+						</c:forEach>
+						">${page}</a></li>
+				</c:forEach>
+			</ul>
+		</div>
 	</div>
 </body>
 

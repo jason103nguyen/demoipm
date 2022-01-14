@@ -29,6 +29,15 @@ public class CandidateServiceImpl implements CandidateService {
 	private InterviewDao interviewDao;
 	
 	/**
+	 * Count row
+	 */
+	@Override
+	public Integer countRow(CandidateFilter candidateFilter) {
+
+		return candidateDao.countRow(candidateFilter);
+	}
+
+	/**
 	 * Create a candidate
 	 */
 	@Override
@@ -113,9 +122,9 @@ public class CandidateServiceImpl implements CandidateService {
 	 * Filter candidate
 	 */
 	@Override
-	public List<CandidateDto> filter(CandidateFilter candidateFilter) {
+	public List<CandidateDto> filter(CandidateFilter candidateFilter, Integer page) {
 
-		List<Candidate> listEntity = candidateDao.filter(candidateFilter);
+		List<Candidate> listEntity = candidateDao.filter(candidateFilter, page);
 		
 		return convertToListDto(listEntity);
 	}

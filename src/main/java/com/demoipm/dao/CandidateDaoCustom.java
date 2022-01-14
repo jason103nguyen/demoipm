@@ -10,9 +10,16 @@ import com.demoipm.entities.Interview;
 public interface CandidateDaoCustom {
 
 	/**
+	 * Count row
+	 * @param candidateFilter
+	 * @return
+	 */
+    Integer countRow(CandidateFilter candidateFilter);
+
+	/**
 	 * Filter candidate
 	 * @param candidateFilter
 	 * @return
 	 */
-	List<Candidate> filter(CandidateFilter candidateFilter);
+	List<Candidate> filter(CandidateFilter candidateFilter, Integer page);
 }

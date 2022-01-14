@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.demoipm.consts.PaginationInfoConst;
 import com.demoipm.consts.RoleConst;
 import com.demoipm.consts.URLConst;
 import com.demoipm.consts.ViewConst;
@@ -59,52 +61,53 @@ public class CandidateController {
 	 */
 	@GetMapping(value = {URLConst.VIEW_CANDIDATE_URL})
 	@Secured(value = {RoleConst.ROLE_HR, RoleConst.ROLE_INTERVIEWER})
-	public String viewCandidateInformation(Model model) {
+	public String viewCandidateInformation(Model model, 
+		@RequestParam(name = "content", required = false) String content,
+		@RequestParam(name = "maxAge", required = false) Integer maxAge,
+		@RequestParam(name = "minAge", required = false) Integer minAge,
+		@RequestParam(name = "listSkills", required = false) List<Integer> listSkills, 
+		@RequestParam(name = "page", required = false) Integer page) {
 		
 		LOGGER.info("Start view candidate information");
 		List<CandidateDto> listCandidate = new ArrayList<CandidateDto>();
 		CandidateFilter candidateFilter = new CandidateFilter();
 		
-		listCandidate = candidateServiceImpl.filter(candidateFilter);
+		// Set default value for page
+		if (page == null) {
+			page = 0;
+		}
 		
+		candidateFilter.setContent(content);
+		candidateFilter.setMaxAge(maxAge);
+		candidateFilter.setMinAge(minAge);
+		candidateFilter.setListSkills(listSkills);
+
+		listCandidate = candidateServiceImpl.filter(candidateFilter, page);
+
+		// Count page
+		Integer totalRow = candidateServiceImpl.countRow(candidateFilter);
+		Integer totalPage = (int)Math.round((double)totalRow/(double)PaginationInfoConst.MAX_RESULT);
+
 		for (CandidateDto candidateDto : listCandidate) {
 			List<InterviewDto> listInterviewDto = candidateServiceImpl.getListInterviewByCandidateId(candidateDto.getId());
 			candidateDto.setListInterview(listInterviewDto);
 		}
 		
+		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("candidateFilter", candidateFilter);
-		showAllSkill(model);
+
+		// Get all skill
+		List<SkillDto> listSkillDto = new ArrayList<SkillDto>();
+		try {
+			listSkillDto = skillServiceImpl.readAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("listSkill", listSkillDto);
 		model.addAttribute("listCandidate", listCandidate);
 		
 		LOGGER.info("End view candidate information");
-		return ViewConst.MANAGE_CANDIDATE_PAGE;
-	}
-	
-	@PostMapping(value = {URLConst.VIEW_CANDIDATE_URL})
-	@Secured(value = {RoleConst.ROLE_HR, RoleConst.ROLE_INTERVIEWER})
-	public String viewCandidateInformation(
-		@ModelAttribute(name = "candidateFilter") CandidateFilter candidateFilter, Model model) {
-	
-		LOGGER.info("Start filter candidate information with content is {}, skills is {}, max age is {}, min age is {}", 
-				candidateFilter.getContent(), candidateFilter.getListSkills().toString(), 
-				String.valueOf(candidateFilter.getMaxAge()), String.valueOf(candidateFilter.getMinAge()));
-		List<CandidateDto> listCandidate = new ArrayList<CandidateDto>();
-		
-		listCandidate = candidateServiceImpl.filter(candidateFilter);
-		
-		for (CandidateDto candidateDto : listCandidate) {
-			List<InterviewDto> listInterviewDto = candidateServiceImpl.getListInterviewByCandidateId(candidateDto.getId());
-			candidateDto.setListInterview(listInterviewDto);
-		}
-		
-		model.addAttribute("candidateFilter", candidateFilter);
-		showAllSkill(model);
-		model.addAttribute("listCandidate", listCandidate);
-		
-		LOGGER.info("End filter candidate information with content is {}, skills is {}, max age is {}, min age is {}", 
-				candidateFilter.getContent(), candidateFilter.getListSkills().toString(), 
-				String.valueOf(candidateFilter.getMaxAge()), String.valueOf(candidateFilter.getMinAge()));
-		
 		return ViewConst.MANAGE_CANDIDATE_PAGE;
 	}
 	
@@ -191,7 +194,6 @@ public class CandidateController {
 		try {
 			interviewDto = interviewServiceImpl.readById(idInterview);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -203,22 +205,6 @@ public class CandidateController {
 		
 		LOGGER.info("End update report interview");
 		return "redirect:/view-all-candidate";
-	}
-	
-	/**
-	 * Add all skill on view
-	 * @param model
-	 */
-	private void showAllSkill(Model model) {
-		
-		List<SkillDto> listSkillDto = new ArrayList<SkillDto>();
-		try {
-			listSkillDto = skillServiceImpl.readAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		model.addAttribute("listSkill", listSkillDto);
 	}
 	
 }

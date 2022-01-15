@@ -93,7 +93,7 @@
             {
                 "targets": 6,
                 "render": function (data, type, row) {
-                    let editBtn = `<a class="btn btn-sm btn-primary mx-2" href="${pageContext.request.contextPath}/update-user-page?username=` + row.username + `">Edit</a>`;
+                    let editBtn = `<a class="btn btn-sm btn-primary mx-2" href="${pageContext.request.contextPath}${URLConst.UPDATE_USER_PAGE_URL}?username=` + row.username + `">Edit</a>`;
                     let deleteBtn = `<a class="btn btn-sm btn-primary mx-2" href="#" onclick="deleteUser(event, '` + row.username + `')">Delete</a>`;
                     return editBtn + deleteBtn;
                 },

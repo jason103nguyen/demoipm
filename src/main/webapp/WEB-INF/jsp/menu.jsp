@@ -5,9 +5,10 @@
 	<a href="#" class="list-group-item list-group-item-primary">QUẢN LÝ
 		ỨNG VIÊN</a> <a href="#"
 		class="list-group-item list-group-item-action list-group-item-warning">QUẢN
-		LÝ NGÀNH NGHỀ</a> <a href="#"
-		class="list-group-item list-group-item-action list-group-item-primary">QUẢN
-		LÝ TUYỂN DỤNG</a> <a href="#"
+		LÝ NGÀNH NGHỀ</a>
+	<a href="${pageContext.request.contextPath}/manage-recruitment"
+		class="list-group-item list-group-item-action list-group-item-primary">MANAGE RECRUITMENT</a>
+	<a href="#"
 		class="list-group-item list-group-item-action list-group-item-warning">QUẢN
 		LÝ KĨ NĂNG</a> <a href="#"
 		class="list-group-item list-group-item-action list-group-item-primary">QUẢN

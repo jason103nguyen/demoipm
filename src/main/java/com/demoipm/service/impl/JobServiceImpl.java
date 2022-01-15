@@ -3,9 +3,15 @@ package com.demoipm.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import com.demoipm.dto.recruitmentmanage.CareerSelectionDto;
+import com.demoipm.dto.recruitmentmanage.JobSelectionDto;
+import com.demoipm.entities.Career;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +23,8 @@ import com.demoipm.service.JobService;
 @Service
 @Transactional
 public class JobServiceImpl implements JobService {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(JobService.class);
 
 	@Autowired
 	private JobDao jobDao;
@@ -73,6 +81,24 @@ public class JobServiceImpl implements JobService {
 
 		if (jobDao.existsById(id)) {
 			jobDao.deleteById(id);
+		}
+	}
+
+	@Override
+	public List<JobSelectionDto> getAllJobOfCareer(Integer careerId) {
+		LOGGER.info("Start get all job");
+		try {
+			List<Job> jobEntities = jobDao.getAllJobOfCareer(careerId);
+			List<JobSelectionDto> jobDtos = jobEntities.stream()
+					.map(job ->
+							new JobSelectionDto()
+									.setId(job.getId())
+									.setJob(job.getName()))
+					.collect(Collectors.toList());
+			return jobDtos;
+		} catch (Throwable t) {
+			LOGGER.error("Has error when getAllJob", t);
+			return new ArrayList<>();
 		}
 	}
 

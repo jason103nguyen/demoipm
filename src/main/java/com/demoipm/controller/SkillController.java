@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.demoipm.dto.UserAppDto;
-import com.demoipm.entities.UserApp;
-import com.demoipm.service.JobService;
-import com.demoipm.service.JobSkillService;
-import com.demoipm.service.SkillService;
 import com.demoipm.service.UserAppService;
 
 @Controller

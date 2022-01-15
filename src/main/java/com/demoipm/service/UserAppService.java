@@ -1,9 +1,10 @@
 package com.demoipm.service;
 
 import com.demoipm.dto.UserAppDto;
+import com.demoipm.dto.general.DatatableParamRequestDTO;
+import com.demoipm.dto.general.DatatableResponseDTO;
 import com.demoipm.dto.general.ResponseDto;
 import com.demoipm.dto.usermanage.UserCreateRequestDto;
-import com.demoipm.dto.usermanage.UserListPageResponseDto;
 import com.demoipm.dto.usermanage.UserUpdateRequestDto;
 
 import java.util.List;
@@ -22,12 +23,10 @@ public interface UserAppService {
 
 	/**
 	 * Read user list by search word, page number and entries number
-	 * @param searchWord
-	 * @param pageNo
-	 * @param entriesNo
+	 * @param request
 	 * @return
 	 */
-	UserListPageResponseDto readByCondition(String searchWord, int pageNo, int entriesNo);
+	DatatableResponseDTO readByCondition(DatatableParamRequestDTO request);
 
 	/**
 	 * Create new user from create request

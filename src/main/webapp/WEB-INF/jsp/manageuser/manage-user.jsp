@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.demoipm.consts.URLConst" %>
 <!DOCTYPE HTML>
 <html lang="en">
 
@@ -8,14 +9,13 @@
     <title>Manage User</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
-            rel="stylesheet">
-
-    <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.11.3/datatables.min.css"/>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.11.3/datatables.min.js"></script>
 </head>
 
 <body class="bg-light">
@@ -27,23 +27,6 @@
 
         <div class="col-sm-9">
             <p class="h1 text-warning text-center">MANAGE USER</p>
-            <div class="d-flex flex-row justify-content-between align-items-end">
-                <a href="${pageContext.request.contextPath}/create-user-page" class="btn btn-primary">Add new</a>
-                <form action="${pageContext.request.contextPath}/manage-user" method="get">
-                    <div class="d-flex align-items-end">
-                        <div>
-                            <input type="text" class="form-control" id="search" placeholder="Input keyword..."
-                                   name="searchWord" value="${response.getSearchWord()}">
-                            <input type="number" name="entriesNo" value="${response.getEntriesNo()}" hidden>
-                            <input type="number" name="pageNo" value="${response.getCurrentPage()}" hidden>
-                        </div>
-
-                        <div>
-                            <button type="submit" class="btn btn-secondary">Search</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
 
@@ -53,96 +36,74 @@
         </div>
 
         <div class="col-sm-9">
-            <c:if test="${response.userList != null && response.userList.size() > 0}">
-                <nav aria-label="...">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a class="page-link" tabindex="-1" aria-disabled="true">Entries</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link"
-                               href="${pageContext.request.contextPath}/manage-user?entriesNo=1&searchWord=${response.getSearchWord()}">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link"
-                               href="${pageContext.request.contextPath}/manage-user?entriesNo=2&searchWord=${response.getSearchWord()}">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link"
-                               href="${pageContext.request.contextPath}/manage-user?entriesNo=3&searchWord=${response.getSearchWord()}">3</a>
-                        </li>
-                    </ul>
-                </nav>
-            </c:if>
-
-            <table class="table table-bordered table-striped">
+            <table id="user-datatable" class="table table-bordered table-striped">
+                <thead>
                 <tr class="text-center">
-                    <th>No.</th>
+                    <th>No</th>
                     <th>Fullname</th>
                     <th>Phone</th>
                     <th>Email</th>
                     <th>Username</th>
                     <th>Role</th>
-                    <th colspan="2">Action</th>
+                    <th>Action</th>
                 </tr>
-                <c:forEach items="${response.userList}" var="user" varStatus="theCount">
-                    <tr>
-                        <td class="align-middle">${theCount.count}</td>
-                        <td class="align-middle">${user.fullName}</td>
-                        <td class="align-middle">${user.phone}</td>
-                        <td class="align-middle">${user.email}</td>
-                        <td class="align-middle">${user.username}</td>
-                        <td class="align-middle">
-                            <c:forEach items="${user.roles}" var="role">
-                                ${role}<br>
-                            </c:forEach>
-                        </td>
-                        <td class="align-middle">
-                            <a href="${pageContext.request.contextPath}/update-user-page?username=${user.username}">Edit</a></td>
-                        <td class="align-middle">
-                            <a href="#" onclick="deleteUser(event, '${user.username}')">Delete</a>
-                        </td>
-                    </tr>
-                </c:forEach>
-                <c:if test="${response.userList == null || response.userList.size() == 0}">
-                    <tr>
-                        <td class="text-center" colspan="8">No data available</td>
-                    </tr>
-                </c:if>
+                </thead>
             </table>
-
-            <c:if test="${response.userList != null && response.userList.size() > 0}">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item ${response.getCurrentPage() == 1 ? 'disabled' : ''}">
-                            <a class="page-link"
-                               href="${pageContext.request.contextPath}/manage-user?entriesNo=${response.getEntriesNo()}&pageNo=${response.getCurrentPage()-1}&searchWord=${response.getSearchWord()}"
-                               aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <c:forEach begin="1" end="${response.getTotalPage()}" varStatus="pageNo">
-                            <li class="page-item ${response.getCurrentPage() == pageNo.count ? 'active' : ''}">
-                                <a class="page-link"
-                                   href="${pageContext.request.contextPath}/manage-user?entriesNo=${response.getEntriesNo()}&pageNo=${pageNo.count}&searchWord=${response.getSearchWord()}">${pageNo.count}</a>
-                            </li>
-                        </c:forEach>
-                        <li class="page-item ${response.getCurrentPage() == response.getTotalPage() ? 'disabled' : ''}">
-                            <a class="page-link"
-                               href="${pageContext.request.contextPath}/manage-user?entriesNo=${response.getEntriesNo()}&pageNo=${response.getCurrentPage()+1}&searchWord=${response.getSearchWord()}"
-                               aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </c:if>
         </div>
     </div>
 
 </div>
-
 <script>
+
+    let datatable = $('#user-datatable').DataTable({
+        serverSide: true,
+        ajax: {
+            url: '${pageContext.request.contextPath}${URLConst.API_GET_USER_BY_CONDITION_URL}',
+            method: 'POST',
+            dataSrc: 'data',
+            contentType: "application/json",
+            data: function (request) {
+                return JSON.stringify(request);
+            }
+        },
+        order: [],
+        columnDefs: [
+            {"targets": "_all", "orderable": false},
+            {
+                "targets": 0,
+                "render": (data, type, row, meta) => {
+                    return meta.row + 1;
+                }
+            },
+            {"data": "fullName", "targets": 1},
+            {"data": "phone", "targets": 2},
+            {"data": "email", "targets": 3},
+            {"data": "username", "targets": 4},
+            {
+                "data": "roles",
+                "targets": 5,
+                "render": data => {
+                    let content = "";
+                    data.forEach(element => {
+                        content += element + '<br>';
+                    });
+                    return content;
+                }
+            },
+            {
+                "targets": 6,
+                "render": function (data, type, row) {
+                    let editBtn = `<a class="btn btn-sm btn-primary mx-2" href="${pageContext.request.contextPath}${URLConst.UPDATE_USER_PAGE_URL}?username=` + row.username + `">Edit</a>`;
+                    let deleteBtn = `<a class="btn btn-sm btn-primary mx-2" href="#" onclick="deleteUser(event, '` + row.username + `')">Delete</a>`;
+                    return editBtn + deleteBtn;
+                },
+                "className": "text-center"
+            }
+        ],
+    });
+
+    $('#user-datatable_length').append(`<a class="btn btn-sm btn-primary mx-2" href="${pageContext.request.contextPath}${URLConst.CREATE_USER_PAGE_URL}">Add new</a>`);
+
     function deleteUser(event, username) {
         event.preventDefault();
         Swal.fire({
@@ -151,10 +112,42 @@
             confirmButtonText: 'Yes',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "${pageContext.request.contextPath}/delete-user?username=" + username;
+                $.ajax({
+                    type: "DELETE",
+                    url: "${pageContext.request.contextPath}${URLConst.API_DELETE_USER_URL}?username=" + username,
+                    dataType: "json",
+                    complete: function(response){
+                        switch (response.status) {
+                            case 200:
+                                Swal.fire({
+                                    title: 'User deleted successfully',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK',
+                                    allowOutsideClick: false,
+                                    allowEscapeKey: false,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        datatable.ajax.reload();
+                                    }
+                                });
+                                break;
+                            default:
+                                Swal.fire({
+                                    title: 'User deleted failed',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK',
+                                    allowOutsideClick: false,
+                                    allowEscapeKey: false,
+                                });
+                                break;
+                        }
+                    },
+                });
             }
+
         })
     }
+
 </script>
 </body>
 

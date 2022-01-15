@@ -4,9 +4,10 @@ import java.util.List;
 
 import com.demoipm.dto.RecruitmentDto;
 import com.demoipm.dto.SkillDto;
+import com.demoipm.dto.general.DatatableParamRequestDTO;
+import com.demoipm.dto.general.DatatableResponseDTO;
 import com.demoipm.dto.recruitmentmanage.RecruitmentCreateRequestDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentDetailDto;
-import com.demoipm.dto.recruitmentmanage.RecruitmentListPageResponseDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentSaveResponseDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentUpdateRequestDto;
 
@@ -25,12 +26,11 @@ public interface RecruitmentService {
 	public List<SkillDto> readAllSkillByRecruitment(int id) throws Exception;
 
 	/**
-	 * Read recruitment list by page number and entries number
-	 * @param pageNo
-	 * @param entriesNo
+	 * Read recruitment list by datatable param
+	 * @param request
 	 * @return
 	 */
-    RecruitmentListPageResponseDto readByCondition(Integer pageNo, Integer entriesNo);
+    DatatableResponseDTO readByCondition(DatatableParamRequestDTO request);
 
 	/**
 	 * Get recruitment detail by id

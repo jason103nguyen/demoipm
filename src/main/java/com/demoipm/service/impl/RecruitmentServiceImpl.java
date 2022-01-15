@@ -11,9 +11,10 @@ import javax.transaction.Transactional;
 
 import com.demoipm.consts.MessageConst;
 import com.demoipm.dao.RecruitmentSkillDao;
+import com.demoipm.dto.general.DatatableParamRequestDTO;
+import com.demoipm.dto.general.DatatableResponseDTO;
 import com.demoipm.dto.recruitmentmanage.RecruitmentCreateRequestDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentDetailDto;
-import com.demoipm.dto.recruitmentmanage.RecruitmentListPageResponseDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentResponseDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentSaveResponseDto;
 import com.demoipm.dto.recruitmentmanage.RecruitmentUpdateRequestDto;
@@ -124,19 +125,21 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 	}
 
 	@Override
-	public RecruitmentListPageResponseDto readByCondition(Integer pageNo, Integer entriesNo) {
-		LOGGER.info("Start readByCondition with pageNo {}, entriesNo {}", pageNo, entriesNo);
-		RecruitmentListPageResponseDto responseDto = new RecruitmentListPageResponseDto();
+	public DatatableResponseDTO readByCondition(DatatableParamRequestDTO request) {
+		LOGGER.info("Start readByCondition");
+		DatatableResponseDTO<RecruitmentResponseDto> responseDto = new DatatableResponseDTO<>();
 		try {
+			// Get paging info from request
+			Integer pageNo = request.getStart() / request.getLength();
+			Integer entriesNo = request.getLength();
+
 			// Get data from database with pagination and search word
-			Pageable pageable = PageRequest.of(pageNo - 1, entriesNo, Sort.Direction.DESC, "createdDate");
+			Pageable pageable = PageRequest.of(pageNo, entriesNo, Sort.Direction.DESC, "createdDate");
 			Page<Recruitment> recruitmentPage = recruitmentDao.findAll(pageable);
 
 			// Prepare response dto
-			responseDto.setCurrentPage(pageNo);
-			responseDto.setEntriesNo(entriesNo);
-			responseDto.setTotalPage(recruitmentPage.getTotalPages());
-			responseDto.setTotalEntries(recruitmentPage.getTotalElements());
+			responseDto.setRecordsFiltered(recruitmentPage.getTotalElements());
+			responseDto.setRecordsTotal(recruitmentPage.getTotalElements());
 			List<RecruitmentResponseDto> recruitmentList = recruitmentPage.getContent().stream().map(recruitment -> {
 				RecruitmentResponseDto recruitmentResponseDto = new RecruitmentResponseDto();
 				recruitmentResponseDto.setId(recruitment.getId());
@@ -145,13 +148,13 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 				recruitmentResponseDto.setQuantity(recruitment.getNumber());
 				return recruitmentResponseDto;
 			}).collect(Collectors.toList());
-			responseDto.setRecruitmentList(recruitmentList);
+			responseDto.setData(recruitmentList);
 		} catch (Throwable t) {
 			LOGGER.error("Has error when readByCondition", t);
 			responseDto.setError(true);
 			responseDto.setMessage(MessageConst.INTERNAL_SERVER_ERROR);
 		} finally {
-			LOGGER.info("End readByCondition with pageNo {}, entriesNo {}", pageNo, entriesNo);
+			LOGGER.info("End readByCondition");
 			return responseDto;
 		}
 	}

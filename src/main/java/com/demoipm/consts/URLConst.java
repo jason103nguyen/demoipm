@@ -7,11 +7,12 @@ public class URLConst {
      * URL constant for user management
      */
     public static final String MANAGE_USER_URL = "/manage-user";
+    public static final String API_GET_USER_BY_CONDITION_URL = "/api/get-user-by-condition";
     public static final String CREATE_USER_PAGE_URL = "/create-user-page";
     public static final String PROCESS_CREATE_USER_URL = "/process-create-user";
     public static final String UPDATE_USER_PAGE_URL = "/update-user-page";
     public static final String PROCESS_UPDATE_USER_URL = "/process-update-user";
-    public static final String DELETE_USER_URL = "/delete-user";
+    public static final String API_DELETE_USER_URL = "/api/delete-user";
 
     /**
      * URL constant for recruitment management

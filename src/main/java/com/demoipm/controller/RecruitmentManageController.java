@@ -176,16 +176,12 @@ public class RecruitmentManageController {
         }
         List<FieldError> fieldErrors = new ArrayList<>();
         if (requestDto.getStartDate().isAfter(requestDto.getEndDate())) {
-            FieldError startDateError = new FieldError("recruitment", "startDate", MessageConst.INVALID_RECRUITMENT_DATE);
-            FieldError endDateError = new FieldError("recruitment", "endDate", MessageConst.INVALID_RECRUITMENT_DATE);
+            FieldError startDateError = new FieldError("recruitment", "startDate", MessageConst.RECRUITMENT_DATE_PAIR_INVALID);
             fieldErrors.add(startDateError);
-            fieldErrors.add(endDateError);
         }
         if (requestDto.getMinSalary() > requestDto.getMaxSalary()) {
-            FieldError minSalaryError = new FieldError("recruitment", "minSalary", MessageConst.INVALID_SALARY);
-            FieldError maxSalaryError = new FieldError("recruitment", "maxSalary", MessageConst.INVALID_SALARY);
+            FieldError minSalaryError = new FieldError("recruitment", "minSalary", MessageConst.SALARY_PAIR_INVALID);
             fieldErrors.add(minSalaryError);
-            fieldErrors.add(maxSalaryError);
         }
         if (fieldErrors.size() > 0) {
             responseDto.setError(true);

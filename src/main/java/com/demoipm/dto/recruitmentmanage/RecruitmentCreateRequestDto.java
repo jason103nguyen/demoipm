@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -25,25 +24,25 @@ public class RecruitmentCreateRequestDto implements Serializable {
     @NotNull(message = MessageConst.JOB_CANNOT_BE_NULL)
     private Integer jobId;
 
-    @NotNull(message = MessageConst.INVALID_QUANTITY)
-    @Min(value = 1, message = MessageConst.INVALID_QUANTITY)
+    @NotNull(message = MessageConst.QUANTITY_CANNOT_BE_NULL)
+    @Min(value = 1, message = MessageConst.QUANTITY_MIN_NOT_MEET)
     private Integer quantity;
 
-    @NotNull(message = MessageConst.INVALID_SALARY)
-    @Min(value = 100, message = MessageConst.INVALID_SALARY)
+    @NotNull(message = MessageConst.SALARY_CANNOT_BE_NULL)
+    @Min(value = 100, message = MessageConst.MIN_SALARY_NOT_MEET)
     private Double minSalary;
 
-    @NotNull(message = MessageConst.INVALID_SALARY)
-    @Min(value = 100, message = MessageConst.INVALID_SALARY)
+    @NotNull(message = MessageConst.SALARY_CANNOT_BE_NULL)
+    @Min(value = 100, message = MessageConst.MIN_SALARY_NOT_MEET)
     private Double maxSalary;
 
-    @NotNull(message = MessageConst.INVALID_RECRUITMENT_DATE)
-    @FutureOrPresent(message = MessageConst.INVALID_RECRUITMENT_DATE)
+    @NotNull(message = MessageConst.RECRUITMENT_DATE_CANNOT_BE_NULL)
+    @FutureOrPresent(message = MessageConst.RECRUITMENT_DATE_PRESENT_OR_FUTURE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
-    @NotNull(message = MessageConst.INVALID_RECRUITMENT_DATE)
-    @Future(message = MessageConst.INVALID_RECRUITMENT_DATE)
+    @NotNull(message = MessageConst.RECRUITMENT_DATE_CANNOT_BE_NULL)
+    @FutureOrPresent(message = MessageConst.RECRUITMENT_DATE_PRESENT_OR_FUTURE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 

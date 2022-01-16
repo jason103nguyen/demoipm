@@ -24,7 +24,7 @@ public class HomepageController {
 			e.printStackTrace();
 		}
 		model.addAttribute("careerList", careerList);
-		return "homepage/homepage";
+		return "homepage/homepage_v2";
 	}
 	
 }

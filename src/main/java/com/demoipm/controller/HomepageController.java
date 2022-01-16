@@ -26,5 +26,10 @@ public class HomepageController {
 		model.addAttribute("careerList", careerList);
 		return "homepage/homepage_v2";
 	}
+
+	@GetMapping(value = "/my-page")
+	public String myPage() {
+		return "myPage";
+	}
 	
 }

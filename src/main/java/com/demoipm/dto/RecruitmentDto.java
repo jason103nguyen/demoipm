@@ -1,12 +1,13 @@
 package com.demoipm.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.demoipm.entities.Recruitment;
 
-public class RecruitmentDto {
+public class RecruitmentDto implements Serializable {
 
 	private int id;
 	

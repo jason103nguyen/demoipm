@@ -22,9 +22,7 @@ public class MessageConst {
     public static final String USERNAME_REQUIRED = "Username is required";
 
     /**
-<<<<<<< HEAD
      * Create/update new potential candidate validation message
-     * 
      */
     public static final String ACTIVITY_CANNOT_BE_BLANK = "Activity cannot be blank";
     public static final String EXPERIENCEYEAR_CANNOT_BE_BLANK = "Experience Year cannot be blank";
@@ -38,7 +36,7 @@ public class MessageConst {
     public static final String PHONE_CANNOT_BE_BLANK = "Status cannot be blank";
     public static final String INVALID_EXPERIENCEYEAR_MESSAGE = "The Please input Experience Year";
 
-=======
+    /**
      * Create/update recruitment validation message
      */
     public static final String RECRUITMENT_CANNOT_BE_NULL = "Recruitment can not be empty";
@@ -52,5 +50,4 @@ public class MessageConst {
     public static final String RECRUITMENT_DATE_CANNOT_BE_NULL = "Recruitment date cannot be empty";
     public static final String RECRUITMENT_DATE_PRESENT_OR_FUTURE = "Recruitment date must in present or future";
     public static final String RECRUITMENT_DATE_PAIR_INVALID = "Recruitment start date must before end date";
->>>>>>> af08c4afc5e260c03c89c6fc17c50dab359ca2e5
 }

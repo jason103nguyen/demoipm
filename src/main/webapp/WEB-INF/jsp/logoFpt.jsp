@@ -1,1 +1,1 @@
-<img src="img/LogoFPT.jpg" alt="logo fpt" width="50%">
+<a href="/"><img style="width: 20vw;min-width: 200px;" class="img-fluid px-5" src="img/LogoFPT.jpg" alt="logo fpt"></a>

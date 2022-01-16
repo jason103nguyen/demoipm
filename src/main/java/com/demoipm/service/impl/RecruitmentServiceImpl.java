@@ -132,10 +132,11 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 			// Get paging info from request
 			Integer pageNo = request.getStart() / request.getLength();
 			Integer entriesNo = request.getLength();
+			String search = "%" + request.getSearch().getValue() + "%";
 
 			// Get data from database with pagination and search word
 			Pageable pageable = PageRequest.of(pageNo, entriesNo, Sort.Direction.DESC, "createdDate");
-			Page<Recruitment> recruitmentPage = recruitmentDao.findAll(pageable);
+			Page<Recruitment> recruitmentPage = recruitmentDao.readByCondition(search, pageable);
 
 			// Prepare response dto
 			responseDto.setRecordsFiltered(recruitmentPage.getTotalElements());
@@ -167,6 +168,7 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 			Recruitment recruitment = recruitmentDao.getById(id);
 			if (recruitment != null) {
 				responseDTO.setCareer(recruitment.getCareer().getName());
+				responseDTO.setCareerDescription(recruitment.getCareer().getDescription());
 				responseDTO.setJob(recruitment.getJob().getName());
 				responseDTO.setQuantity(recruitment.getNumber());
 				responseDTO.setMinSalary(recruitment.getMinSalary());

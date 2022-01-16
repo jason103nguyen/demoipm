@@ -61,26 +61,30 @@
 			<div class="col-sm-9">
 				<div class="row">
 				<div class="col-6">
+					<input id="search-word" class="form-control rounded-0" class="border-none"
+						   type="text" placeholder="Search job or career...">
 					<table id="search-result" class="table table-danger table-bordered table-hover">
-						<thead>
-						<th class="p-0"><input id="search-word" class="form-control rounded-0" class="border-none"
-											   type="text" placeholder="Search job or career..."></th>
+<%--						<thead>--%>
+<%--						<th class="p-0"><input id="search-word" class="form-control rounded-0" class="border-none"--%>
+<%--											   type="text" placeholder="Search job or career..."></th>--%>
+<%--						</thead>--%>
+						<thead class="d-none">
 						</thead>
 					</table>
 				</div>
-				<div class="col-6 bg-white">
+				<div class="col-6 bg-white border">
 					<div class="py-2 border-bottom">
 						<h3>
 							<span id="recruitment-detail-quantity"></span>
 							<span id="recruitment-detail-job"></span>
 						</h3>
-						<p id="recruitment-detail-career" class="text-secondary"></p>
+						<p id="recruitment-detail-career" class="text-secondary fst-italic"></p>
 						<button class="w-100 btn btn-danger">Apply</button>
 					</div>
 					<div class="py-2 border-bottom">
 						<div id="recruitment-detail-skills" class="d-flex">
 						</div>
-						<div class="text-secondary mt-2">
+						<div class="text-primary fw-bold mt-2">
 							<i class="bi bi-cash-coin"></i>&nbsp;
 							<span id="recruitment-detail-min"></span>&nbsp;~&nbsp;<span id="recruitment-detail-max"></span>&nbsp;USD
 						</div>
@@ -99,9 +103,11 @@
 		</div>
 
 	</div>
-
 <script>
-
+	const maxResult = 4;
+	const lengthStep = 2;
+	let length = maxResult;
+	let isDetailLoad = false;
 	let datatable = $('#search-result').removeAttr('width').DataTable({
 		serverSide: true,
 		ajax: {
@@ -111,7 +117,7 @@
 			contentType: "application/json",
 			data: function (request) {
 				request.search.value = $('#search-word').val();
-				request.length = 5;
+				request.length = length;
 				return JSON.stringify(request);
 			}
 		},
@@ -120,17 +126,18 @@
 		lengthChange: false,
 		bPaginate: false,
 		info: false,
+		scrollY: 70 * maxResult,
 		columnDefs: [
 			{
 				"width": "100%",
 				"targets": 0,
 				"render": (data, type, row, meta) => {
 					let content = `<div onclick="viewDetail(event, ` + row.id + `)" class="p-2 btn w-100 bg-white">
-						<h5 class="text-success">` + row.job + ` (Qty: ` + row.quantity + `)</h5>
+						<h5 class="text-success">[ID-` + row.id + `] ` + row.job + ` (Qty: ` + row.quantity + `)</h5>
 						<i class="m-0 text-primary">` + row.career + `</i>
 					</div>`;
 
-					if (meta.row === 0) {
+					if (meta.row === 0 && !isDetailLoad) {
 						viewDetail(event, row.id);
 					}
 					return content;
@@ -140,6 +147,7 @@
 	});
 
 	$('#search-word').on( 'keyup click', function () {
+		length = maxResult;
 		datatable.search($('#search-word').val()).draw();
 	} );
 
@@ -169,7 +177,20 @@
 			},
 			type: 'GET'
 		});
+		isDetailLoad = true;
 	}
+
+	let isTableReload = false;
+	$('.dataTables_scrollBody').scroll(function () {
+		let currentScrollValue = Math.round($('.dataTables_scrollBody').scrollTop() + $('.dataTables_scrollBody').height());
+		if (!isTableReload && currentScrollValue == $('#search-result').height()) {
+			length += lengthStep;
+			datatable.search($('#search-word').val()).draw();
+			isTableReload = true;
+		} else {
+			isTableReload = false;
+		}
+	});
 </script>
 </body>
 

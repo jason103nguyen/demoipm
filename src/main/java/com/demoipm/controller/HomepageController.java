@@ -5,6 +5,7 @@ import java.util.List;
 import com.demoipm.dto.CareerDto;
 import com.demoipm.service.CareerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,8 @@ public class HomepageController {
 
 	@Autowired
 	private CareerService careerService;
-	
+
+	@Secured("ROLE_HR")
 	@GetMapping(value = {"/", "/home", "/homepage"})
 	public String homepage(Model model) {
 		List<CareerDto> careerList = null;

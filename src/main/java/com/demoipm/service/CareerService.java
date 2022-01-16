@@ -3,6 +3,7 @@ package com.demoipm.service;
 import java.util.List;
 
 import com.demoipm.dto.CareerDto;
+import com.demoipm.dto.recruitmentmanage.CareerSelectionDto;
 
 public interface CareerService {
 
@@ -15,4 +16,10 @@ public interface CareerService {
 	void update(CareerDto careerDto);
 	
 	void deleteById(int id);
+
+	/**
+	 * Get all career info
+	 * @return
+	 */
+	List<CareerSelectionDto> getAllCareer();
 }

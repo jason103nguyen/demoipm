@@ -1,9 +1,9 @@
 package com.demoipm.dao;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.demoipm.entities.Recruitment;
 
-public interface RecruitmentDao extends CrudRepository<Recruitment, Integer>{
+public interface RecruitmentDao extends JpaRepository<Recruitment, Integer> {
 
 }

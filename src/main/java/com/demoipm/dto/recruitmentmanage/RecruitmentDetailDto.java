@@ -17,6 +17,8 @@ public class RecruitmentDetailDto extends ResponseDto implements Serializable {
 
     private String job;
 
+    private String careerDescription;
+
     private int quantity;
 
     private double minSalary;
@@ -45,6 +47,14 @@ public class RecruitmentDetailDto extends ResponseDto implements Serializable {
 
     public void setJob(String job) {
         this.job = job;
+    }
+
+    public String getCareerDescription() {
+        return careerDescription;
+    }
+
+    public void setCareerDescription(String careerDescription) {
+        this.careerDescription = careerDescription;
     }
 
     public int getQuantity() {

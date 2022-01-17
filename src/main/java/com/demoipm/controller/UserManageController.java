@@ -4,21 +4,27 @@ import com.demoipm.consts.MessageConst;
 import com.demoipm.consts.URLConst;
 import com.demoipm.consts.ViewConst;
 import com.demoipm.dto.RoleAppDto;
+import com.demoipm.dto.general.DatatableParamRequestDTO;
+import com.demoipm.dto.general.DatatableResponseDTO;
 import com.demoipm.dto.general.ResponseDto;
 import com.demoipm.dto.usermanage.UserCreateRequestDto;
-import com.demoipm.dto.usermanage.UserListPageResponseDto;
+import com.demoipm.dto.usermanage.UserResponseDto;
 import com.demoipm.dto.usermanage.UserUpdateRequestDto;
 import com.demoipm.service.RoleAppService;
 import com.demoipm.service.UserAppService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -40,18 +46,16 @@ public class UserManageController {
 
     @Secured("ROLE_ADMIN")
     @RequestMapping(URLConst.MANAGE_USER_URL)
-    public String getUserList(@RequestParam(value = "searchWord", required = false) String searchWord,
-                              @RequestParam(value = "pageNo", required = false) Integer pageNo,
-                              @RequestParam(value = "entriesNo", required = false) Integer entriesNo,
-                              Model model) {
-        LOGGER.info("Start get user list with search word {}, page {}, entries no {}", searchWord, pageNo, entriesNo);
-        entriesNo = setDefaultEntriesNo(entriesNo);
-        pageNo = setDefaultPageNo(pageNo);
-        searchWord = setDefaultSearchWord(searchWord);
-        UserListPageResponseDto responseDto = userAppService.readByCondition(searchWord, pageNo, entriesNo);
-        model.addAttribute("response", responseDto);
-        LOGGER.info("End get user list with search word {}, page {}, entries no {}", searchWord, pageNo, entriesNo);
+    public String getUserManagePage() {
         return ViewConst.MANAGE_USER_PAGE;
+    }
+
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(URLConst.API_GET_USER_BY_CONDITION_URL)
+    public ResponseEntity<DatatableResponseDTO> getUserByCondition(@RequestBody DatatableParamRequestDTO request) {
+        LOGGER.info("Start getUserByCondition");
+        DatatableResponseDTO<UserResponseDto> response = userAppService.readByCondition(request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @Secured("ROLE_ADMIN")
@@ -135,33 +139,12 @@ public class UserManageController {
     }
 
     @Secured("ROLE_ADMIN")
-    @RequestMapping(URLConst.DELETE_USER_URL)
-    public String deleteUser(@RequestParam("username") String username) {
+    @DeleteMapping(URLConst.API_DELETE_USER_URL)
+    public ResponseEntity deleteUser(@RequestParam("username") String username) {
         LOGGER.info("Start deleteUser with username {}", username);
         userAppService.deleteUserByUsername(username);
         LOGGER.info("End deleteUser with username {}", username);
-        return URLConst.REDIRECT + URLConst.MANAGE_USER_URL;
-    }
-
-    private String setDefaultSearchWord(String searchWord) {
-        if (searchWord != null) {
-            return searchWord;
-        }
-        return "";
-    }
-
-    private Integer setDefaultPageNo(Integer pageNo) {
-        if (pageNo == null || pageNo <= 0) {
-            return 1;
-        }
-        return pageNo;
-    }
-
-    private Integer setDefaultEntriesNo(Integer entriesNo) {
-        if (entriesNo == null || entriesNo <= 0) {
-            return 10;
-        }
-        return entriesNo;
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     private List<String> getAllRoleNames() {

@@ -22,7 +22,7 @@ public class EntryTest {
 	private String result;
 	
 	@Column(name = "point")
-	private String point;
+	private int point;
 	
 	@Column(name = "name_test")
 	private String nameTest;
@@ -35,21 +35,21 @@ public class EntryTest {
 	private Candidate candidate;
 
 	@OneToMany(mappedBy = "entryTest", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	private Set<QuestionEntryTest> questionEntryTest = new HashSet<QuestionEntryTest>();
+	private Set<EntryTestQuestion> entryTestQuestions = new HashSet<EntryTestQuestion>();
 
 	@OneToMany(mappedBy = "entryTest")
 	private List<JobSkill> listJobSkill = new ArrayList<JobSkill>();
 	
 	public EntryTest() {}
 
-	public EntryTest(Date timeEntryTest, String result, String point, String nameTest, String numberofQuestion, Candidate candidate, Set<QuestionEntryTest> questionEntryTest, List<JobSkill> listJobSkill) {
+	public EntryTest(Date timeEntryTest, String result, int point, String nameTest, String numberofQuestion, Candidate candidate, Set<EntryTestQuestion> entryTestQuestions, List<JobSkill> listJobSkill) {
 		this.timeEntryTest = timeEntryTest;
 		this.result = result;
 		this.point = point;
 		this.nameTest = nameTest;
 		this.numberofQuestion = numberofQuestion;
 		this.candidate = candidate;
-		this.questionEntryTest = questionEntryTest;
+		this.entryTestQuestions = entryTestQuestions;
 		this.listJobSkill = listJobSkill;
 	}
 
@@ -77,11 +77,11 @@ public class EntryTest {
 		this.result = result;
 	}
 
-	public String getPoint() {
+	public int getPoint() {
 		return point;
 	}
 
-	public void setPoint(String point) {
+	public void setPoint(int point) {
 		this.point = point;
 	}
 
@@ -109,12 +109,12 @@ public class EntryTest {
 		this.numberofQuestion = numberofQuestion;
 	}
 
-	public Set<QuestionEntryTest> getQuestionEntryTest() {
-		return questionEntryTest;
+	public Set<EntryTestQuestion> getEntryTestQuestions() {
+		return entryTestQuestions;
 	}
 
-	public void setQuestionEntryTest(Set<QuestionEntryTest> questionEntryTest) {
-		this.questionEntryTest = questionEntryTest;
+	public void setEntryTestQuestions(Set<EntryTestQuestion> entryTestQuestions) {
+		this.entryTestQuestions = entryTestQuestions;
 	}
 
 	public List<JobSkill> getListJobSkill() {

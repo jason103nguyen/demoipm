@@ -128,7 +128,7 @@
                            </div>
                        </div>
                        <div class="row justify-content-center">
-                           <button class="btn btn-info col-3"> <i class="fa fa-save"></i> Lưu thay đổi</button>
+                           <button class="btn btn-info col-3"> <i class="fa fa-save"></i> Entry Test </button>
                        </div>
                    </div>
                </div>

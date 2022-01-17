@@ -1,18 +1,13 @@
 package com.demoipm.service;
 
-import com.demoipm.dto.InterviewRequest;
 import com.demoipm.dto.QuestionEntryTestRequest;
-import com.demoipm.entities.Interview;
-import com.demoipm.entities.QuestionEntryTest;
-import com.demoipm.entities.Skill;
-
-import java.util.Optional;
+import com.demoipm.entities.Question;
 
 public interface QuestionService {
 
-	QuestionEntryTest create(QuestionEntryTestRequest questionEntryTestRequest);
+	Question create(QuestionEntryTestRequest questionEntryTestRequest);
 
-	QuestionEntryTest update(QuestionEntryTestRequest questionEntryTestRequest);
+	Question update(QuestionEntryTestRequest questionEntryTestRequest);
 
 	void deleteById(int id);
 }

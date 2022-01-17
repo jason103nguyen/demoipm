@@ -2,10 +2,12 @@ package com.demoipm.entities;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "question_entry_test")
-public class QuestionEntryTest {
+public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,17 +45,16 @@ public class QuestionEntryTest {
     @JoinColumn(name = "skill_id")
     private Skill skill;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "entry_test_id")
-    private EntryTest entryTest;
+    @OneToMany(mappedBy = "questionEntryTest", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Set<EntryTestQuestion> questionEntryTest = new HashSet<EntryTestQuestion>();
 
-    public QuestionEntryTest(){
+    public Question(){
 
     }
 
-    public QuestionEntryTest(String content, EntryTest entryTest) {
-        this.content = content;
-        this.entryTest = entryTest;
+    public Question(Skill skill, Set<EntryTestQuestion> questionEntryTest) {
+        this.skill = skill;
+        this.questionEntryTest = questionEntryTest;
     }
 
     public Integer getId() {
@@ -136,12 +137,12 @@ public class QuestionEntryTest {
         this.answer4 = answer4;
     }
 
-    public EntryTest getEntryTest() {
-        return entryTest;
+    public Set<EntryTestQuestion> getQuestionEntryTest() {
+        return questionEntryTest;
     }
 
-    public void setEntryTest(EntryTest entryTest) {
-        this.entryTest = entryTest;
+    public void setQuestionEntryTest(Set<EntryTestQuestion> questionEntryTest) {
+        this.questionEntryTest = questionEntryTest;
     }
 
     public Skill getSkill() {

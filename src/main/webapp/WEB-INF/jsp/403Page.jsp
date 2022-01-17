@@ -59,6 +59,10 @@
             font-size: 30px;
             text-transform: uppercase;
         }
+
+        h6 {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -77,5 +81,6 @@
 </use>
 <h1>403</h1>
 <h2>Not this time, access forbidden!</h2>
+<h6><a href="/logout">Click here to login different account</a></h6>
 </body>
 </html>

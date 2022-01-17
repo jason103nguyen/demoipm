@@ -17,8 +17,12 @@
 	</div>
 	<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4"><i class="me-2 bi bi-person-square"></i>Candidate</a>
 	<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4"><i class="me-2 bi bi-signpost-2-fill"></i>Career</a>
-	<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4" href="${pageContext.request.contextPath}/manage-recruitment"><i class="me-2 bi bi-binoculars"></i>Recruitment</a>
+	<sec:authorize access="hasRole('ROLE_HR')">
+		<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4" href="${pageContext.request.contextPath}/manage-recruitment"><i class="me-2 bi bi-binoculars"></i>Recruitment</a>
+	</sec:authorize>
 	<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4"><i class="me-2 bi bi-hammer"></i>Skill</a>
 	<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4"><i class="me-2 bi bi-envelope-check"></i>Interview</a>
-	<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4" href="${pageContext.request.contextPath}/manage-user"><i class="me-2 bi bi-people"></i>User</a>
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4" href="${pageContext.request.contextPath}/manage-user"><i class="me-2 bi bi-people"></i>User</a>
+	</sec:authorize>
 </div>

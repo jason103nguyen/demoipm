@@ -13,7 +13,9 @@
 				Guest
 			</sec:authorize>
 		</span>
-		<span><a class="btn btn-danger btn-sm" href="${pageContext.request.contextPath}/logout">Logout</a></span>
+		<sec:authorize access="isAuthenticated()">
+			<span><a class="btn btn-danger btn-sm" onclick="logoutUser(event)">Logout</a></span>
+		</sec:authorize>
 	</div>
 	<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4"><i class="me-2 bi bi-person-square"></i>Candidate</a>
 	<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4"><i class="me-2 bi bi-signpost-2-fill"></i>Career</a>
@@ -25,4 +27,19 @@
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4" href="${pageContext.request.contextPath}/manage-user"><i class="me-2 bi bi-people"></i>User</a>
 	</sec:authorize>
+
+	<script>
+		function logoutUser(event) {
+			event.preventDefault();
+			Swal.fire({
+				title: 'Do you want to logout?',
+				showDenyButton: true,
+				confirmButtonText: 'Yes',
+			}).then((result) => {
+				if (result.isConfirmed) {
+					window.location.href = "${pageContext.request.contextPath}/logout";
+				}
+			})
+		}
+	</script>
 </div>

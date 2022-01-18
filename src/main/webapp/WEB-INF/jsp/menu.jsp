@@ -7,7 +7,7 @@
 		<span class="text-center">
 			Hello,&nbsp;
 			<sec:authorize access="isAuthenticated()">
-				<sec:authentication property="name"/>
+				<span id="username"><sec:authentication property="name"/></span>
 			</sec:authorize>
 			<sec:authorize access="!isAuthenticated()">
 				Guest

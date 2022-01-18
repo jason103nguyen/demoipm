@@ -24,6 +24,12 @@
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.2.0/dist/select2-bootstrap-5-theme.min.css" />
+
+	<!-- https://cdnjs.com/libraries/sockjs-client -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+	<!-- https://cdnjs.com/libraries/stomp.js/ -->
+	<script  src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
 	<jsp:invoke fragment="customCss"/>
 </head>
 
@@ -49,6 +55,114 @@
 			<jsp:invoke fragment="content"/>
 		</div>
 	</div>
+</div>
+<div class="fixed-top">
+	<div class="position-relative" style="top: 90vh; left: 30px;">
+		<div class="d-flex rounded-3">
+			<h2 id="chat-icon" class="text-primary p-2"><i class="bi bi-chat-left-text-fill"></i></h2>
+			<div id="chat-section" class="bg-light position-relative border rounded-3" style="width: 300px; height: 400px; top: -400px;">
+				<div class="d-flex flex-column justify-content-between h-100">
+					<div id="connecting" class="h6 bg-primary text-white m-0 p-2 rounded-top w-100">Chat</div>
+						<div id="chat-box" class="flex-fill w-100" style="width: 100%; overflow-y: auto">
+						</div>
+					<div class="w-100 bg-primary p-2 rounded-bottom">
+						<input id="chat-text" type="text" class="form-control form-control-sm bg-white rounded-pill w-100 py-0 px-2"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$('#chat-section').hide();
+
+		$('#chat-icon').click(function () {
+			$('#chat-section').toggle();
+		})
+
+		let inputChat = $('#chat-text');
+		let messageArea = $('#chat-box');
+		let connectingElement = $('#connecting');
+
+		let stompClient = null;
+		let username = null;
+
+
+		function connect() {
+			username = $('#username').text().trim();
+
+			let socket = new SockJS('/ws');
+			stompClient = Stomp.over(socket);
+
+			stompClient.connect({}, onConnected, onError);
+		}
+
+		// Connect to WebSocket Server.
+		connect();
+
+		function onConnected() {
+			// Subscribe to the Public Topic
+			stompClient.subscribe('/topic/publicChatRoom', onMessageReceived);
+
+			// Tell your username to the server
+			stompClient.send("/app/chat.addUser",
+					{},
+					JSON.stringify({sender: username, type: 'JOIN'})
+			)
+			connectingElement.html(`<i class="text-success me-2 bi bi-circle-fill"></i>Active`);
+		}
+
+
+		function onError(error) {
+			connectingElement.html(`<i class="text-danger me-2 bi bi-circle-fill"></i>Not Connected`);
+		}
+
+
+		function sendMessage(event) {
+			let messageContent = inputChat.val().trim();
+			if(messageContent && stompClient) {
+				let chatMessage = {
+					sender: username,
+					content: inputChat.val(),
+					type: 'CHAT'
+				};
+				stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+				inputChat.val('');
+			}
+			event.preventDefault();
+		}
+
+
+		function onMessageReceived(payload) {
+			let message = JSON.parse(payload.body);
+
+			let messageElement = null;
+			if (username === message.sender) {
+				messageElement = $(`<div class="align-self-start px-3 py-1 m-1 text-success border rounded-pill" style="word-wrap: break-word; width: fit-content"></div>`);
+			} else {
+				messageElement = $(`<div class="align-self-end px-3 py-1 m-1 text-danger border rounded-pill" style="word-wrap: break-word; width: fit-content"></div>`)
+			}
+
+			if(message.type === 'JOIN') {
+				// messageElement.classList.add('event-message');
+				message.content = message.sender + ' joined!';
+			} else if (message.type === 'LEAVE') {
+				// messageElement.classList.add('event-message');
+				message.content = message.sender + ' left!';
+			} else {
+				message.content = message.sender + ': ' + message.content;
+			}
+
+			messageElement.text(message.content);
+			messageArea.append($(`<div class="d-flex flex-column"></div>`).html(messageElement));
+			messageArea.scrollTop(messageArea.height());
+		}
+
+		$("#chat-text").on('keyup', function (e) {
+			if (e.key === 'Enter' || e.keyCode === 13) {
+				sendMessage(e);
+			}
+		});
+	</script>
 </div>
 <jsp:invoke fragment="customScript"/>
 </body>

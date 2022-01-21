@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demoipm.dto.CandidateDto;
+import com.demoipm.dto.potentialcandidate.pageDTO;
+import com.demoipm.entities.Candidate;
 import com.demoipm.service.PotentialCandidateService;
 
 @Controller
@@ -36,21 +39,57 @@ public class PotentialCandidatesController {
 		return "potentialCandidates/potentialCandidatesInfo";
 
 	}
+	
 
 	@Secured(value = "ROLE_HR")
 	@GetMapping("view-potential-candidates-list")
-	public String viewPotentialCandidatesList(Model model, @Param("keySearch") String keySearch) {
+	public String filterPotentialCandidatesList(Model model, 
 
-		if (keySearch == null) {
-			List<CandidateDto> listCandidateDto = potentialCandidateService.getAllPotentialCandidate();
-			model.addAttribute("listCandidateDto", listCandidateDto);
-		} else {
-			List<CandidateDto> listSearchCandidateDto = potentialCandidateService
-					.searchPotentialCandidateIsDelete(keySearch);
-			model.addAttribute("listCandidateDto", listSearchCandidateDto);
+			@RequestParam( name = "pageNo", required=false, defaultValue =  "1") Integer pageNo ,
+			
+			@RequestParam( name = "pageSize", required=false, defaultValue =  "5") Integer pageSize ,
+			
+			@RequestParam( name = "keySearch" , required=false) String keySearch,
+			
+			@RequestParam(name = "field", required = false) String field
+			
+			) {
+		
+		if(field == null) {		
+			field = "id";
 		}
+		
+		
+		if(keySearch == null) {		
+			keySearch = "";
+		}
+			
+		if(pageSize == null) {
+			pageSize = 5;
+		}
+		
+		if(pageNo == null) {
+			pageSize = 1;
+		}
+			
+			pageDTO listSearchCandidateDto = potentialCandidateService.searchPotentialCandidateIsDelete(keySearch, pageNo, pageSize, field);
+			
+			model.addAttribute("listCandidateDto", listSearchCandidateDto.getList());
+			
+			model.addAttribute("totalPage", listSearchCandidateDto.getTotalPage());
+
+			model.addAttribute("currentPage", listSearchCandidateDto.getCurrentPage());
+			
+			model.addAttribute("keySearch", listSearchCandidateDto.getKeySearch());
+			
+			model.addAttribute("pageNo", listSearchCandidateDto.getPageNo());
+			
+			model.addAttribute("field", listSearchCandidateDto.getField());
+			
+
 		return "potentialCandidates/potentialCandidatesList";
 	}
+	
 
 	@Secured(value = "ROLE_HR")
 	@GetMapping("delete-potential-candidates/{id}")

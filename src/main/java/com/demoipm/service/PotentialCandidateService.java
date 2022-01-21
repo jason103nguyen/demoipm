@@ -2,7 +2,11 @@ package com.demoipm.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.demoipm.dto.CandidateDto;
+import com.demoipm.dto.potentialcandidate.pageDTO;
+import com.demoipm.entities.Candidate;
 
 public interface PotentialCandidateService {
 	
@@ -37,7 +41,7 @@ public interface PotentialCandidateService {
 	 * @param keySearch
 	 * @return List Potential Candidate
 	 */
-	List<CandidateDto> searchPotentialCandidateIsDelete(String keySearch);
+	pageDTO searchPotentialCandidateIsDelete(String keySearch, int pageSize, int pageNo, String filed);
 
 	/**
 	 * Delete Potential Candidate Info DB
@@ -53,6 +57,10 @@ public interface PotentialCandidateService {
 	 * @param candidateDto
 	 */
 	void updatePotentialCandidate(CandidateDto candidateDto);
+
+	List<CandidateDto> findPotentialCandidateWithSorting(String field);
+
+	//Page<Candidate> findPagination(int pageNo, int pageSize);
 
 
 }

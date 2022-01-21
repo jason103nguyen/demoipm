@@ -114,19 +114,19 @@ INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, statu
 VALUES ('Vo Van A', 0 ,'0123456789','avo@gmail.com', 'nam', '1990/3/10', 'INPROCESS');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van B', 0 ,'0123456789', 'bvo@gmail.com', 'nam', '1991/3/10', 'INPROCESS');
+VALUES ('Vo Van A', 0 ,'0123456789', 'bvo@gmail.com', 'nam', '1991/3/10', 'INPROCESS');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van C', 0 ,'0123456789', 'cvo@gmail.com', 'nam', '1992/3/10', 'INPROCESS');
+VALUES ('Vo Van A', 0 ,'0123456789', 'cvo@gmail.com', 'nam', '1992/3/10', 'INPROCESS');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van D', 0 ,'0123456789', 'dvo@gmail.com', 'nam', '1993/3/10', 'INPROCESS');
+VALUES ('Vo Van A', 0 ,'0123456789', 'dvo@gmail.com', 'nam', '1993/3/10', 'INPROCESS');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van E', 0 ,'0123456789', 'evo@gmail.com', 'nam', '1994/3/10', 'INPROCESS');
+VALUES ('Vo Van A', 0 ,'0123456789', 'evo@gmail.com', 'nam', '1994/3/10', 'INPROCESS');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van F', 0 ,'0123456789', 'fvo@gmail.com', 'nam', '1995/3/10', 'INPROCESS');
+VALUES ('Vo Van A', 0 ,'0123456789', 'fvo@gmail.com', 'nam', '1995/3/10', 'INPROCESS');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status) 
 VALUES ('Vo Van G', 0 ,'0123456789', 'gvo@gmail.com', 'nam', '1996/3/10', 'INPROCESS');

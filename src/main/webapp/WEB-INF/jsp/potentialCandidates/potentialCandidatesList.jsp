@@ -16,7 +16,26 @@
             
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/StyleList.css"> 
     
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>       
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
+    
+    <script>
+    
+    	function PotentialCandidatesSort(){
+    		
+    		var field = document.getElementById('PCsort').value;
+    		
+    		var search = document.getElementById('search').value;
+    		
+    		var pageNo = document.getElementById('pageNo').value;
+    		
+    		if (field == "all" && search == null){
+    			location.href = 'view-potential-candidates-list';
+    		} else{	
+    			location.href = "view-potential-candidates-list?field="+field+"&keySearch=" + search+"&pageNo="+pageNo;
+    		}
+    	}
+    
+    </script>     
             
 </head>
 <body>
@@ -30,23 +49,42 @@
         <div class="col-sm-9">
             <p class="h1 text-warning text-center">MANAGE POTENTIAL CANDIDATES</p>
             <div class="search">
-            	
+
             	<div class="SelectSort">
-	            	<form:form action="#" method="get">
-		           		 Sorted By	<select><option>A - Z</option><option>Z - A</option></select>
-					</form:form>	
+            	
+		           <!-- Sorted By <select id="PCsort" onchange="PotentialCandidatesSort()">   
+		           		 
+		           		 		<option value="all">Choose</option>
+		           		 		<option value="all">Full</option>
+		           		 		<option value="fullName">Full Name A-Z</option>
+		           		 		<option value="email">Email Z-A</option>
+
+		           		 	</select> -->
             	</div>
             	
 				<div class="FlexSearch">
+				
 	           		 <form:form action="view-potential-candidates-list" method="get"> 
-	           		 	<input name="keySearch" type="text" placeholder="Search ..." class="FilterSearch">		
+
+	           		 	<input id="search" name="keySearch" type="text" placeholder="Search ..." class="FilterSearch" value="${keySearch}">
+	           		 	
+	           		 	 Sorted By <select id="PCsort" name="field">   
+		           		 
+		           		 			<option value = "id">Choose</option>
+		           		 			<option value="fullName">Full Name A-Z</option>
+		           		 			<option value="email">Email Z-A</option>
+	           		 			</select>
+		           		 	
 						<button type="submit" class="ButtonSearch">Search</button>
+						
+						
+						
 					</form:form>	
 					
 				</div>	
             </div>  
             
-            <form:form action="add-new-potential-candidates" method="get"> 					
+            <form:form action="add-new-potential-candidates" method="get"> 	
 				<button type="submit" class="ButtonAddNew">Add New</button> 	
 			</form:form>   
         </div>
@@ -108,14 +146,24 @@
 				 </c:forEach>
 			</table>
 			</div>	
+
 			<nav aria-label="Page navigation example">
+			<c:if test="${totalPage > 1 }">
 		  		<ul class="pagination">
-		    		<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-		   			<li class="page-item"><a class="page-link" href="#">1</a></li>
-				    <li class="page-item"><a class="page-link" href="#">2</a></li>
-				    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+						
+					<c:if test="${currentPage > 1}">
+		    			<li class="page-item"><a class="page-link" href="view-potential-candidates-list?pageNo=${currentPage - 1}&keySearch=${keySearch}">Previous</a></li>
+		    		</c:if>	
+		    		
+		    		<c:forEach  begin="1" end="${totalPage}" var="i">	
+    					<li  class="page-item" id="pageNo" value="${i}"><a class="page-link" href="view-potential-candidates-list?pageNo=${i}&keySearch=${keySearch}&field=${field}">${i}</a></li>	
+					</c:forEach>
+					
+					<c:if test="${currentPage < totalPage}">
+				    	<li class="page-item"><a class="page-link" href="view-potential-candidates-list?pageNo=${currentPage + 1}&keySearch=${keySearch}">Next</a></li>
+				    </c:if>	
 		  		</ul>
+		  	</c:if>
 		</nav>
             </c:if>
         </div>

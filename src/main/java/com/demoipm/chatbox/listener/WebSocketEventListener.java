@@ -1,6 +1,5 @@
 package com.demoipm.chatbox.listener;
 
-import com.demoipm.chatbox.dto.ChatMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +31,6 @@ public class WebSocketEventListener {
 
         if(username != null) {
             logger.info("User Disconnected : " + username);
-
-            ChatMessage chatMessage = new ChatMessage();
-            chatMessage.setType(ChatMessage.MessageType.LEAVE);
-            chatMessage.setSender(username);
-
-            messagingTemplate.convertAndSend("/topic/publicChatRoom", chatMessage);
         }
     }
 

@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.failureUrl("/login?error=true")
 				.usernameParameter("username")
 				.passwordParameter("password")
-				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/login");
+				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
 
 	}
 
@@ -72,14 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new SavedRequestAwareAuthenticationSuccessHandler() {
 			@Override
 			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-				Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-				if (roles.contains("ROLE_ADMIN")) {
-					this.setDefaultTargetUrl(URLConst.MANAGE_USER_URL);
-				} else if (roles.contains("ROLE_HR")) {
-					this.setDefaultTargetUrl("/");
-				} else if (roles.contains("ROLE_INTERVIEWER")){
-					this.setDefaultTargetUrl("/interviewer");
-				}
+				this.setDefaultTargetUrl("/");
 				super.onAuthenticationSuccess(request, response, authentication);
 			}
 		};

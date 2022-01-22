@@ -62,7 +62,6 @@ public class RecruitmentManageController {
         return ViewConst.MANAGE_RECRUITMENT_PAGE;
     }
 
-    @Secured("ROLE_HR")
     @RequestMapping(URLConst.API_GET_RECRUITMENT_BY_CONDITION_URL)
     public ResponseEntity<DatatableResponseDTO> getRecruitmentByCondition(@RequestBody DatatableParamRequestDTO request) {
         LOGGER.info("Start get recruitment by condition");
@@ -70,7 +69,6 @@ public class RecruitmentManageController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Secured("ROLE_HR")
     @GetMapping(URLConst.API_GET_RECRUITMENT_DETAIL_URL)
     public ResponseEntity<RecruitmentDetailDto> getRecruitmentDetailList(@RequestParam(value = "id") Integer id) {
         LOGGER.info("Start get recruitment detail with id {}", id);

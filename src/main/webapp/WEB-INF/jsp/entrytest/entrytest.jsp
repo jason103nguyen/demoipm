@@ -4,6 +4,7 @@
        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
        <%@page contentType="text/html" pageEncoding="UTF-8"%>
        <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+       <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
        <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
        <link rel="icon" type="image/png" href="../assets/img/favicon.png">
        <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,11 +39,11 @@
            <!-- End Navbar -->
            <!-- <div class="panel-header panel-header-sm">
      </div> -->
-
            <div class="content ">
                <div class="row ">
                    <div class="col-md-4">
                        <div class="card card-user">
+                           <form action="${pageContext.request.contextPath}/entrytest/question" method="get" >
                            <div class="row align-items-center justify-content-center">
                                <div class="col-md-8">
                                    <div class="form-control" style="border:none">
@@ -64,23 +65,29 @@
                                        </div>
                                        <div class="col-md-12">
                                            <div class="row justify-content-center ">
-                                               <p><div class="col-md-4">
+                                               <p>
+                                               <div class="col-md-4">
                                                    <div class="form-group justify-content-center text-center">
                                                        <p>Số lượng câu</p>
                                                       <input type="text" id="numberofQuestion" class="form-control" name="numberofQuestion">
                                                    </div>
-                                               </div></p>
+                                               </div>
+                                               </p>
                                            </div>
                                        </div>
                                    </div>
                                </div>
                            </div>
-                           <p><div class="row justify-content-center">
-                           <div class="btn btn-primary btn-round col-4">Chọn ngẫu nhiên</div>
-                       </div></p>
-                       </div>
-                       <p><div class="card">
-                           <div class="card-header">
+                           <p>
+                           <div class="row justify-content-center">
+                           <button type="submit" class="btn btn-primary btn-round col-4">Chọn ngẫu nhiên</button>
+                           </div>
+                           </p>
+                       </form>
+
+                       <form action="${pageContext.request.contextPath}/entrytest/create" method="post" modelAttribute="entryTestRequest">
+                       <div class="card">
+                       <div class="card-header">
                                <h4 class="card-title">Tùy Chọn</h4>
                            </div>
                            <div class="card-body">
@@ -90,7 +97,7 @@
                                            <label>Thời gian bắt đầu</label>
                                        </div>
                                        <div class="mb-1">
-                                           <input type="datetime-local" class="form-control"  placeholder="Select DateTime">
+                                           <input id="beginTest" type="date" class="form-control" name="beginTest"  placeholder="Select DateTime">
                                        </div>
                                    </li>
                                    <li>
@@ -98,7 +105,7 @@
                                            <label>Thời gian kết thúc</label>
                                        </div>
                                        <div class="mb-1">
-                                           <input type="datetime-local" class="form-control"  placeholder="Select DateTime">
+                                           <input id="finishTest" type="date" class="form-control" name="finishTest" placeholder="Select DateTime">
                                        </div>
                                    </li>
                                    <li>
@@ -106,7 +113,7 @@
                                            <label>Thời gian làm bài</label>
                                        </div>
                                        <div class="mb-1">
-                                           <input type="time" class="form-control" placeholder="Thời Lượng">
+                                           <input id="timeEntryTest" type="time" class="form-control" name="timeEntryTest" placeholder="Thời Lượng">
                                        </div>
                                    </li>
                                    <li>
@@ -119,7 +126,6 @@
                                    </li>
                                </ul>
                            </div>
-                   </div></p>
                    </div>
                    <div class="col-md-8">
                        <div class="card card-user">
@@ -133,26 +139,33 @@
                                        <th>Stt</th>
                                        <th>Nội Dung</th>
                                        <th>Đáp án</th>
-                                       <th class="text-center">Lựa Chọn</th>
                                    </tr>
                                    </thead>
+                                   <c:forEach var="questionAdd" items="${question}">
+                                       <tbody>
+                                       <tr>
+                                           <input type="number" name="questionIds" value="${questionAdd.id }" hidden></input>
+                                           <td id="questions">${questionAdd.id }</td>
+                                           <td>${questionAdd.content }</td>
+                                           <td>
+                                               <p>A: ${questionAdd.option1 }</p>
+                                               <p>B: ${questionAdd.option2 }</p>
+                                               <p>C: ${questionAdd.option3 }</p>
+                                               <p>D: ${questionAdd.option4 }</p>
+                                           </td>
+                                       </tr>
+                                       </tbody>
+                                   </c:forEach>
                                </table>
-                               <nav aria-label="Page navigation example" class="float-right">
-                                   <ul class="pagination">
-                                       <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                       <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                       <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                       <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                       <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                   </ul>
-                               </nav>
                            </div>
                        </div>
                    </div>
-
-               </div>
                <div class="row justify-content-center">
                <button type="submit" class="btn btn-primary btn-round col-3 float-right">Tạo Đề Thi</button>
+               </div>
+       </form>
+                       </div>
+                   </div>
                </div>
            </div>
        </div>

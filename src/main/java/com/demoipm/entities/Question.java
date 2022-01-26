@@ -3,6 +3,7 @@ package com.demoipm.entities;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -11,7 +12,7 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "question_entry_test_id")
+    @Column(name = "question_id")
     private Integer id;
 
     @Column(name = "content")
@@ -45,16 +46,16 @@ public class Question {
     @JoinColumn(name = "skill_id")
     private Skill skill;
 
-    @OneToMany(mappedBy = "questionEntryTest", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private Set<EntryTestQuestion> questionEntryTest = new HashSet<EntryTestQuestion>();
+    @ManyToMany(mappedBy = "questions", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<EntryTest> entryTest;
 
     public Question(){
 
     }
 
-    public Question(Skill skill, Set<EntryTestQuestion> questionEntryTest) {
+    public Question(Skill skill, List<EntryTest> entryTest) {
         this.skill = skill;
-        this.questionEntryTest = questionEntryTest;
+        this.entryTest = entryTest;
     }
 
     public Integer getId() {
@@ -137,12 +138,12 @@ public class Question {
         this.answer4 = answer4;
     }
 
-    public Set<EntryTestQuestion> getQuestionEntryTest() {
-        return questionEntryTest;
+    public List<EntryTest> getEntryTest() {
+        return entryTest;
     }
 
-    public void setQuestionEntryTest(Set<EntryTestQuestion> questionEntryTest) {
-        this.questionEntryTest = questionEntryTest;
+    public void setEntryTest(List<EntryTest> entryTest) {
+        this.entryTest = entryTest;
     }
 
     public Skill getSkill() {
@@ -151,5 +152,23 @@ public class Question {
 
     public void setSkill(Skill skill) {
         this.skill = skill;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", option1='" + option1 + '\'' +
+                ", option2='" + option2 + '\'' +
+                ", option3='" + option3 + '\'' +
+                ", option4='" + option4 + '\'' +
+                ", answer1='" + answer1 + '\'' +
+                ", answer2='" + answer2 + '\'' +
+                ", answer3='" + answer3 + '\'' +
+                ", answer4='" + answer4 + '\'' +
+                ", skill=" + skill +
+                ", entryTest=" + entryTest +
+                '}';
     }
 }

@@ -98,17 +98,38 @@ VALUES ('Vo Van B', '0123456789', 'bvo@gmail.com', 'nam', '1996/3/10');
 INSERT INTO candidate (full_name, phone, email, sex, birth_day) 
 VALUES ('Vo Van C', '0123456789', 'cvo@gmail.com', 'nam', '1996/3/10');
 
-/*-- ENTRYTEST --
-INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2021/12/18', 'FT_1', 'PASS', 85, 'Java_Test', 1);
+-- QUESTION ENTRY TEST --
+INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
+VALUES ('Đâu không phải là một kiểu dữ liệu nguyên thuỷ trong Java', 'double', 'long', 'int', 'long double', 'null','null','null','on', 1);
 
-INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2021/12/18', 'FT_1', 'PASS', 85, 'C_Test', 2);
+INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
+VALUES ('Phương thức next() của lớp Scanner dùng để làm gì', 'Nhập một số nguyên', 'Nhập một ký tự', 'Nhập một chuỗi', 'Không có phương thức này', 'null','null','on','null', 1);
 
-INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2021/12/18', 'FT_1', 'PASS', 85, 'Python_Test', 3);
+INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
+VALUES ('Có mấy cách để truyền tham số vào cho một phương thức', '1', '2', '3', '4', 'null','on','null','null', 1);
 
--- INTERVIEW --
+INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
+VALUES ('OOP có mấy tính chất', '1', '2', '3', '4', 'null','null','null','on', 1);
+
+INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
+VALUES ('Tính năng nào không phải là tính năng của Java', 'Dynamic (Động)', 'Architecture Neutral (Độc lập với cấu trúc)', 'Use of pointers (Sử dụng các điểm trỏ)', 'Object-oriented (Hướng đối tượng) ', 'null','null','on','null', 1);
+
+INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
+VALUES ('File chứa mã nguồn java sau khi được biên dịch có đuôi là gì', ' .java', ' .class', ' .jar', ' .exe', 'null','on','null','null', 1);
+
+INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
+VALUES ('Java chạy trên hệ điều hành nào sau đây:', 'Microsoft Windows', 'Linux', 'Sun Solaris OS', 'Tất cả các đáp án đều đúng', 'null','null','null','on', 1);
+
+INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
+VALUES ('Câu lệnh khai báo chuẩn cho cách main như thế nào', 'public static void main(String[] a) {}', 'public static int main(String args) {}', 'public static main(String[] args) {}', 'public static final void main(String[] args) {}', 'on','null','null','null', 1);
+
+INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
+VALUES ('Một lớp trong Java có thể có bao nhiêu lớp cha', '1', '2', '3', '4', 'on','null','null','null', 1);
+
+INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
+VALUES ('Một lớp trong Java có bao nhiêu lớp con', '1', '2', '3', 'Vô Số', 'null','null','null','on', 1);
+
+/*-- INTERVIEW --
 INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id)
 VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 1);
 

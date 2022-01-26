@@ -1,5 +1,6 @@
 package com.demoipm.entities;
 
+import java.time.LocalTime;
 import java.util.*;
 
 import javax.persistence.*;
@@ -14,9 +15,15 @@ public class EntryTest {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "entry_test_id")
 	private int id;
+
+	@Column(name="begin_test")
+	private Date beginTest;
+
+	@Column(name="finish_test")
+	private Date finishTest;
 	
 	@Column(name = "time_entry_test")
-	private Date timeEntryTest;
+	private LocalTime timeEntryTest;
 	
 	@Column(name = "result")
 	private String result;
@@ -28,28 +35,33 @@ public class EntryTest {
 	private String nameTest;
 
 	@Column(name = "number_of_question")
-	private String numberofQuestion;
+	private Integer numberofQuestion;
 	
 	@ManyToOne
 	@JoinColumn(name = "candidate_id")
 	private Candidate candidate;
 
-	@OneToMany(mappedBy = "entryTest", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	private Set<EntryTestQuestion> entryTestQuestions = new HashSet<EntryTestQuestion>();
+	@ManyToMany
+	@JoinTable(name = "entrytest_question",
+	        joinColumns = @JoinColumn(name = "entry_test_id"),
+			inverseJoinColumns = @JoinColumn(name = "question_id"))
+	private List<Question> questions = new ArrayList<Question>();
 
 	@OneToMany(mappedBy = "entryTest")
 	private List<JobSkill> listJobSkill = new ArrayList<JobSkill>();
 	
 	public EntryTest() {}
 
-	public EntryTest(Date timeEntryTest, String result, int point, String nameTest, String numberofQuestion, Candidate candidate, Set<EntryTestQuestion> entryTestQuestions, List<JobSkill> listJobSkill) {
+	public EntryTest(Date beginTest, Date finishTest, LocalTime timeEntryTest, String result, int point, String nameTest, Integer numberofQuestion, Candidate candidate, List<Question> questions, List<JobSkill> listJobSkill) {
+		this.beginTest = beginTest;
+		this.finishTest = finishTest;
 		this.timeEntryTest = timeEntryTest;
 		this.result = result;
 		this.point = point;
 		this.nameTest = nameTest;
 		this.numberofQuestion = numberofQuestion;
 		this.candidate = candidate;
-		this.entryTestQuestions = entryTestQuestions;
+		this.questions = questions;
 		this.listJobSkill = listJobSkill;
 	}
 
@@ -61,11 +73,11 @@ public class EntryTest {
 		this.id = id;
 	}
 
-	public Date getTimeEntryTest() {
+	public LocalTime getTimeEntryTest() {
 		return timeEntryTest;
 	}
 
-	public void setTimeEntryTest(Date timeEntryTest) {
+	public void setTimeEntryTest(LocalTime timeEntryTest) {
 		this.timeEntryTest = timeEntryTest;
 	}
 
@@ -101,20 +113,20 @@ public class EntryTest {
 		this.candidate = candidate;
 	}
 
-	public String getNumberofQuestion() {
+	public Integer getNumberofQuestion() {
 		return numberofQuestion;
 	}
 
-	public void setNumberofQuestion(String numberofQuestion) {
+	public void setNumberofQuestion(Integer numberofQuestion) {
 		this.numberofQuestion = numberofQuestion;
 	}
 
-	public Set<EntryTestQuestion> getEntryTestQuestions() {
-		return entryTestQuestions;
+	public List<Question> getQuestions() {
+		return questions;
 	}
 
-	public void setEntryTestQuestions(Set<EntryTestQuestion> entryTestQuestions) {
-		this.entryTestQuestions = entryTestQuestions;
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
 	}
 
 	public List<JobSkill> getListJobSkill() {
@@ -124,4 +136,21 @@ public class EntryTest {
 	public void setListJobSkill(List<JobSkill> listJobSkill) {
 		this.listJobSkill = listJobSkill;
 	}
+
+	public Date getBeginTest() {
+		return beginTest;
+	}
+
+	public void setBeginTest(Date beginTest) {
+		this.beginTest = beginTest;
+	}
+
+	public Date getFinishTest() {
+		return finishTest;
+	}
+
+	public void setFinishTest(Date finishTest) {
+		this.finishTest = finishTest;
+	}
+
 }

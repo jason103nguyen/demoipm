@@ -3,7 +3,7 @@ package com.demoipm.dto;
 
 import com.demoipm.entities.Skill;
 
-public class QuestionEntryTestRequest {
+public class QuestionRequest {
 
     private Integer id;
 
@@ -27,11 +27,15 @@ public class QuestionEntryTestRequest {
 
     private String skill;
 
-    public QuestionEntryTestRequest(){
+    public QuestionRequest(){
 
     }
 
-    public QuestionEntryTestRequest(String content, String option1, String option2, String option3, String option4, String answer1, String answer2, String answer3, String answer4, String skill) {
+    public QuestionRequest(String skill) {
+        this.skill = skill;
+    }
+
+    public QuestionRequest(String content, String option1, String option2, String option3, String option4, String answer1, String answer2, String answer3, String answer4, String skill) {
         this.content = content;
         this.option1 = option1;
         this.option2 = option2;

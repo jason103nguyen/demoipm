@@ -12,6 +12,8 @@ import java.util.List;
 @Repository
 public interface QuestionDao extends JpaRepository<Question, Integer> {
 
-    @Query("SELECT q FROM Question q WHERE q.skill.name like :skillName")
-    List<Question> getRandomQuestionBySkill(@Param("skillName") String skillName);
+    @Query("SELECT q FROM Question q WHERE q.skill.name like :skill")
+    List<Question> getRandomQuestionBySkill(@Param("skill") String skill);
+
+    List<Question> findQuestionById(Integer id);
 }

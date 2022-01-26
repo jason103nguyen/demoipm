@@ -1,7 +1,6 @@
 package com.demoipm.controller;
 
-import com.demoipm.dto.InterviewRequest;
-import com.demoipm.dto.QuestionEntryTestRequest;
+import com.demoipm.dto.QuestionRequest;
 import com.demoipm.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,14 +18,14 @@ public class QuestionController {
 
     @GetMapping("/question/create")
     public String showQuestionForm(Model model){
-        model.addAttribute("questionRequest",new QuestionEntryTestRequest());
+        model.addAttribute("questionRequest",new QuestionRequest());
         return "entrytest/questionentrytest";
     }
 
     @PostMapping("/question/create")
-    public String createQuestionForm(@ModelAttribute("questionRequest") QuestionEntryTestRequest questionEntryTestRequest, BindingResult result, Model model){
-        model.addAttribute("questionRequest",questionService.create(questionEntryTestRequest));
-        System.out.println("question là : " + questionEntryTestRequest);
+    public String createQuestionForm(@ModelAttribute("questionRequest") QuestionRequest questionRequest, BindingResult result, Model model){
+        model.addAttribute("questionRequest",questionService.create(questionRequest));
+        System.out.println("question là : " + questionRequest);
         return "entrytest/questionentrytest";
     }
 }

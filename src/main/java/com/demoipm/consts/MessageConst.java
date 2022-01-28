@@ -19,4 +19,10 @@ public class MessageConst {
      */
     public static final String USERNAME_NOT_EXISTED = "Username not existed";
     public static final String USERNAME_REQUIRED = "Username is required";
+
+    /**
+     * Skill manage message
+     */
+    public static final String UPDATE_SKILL_SUCCESS_MESSAGE = "Skill Update Success";
+    public static final String CREATE_SKILL_SUCCESS_MESSAGE = "Skill Create Success";
 }

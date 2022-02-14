@@ -15,10 +15,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.demoipm.dto.RecruitmentDto;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "recruitment")
-public class Recruitment {
+@SQLDelete(sql = "UPDATE recruitment SET is_delete = true WHERE recruitment_id = ?")
+@Where(clause = "is_delete = false")
+public class Recruitment extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -207,4 +207,67 @@ public class CandidateController {
 		return "redirect:/view-all-candidate";
 	}
 	
+	/**
+	 * Add all skill on view
+	 * @param model
+	 */
+	private void showAllSkill(Model model) {
+		
+		List<SkillDto> listSkillDto = new ArrayList<SkillDto>();
+		try {
+			listSkillDto = skillServiceImpl.readAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("listSkill", listSkillDto);
+	}
+	
+	/**
+	 * Check age is empty
+	 * @param minAge
+	 * @param maxAge
+	 * @return
+	 */
+	private boolean ageIsEmpty(Integer minAge, Integer maxAge) {
+		
+		if (minAge == null || maxAge == null) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	/**
+	 * Check content is empty
+	 * @param content
+	 * @return
+	 */
+	private boolean contentIsEmpty(String content) {
+		
+		if( content == null) {
+			return true;
+		} else if (content.isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Check list contain skills selected is empty
+	 * @param listId
+	 * @return
+	 */
+	private boolean listIdIsEmpty(List<Integer> listId) {
+		
+		if(listId == null) {
+			return true;
+		} else if (listId.isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

@@ -20,13 +20,12 @@
 
 		<tbody>
 
-			<%
-			int count = 1;
-			%>
+			<% int count = 1; %>
 			<c:forEach items="${listCandidate}" var="candidate">
 				<tr>
 					<td><%=count%></td>
 					<td>${candidate.fullName}</td>
+
 					<td>
 						<table class="table">
 							<tbody>
@@ -87,9 +86,7 @@
 
 					<td>${candidate.status}</td>
 				</tr>
-				<%
-				count++;
-				%>
+				<% count++; %>
 			</c:forEach>
 
 		</tbody>

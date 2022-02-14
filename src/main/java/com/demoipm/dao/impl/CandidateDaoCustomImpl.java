@@ -137,7 +137,7 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
 		
 		if( content == null) {
 			return true;
-		} else if (content.isEmpty() || content.isBlank()) {
+		} else if (content.isEmpty()) {
 			return true;
 		} else {
 			return false;

@@ -130,7 +130,7 @@ public class PotentialCandidateServiceImpl implements PotentialCandidateService 
 				}
 			}
 			
-			if("status".equals(sortBy)) {
+			if("status".equals(sortBy) && "ASC".equals(direction)) {
 				sort = Sort.by(Sort.Direction.ASC, "status");
 			} else {
 				if ("status".equals(sortBy) && "DESC".equals(direction)){		

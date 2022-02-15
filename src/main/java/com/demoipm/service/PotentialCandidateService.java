@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.demoipm.dto.CandidateDto;
-import com.demoipm.dto.potentialcandidate.pageDTO;
+import com.demoipm.dto.potentialcandidate.PotentialCandidatePageDto;
 import com.demoipm.entities.Candidate;
 
 public interface PotentialCandidateService {
-	
+
 	/**
 	 * Get Potential Candidate By ID
 	 * 
@@ -22,7 +22,7 @@ public interface PotentialCandidateService {
 	 * Create Potential Candidate
 	 * 
 	 * @param candidateDto
-	 * @return 
+	 * @return
 	 */
 	void createPotentialCandidate(CandidateDto candidateDto);
 
@@ -35,13 +35,13 @@ public interface PotentialCandidateService {
 	List<CandidateDto> getAllPotentialCandidate();
 
 	/**
-	 * Search Potential Candidate By Key Search
+	 * Filter Search and Sort and Pagination PotentialCandidate
 	 * 
-	 * 
-	 * @param keySearch
-	 * @return List Potential Candidate
+	 * @param candidateDto
+	 * @return List All PotentialCandidate
 	 */
-	pageDTO searchPotentialCandidateIsDelete(String keySearch, int pageSize, int pageNo, String filed);
+	PotentialCandidatePageDto FilterPotentialCandidateIsDelete(String keySearch, int pageSize, int pageNo,
+			String filed, String direction);
 
 	/**
 	 * Delete Potential Candidate Info DB
@@ -57,10 +57,5 @@ public interface PotentialCandidateService {
 	 * @param candidateDto
 	 */
 	void updatePotentialCandidate(CandidateDto candidateDto);
-
-	List<CandidateDto> findPotentialCandidateWithSorting(String field);
-
-	//Page<Candidate> findPagination(int pageNo, int pageSize);
-
 
 }

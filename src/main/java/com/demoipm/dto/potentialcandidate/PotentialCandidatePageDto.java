@@ -4,11 +4,13 @@ import java.util.List;
 
 import com.demoipm.dto.CandidateDto;
 
-public class pageDTO {
+public class PotentialCandidatePageDto {
 
-	String field;
+	String sortBy;
 
 	String keySearch;
+
+	String direction;
 
 	int pageNo;
 
@@ -16,14 +18,22 @@ public class pageDTO {
 
 	int currentPage;
 
-	List<CandidateDto> list;
+	List<CandidateDto> listPotentialCandidate;
 
-	public String getField() {
-		return field;
+	public String getDirection() {
+		return direction;
 	}
 
-	public void setField(String field) {
-		this.field = field;
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+
+	public String getSortBy() {
+		return sortBy;
+	}
+
+	public void setSortBy(String sortBy) {
+		this.sortBy = sortBy;
 	}
 
 	public int getPageNo() {
@@ -58,12 +68,12 @@ public class pageDTO {
 		this.currentPage = currentPage;
 	}
 
-	public List<CandidateDto> getList() {
-		return list;
+	public List<CandidateDto> getListPotentialCandidate() {
+		return listPotentialCandidate;
 	}
 
-	public void setList(List<CandidateDto> list) {
-		this.list = list;
+	public void setListPotentialCandidate(List<CandidateDto> listPotentialCandidate) {
+		this.listPotentialCandidate = listPotentialCandidate;
 	}
 
 }

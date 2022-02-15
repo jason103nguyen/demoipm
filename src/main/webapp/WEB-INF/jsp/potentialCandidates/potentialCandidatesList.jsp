@@ -22,23 +22,52 @@
     
     	function PotentialCandidatesSort(){
     		
-    		var field = document.getElementById('PCsort').value;
+    		var sortBy = document.getElementById('PCsort').value;
     		
     		var search = document.getElementById('search').value;
     		
     		var pageNo = document.getElementById('pageNo').value;
     		
-    		if (field == "all" && search == null){
-    			location.href = 'view-potential-candidates-list';
+    		var direction = document.getElementById('direction').value;
+
+    		if (sortBy == "id" ){
+    			window.location = 'view-potential-candidates-list?sortBy=id'+'&keySearch=' + search+'&pageNo='+pageNo+'&direction='+direction;  
     		} else{	
-    			location.href = "view-potential-candidates-list?field="+field+"&keySearch=" + search+"&pageNo="+pageNo;
+    			
+    			document.getElementById('PCsort').value = sortBy;
+    			
+    			window.location = 'view-potential-candidates-list?sortBy='+sortBy+'&keySearch=' + search+'&pageNo='+pageNo+'&direction='+direction;  
+
     		}
-    	}
+    	}	
     
-    </script>     
+    </script>   
+    
+    
+    <script>
+			function myFunction() {
+
+				const queryString = window.location.search;
+				
+				const urlParams = new URLSearchParams(queryString);
+				
+				const sortBy = urlParams.get('sortBy')
+				
+				const direction = urlParams.get('direction')
+				
+				if(sortBy == null && direction == null) {
+					sortBy = "id";
+					direction = "ASC"
+				} else{	
+					document.getElementById('PCsort').value = sortBy;
+					
+					document.getElementById('direction').value = direction;
+				}
+			}
+	</script>  
             
 </head>
-<body>
+<body onload="myFunction()">
 
 <div class="container p-5 my-5 border">
     <div class="row">
@@ -50,16 +79,23 @@
             <p class="h1 text-warning text-center">MANAGE POTENTIAL CANDIDATES</p>
             <div class="search">
 
-            	<div class="SelectSort">
+            	<div class="SelectSort" id ="a">
             	
-		           <!-- Sorted By <select id="PCsort" onchange="PotentialCandidatesSort()">   
-		           		 
-		           		 		<option value="all">Choose</option>
-		           		 		<option value="all">Full</option>
-		           		 		<option value="fullName">Full Name A-Z</option>
+		            Sorted By <select id="PCsort" onchange="PotentialCandidatesSort()" >    
+		           		 		<option value="id">ID</option>
+		           		 		<option value="fullName">Full Name Z-A</option>
 		           		 		<option value="email">Email Z-A</option>
+		           		 		<option value="status">Status Z-A</option>
+		           		 	</select>
 
-		           		 	</select> -->
+		           		 	<select id="direction" onchange="PotentialCandidatesSort()">
+		           		 	
+		           		 		<option value="ASC">ASC</option>
+		           		 	
+		           		 		<option value="DESC">DESC</option>
+	
+		           		 	</select>
+		           		 	
             	</div>
             	
 				<div class="FlexSearch">
@@ -68,17 +104,14 @@
 
 	           		 	<input id="search" name="keySearch" type="text" placeholder="Search ..." class="FilterSearch" value="${keySearch}">
 	           		 	
-	           		 	 Sorted By <select id="PCsort" name="field">   
-		           		 
-		           		 			<option value = "id">Choose</option>
-		           		 			<option value="fullName">Full Name A-Z</option>
-		           		 			<option value="email">Email Z-A</option>
-	           		 			</select>
+	           		 	<input type="hidden" id="fieldSort" name="sortBy" value="${sortBy }">
+	           		 	
+	           		 	<input type="hidden" id="numberPageNo" name="pageNo" value="1">
+	           		 	
+	           		 	<input type="hidden" name="direction" value="${direction }">
 		           		 	
 						<button type="submit" class="ButtonSearch">Search</button>
-						
-						
-						
+
 					</form:form>	
 					
 				</div>	
@@ -152,15 +185,15 @@
 		  		<ul class="pagination">
 						
 					<c:if test="${currentPage > 1}">
-		    			<li class="page-item"><a class="page-link" href="view-potential-candidates-list?pageNo=${currentPage - 1}&keySearch=${keySearch}">Previous</a></li>
+		    			<li class="page-item"><a class="page-link" href="view-potential-candidates-list?pageNo=${currentPage - 1}&keySearch=${keySearch}&sortBy=${sortBy}&direction=${direction }">Previous</a></li>
 		    		</c:if>	
 		    		
 		    		<c:forEach  begin="1" end="${totalPage}" var="i">	
-    					<li  class="page-item" id="pageNo" value="${i}"><a class="page-link" href="view-potential-candidates-list?pageNo=${i}&keySearch=${keySearch}&field=${field}">${i}</a></li>	
+    					<li  class="page-item" id="pageNo" value="${i}"><a class="page-link" href="view-potential-candidates-list?pageNo=${i}&keySearch=${keySearch}&sortBy=${sortBy}&direction=${direction }">${i}</a></li>	
 					</c:forEach>
 					
 					<c:if test="${currentPage < totalPage}">
-				    	<li class="page-item"><a class="page-link" href="view-potential-candidates-list?pageNo=${currentPage + 1}&keySearch=${keySearch}">Next</a></li>
+				    	<li class="page-item"><a class="page-link" href="view-potential-candidates-list?pageNo=${currentPage + 1}&keySearch=${keySearch}&sortBy=${sortBy}&direction=${direction }">Next</a></li>
 				    </c:if>	
 		  		</ul>
 		  	</c:if>

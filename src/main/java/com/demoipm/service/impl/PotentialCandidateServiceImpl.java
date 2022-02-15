@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.demoipm.dao.PotentialCandidateDao;
 import com.demoipm.dto.CandidateDto;
-import com.demoipm.dto.potentialcandidate.pageDTO;
+import com.demoipm.dto.potentialcandidate.PotentialCandidatePageDto;
 import com.demoipm.entities.Candidate;
 import com.demoipm.service.PotentialCandidateService;
 
@@ -87,57 +87,55 @@ public class PotentialCandidateServiceImpl implements PotentialCandidateService 
 		return listCandidateDto;
 	}
 
+	/**
+	 * Filter Search and Sort and Pagination PotentialCandidate
+	 * 
+	 * 
+	 * @param keySearch, pageNo, pageSize, sortBy
+	 * @return List PotentialCandidate Filtered
+	 */
 	@Override
-	public List<CandidateDto> findPotentialCandidateWithSorting(String field) {
-
-		List<CandidateDto> listCandidateDto = new ArrayList<>();
-
-		try {
-
-			if ("fullName".equals(field)) {
-
-				List<Candidate> listCandidatesWithSorting = potentialCandidateDao
-						.findAll(Sort.by(Sort.Direction.DESC, "fullName"));
-				for (Candidate candidate : listCandidatesWithSorting) {
-					CandidateDto candidateDto = new CandidateDto(candidate);
-					listCandidateDto.add(candidateDto);
-				}
-			}
-			if ("email".equals(field)) {
-
-				List<Candidate> listCandidatesWithSorting = potentialCandidateDao
-						.findAll(Sort.by(Sort.Direction.DESC, "email"));
-				for (Candidate candidate : listCandidatesWithSorting) {
-					CandidateDto candidateDto = new CandidateDto(candidate);
-					listCandidateDto.add(candidateDto);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return listCandidateDto;
-	}
-
-	@Override
-	public pageDTO searchPotentialCandidateIsDelete(String keySearch, int pageNo, int pageSize, String field) {
+	public PotentialCandidatePageDto FilterPotentialCandidateIsDelete(String keySearch, int pageNo, int pageSize, String sortBy, String direction ) {
 		
-		pageDTO pageDTO = new pageDTO();
+		PotentialCandidatePageDto pageDTO = new PotentialCandidatePageDto();
 
 		List<CandidateDto> listCandidateDto = new ArrayList<CandidateDto>();
 
 		try {
 			
-			Sort sort = Sort.by(Sort.Direction.ASC, field);
+			Sort sort = Sort.by(Sort.Direction.ASC, sortBy);
 			
-			if ("fullName".equals(field)) {
-				
-				sort = Sort.by(Sort.Direction.DESC, "fullName");
+			
+			if ("id".equals(sortBy) && "ASC".equals(direction)) {
+				sort = Sort.by(Sort.Direction.ASC, "id");
+			} else {
+				if ("id".equals(sortBy) && "DESC".equals(direction)){		
+					sort = Sort.by(Sort.Direction.DESC, "id");
+				}
 			}
 			
-			if ("email".equals(field)) {
-				
-				sort = Sort.by(Sort.Direction.DESC, "email");
+			if ("fullName".equals(sortBy) && "ASC".equals(direction)) {
+				sort = Sort.by(Sort.Direction.ASC, "fullName");
+			} else {
+				if ("fullName".equals(sortBy) && "DESC".equals(direction)){		
+					sort = Sort.by(Sort.Direction.DESC, "fullName");
+				}
+			}
+
+			if ("email".equals(sortBy) && "ASC".equals(direction)) {
+				sort = Sort.by(Sort.Direction.ASC, "email");
+			} else {
+				if ("email".equals(sortBy) && "DESC".equals(direction)){		
+					sort = Sort.by(Sort.Direction.DESC, "email");
+				}
+			}
+			
+			if("status".equals(sortBy)) {
+				sort = Sort.by(Sort.Direction.ASC, "status");
+			} else {
+				if ("status".equals(sortBy) && "DESC".equals(direction)){		
+					sort = Sort.by(Sort.Direction.DESC, "status");
+				}
 			}
 
 			Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
@@ -149,12 +147,13 @@ public class PotentialCandidateServiceImpl implements PotentialCandidateService 
 				listCandidateDto.add(candidateDto);
 			}
 			
-			pageDTO.setList(listCandidateDto);
+			pageDTO.setListPotentialCandidate(listCandidateDto);
 			pageDTO.setTotalPage(listCandidate.getTotalPages());
 			pageDTO.setCurrentPage(pageNo);
 			pageDTO.setKeySearch(keySearch);
 			pageDTO.setPageNo(pageNo);
-			pageDTO.setField(field);
+			pageDTO.setSortBy(sortBy);
+			pageDTO.setDirection(direction);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

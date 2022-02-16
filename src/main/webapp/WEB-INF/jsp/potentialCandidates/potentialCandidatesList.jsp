@@ -14,10 +14,62 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
             
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/StyleList.css">        
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/StyleList.css"> 
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
+    
+    <script>
+    
+    	function PotentialCandidatesSort(){
+    		
+    		var sortBy = document.getElementById('PCsort').value;
+    		
+    		var search = document.getElementById('search').value;
+    		
+    		var pageNo = document.getElementById('pageNo').value;
+    		
+    		var direction = document.getElementById('direction').value;
+
+    		if (sortBy == "id" ){
+    			window.location = 'view-potential-candidates-list?sortBy=id'+'&keySearch=' + search+'&pageNo='+pageNo+'&direction='+direction;  
+    		} else{	
+    			
+    			document.getElementById('PCsort').value = sortBy;
+    			
+    			window.location = 'view-potential-candidates-list?sortBy='+sortBy+'&keySearch=' + search+'&pageNo='+pageNo+'&direction='+direction;  
+
+    		}
+    	}	
+    
+    </script>   
+    
+    
+    <script>
+			function myFunction() {
+
+				const queryString = window.location.search;
+				
+				const urlParams = new URLSearchParams(queryString);
+				
+				const sortBy = urlParams.get('sortBy')
+				
+				const direction = urlParams.get('direction')
+				
+				if(sortBy == null && direction == null) {
+					sortBy = "id";
+					direction = "ASC"
+				} else{	
+					document.getElementById('PCsort').value = sortBy;
+					
+					document.getElementById('direction').value = direction;
+				}
+			}
+	</script>  
             
 </head>
-<body>
+<body onload="myFunction()">
+
 
 <div class="container p-5 my-5 border">
     <div class="row">
@@ -28,25 +80,50 @@
         <div class="col-sm-9">
             <p class="h1 text-warning text-center">MANAGE POTENTIAL CANDIDATES</p>
             <div class="search">
+
+
+            	<div class="SelectSort" id ="a">
             	
-            	<div class="SelectSort">
-	            	<form:form action="#" method="get">
-		           		 Sorted By	<select><option>A - Z</option><option>Z - A</option></select>
-					</form:form>	
+		            Sorted By <select id="PCsort" onchange="PotentialCandidatesSort()" >    
+		           		 		<option value="id">ID</option>
+		           		 		<option value="fullName">Full Name Z-A</option>
+		           		 		<option value="email">Email Z-A</option>
+		           		 		<option value="status">Status Z-A</option>
+		           		 	</select>
+
+		           		 	<select id="direction" onchange="PotentialCandidatesSort()">
+		           		 	
+		           		 		<option value="ASC">ASC</option>
+		           		 	
+		           		 		<option value="DESC">DESC</option>
+	
+		           		 	</select>
+		           		 	
             	</div>
             	
 				<div class="FlexSearch">
-
+				
 	           		 <form:form action="view-potential-candidates-list" method="get"> 
-	           		 	<input name="keySearch" type="text" placeholder="Search ..." class="FilterSearch">		
 
+	           		 	<input id="search" name="keySearch" type="text" placeholder="Search ..." class="FilterSearch" value="${keySearch}">
+	           		 	
+	           		 	<input type="hidden" id="fieldSort" name="sortBy" value="${sortBy }">
+	           		 	
+	           		 	<input type="hidden" id="numberPageNo" name="pageNo" value="1">
+	           		 	
+	           		 	<input type="hidden" name="direction" value="${direction }">
+		           		 	
 						<button type="submit" class="ButtonSearch">Search</button>
+
+
 					</form:form>	
 					
 				</div>	
             </div>  
             
-            <form:form action="#" method="get"> 					
+
+            <form:form action="add-new-potential-candidates" method="get"> 	
+
 				<button type="submit" class="ButtonAddNew">Add New</button> 	
 			</form:form>   
         </div>
@@ -94,36 +171,63 @@
 								<button type="submit" class="ButtonInfo">Interview</button> 	
 							</form:form>
 						</td>
-
-						<td>${listCandidateDto.status }</td>
-
-
+					<td>${listCandidateDto.status }</td>
 						<td>
-							<form:form action="#" method="get"> 					
-								<button type="submit" class="ButtonDelete">Delete</button> 	
-							</form:form>
-							
-							<form:form action="#" method="get"> 
+			
+							<a href= "delete-potential-candidates/${listCandidateDto.id }" onclick="deletePotentialCandidates(event, '${listCandidateDto.id }')">
+								<button type="submit" class="ButtonDelete">Delete</button> 
+							</a>	
+							<a href= "update-potential-candidates?id=${listCandidateDto.id }">
 								<button type="submit" class="ButtonUpdate">Update</button> 
-							</form:form>
+							</a>	
+
 						</td>
 				    </tr>
 				  </tbody>
 				 </c:forEach>
 			</table>
 			</div>	
+
+
 			<nav aria-label="Page navigation example">
+			<c:if test="${totalPage > 1 }">
 		  		<ul class="pagination">
-		    		<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-		   			<li class="page-item"><a class="page-link" href="#">1</a></li>
-				    <li class="page-item"><a class="page-link" href="#">2</a></li>
-				    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+						
+					<c:if test="${currentPage > 1}">
+		    			<li class="page-item"><a class="page-link" href="view-potential-candidates-list?pageNo=${currentPage - 1}&keySearch=${keySearch}&sortBy=${sortBy}&direction=${direction }">Previous</a></li>
+		    		</c:if>	
+		    		
+		    		<c:forEach  begin="1" end="${totalPage}" var="i">	
+    					<li  class="page-item" id="pageNo" value="${i}"><a class="page-link" href="view-potential-candidates-list?pageNo=${i}&keySearch=${keySearch}&sortBy=${sortBy}&direction=${direction }">${i}</a></li>	
+					</c:forEach>
+					
+					<c:if test="${currentPage < totalPage}">
+				    	<li class="page-item"><a class="page-link" href="view-potential-candidates-list?pageNo=${currentPage + 1}&keySearch=${keySearch}&sortBy=${sortBy}&direction=${direction }">Next</a></li>
+				    </c:if>	
 		  		</ul>
+		  	</c:if>
+
 		</nav>
             </c:if>
         </div>
     </div>
 </div>
+
+
+<script>
+    function deletePotentialCandidates(event, id) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Do you want to delete the Potential Candidate?',
+            showDenyButton: true,
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "${pageContext.request.contextPath}/delete-potential-candidates/" + id;
+            }
+        })
+    }
+</script>
+
 </body>
 </html>

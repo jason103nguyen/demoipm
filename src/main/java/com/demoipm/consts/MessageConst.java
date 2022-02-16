@@ -22,6 +22,21 @@ public class MessageConst {
     public static final String USERNAME_REQUIRED = "Username is required";
 
     /**
+     * Create/update new potential candidate validation message
+     */
+    public static final String ACTIVITY_CANNOT_BE_BLANK = "Activity cannot be blank";
+    public static final String EXPERIENCEYEAR_CANNOT_BE_BLANK = "Experience Year cannot be blank";
+    public static final String SKILL_CANNOT_BE_BLANK = "Skill cannot be blank";
+    public static final String CMND_CANNOT_BE_BLANK = "National Identity Card cannot be blank";
+    public static final String DATECMND_CANNOT_BE_BLANK = "DATE National Identity Card cannot be blank";
+    public static final String GENDER_CANNOT_BE_BLANK = "Gender cannot be blank";
+    public static final String BIRTHDAY_CANNOT_BE_BLANK = "Birthday cannot be blank ";
+    public static final String INVALID_DATE_MESSAGE = "The Birthday invalid - Please again";
+    public static final String STATUS_CANNOT_BE_BLANK = "Status cannot be blank";
+    public static final String PHONE_CANNOT_BE_BLANK = "Status cannot be blank";
+    public static final String INVALID_EXPERIENCEYEAR_MESSAGE = "The Please input Experience Year";
+
+    /**
      * Create/update recruitment validation message
      */
     public static final String RECRUITMENT_CANNOT_BE_NULL = "Recruitment can not be empty";

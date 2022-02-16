@@ -13,5 +13,8 @@ public interface RoleAppDao extends CrudRepository<RoleApp, Integer>{
 	
 	@Query("SELECT ur.roleApp.roleName FROM UserRole ur WHERE ur.userApp.id = :userId")
 	public List<String> getRoleNames(int userId);
-	
+
+	public List<RoleApp> getAllByRoleNameIn(List<String> roleNames);
+
+	List<RoleApp> findAll();
 }

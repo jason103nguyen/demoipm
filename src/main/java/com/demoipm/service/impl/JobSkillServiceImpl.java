@@ -33,7 +33,7 @@ public class JobSkillServiceImpl implements JobSkillService {
 
 		Optional<JobSkill> jobSkill = jobSkillDao.findById(id);
 		JobSkillDto jobSkillDto = null;
-		if (jobSkill.isEmpty()) {
+		if (!jobSkill.isPresent()) {
 			throw new Exception("The id doesn't exists");
 		} else {
 			jobSkillDto = new JobSkillDto(jobSkill.get());

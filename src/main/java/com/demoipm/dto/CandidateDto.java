@@ -1,5 +1,6 @@
 package com.demoipm.dto;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +10,12 @@ import com.demoipm.entities.Candidate;
 public class CandidateDto {
 
 	private int id;
+	
+	private String activity;
+	
+	private Integer experienceYear;
+	
+	private String skill;
 	
 	private String fullName;
 	
@@ -26,26 +33,63 @@ public class CandidateDto {
 	
 	private String sex;
 	
-	private Date birthDay;
+	private LocalDate birthDay;
 	
 	private List<InterviewDto> listInterview = new ArrayList<InterviewDto>();
 	
 	private List<EntryTestDto> listEntryTest = new ArrayList<EntryTestDto>();
 	
+	private List<SkillCandidateDto> listSkillCandidate = new ArrayList<SkillCandidateDto>();
+	
 	public CandidateDto() {}
 	
-	public CandidateDto(Candidate candicate) {
+	public CandidateDto(Candidate candidate) {
 		super();
-		this.id = candicate.getId();
-		this.fullName = candicate.getFullName();
-		cmnd = candicate.getCmnd();
-		this.dateCmnd = candicate.getDateCmnd();
-		this.phone = candicate.getPhone();
-		this.email = candicate.getEmail();
-		this.info = candicate.getInfo();
-		this.status = candicate.getStatus();
-		this.sex = candicate.getSex();
-		this.birthDay = candicate.getBirthDay();
+		this.id = candidate.getId();
+		this.fullName = candidate.getFullName();
+		cmnd = candidate.getCmnd();
+		this.dateCmnd = candidate.getDateCmnd();
+		this.phone = candidate.getPhone();
+		this.email = candidate.getEmail();
+		this.info = candidate.getInfo();
+		this.status = candidate.getStatus();
+		this.sex = candidate.getSex();
+		this.birthDay = candidate.getBirthDay();
+		this.skill = candidate.getSkill();
+		this.experienceYear = candidate.getExperienceYear();
+		this.activity = candidate.getActivity();
+	}
+
+	public List<SkillCandidateDto> getListSkillCandidate() {
+		return listSkillCandidate;
+	}
+
+	public void setListSkillCandidate(List<SkillCandidateDto> listSkillCandidate) {
+		this.listSkillCandidate = listSkillCandidate;
+	}
+
+	public String getActivity() {
+		return activity;
+	}
+
+	public void setActivity(String activity) {
+		this.activity = activity;
+	}
+
+	public Integer getExperienceYear() {
+		return experienceYear;
+	}
+
+	public void setExperienceYear(Integer experienceYear) {
+		this.experienceYear = experienceYear;
+	}
+
+	public String getSkill() {
+		return skill;
+	}
+
+	public void setSkill(String skill) {
+		this.skill = skill;
 	}
 
 	public List<InterviewDto> getListInterview() {
@@ -136,11 +180,11 @@ public class CandidateDto {
 		this.sex = sex;
 	}
 
-	public Date getBirthDay() {
+	public LocalDate getBirthDay() {
 		return birthDay;
 	}
 
-	public void setBirthDay(Date birthDay) {
+	public void setBirthDay(LocalDate birthDay) {
 		this.birthDay = birthDay;
 	}
 

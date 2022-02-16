@@ -36,8 +36,10 @@
             	</div>
             	
 				<div class="FlexSearch">
-	           		 <form:form action="#" method="get"> 
-	           		 	<input name="Search" type="text" placeholder="Search ..." class="FilterSearch">		
+
+	           		 <form:form action="view-potential-candidates-list" method="get"> 
+	           		 	<input name="keySearch" type="text" placeholder="Search ..." class="FilterSearch">		
+
 						<button type="submit" class="ButtonSearch">Search</button>
 					</form:form>	
 					
@@ -80,16 +82,22 @@
 						<td>${listCandidateDto.phone }</td>
 						<td>${listCandidateDto.email }</td>
 						<td>
-							<form:form action="view-potential-candidates-info?id=${listCandidateDto.id }" method="get"> 					
-								<button type="submit" class="ButtonInfo">Info</button> 	
-							</form:form>		
+										
+							<a href= "view-potential-candidates-info?id=${listCandidateDto.id }">
+								<button type="submit" class="ButtonInfo"> Info </button> 
+							</a>	
+							
+
 						</td>
 						<td>
 							<form:form action="#" method="get"> 					
 								<button type="submit" class="ButtonInfo">Interview</button> 	
 							</form:form>
 						</td>
-						<td></td>
+
+						<td>${listCandidateDto.status }</td>
+
+
 						<td>
 							<form:form action="#" method="get"> 					
 								<button type="submit" class="ButtonDelete">Delete</button> 	

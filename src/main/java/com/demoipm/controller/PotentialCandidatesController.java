@@ -36,6 +36,7 @@ public class PotentialCandidatesController {
 	@GetMapping( "view-potential-candidates-list")
 	public String viewPotentialCandidatesList(Model model, @Param("keySearch") String keySearch) {
 
+
 		if(keySearch == null) {
 			List<CandidateDto> listCandidateDto = potentialCandidateService.getAllPotentialCandidate();
 			model.addAttribute("listCandidateDto", listCandidateDto);

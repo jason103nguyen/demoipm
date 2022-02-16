@@ -76,6 +76,7 @@ public class PotentialCandidateImpl implements PotentialCandidateService{
 		}
 		return listCandidateDto;
 	}
+
 	
 	/**
 	 * Search Potential Candidate By Key Search
@@ -102,4 +103,5 @@ public class PotentialCandidateImpl implements PotentialCandidateService{
 
 		return listCandidateDto;	
 	}
+
 }

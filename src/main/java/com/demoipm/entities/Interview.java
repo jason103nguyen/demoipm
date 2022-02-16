@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.demoipm.dto.CandidateDto;
 import com.demoipm.dto.InterviewDto;
 
 @Entity
@@ -21,6 +22,9 @@ public class Interview {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "interview_id")
 	private int id;
+	
+	@Column(name = "round")
+	private int round;
 	
 	@Column(name = "time_interview")
 	private Date timeInterview;
@@ -58,6 +62,36 @@ public class Interview {
 		
 		Candidate candidate = new Candidate(interview.getCandidate());
 		this.candidate = candidate;
+		
+		this.round = interview.getRound();
+	}
+	
+	public InterviewDto convertToDto() {
+		
+		InterviewDto interviewDto = new InterviewDto();
+		
+		interviewDto.setId(this.id); 
+		interviewDto.setTimeInterview(this.timeInterview); 
+		interviewDto.setLocal(this.local);
+		interviewDto.setEvaluation(this.evaluation);
+		interviewDto.setNote(this.note);
+		interviewDto.setResult(this.result);
+		interviewDto.setNameInterviewer(this.nameInterviewer);
+		
+		CandidateDto candidateDto = new CandidateDto(this.candidate);
+		interviewDto.setCandidate(candidateDto);
+		
+		interviewDto.setRound(this.round);
+		
+		return interviewDto;
+	}
+
+	public int getRound() {
+		return round;
+	}
+
+	public void setRound(int round) {
+		this.round = round;
 	}
 
 	public Candidate getCandidate() {

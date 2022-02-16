@@ -29,6 +29,7 @@ public interface PotentialCandidateService {
 	 */
 	List<CandidateDto> getAllPotentialCandidate();
 
+
 	/**
 	 * Search Potential Candidate By Key Search
 	 * 

@@ -1,5 +1,7 @@
 package com.demoipm.service;
 
+import java.util.List;
+
 import com.demoipm.dto.CandidateDto;
 
 public interface PotentialCandidateService {
@@ -18,5 +20,13 @@ public interface PotentialCandidateService {
 	 * @param candidateDto
 	 */
 	void createPotentialCandidate(CandidateDto candidateDto);
+
+	/**
+	 * Get all PotentialCandidate
+	 * 
+	 * 
+	 * @return List All PotentialCandidates
+	 */
+	List<CandidateDto> getAllPotentialCandidate();
 
 }

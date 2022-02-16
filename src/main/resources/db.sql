@@ -83,6 +83,9 @@ VALUES ('Ky su data', 1);
 INSERT INTO job_skill (job_id, skill_id) 
 VALUES (1, 1);
 
+INSERT INTO job_skill (job_id, skill_id)
+VALUES (1, 8);
+
 INSERT INTO job_skill (job_id, skill_id) 
 VALUES (2, 2);
 
@@ -91,23 +94,65 @@ VALUES (3, 3);
 
 -- RECRUITMENT --
 INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
-VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 1, 1, false);
+VALUES (1000, 500, 5, CURDATE(), CURDATE() + 5, 1, 1, false);
 
 INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
-VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 2, 2, false);
+VALUES (1000, 500, 10, CURDATE(), CURDATE() + 5, 2, 2, false);
 
 INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
-VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 3, 3, false);
+VALUES (1000, 500, 15, CURDATE(), CURDATE() + 5, 3, 3, false);
+
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 20, CURDATE(), CURDATE() + 5, 1, 1, false);
+
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 25, CURDATE(), CURDATE() + 5, 2, 2, false);
+
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 30, CURDATE(), CURDATE() + 5, 3, 3, false);
+
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 35, CURDATE(), CURDATE() + 5, 1, 1, false);
+
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 40, CURDATE(), CURDATE() + 5, 2, 2, false);
+
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 45, CURDATE(), CURDATE() + 5, 3, 3, false);
+
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 50, CURDATE(), CURDATE() + 5, 1, 1, false);
 
 -- RECRUITMENT_SKILL --
 INSERT INTO recruitment_skill (recruitment_id, skill_id) 
 VALUES (1, 1);
 
-INSERT INTO recruitment_skill (recruitment_id, skill_id) 
+INSERT INTO recruitment_skill (recruitment_id, skill_id)
 VALUES (2, 2);
 
 INSERT INTO recruitment_skill (recruitment_id, skill_id) 
 VALUES (3, 3);
+
+INSERT INTO recruitment_skill (recruitment_id, skill_id) 
+VALUES (4, 4);
+
+INSERT INTO recruitment_skill (recruitment_id, skill_id)
+VALUES (5, 5);
+
+INSERT INTO recruitment_skill (recruitment_id, skill_id)
+VALUES (6, 6);
+
+INSERT INTO recruitment_skill (recruitment_id, skill_id)
+VALUES (7, 1);
+
+INSERT INTO recruitment_skill (recruitment_id, skill_id)
+VALUES (8, 2);
+
+INSERT INTO recruitment_skill (recruitment_id, skill_id)
+VALUES (9, 3);
+
+INSERT INTO recruitment_skill (recruitment_id, skill_id)
+VALUES (10, 4);
 
 -- CANDIDATE --
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)

@@ -14,6 +14,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
             
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/StyleList.css"> 
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
@@ -69,6 +70,7 @@
 </head>
 <body onload="myFunction()">
 
+
 <div class="container p-5 my-5 border">
     <div class="row">
         <div class="col-sm-3">
@@ -78,6 +80,7 @@
         <div class="col-sm-9">
             <p class="h1 text-warning text-center">MANAGE POTENTIAL CANDIDATES</p>
             <div class="search">
+
 
             	<div class="SelectSort" id ="a">
             	
@@ -112,12 +115,15 @@
 		           		 	
 						<button type="submit" class="ButtonSearch">Search</button>
 
+
 					</form:form>	
 					
 				</div>	
             </div>  
             
+
             <form:form action="add-new-potential-candidates" method="get"> 	
+
 				<button type="submit" class="ButtonAddNew">Add New</button> 	
 			</form:form>   
         </div>
@@ -158,13 +164,14 @@
 								<button type="submit" class="ButtonInfo"> Info </button> 
 							</a>	
 							
+
 						</td>
 						<td>
 							<form:form action="#" method="get"> 					
 								<button type="submit" class="ButtonInfo">Interview</button> 	
 							</form:form>
 						</td>
-						<td>${listCandidateDto.status }</td>
+					<td>${listCandidateDto.status }</td>
 						<td>
 			
 							<a href= "delete-potential-candidates/${listCandidateDto.id }" onclick="deletePotentialCandidates(event, '${listCandidateDto.id }')">
@@ -173,12 +180,14 @@
 							<a href= "update-potential-candidates?id=${listCandidateDto.id }">
 								<button type="submit" class="ButtonUpdate">Update</button> 
 							</a>	
+
 						</td>
 				    </tr>
 				  </tbody>
 				 </c:forEach>
 			</table>
 			</div>	
+
 
 			<nav aria-label="Page navigation example">
 			<c:if test="${totalPage > 1 }">
@@ -197,11 +206,13 @@
 				    </c:if>	
 		  		</ul>
 		  	</c:if>
+
 		</nav>
             </c:if>
         </div>
     </div>
 </div>
+
 
 <script>
     function deletePotentialCandidates(event, id) {
@@ -217,5 +228,6 @@
         })
     }
 </script>
+
 </body>
 </html>

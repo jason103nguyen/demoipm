@@ -21,56 +21,51 @@
 </head>
 <body>
 
-<div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
 
-    <div class="card p-4">
-    
-	    <div class="header">
-		
-			<div class="logo"><img src="../img/LogoFPT.jpg" alt="logo fpt" width="40%"></div>
-			
-			<div><h1 class="Title" style="color: #00DD00">INFO POTENTIAL CANDIDATES</h1></div>
-		</div>
-    
-        <div class=" image d-flex flex-column justify-content-center align-items-center"> 
-        
-        <table>
-        
-        	<tr>
-        		<td><i class="fas fa-user-circle"></i></td>
-        		<td> <span class="name mt-3"> ${candidateDto.fullName}</span> </td>	
-        	</tr>
-        	
-        	
-        	<tr>
-        		<td><i class="fas fa-envelope-open-text"></i></td>
-        		<td> <span class="name mt-3"> ${candidateDto.email}</span> </td>	
-        	</tr>
-        	
-        	<tr>
-        		<td><i class="fas fa-phone-square"></i></td>
-        		<td><span class="name mt-3"> ${candidateDto.phone}</span></td>	
-        	</tr>
-        	
-        	<tr>
-        		<td><i class="fas fa-chart-line"></i></td>
-        		<td> <span class="name mt-3">  1 Year</span></td>	
-        	</tr>
-        	
-        	<tr>
-        		<td><i class="fas fa-edit"></i></td>
-        		<td> <span class="name mt-3">  Java</span></td>	
-        	</tr>
-        	
-        	<tr>
-        		<td><i class="fas fa-wrench"></i></td>
-        		<td> <span class="name mt-3"> 2</span>  </td>	
-        	</tr>
-        
-        </table>  
-            <div class=" d-flex mt-2"><a href="view-potential-candidates-list"><button class="btn1 btn-dark">Back</button></a></div>
-        </div>
-    </div>
+<div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+	<div class="logo"><img src="../img/LogoFPT.jpg" alt="logo fpt" width="50%"></div>
+	
+	<div><h1 class="Title">Info Potential Candidates</h1></div>
+</div>
+<a href="view-potential-candidates-list"><button style="margin-left: 100px; margin: 30px;" >Back</button> </a>
+
+<div class="InfoCandidate">
+
+	<div class="GroupInfo">
+		<div class="flexInfo"><b>No.</b></div>
+		<div class="value">${candidateDto.id}</div>
+	</div>
+	
+	<div class="GroupInfo">
+		<div class="flexInfo"><b>Name</b></div>
+		<div class="value">${candidateDto.fullName}</div>
+	</div>
+	
+	<div class="GroupInfo">
+		<div class="flexInfo"><b>Email</b></div>
+		<div class="value">${candidateDto.email}</div>
+	</div>
+	
+	<div class="GroupInfo">
+		<div class="flexInfo"><b>Phone</b></div>
+		<div class="value">${candidateDto.phone}</div>
+	</div>
+	
+	<div class="GroupInfo">
+		<div class="flexInfo"><b>Experience</b></div>
+		<div class="value">1</div>
+	</div>
+	
+	<div class="GroupInfo">
+		<div class="flexInfo"><b>Skill</b></div>
+		<div class="value">Java</div>
+	</div>
+	
+	<div class="GroupInfo">
+		<div class="flexInfo"><b>Activity</b></div>
+		<div class="value">2</div>
+	</div>
+
 </div>
 
 

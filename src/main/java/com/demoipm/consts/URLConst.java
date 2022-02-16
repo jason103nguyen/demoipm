@@ -12,6 +12,12 @@ public class URLConst {
     public static final String PROCESS_CREATE_USER_URL = "/process-create-user";
     public static final String UPDATE_USER_PAGE_URL = "/update-user-page";
     public static final String PROCESS_UPDATE_USER_URL = "/process-update-user";
+    public static final String DELETE_USER_URL = "/delete-user";
+    
+    /**
+     * URL constant for user candidate
+     */
+    public static final String VIEW_CANDIDATE_URL = "/view-all-candidate";
     public static final String API_DELETE_USER_URL = "/api/delete-user";
 
     /**

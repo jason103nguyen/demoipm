@@ -1,6 +1,6 @@
-package com.demoipm.Constant;
+package com.demoipm.consts;
 
-public class EntryTestInfo {
+public class EntryTestInfoConst {
 
 	/**
 	 * Point to pass entry test

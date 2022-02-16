@@ -2,7 +2,9 @@ package com.demoipm.service;
 
 import java.util.List;
 
+
 import org.springframework.data.domain.Page;
+
 
 import com.demoipm.dto.CandidateDto;
 import com.demoipm.dto.potentialcandidate.PotentialCandidatePageDto;
@@ -34,6 +36,7 @@ public interface PotentialCandidateService {
 	 */
 	List<CandidateDto> getAllPotentialCandidate();
 
+
 	/**
 	 * Filter Search and Sort and Pagination PotentialCandidate
 	 * 
@@ -57,5 +60,6 @@ public interface PotentialCandidateService {
 	 * @param candidateDto
 	 */
 	void updatePotentialCandidate(CandidateDto candidateDto);
+
 
 }

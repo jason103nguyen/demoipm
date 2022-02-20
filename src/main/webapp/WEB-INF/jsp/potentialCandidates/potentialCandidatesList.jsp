@@ -190,7 +190,7 @@
 
 
 			<nav aria-label="Page navigation example">
-			<c:if test="${totalPage > 1 }">
+			<c:if test="${totalPage >= 1 }">
 		  		<ul class="pagination">
 						
 					<c:if test="${currentPage > 1}">

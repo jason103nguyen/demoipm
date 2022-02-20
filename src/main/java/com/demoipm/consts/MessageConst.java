@@ -36,6 +36,9 @@ public class MessageConst {
     public static final String PHONE_CANNOT_BE_BLANK = "Status cannot be blank";
     public static final String INVALID_EXPERIENCEYEAR_MESSAGE = "The Please input Experience Year";
 
+    public static final String UPDATE_SKILL_SUCCESS_MESSAGE = "Skill Update Success";
+    public static final String CREATE_SKILL_SUCCESS_MESSAGE = "Skill Create Success";
+
     /**
      * Create/update recruitment validation message
      */

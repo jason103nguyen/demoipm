@@ -15,8 +15,13 @@ public class URLConst {
     public static final String DELETE_USER_URL = "/delete-user";
     
     /**
-     * URL constant for user candidate
+     * URL constant for skill management
      */
+    public static final String PROCESS_MANAGE_SKILL_URL = "/process-manage-skill";
+    public static final String MANAGE_SKILL_URL = "/manage-skill";
+    public static final String EDIT_SKILL_PAGE_URL = "/edit-skill-page";
+    public static final String DELETE_SKILL_URL = "/delete-skill";
+    public static final String SEARCH_SKILL_URL = "/search-skill";
     public static final String VIEW_CANDIDATE_URL = "/view-all-candidate";
     public static final String API_DELETE_USER_URL = "/api/delete-user";
 

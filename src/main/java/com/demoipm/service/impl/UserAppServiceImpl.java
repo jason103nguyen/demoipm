@@ -5,9 +5,10 @@ import com.demoipm.dao.RoleAppDao;
 import com.demoipm.dao.UserAppDao;
 import com.demoipm.dao.UserRoleDao;
 import com.demoipm.dto.UserAppDto;
+import com.demoipm.dto.general.DatatableParamRequestDTO;
+import com.demoipm.dto.general.DatatableResponseDTO;
 import com.demoipm.dto.general.ResponseDto;
 import com.demoipm.dto.usermanage.UserCreateRequestDto;
-import com.demoipm.dto.usermanage.UserListPageResponseDto;
 import com.demoipm.dto.usermanage.UserResponseDto;
 import com.demoipm.dto.usermanage.UserUpdateRequestDto;
 import com.demoipm.entities.RoleApp;
@@ -160,18 +161,21 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
 
     /**
      * Get user list according to condition (search ,page number, entries number)
-     * @param searchWord
-     * @param pageNo
-     * @param entriesNo
+     * @param request
      * @return
      */
     @Override
-    public UserListPageResponseDto readByCondition(String searchWord, int pageNo, int entriesNo) {
-        LOGGER.info("Start readByCondition with searchWord {}, pageNo {}, entriesNo {}", searchWord, pageNo, entriesNo);
-        UserListPageResponseDto responseDto = new UserListPageResponseDto();
+    public DatatableResponseDTO readByCondition(DatatableParamRequestDTO request) {
+        LOGGER.info("Start readByCondition");
+        DatatableResponseDTO<UserResponseDto> responseDto = new DatatableResponseDTO<>();
         try {
+            // Get search, paging condition
+            Integer pageNo = request.getStart() / request.getLength();
+            Integer entriesNo = request.getLength();
+            String searchWord = request.getSearch().getValue();
+
             // Get data from database with pagination and search word
-            Pageable pageable = PageRequest.of(pageNo - 1, entriesNo, Sort.Direction.ASC, "username");
+            Pageable pageable = PageRequest.of(pageNo, entriesNo, Sort.Direction.ASC, "username");
             Page<UserApp> userPage = null;
             if (StringUtils.isBlank(searchWord)) {
                 userPage = userAppDao.findAll(pageable);
@@ -180,11 +184,8 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
             }
 
             // Prepare response dto
-            responseDto.setSearchWord(searchWord);
-            responseDto.setCurrentPage(pageNo);
-            responseDto.setEntriesNo(entriesNo);
-            responseDto.setTotalPage(userPage.getTotalPages());
-            responseDto.setTotalEntries(userPage.getTotalElements());
+            responseDto.setRecordsTotal(userPage.getTotalElements());
+            responseDto.setRecordsFiltered(userPage.getTotalElements());
             List<UserResponseDto> userList = userPage.getContent().stream().map(userApp -> {
                 UserResponseDto userDto = new UserResponseDto();
                 userDto.setEmail(userApp.getEmail());
@@ -198,13 +199,13 @@ public class UserAppServiceImpl implements UserAppService, UserDetailsService {
                 userDto.setRoles(roles);
                 return userDto;
             }).collect(Collectors.toList());
-            responseDto.setUserList(userList);
+            responseDto.setData(userList);
         } catch (Throwable t) {
             LOGGER.error("Has error when readByCondition", t);
             responseDto.setError(true);
             responseDto.setMessage(MessageConst.INTERNAL_SERVER_ERROR);
         } finally {
-            LOGGER.info("End readByCondition with searchWord {}, pageNo {}, entriesNo {}", searchWord, pageNo, entriesNo);
+            LOGGER.info("End readByCondition");
             return responseDto;
         }
     }

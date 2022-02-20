@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.demoipm.dto.SkillDto;
 import com.demoipm.entities.Skill;
+import com.demoipm.dto.recruitmentmanage.SkillSelectionDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -24,4 +25,9 @@ public interface SkillService {
 	List<SkillDto> findByNameSkillDto(String name) throws Exception;
 
 	Page<Skill> findByNameSkill(String name, int page, int size) throws Exception;
+	/**
+	 * Get all skill
+	 * @return
+	 */
+    List<SkillSelectionDto> getAllSkill(Integer jobId);
 }

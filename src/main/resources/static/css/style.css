@@ -1,0 +1,63 @@
+
+.header{	
+	text-align: center;
+}
+
+* {
+    margin: 0;
+    padding: 0
+}
+
+body {
+    background: #EEEEEE	
+}
+
+.card {
+    width: 390px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s
+}
+
+
+.name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.btn1 {
+    height: 40px;
+    width: 150px;
+    border: none;
+    background-color: #3399FF;
+    color: white;
+    font-size: 15px
+}
+
+ i {
+    font-size: 19px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 30%;
+}
+
+.mt-3 {
+    font-size: 22px;
+    font-weight: bold;
+    
+   
+}
+
+td {
+	 text-align: center;
+	 padding: 10px;
+}
+
+tr:hover{
+    background-color:#FFFF66;
+    cursor:pointer;
+}
+
+

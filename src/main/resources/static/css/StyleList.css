@@ -1,0 +1,98 @@
+.container {
+	background: white;
+}
+
+body {
+	background: #eee
+}
+
+table, th, td {
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+table {
+	border-collapse: collapse;
+	font-size: 15px;
+}
+
+th, td {
+	text-align: left;
+	padding: 3px;
+}
+
+tr:hover{
+    background-color:#ddd;
+    cursor:pointer;
+}
+
+button{
+	border-radius: 5px; 
+	border-width: 0px;
+	background: #d6fcb0;
+}
+
+.search{
+	display: flex;
+	flex-direction: row;
+	margin-top: 20px;
+}
+
+.FlexSearch{
+	flex: 50%;
+}
+
+.ButtonAddNew{
+	margin-top: 20px;
+	float: left;
+	padding: 5px;
+}
+
+.ButtonSearch{
+	border-radius: 1px; 
+	width: 70px;
+	height: 30px;
+	float: right;
+}
+
+.FilterSearch{
+	float: right;
+}
+
+.ButtonDelete{
+	width: 70px;
+	margin-bottom: 3px;
+}
+
+.ButtonUpdate{
+	width: 70px;
+	border-radius: 5px;
+}
+
+@media only screen and (max-width: 1000px) {
+	.ReponTable{
+		overflow-y: auto;
+	}
+}
+
+@media only screen and (max-width: 800px) {
+	.search{
+		flex-direction: column;
+	}
+	
+	.SelectSort{
+		width: 58%
+	}
+	
+	.FilterSearch{
+		float: left;
+	}
+	
+	.ButtonSearch{
+		float: left;
+	}
+}
+
+
+
+

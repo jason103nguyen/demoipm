@@ -9,14 +9,26 @@ INSERT INTO role_app (role_name)
 VALUES ('ROLE_HR');
 
 -- USER_APP --
-INSERT INTO user_app (email, full_name, phone, username, password) 
-VALUES ('a103nguyen@gmail.com' ,'Nguyen Van A', '0123456789', 'a103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK');
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('a103nguyen@gmail.com' ,'Nguyen Van A', '0123456789', 'a103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK', false);
 
-INSERT INTO user_app (email, full_name, phone, username, password) 
-VALUES ('b103nguyen@gmail.com' ,'Nguyen Van B', '0123456789', 'b103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK');
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('b103nguyen@gmail.com' ,'Nguyen Van B', '0123456789', 'b103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK', false);
 
-INSERT INTO user_app (email, full_name, phone, username, password) 
-VALUES ('c103nguyen@gmail.com' ,'Nguyen Van C', '0123456789', 'c103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK');
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('c103nguyen@gmail.com' ,'Nguyen Van C', '0123456789', 'c103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK', false);
+
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('admin@mail.com' ,'Admin Personel', '09876543210', 'admin', '$2a$12$T8erOAVmB9UvJV0UV04GYugRJWty56BICIWaRplVdjoO2Gzy9Fpu6', false);
+
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('interviewer@mail.com' ,'Interviewer Personel', '09876543210', 'interviewer', '$2a$12$ZTQL9SdqUczzy3c.5UA6subT.7v6mwCX9rJssMi4loKgun11ILiD.', false);
+
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('hr@mail.com' ,'HR Personel', '09876543210', 'hr', '$2a$12$x.CjAasl6O5fQ28EqgnwBOvEFRHUndpUGtwp2v6uDwICTkz6LgEsK', false);
+
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('superadmin@mail.com' ,'SuperAdmin Personel', '09876543210', 'superadmin', '$2a$12$uLd7YX7itJWpS1QacI4hA.To3VH0s4SWhOsSM6RBXpfTWTrD8bx6y', false);
 
 -- USER_ROLE --
 INSERT INTO user_role (user_id, role_id) 
@@ -27,6 +39,24 @@ VALUES (2, 2);
 
 INSERT INTO user_role (user_id, role_id) 
 VALUES (3, 3);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (4, 1);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (5, 2);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (6, 3);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (7, 1);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (7, 2);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (7, 3);
 
 -- SKILL --
 INSERT INTO skill (name, description) 
@@ -83,6 +113,9 @@ VALUES ('Ky su data', 1);
 INSERT INTO job_skill (job_id, skill_id) 
 VALUES (1, 1);
 
+INSERT INTO job_skill (job_id, skill_id)
+VALUES (1, 8);
+
 INSERT INTO job_skill (job_id, skill_id) 
 VALUES (2, 2);
 
@@ -90,55 +123,97 @@ INSERT INTO job_skill (job_id, skill_id)
 VALUES (3, 3);
 
 -- RECRUITMENT --
-INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id) 
-VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 1, 1);
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 5, CURDATE(), CURDATE() + 5, 1, 1, false);
 
-INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id) 
-VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 2, 2);
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 10, CURDATE(), CURDATE() + 5, 2, 2, false);
 
-INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id) 
-VALUES (1000, 500, 20, '2021/12/16', '2021/12/26', 3, 3);
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 15, CURDATE(), CURDATE() + 5, 3, 3, false);
+
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 20, CURDATE(), CURDATE() + 5, 1, 1, false);
+
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 25, CURDATE(), CURDATE() + 5, 2, 2, false);
+
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 30, CURDATE(), CURDATE() + 5, 3, 3, false);
+
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 35, CURDATE(), CURDATE() + 5, 1, 1, false);
+
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 40, CURDATE(), CURDATE() + 5, 2, 2, false);
+
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 45, CURDATE(), CURDATE() + 5, 3, 3, false);
+
+INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
+VALUES (1000, 500, 50, CURDATE(), CURDATE() + 5, 1, 1, false);
 
 -- RECRUITMENT_SKILL --
 INSERT INTO recruitment_skill (recruitment_id, skill_id) 
 VALUES (1, 1);
 
-INSERT INTO recruitment_skill (recruitment_id, skill_id) 
+INSERT INTO recruitment_skill (recruitment_id, skill_id)
 VALUES (2, 2);
 
 INSERT INTO recruitment_skill (recruitment_id, skill_id) 
 VALUES (3, 3);
 
+INSERT INTO recruitment_skill (recruitment_id, skill_id) 
+VALUES (4, 4);
+
+INSERT INTO recruitment_skill (recruitment_id, skill_id)
+VALUES (5, 5);
+
+INSERT INTO recruitment_skill (recruitment_id, skill_id)
+VALUES (6, 6);
+
+INSERT INTO recruitment_skill (recruitment_id, skill_id)
+VALUES (7, 1);
+
+INSERT INTO recruitment_skill (recruitment_id, skill_id)
+VALUES (8, 2);
+
+INSERT INTO recruitment_skill (recruitment_id, skill_id)
+VALUES (9, 3);
+
+INSERT INTO recruitment_skill (recruitment_id, skill_id)
+VALUES (10, 4);
+
 -- CANDIDATE --
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status)
-VALUES ('Vo Van A', '0123456789', 'avo@gmail.com', 'nam', '1990/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789','avo@gmail.com', 'nam', '1990/3/10', 'Open', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van B', '0123456789', 'bvo@gmail.com', 'nam', '1991/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789', 'bvo@gmail.com', 'nam', '1991/3/10', 'Close', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van C', '0123456789', 'cvo@gmail.com', 'nam', '1992/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789', 'cvo@gmail.com', 'nam', '1992/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van D', '0123456789', 'dvo@gmail.com', 'nam', '1993/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789', 'dvo@gmail.com', 'nam', '1993/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van E', '0123456789', 'evo@gmail.com', 'nam', '1994/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789', 'evo@gmail.com', 'nam', '1994/3/10', 'Open', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van F', '0123456789', 'fvo@gmail.com', 'nam', '1995/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789', 'fvo@gmail.com', 'nam', '1995/3/10', 'Open', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van G', '0123456789', 'gvo@gmail.com', 'nam', '1996/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van B', 0 ,'0123456789', 'gvo@gmail.com', 'nam', '1996/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van H', '0123456789', 'hvo@gmail.com', 'nam', '1997/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van B', 0 ,'0123456789', 'hvo@gmail.com', 'nam', '1997/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van Y', '0123456789', 'yvo@gmail.com', 'nam', '1998/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van B', 0 ,'0123456789', 'yvo@gmail.com', 'nam', '1998/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van K', '0123456789', 'kvo@gmail.com', 'nam', '1999/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill) 
+VALUES ('Vo Van K', 0 ,'0123456789', 'kvo@gmail.com', 'nam', '1999/3/10', 'Close', '215460589', 'c', 1, 'Java');
 
 -- SKILL_CANDIDATE --
 INSERT INTO skill_candidate (candidate_id, skill_id)

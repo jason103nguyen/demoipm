@@ -17,7 +17,7 @@ import com.demoipm.dto.CandidateDto;
 
 @Entity
 @Table(name = "candidate")
-public class Candidate {
+public class Candidate extends BaseEntity{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -14,7 +14,7 @@ public class HomepageController {
 
 	@Autowired
 	private CareerService careerService;
-	
+
 	@GetMapping(value = {"/", "/home", "/homepage"})
 	public String homepage(Model model) {
 		List<CareerDto> careerList = null;

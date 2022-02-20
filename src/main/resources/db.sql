@@ -18,6 +18,18 @@ VALUES ('b103nguyen@gmail.com' ,'Nguyen Van B', '0123456789', 'b103nguyen', '$2a
 INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
 VALUES ('c103nguyen@gmail.com' ,'Nguyen Van C', '0123456789', 'c103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK', false);
 
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('admin@mail.com' ,'Admin Personel', '09876543210', 'admin', '$2a$12$T8erOAVmB9UvJV0UV04GYugRJWty56BICIWaRplVdjoO2Gzy9Fpu6', false);
+
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('interviewer@mail.com' ,'Interviewer Personel', '09876543210', 'interviewer', '$2a$12$ZTQL9SdqUczzy3c.5UA6subT.7v6mwCX9rJssMi4loKgun11ILiD.', false);
+
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('hr@mail.com' ,'HR Personel', '09876543210', 'hr', '$2a$12$x.CjAasl6O5fQ28EqgnwBOvEFRHUndpUGtwp2v6uDwICTkz6LgEsK', false);
+
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('superadmin@mail.com' ,'SuperAdmin Personel', '09876543210', 'superadmin', '$2a$12$uLd7YX7itJWpS1QacI4hA.To3VH0s4SWhOsSM6RBXpfTWTrD8bx6y', false);
+
 -- USER_ROLE --
 INSERT INTO user_role (user_id, role_id) 
 VALUES (1, 1);
@@ -28,6 +40,24 @@ VALUES (2, 2);
 INSERT INTO user_role (user_id, role_id) 
 VALUES (3, 3);
 
+INSERT INTO user_role (user_id, role_id)
+VALUES (4, 1);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (5, 2);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (6, 3);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (7, 1);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (7, 2);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (7, 3);
+
 -- SKILL --
 INSERT INTO skill (name, description) 
 VALUES ('Java', 'Ngon ngu duoc su dung de phat trien web backend');
@@ -37,6 +67,27 @@ VALUES ('C', 'Ngon ngu duoc su dung de phat trien Embedded system');
 
 INSERT INTO skill (name, description) 
 VALUES ('Python', 'Ngon ngu duoc su dung de lam Big data');
+
+INSERT INTO skill (name, description) 
+VALUES ('JavaScript', 'Day la ngon ngu lap trinh');
+
+INSERT INTO skill (name, description) 
+VALUES ('PHP', 'Day la ngon ngu lap trinh');
+
+INSERT INTO skill (name, description) 
+VALUES ('Swift', 'Day la ngon ngu lap trinh');
+
+INSERT INTO skill (name, description) 
+VALUES ('C#', 'Day la ngon ngu lap trinh');
+
+INSERT INTO skill (name, description) 
+VALUES ('JavaScript', 'Day la ngon ngu lap trinh');
+
+INSERT INTO skill (name, description) 
+VALUES ('Ruby', 'Day la ngon ngu lap trinh');
+
+INSERT INTO skill (name, description) 
+VALUES ('Objective-C', 'Day la ngon ngu lap trinh');
 
 -- CAREER --
 INSERT INTO career (name, description) 
@@ -58,7 +109,7 @@ VALUES ('Ky su lap trinh nhung', 1);
 INSERT INTO job (name, career_id) 
 VALUES ('Ky su data', 1);
 
-/*-- JOB_SKILL --
+-- JOB_SKILL --
 INSERT INTO job_skill (job_id, skill_id) 
 VALUES (1, 1);
 
@@ -69,7 +120,7 @@ INSERT INTO job_skill (job_id, skill_id)
 VALUES (2, 2);
 
 INSERT INTO job_skill (job_id, skill_id) 
-VALUES (3, 3);*/
+VALUES (3, 3);
 
 -- RECRUITMENT --
 INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
@@ -102,7 +153,7 @@ VALUES (1000, 500, 45, CURDATE(), CURDATE() + 5, 3, 3, false);
 INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
 VALUES (1000, 500, 50, CURDATE(), CURDATE() + 5, 1, 1, false);
 
-/*-- RECRUITMENT_SKILL --
+-- RECRUITMENT_SKILL --
 INSERT INTO recruitment_skill (recruitment_id, skill_id) 
 VALUES (1, 1);
 
@@ -131,55 +182,96 @@ INSERT INTO recruitment_skill (recruitment_id, skill_id)
 VALUES (9, 3);
 
 INSERT INTO recruitment_skill (recruitment_id, skill_id)
-VALUES (10, 4);*/
+VALUES (10, 4);
 
 -- CANDIDATE --
-INSERT INTO candidate (full_name, phone, email, sex, birth_day)
-VALUES ('Vo Van A', '0123456789', 'avo@gmail.com', 'nam', '1996/3/10');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789','avo@gmail.com', 'nam', '1990/3/10', 'Open', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day) 
-VALUES ('Vo Van B', '0123456789', 'bvo@gmail.com', 'nam', '1996/3/10');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789', 'bvo@gmail.com', 'nam', '1991/3/10', 'Close', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day) 
-VALUES ('Vo Van C', '0123456789', 'cvo@gmail.com', 'nam', '1996/3/10');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789', 'cvo@gmail.com', 'nam', '1992/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
--- QUESTION ENTRY TEST --
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Đâu không phải là một kiểu dữ liệu nguyên thuỷ trong Java', 'double', 'long', 'int', 'long double', 'null','null','null','on', 1);
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789', 'dvo@gmail.com', 'nam', '1993/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Phương thức next() của lớp Scanner dùng để làm gì', 'Nhập một số nguyên', 'Nhập một ký tự', 'Nhập một chuỗi', 'Không có phương thức này', 'null','null','on','null', 1);
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789', 'evo@gmail.com', 'nam', '1994/3/10', 'Open', '215460589', 'c', 1, 'Java');
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Có mấy cách để truyền tham số vào cho một phương thức', '1', '2', '3', '4', 'null','on','null','null', 1);
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789', 'fvo@gmail.com', 'nam', '1995/3/10', 'Open', '215460589', 'c', 1, 'Java');
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('OOP có mấy tính chất', '1', '2', '3', '4', 'null','null','null','on', 1);
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van B', 0 ,'0123456789', 'gvo@gmail.com', 'nam', '1996/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Tính năng nào không phải là tính năng của Java', 'Dynamic (Động)', 'Architecture Neutral (Độc lập với cấu trúc)', 'Use of pointers (Sử dụng các điểm trỏ)', 'Object-oriented (Hướng đối tượng) ', 'null','null','on','null', 1);
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van B', 0 ,'0123456789', 'hvo@gmail.com', 'nam', '1997/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('File chứa mã nguồn java sau khi được biên dịch có đuôi là gì', ' .java', ' .class', ' .jar', ' .exe', 'null','on','null','null', 1);
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van B', 0 ,'0123456789', 'yvo@gmail.com', 'nam', '1998/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Java chạy trên hệ điều hành nào sau đây:', 'Microsoft Windows', 'Linux', 'Sun Solaris OS', 'Tất cả các đáp án đều đúng', 'null','null','null','on', 1);
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill) 
+VALUES ('Vo Van K', 0 ,'0123456789', 'kvo@gmail.com', 'nam', '1999/3/10', 'Close', '215460589', 'c', 1, 'Java');
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Câu lệnh khai báo chuẩn cho cách main như thế nào', 'public static void main(String[] a) {}', 'public static int main(String args) {}', 'public static main(String[] args) {}', 'public static final void main(String[] args) {}', 'on','null','null','null', 1);
+-- SKILL_CANDIDATE --
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (1, 1);
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Một lớp trong Java có thể có bao nhiêu lớp cha', '1', '2', '3', '4', 'on','null','null','null', 1);
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (1, 2);
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Một lớp trong Java có bao nhiêu lớp con', '1', '2', '3', 'Vô Số', 'null','null','null','on', 1);
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (2, 2);
 
-/*-- INTERVIEW --
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id)
-VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 1);
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (2, 3);
 
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id)
-VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 2);
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (3, 3);
 
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id)
-VALUES ('2021/12/20', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 3);*/
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (3, 4);
+
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (4, 4);
+
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (4, 5);
+
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (5, 5);
+
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (5, 6);
+
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (6, 6);
+
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (6, 7);
+
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (7, 7);
+
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (7, 8);
+
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (8, 8);
+
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (8, 9);
+
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (9, 9);
+
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (9, 10);
+
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (10, 1);
+
+INSERT INTO skill_candidate (candidate_id, skill_id)
+VALUES (10, 2);

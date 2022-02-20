@@ -2,17 +2,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<<<<<<< HEAD
-<div class="list-group">
-	<a href="#" class="list-group-item list-group-item-primary">QUẢN LÝ ỨNG VIÊN</a> 
-	<a href="#" class="list-group-item list-group-item-action list-group-item-warning">QUẢN LÝ NGÀNH NGHỀ</a> 
-	<a href="#"	class="list-group-item list-group-item-action list-group-item-primary">QUẢN	LÝ TUYỂN DỤNG</a> 
-	<a href="#"	class="list-group-item list-group-item-action list-group-item-warning">QUẢN	LÝ KĨ NĂNG</a> 
-	<a href="#"	class="list-group-item list-group-item-action list-group-item-primary">QUẢN	LÝ QUÁ TRÌNH TUYỂN DỤNG</a>
-	<a href="${pageContext.request.contextPath}/manage-user" class="list-group-item list-group-item-action list-group-item-warning">MANAGE USER</a>
-	<a href="${pageContext.request.contextPath}/view-all-candidate" class="list-group-item list-group-item-action list-group-item-primary">MANAGER CANDIDATE</a>
-</div>
-=======
 <div class="list-group list-group-flush">
 	<div class="m-0 h5 list-group-item list-group-item-info py-3 px-4 d-flex flex-xl-row flex-column align-items-center justify-content-between">
 		<span class="text-center">
@@ -57,4 +46,3 @@
 		}
 	</script>
 </div>
->>>>>>> main

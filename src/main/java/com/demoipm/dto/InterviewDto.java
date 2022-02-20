@@ -13,7 +13,7 @@ public class InterviewDto {
 	
 	private Date timeInterview;
 	
-	private String local;
+	private String location;
 	
 	private String evaluation;
 	
@@ -24,14 +24,13 @@ public class InterviewDto {
 	private String nameInterviewer;
 
 	private CandidateDto candidate;
-	
-	public InterviewDto() {}
 
+/*
 	public InterviewDto(Interview interview) {
 		super();
 		this.id = interview.getId();
 		this.timeInterview = interview.getTimeInterview();
-		this.local = interview.getLocal();
+		this.location = interview.getLocation();
 		this.evaluation = interview.getEvaluation();
 		this.note = interview.getNote();
 		this.result = interview.getResult();
@@ -70,14 +69,7 @@ public class InterviewDto {
 	public void setRound(int round) {
 		this.round = round;
 	}
-
-	public CandidateDto getCandidate() {
-		return candidate;
-	}
-
-	public void setCandidate(CandidateDto candidate) {
-		this.candidate = candidate;
-	}
+*/
 
 	public int getId() {
 		return id;
@@ -85,6 +77,14 @@ public class InterviewDto {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getRound() {
+		return round;
+	}
+
+	public void setRound(int round) {
+		this.round = round;
 	}
 
 	public Date getTimeInterview() {
@@ -95,12 +95,12 @@ public class InterviewDto {
 		this.timeInterview = timeInterview;
 	}
 
-	public String getLocal() {
-		return local;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setLocal(String local) {
-		this.local = local;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public String getEvaluation() {
@@ -134,5 +134,12 @@ public class InterviewDto {
 	public void setNameInterviewer(String nameInterviewer) {
 		this.nameInterviewer = nameInterviewer;
 	}
-	
+
+	public CandidateDto getCandidate() {
+		return candidate;
+	}
+
+	public void setCandidate(CandidateDto candidate) {
+		this.candidate = candidate;
+	}
 }

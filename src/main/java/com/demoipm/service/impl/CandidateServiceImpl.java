@@ -113,9 +113,10 @@ public class CandidateServiceImpl implements CandidateService {
 	@Override
 	public List<InterviewDto> getListInterviewByCandidateId(int id) {
 
-		List<Interview> listInterview = interviewDao.findByCandidateId(id);
+		/*List<Interview> listInterview = interviewDao.findByCandidateId(id);
 		
-		return convertToListInterviewDto(listInterview);
+		return convertToListInterviewDto(listInterview);*/
+		return null;
 	}
 
 	/**
@@ -155,10 +156,10 @@ public class CandidateServiceImpl implements CandidateService {
 		
 		List<InterviewDto> listInterviewDto = new ArrayList<InterviewDto>();
 		
-		for(Interview interview : listInterview) {
+		/*for(Interview interview : listInterview) {
 			InterviewDto interviewDto = new InterviewDto(interview);
 			listInterviewDto.add(interviewDto);
-		}
+		}*/
 		
 		return listInterviewDto;
 	}

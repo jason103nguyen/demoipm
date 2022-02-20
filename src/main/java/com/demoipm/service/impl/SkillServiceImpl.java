@@ -59,18 +59,18 @@ public class SkillServiceImpl implements SkillService {
 
 		List<Skill> listSkill = (List<Skill>) skillDao.findAll();
 		List<SkillDto> listSkillDto = new ArrayList<SkillDto>();
-		
+
 		if (listSkill.isEmpty()) {
-			
+
 			throw new Exception("This list is empty");
 		} else {
-			
+
 			for (Skill skill : listSkill) {
 				SkillDto skillDto = new SkillDto(skill);
 				listSkillDto.add(skillDto);
 			}
 		}
-		
+
 		return listSkillDto;
 	}
 
@@ -90,21 +90,8 @@ public class SkillServiceImpl implements SkillService {
 	}
 
 	@Override
-	public List<SkillSelectionDto> getAllSkill(Integer jobId) {
-		LOGGER.info("Start get all skill");
-		try {
-			List<Skill> skillEntities = skillDao.getAllSkillOfJob(jobId);
-			List<SkillSelectionDto> skillDtos = skillEntities.stream()
-					.map(skill ->
-							new SkillSelectionDto()
-									.setId(skill.getId())
-									.setSkill(skill.getName()))
-					.collect(Collectors.toList());
-			return skillDtos;
-		} catch (Throwable t) {
-			LOGGER.error("Has error when getAllSkill", t);
-			return new ArrayList<>();
-		}
+	public Optional<Skill> findByName(String name) {
+		return skillDao.findByName(name);
 	}
 
 	@Override

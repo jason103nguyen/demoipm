@@ -31,9 +31,6 @@ public class Skill {
 	@OneToMany(mappedBy = "skill")
 	private List<JobSkill> listJobSkill = new ArrayList<JobSkill>();
 	
-	@OneToMany(mappedBy = "skill")
-	private List<SkillCandidate> listSkillCandidate = new ArrayList<SkillCandidate>();
-	
 	public Skill() {}
 
 	public Skill(SkillDto skillDto) {
@@ -43,14 +40,6 @@ public class Skill {
 		this.description = skillDto.getDescription();
 	}
 	
-	public List<SkillCandidate> getListSkillCandidate() {
-		return listSkillCandidate;
-	}
-
-	public void setListSkillCandidate(List<SkillCandidate> listSkillCandidate) {
-		this.listSkillCandidate = listSkillCandidate;
-	}
-
 	public int getId() {
 		return id;
 	}

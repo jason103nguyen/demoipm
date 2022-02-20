@@ -1,18 +1,22 @@
 package com.demoipm.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
+import com.demoipm.dao.QuestionDao;
+import com.demoipm.dto.EntryTestRequest;
+import com.demoipm.dto.QuestionRequest;
+import com.demoipm.entities.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.demoipm.dao.EntryTestDao;
-import com.demoipm.dto.EntryTestDto;
 import com.demoipm.entities.EntryTest;
 import com.demoipm.service.EntryTestService;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -20,52 +24,86 @@ public class EntryTestServiceImpl implements EntryTestService {
 
 	@Autowired
 	private EntryTestDao entryTestDao;
+
+	@Autowired
+	private QuestionDao questionDao;
 	
 	@Override
-	public void create(EntryTestDto entryTestDto) {
-
-		EntryTest entryTest = new EntryTest(entryTestDto);
-		entryTestDao.save(entryTest);
-	}
-
-	@Override
-	public EntryTestDto readById(int id) throws Exception {
-
-		Optional<EntryTest> entryTest = entryTestDao.findById(id);
-		EntryTestDto entryTestDto = null;
-		if (!entryTest.isPresent()) {
-			throw new Exception("The id doesn't exists");
-		} else {
-			entryTestDto = new EntryTestDto(entryTest.get());
-		}
-		return entryTestDto;
-	}
-
-	@Override
-	public List<EntryTestDto> readAll() throws Exception {
-
-		List<EntryTest> listEntryTest = (List<EntryTest>) entryTestDao.findAll();
-		List<EntryTestDto> listEntryTestDto = new ArrayList<EntryTestDto>();
-		
-		if (listEntryTest.isEmpty()) {
-			
-			throw new Exception("This list is empty");
-		} else {
-			
-			for (EntryTest entryTest : listEntryTest) {
-				EntryTestDto entryTestDto = new EntryTestDto(entryTest);
-				listEntryTestDto.add(entryTestDto);
+	public EntryTest create(EntryTestRequest entryTestRequest) {
+		try {
+			int min = 1;
+			int max =10;
+			double point_double = Math.random() * (max - min + 1) + min;
+			int random_point = (int)(Math.random() * (max - min + 1) + min);
+			String kq ;
+			if(random_point >= 5){
+				kq = "Đậu";
+			} else {
+				kq = "Rớt";
 			}
+			EntryTest entryTest = parseEntryTestRequestToEntities(entryTestRequest);
+			List<Question> listQuestion = new ArrayList<>();
+			for(Integer questionId : entryTestRequest.getQuestionIds()){
+				Question question = new Question();
+				question.setId(questionId);
+				listQuestion.add(question);
+			}
+			entryTest.setQuestions(listQuestion);
+			entryTest.setPoint(random_point);
+			entryTest.setResult(kq);
+			return entryTestDao.save(entryTest);
+
+		} catch (Exception e){
+			e.printStackTrace();
 		}
-		
-		return listEntryTestDto;
+		return null;
 	}
 
 	@Override
-	public void update(EntryTestDto entryTestDto) {
+	public List<Question> getRandBySkillName(String skill,Integer numberofQuestion ){
+		 List<Question> question = questionDao.getRandomQuestionBySkill(skill);
+		 Collections.shuffle(question);
+		 List<Question> randomQuestion = new ArrayList<>();
+		 if(question.size() < numberofQuestion){
+			 randomQuestion = question;
+		 } else {
+			 randomQuestion = question.subList(0,numberofQuestion);
+		 }
+		System.out.println(question);
+		 return randomQuestion;
+	}
 
-		EntryTest entryTest = new EntryTest(entryTestDto);
-		entryTestDao.save(entryTest);
+	@Override
+	public List<Question> getQuestionById(Integer id) {
+		List<Question> listQuestion = questionDao.findQuestionById(id);
+		return listQuestion;
+	}
+
+	@Override
+	public EntryTest update(EntryTestRequest entryTestRequest) {
+		EntryTest entryTest = parseEntryTestRequestToEntities(entryTestRequest);
+		return entryTestDao.save(entryTest);
+	}
+
+	private EntryTest parseEntryTestRequestToEntities(EntryTestRequest entryTestRequest){
+		EntryTest entryTest = new EntryTest();
+		entryTest.setBeginTest(entryTestRequest.getBeginTest());
+		entryTest.setFinishTest(entryTestRequest.getFinishTest());
+		entryTest.setTimeEntryTest(entryTestRequest.getTimeEntryTest());
+		entryTest.setNumberofQuestion(entryTestRequest.getNumberofQuestion());
+		entryTest.setNameTest(entryTestRequest.getNameTest());
+		return entryTest;
+	}
+
+	private List<Question> parseSkillInQuestionToEntity(List<QuestionRequest> questionRequest){
+		return questionRequest.stream()
+				.map(this::parseQuestionToEntity)
+				.collect(Collectors.toList());
+	}
+
+	private Question parseQuestionToEntity(QuestionRequest questionRequest){
+		Question question = new Question();
+		return question;
 	}
 
 	@Override

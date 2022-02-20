@@ -147,14 +147,14 @@ public class RecruitmentManageController {
         return new ResponseEntity<>(jobList, HttpStatus.OK);
     }
 
-    @Secured("ROLE_HR")
+ /*   @Secured("ROLE_HR")
     @GetMapping(URLConst.API_GET_SKILL_SELECTION_URL)
     public ResponseEntity<List<SkillSelectionDto>> getSkillSelection(@RequestParam("jobId") Integer jobId) {
         LOGGER.info("Start get list skill selection");
         List<SkillSelectionDto> skillList = skillService.getAllSkill(jobId);
         LOGGER.info("End get list skill selection");
         return new ResponseEntity<>(skillList, HttpStatus.OK);
-    }
+    }*/
 
     @Secured("ROLE_HR")
     @DeleteMapping(URLConst.API_DELETE_RECRUITMENT_URL)

@@ -185,35 +185,35 @@ INSERT INTO recruitment_skill (recruitment_id, skill_id)
 VALUES (10, 4);
 
 -- CANDIDATE --
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status)
-VALUES ('Vo Van A', '0123456789', 'avo@gmail.com', 'nam', '1990/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789','avo@gmail.com', 'nam', '1990/3/10', 'Open', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van B', '0123456789', 'bvo@gmail.com', 'nam', '1991/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789', 'bvo@gmail.com', 'nam', '1991/3/10', 'Close', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van C', '0123456789', 'cvo@gmail.com', 'nam', '1992/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789', 'cvo@gmail.com', 'nam', '1992/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van D', '0123456789', 'dvo@gmail.com', 'nam', '1993/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789', 'dvo@gmail.com', 'nam', '1993/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van E', '0123456789', 'evo@gmail.com', 'nam', '1994/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789', 'evo@gmail.com', 'nam', '1994/3/10', 'Open', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van F', '0123456789', 'fvo@gmail.com', 'nam', '1995/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van A', 0 ,'0123456789', 'fvo@gmail.com', 'nam', '1995/3/10', 'Open', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van G', '0123456789', 'gvo@gmail.com', 'nam', '1996/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van B', 0 ,'0123456789', 'gvo@gmail.com', 'nam', '1996/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van H', '0123456789', 'hvo@gmail.com', 'nam', '1997/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van B', 0 ,'0123456789', 'hvo@gmail.com', 'nam', '1997/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van Y', '0123456789', 'yvo@gmail.com', 'nam', '1998/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
+VALUES ('Vo Van B', 0 ,'0123456789', 'yvo@gmail.com', 'nam', '1998/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
-INSERT INTO candidate (full_name, phone, email, sex, birth_day, status) 
-VALUES ('Vo Van K', '0123456789', 'kvo@gmail.com', 'nam', '1999/3/10', 'INPROCESS');
+INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill) 
+VALUES ('Vo Van K', 0 ,'0123456789', 'kvo@gmail.com', 'nam', '1999/3/10', 'Close', '215460589', 'c', 1, 'Java');
 
 -- SKILL_CANDIDATE --
 INSERT INTO skill_candidate (candidate_id, skill_id)
@@ -275,72 +275,3 @@ VALUES (10, 1);
 
 INSERT INTO skill_candidate (candidate_id, skill_id)
 VALUES (10, 2);
-
-
--- ENTRYTEST --
-INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2022-1-1 15:00:00', 'FT_1', 'FAILURE', 10, 'Java_Test', 1);
-
-INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2022-1-1 15:00:00', 'FT_1', 'FAILURE', 20, 'C_Test', 2);
-
-INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2022-1-1 15:00:00', 'FT_1', 'FAILURE', 30, 'Python_Test', 3);
-
-INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2022-2-1 15:00:00', 'FT_1', 'FAILURE', 40, 'Python_Test', 4);
-
-INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2022-3-1 15:00:00', 'FT_1', 'PASS', 50, 'Python_Test', 5);
-
-INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2022-4-1 15:00:00', 'FT_1', 'PASS', 60, 'Python_Test', 6);
-
-INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2022-5-1 15:00:00', 'FT_1', 'PASS', 70, 'Python_Test', 7);
-
-INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2022-6-1 15:00:00', 'FT_1', 'PASS', 80, 'Python_Test', 8);
-
-INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2022-7-1 15:00:00', 'FT_1', 'PASS', 90, 'Python_Test', 9);
-
-INSERT INTO entry_test (time_entry_test, local, result, point, name_test, candidate_id)
-VALUES ('2022-8-1 15:00:00', 'FT_1', 'PASS', 100, 'Python_Test', 10);
-
--- INTERVIEW --
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
-VALUES ('2022-4-15 15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 5, 1);
-
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
-VALUES ('2022-4-16 15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 5, 2);
-
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
-VALUES ('2022-4-15 15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 6, 1);
-
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
-VALUES ('2022-4-16 15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 6, 2);
-
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
-VALUES ('2022-5-15 15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 7, 1);
-
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
-VALUES ('2022-5-16 15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 7, 2);
-
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
-VALUES ('2022-6-15 15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 8, 1);
-
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
-VALUES ('2022-6-16 15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 8, 2);
-
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
-VALUES ('2022-7-15 15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 9, 1);
-
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
-VALUES ('2022-7-16 15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 9, 2);
-
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
-VALUES ('2022-8-15 15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 10, 1);
-
-INSERT INTO interview (time_interview, local, evaluation, note, result, name_interviewer, candidate_id, round)
-VALUES ('2022-8-16 15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 10, 2);

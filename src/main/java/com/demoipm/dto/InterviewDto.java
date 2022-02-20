@@ -1,10 +1,11 @@
 package com.demoipm.dto;
 
 import java.util.Date;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import com.demoipm.entities.Candidate;
-import com.demoipm.entities.Interview;
-
+@Data
+@NoArgsConstructor
 public class InterviewDto {
 
 	private int id;
@@ -13,7 +14,7 @@ public class InterviewDto {
 	
 	private Date timeInterview;
 	
-	private String local;
+	private String location;
 	
 	private String evaluation;
 	
@@ -24,44 +25,6 @@ public class InterviewDto {
 	private String nameInterviewer;
 
 	private CandidateDto candidate;
-	
-	public InterviewDto() {}
-
-	public InterviewDto(Interview interview) {
-		super();
-		this.id = interview.getId();
-		this.timeInterview = interview.getTimeInterview();
-		this.local = interview.getLocal();
-		this.evaluation = interview.getEvaluation();
-		this.note = interview.getNote();
-		this.result = interview.getResult();
-		this.nameInterviewer = interview.getNameInterviewer();
-		
-		CandidateDto candidateDto = new CandidateDto(interview.getCandidate());
-		this.candidate = candidateDto;
-		
-		this.round = interview.getRound();
-	}
-	
-	public Interview convertToEntity() {
-		
-		Interview interview = new Interview();
-		
-		interview.setId(this.id); 
-		interview.setTimeInterview(this.timeInterview); 
-		interview.setLocal(this.local);
-		interview.setEvaluation(this.evaluation);
-		interview.setNote(this.note);
-		interview.setResult(this.result);
-		interview.setNameInterviewer(this.nameInterviewer);
-		
-		Candidate candidate = new Candidate(this.candidate);
-		interview.setCandidate(candidate);
-		
-		interview.setRound(this.round);
-		
-		return interview;
-	}
 
 	public int getRound() {
 		return round;
@@ -69,14 +32,6 @@ public class InterviewDto {
 
 	public void setRound(int round) {
 		this.round = round;
-	}
-
-	public CandidateDto getCandidate() {
-		return candidate;
-	}
-
-	public void setCandidate(CandidateDto candidate) {
-		this.candidate = candidate;
 	}
 
 	public int getId() {
@@ -95,12 +50,12 @@ public class InterviewDto {
 		this.timeInterview = timeInterview;
 	}
 
-	public String getLocal() {
-		return local;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setLocal(String local) {
-		this.local = local;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public String getEvaluation() {
@@ -134,5 +89,12 @@ public class InterviewDto {
 	public void setNameInterviewer(String nameInterviewer) {
 		this.nameInterviewer = nameInterviewer;
 	}
-	
+
+	public CandidateDto getCandidate() {
+		return candidate;
+	}
+
+	public void setCandidate(CandidateDto candidate) {
+		this.candidate = candidate;
+	}
 }

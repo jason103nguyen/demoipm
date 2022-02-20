@@ -22,19 +22,6 @@ public class EntryTestDto {
 	
 	public EntryTestDto() {}
 
-	public EntryTestDto(EntryTest entryTest) {
-		super();
-		this.id = entryTest.getId();
-		this.timeEntryTest = entryTest.getTimeEntryTest();
-		this.local = entryTest.getLocal();
-		this.result = entryTest.getResult();
-		this.point = entryTest.getPoint();
-		this.nameTest = entryTest.getNameTest();
-		
-		CandidateDto candidateDto = new CandidateDto(entryTest.getCandidate());
-		this.candidate = candidateDto;
-	}
-
 	public int getId() {
 		return id;
 	}

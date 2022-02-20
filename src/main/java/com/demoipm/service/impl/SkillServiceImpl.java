@@ -7,10 +7,14 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import com.demoipm.dao.SkillRepository;
 import com.demoipm.dto.recruitmentmanage.SkillSelectionDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.demoipm.dao.SkillDao;
@@ -26,7 +30,10 @@ public class SkillServiceImpl implements SkillService {
 
 	@Autowired
 	private SkillDao skillDao;
-	
+
+	@Autowired
+	private SkillRepository skillRepository;
+
 	@Override
 	public void create(SkillDto skillDto) {
 
@@ -52,18 +59,18 @@ public class SkillServiceImpl implements SkillService {
 
 		List<Skill> listSkill = (List<Skill>) skillDao.findAll();
 		List<SkillDto> listSkillDto = new ArrayList<SkillDto>();
-		
+
 		if (listSkill.isEmpty()) {
-			
+
 			throw new Exception("This list is empty");
 		} else {
-			
+
 			for (Skill skill : listSkill) {
 				SkillDto skillDto = new SkillDto(skill);
 				listSkillDto.add(skillDto);
 			}
 		}
-		
+
 		return listSkillDto;
 	}
 
@@ -83,21 +90,29 @@ public class SkillServiceImpl implements SkillService {
 	}
 
 	@Override
-	public List<SkillSelectionDto> getAllSkill(Integer jobId) {
-		LOGGER.info("Start get all skill");
-		try {
-			List<Skill> skillEntities = skillDao.getAllSkillOfJob(jobId);
-			List<SkillSelectionDto> skillDtos = skillEntities.stream()
-					.map(skill ->
-							new SkillSelectionDto()
-									.setId(skill.getId())
-									.setSkill(skill.getName()))
-					.collect(Collectors.toList());
-			return skillDtos;
-		} catch (Throwable t) {
-			LOGGER.error("Has error when getAllSkill", t);
-			return new ArrayList<>();
-		}
+	public Optional<Skill> findByName(String name) {
+		return skillDao.findByName(name);
 	}
+
+	@Override
+	public Page<Skill> paginationSkills(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return skillRepository.findAll(pageable);
+	}
+
+	@Override
+	public List<SkillDto> findByNameSkillDto(String name) throws Exception {
+		return skillRepository.findByNameStartingWith(name).stream().map(skill -> {
+			SkillDto skillDto = new SkillDto(skill);
+			return skillDto;
+		}).collect(Collectors.toList());
+	}
+
+	@Override
+	public Page<Skill> findByNameSkill(String name, int page, int size) throws Exception {
+		Pageable pageable = PageRequest.of(page, size);
+		return (Page<Skill>) skillRepository.findByNameStartingWith(name, pageable);
+	}
+
 
 }

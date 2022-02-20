@@ -1,15 +1,10 @@
 package com.demoipm.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
+import org.springframework.data.repository.CrudRepository;
 
 import com.demoipm.entities.Skill;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import java.util.List;
-
-public interface SkillDao extends JpaRepository<Skill, Integer>{
-
-    @Query("SELECT s FROM Skill s JOIN s.listJobSkill js WHERE js.job.id = :jobId")
-    List<Skill> getAllSkillOfJob(@Param("jobId") Integer jobId);
+public interface SkillDao extends CrudRepository<Skill, Integer>{
+    Optional<Skill> findByName(String name);
 }

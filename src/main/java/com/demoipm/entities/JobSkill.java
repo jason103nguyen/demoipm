@@ -27,6 +27,10 @@ public class JobSkill {
 	@ManyToOne
 	@JoinColumn(name = "job_id")
 	private Job job;
+
+	@ManyToOne
+	@JoinColumn(name = "entry_test_id")
+	private EntryTest entryTest;
 	
 	public JobSkill() {}
 	

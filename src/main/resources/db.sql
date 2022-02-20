@@ -18,6 +18,18 @@ VALUES ('b103nguyen@gmail.com' ,'Nguyen Van B', '0123456789', 'b103nguyen', '$2a
 INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
 VALUES ('c103nguyen@gmail.com' ,'Nguyen Van C', '0123456789', 'c103nguyen', '$2a$10$rV3ykBRV.I07I7foZLQ/fuXGyEDedS9qrgxGeViaU/wFSyA3AwOpK', false);
 
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('admin@mail.com' ,'Admin Personel', '09876543210', 'admin', '$2a$12$T8erOAVmB9UvJV0UV04GYugRJWty56BICIWaRplVdjoO2Gzy9Fpu6', false);
+
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('interviewer@mail.com' ,'Interviewer Personel', '09876543210', 'interviewer', '$2a$12$ZTQL9SdqUczzy3c.5UA6subT.7v6mwCX9rJssMi4loKgun11ILiD.', false);
+
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('hr@mail.com' ,'HR Personel', '09876543210', 'hr', '$2a$12$x.CjAasl6O5fQ28EqgnwBOvEFRHUndpUGtwp2v6uDwICTkz6LgEsK', false);
+
+INSERT INTO user_app (email, full_name, phone, username, password, is_delete)
+VALUES ('superadmin@mail.com' ,'SuperAdmin Personel', '09876543210', 'superadmin', '$2a$12$uLd7YX7itJWpS1QacI4hA.To3VH0s4SWhOsSM6RBXpfTWTrD8bx6y', false);
+
 -- USER_ROLE --
 INSERT INTO user_role (user_id, role_id) 
 VALUES (1, 1);
@@ -27,6 +39,24 @@ VALUES (2, 2);
 
 INSERT INTO user_role (user_id, role_id) 
 VALUES (3, 3);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (4, 1);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (5, 2);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (6, 3);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (7, 1);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (7, 2);
+
+INSERT INTO user_role (user_id, role_id)
+VALUES (7, 3);
 
 -- SKILL --
 INSERT INTO skill (name, description) 

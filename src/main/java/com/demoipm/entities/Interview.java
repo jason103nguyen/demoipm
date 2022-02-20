@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.demoipm.dto.InterviewDto;
+
 
 @Entity
 @Table(name = "interview")
@@ -28,7 +28,7 @@ public class Interview {
 
 	@Column(name = "location")
 	private String location;
-
+	
 	@Column(name = "evaluation")
 	private String evaluation;
 
@@ -50,7 +50,7 @@ public class Interview {
 
 	@Column(name = "date")
 	protected Date date;
-	
+
 	public Interview() {}
 
 	public Interview(LocalTime timeInterview, String location, String evaluation, String note, String result, String nameInterviewer, Candidate candidate, String contactForm, Date date) {

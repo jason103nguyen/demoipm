@@ -22,25 +22,25 @@ public class Interview {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "interview_id")
 	private int id;
-	
+
 	@Column(name = "time_interview")
 	private LocalTime timeInterview;
-	
+
 	@Column(name = "location")
 	private String location;
 	
 	@Column(name = "evaluation")
 	private String evaluation;
-	
+
 	@Column(name = "note")
 	private String note;
-	
+
 	@Column(name = "result")
 	private String result;
-	
+
 	@Column(name = "name_interviewer")
 	private String nameInterviewer;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "candidate_id")
 	private Candidate candidate;
@@ -51,9 +51,7 @@ public class Interview {
 	@Column(name = "date")
 	protected Date date;
 
-	public Interview(){
-
-	}
+	public Interview() {}
 
 	public Interview(LocalTime timeInterview, String location, String evaluation, String note, String result, String nameInterviewer, Candidate candidate, String contactForm, Date date) {
 		this.timeInterview = timeInterview;

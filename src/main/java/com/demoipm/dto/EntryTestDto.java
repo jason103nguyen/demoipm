@@ -14,26 +14,13 @@ public class EntryTestDto {
 	
 	private String result;
 	
-	private String point;
+	private int point;
 	
 	private String nameTest;
 	
 	private CandidateDto candidate;
 	
 	public EntryTestDto() {}
-
-	public EntryTestDto(EntryTest entryTest) {
-		super();
-		this.id = entryTest.getId();
-		this.timeEntryTest = entryTest.getTimeEntryTest();
-		this.local = entryTest.getLocal();
-		this.result = entryTest.getResult();
-		this.point = entryTest.getPoint();
-		this.nameTest = entryTest.getNameTest();
-		
-		CandidateDto candidateDto = new CandidateDto(entryTest.getCandidate());
-		this.candidate = candidateDto;
-	}
 
 	public int getId() {
 		return id;
@@ -67,11 +54,11 @@ public class EntryTestDto {
 		this.result = result;
 	}
 
-	public String getPoint() {
+	public int getPoint() {
 		return point;
 	}
 
-	public void setPoint(String point) {
+	public void setPoint(int point) {
 		this.point = point;
 	}
 

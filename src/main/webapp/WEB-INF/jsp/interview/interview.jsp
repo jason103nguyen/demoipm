@@ -16,7 +16,7 @@
        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    </head>
    <body>
-   <div class ="container">
+   <div class ="container p-5 my-5 border">
        <div class="row" align="center">
            <div >
                <h1>Hẹn Lịch Phỏng Vấn</h1>
@@ -25,7 +25,7 @@
                <table border = "0">
                    <tbody>
 
-                   <tr>
+                   <tr class="my-1">
                        <td>
                            <label>Tên:</label>
                        </td>

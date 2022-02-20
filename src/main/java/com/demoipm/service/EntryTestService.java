@@ -1,18 +1,21 @@
 package com.demoipm.service;
 
-import java.util.List;
+import com.demoipm.dto.EntryTestRequest;
+import com.demoipm.dto.QuestionRequest;
+import com.demoipm.entities.EntryTest;
+import com.demoipm.entities.Question;
 
-import com.demoipm.dto.EntryTestDto;
+import java.util.List;
 
 public interface EntryTestService {
 
-	void create(EntryTestDto entryTestDto);
-	
-	EntryTestDto readById(int id) throws Exception;
-	
-	List<EntryTestDto> readAll() throws Exception ;
-	
-	void update(EntryTestDto entryTestDto);
+	EntryTest create(EntryTestRequest entryTestRequest);
+
+	EntryTest update(EntryTestRequest entryTestRequest);
+
+	List<Question> getRandBySkillName(String skill,Integer numberofQuestion);
+
+	List<Question> getQuestionById(Integer id);
 	
 	void deleteById(int id);
 }

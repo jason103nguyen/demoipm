@@ -1,6 +1,5 @@
 package com.demoipm.service.impl;
 
-
 import javax.transaction.Transactional;
 import com.demoipm.dto.InterviewRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +16,7 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Autowired
 	private InterviewDao interviewDao;
-	
+
 	@Override
 	public Interview create(InterviewRequest interviewRequest) {
 

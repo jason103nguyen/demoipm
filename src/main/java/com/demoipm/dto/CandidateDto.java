@@ -1,51 +1,120 @@
 package com.demoipm.dto;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.demoipm.consts.MessageConst;
+import com.demoipm.consts.ValidateConst;
 import com.demoipm.entities.Candidate;
 
 public class CandidateDto {
 
 	private int id;
 	
+	@NotBlank(message = MessageConst.ACTIVITY_CANNOT_BE_BLANK)
+	private String activity;
+	
+	@Min(message = MessageConst.INVALID_EXPERIENCEYEAR_MESSAGE, value = 0)
+	@NotNull(message = MessageConst.EXPERIENCEYEAR_CANNOT_BE_BLANK)
+	private Integer experienceYear;
+	
+	@NotBlank(message = MessageConst.SKILL_CANNOT_BE_BLANK) 
+	private String skill;
+	
+	@NotBlank(message = MessageConst.NAME_CANNOT_BE_BLANK)
+    @Length(max = 50, message = MessageConst.NAME_EXCEED_LENGTH)
 	private String fullName;
 	
+	@NotBlank(message = MessageConst.CMND_CANNOT_BE_BLANK) 
 	private String cmnd;
 	
 	private Date dateCmnd;
 	
+	@Pattern(regexp = ValidateConst.PHONE_REGEX, message = MessageConst.INVALID_PHONE)
 	private String phone;
 	
+	@Pattern(regexp = ValidateConst.EMAIL_REGEX, message = MessageConst.INVALID_EMAIL)
 	private String email;
 	
 	private String info;
 	
+	@NotBlank(message = MessageConst.STATUS_CANNOT_BE_BLANK)
 	private String status;
 	
+	@NotBlank(message = MessageConst.GENDER_CANNOT_BE_BLANK)
 	private String sex;
 	
-	private Date birthDay;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Past(message = MessageConst.INVALID_DATE_MESSAGE)
+	@NotNull(message = MessageConst.BIRTHDAY_CANNOT_BE_BLANK)
+	private LocalDate birthDay;
 	
 	private List<InterviewDto> listInterview = new ArrayList<InterviewDto>();
 	
 	private List<EntryTestDto> listEntryTest = new ArrayList<EntryTestDto>();
 	
+	private List<SkillCandidateDto> listSkillCandidate = new ArrayList<SkillCandidateDto>();
+	
 	public CandidateDto() {}
 	
-	public CandidateDto(Candidate candicate) {
+	public CandidateDto(Candidate candidate) {
 		super();
-		this.id = candicate.getId();
-		this.fullName = candicate.getFullName();
-		cmnd = candicate.getCmnd();
-		this.dateCmnd = candicate.getDateCmnd();
-		this.phone = candicate.getPhone();
-		this.email = candicate.getEmail();
-		this.info = candicate.getInfo();
-		this.status = candicate.getStatus();
-		this.sex = candicate.getSex();
-		this.birthDay = candicate.getBirthDay();
+		this.id = candidate.getId();
+		this.fullName = candidate.getFullName();
+		cmnd = candidate.getCmnd();
+		this.dateCmnd = candidate.getDateCmnd();
+		this.phone = candidate.getPhone();
+		this.email = candidate.getEmail();
+		this.info = candidate.getInfo();
+		this.status = candidate.getStatus();
+		this.sex = candidate.getSex();
+		this.birthDay = candidate.getBirthDay();
+		this.skill = candidate.getSkill();
+		this.experienceYear = candidate.getExperienceYear();
+		this.activity = candidate.getActivity();
+	}
+
+	public List<SkillCandidateDto> getListSkillCandidate() {
+		return listSkillCandidate;
+	}
+
+	public void setListSkillCandidate(List<SkillCandidateDto> listSkillCandidate) {
+		this.listSkillCandidate = listSkillCandidate;
+	}
+
+	public String getActivity() {
+		return activity;
+	}
+
+	public void setActivity(String activity) {
+		this.activity = activity;
+	}
+
+	public Integer getExperienceYear() {
+		return experienceYear;
+	}
+
+	public void setExperienceYear(Integer experienceYear) {
+		this.experienceYear = experienceYear;
+	}
+
+	public String getSkill() {
+		return skill;
+	}
+
+	public void setSkill(String skill) {
+		this.skill = skill;
 	}
 
 	public List<InterviewDto> getListInterview() {
@@ -136,11 +205,11 @@ public class CandidateDto {
 		this.sex = sex;
 	}
 
-	public Date getBirthDay() {
+	public LocalDate getBirthDay() {
 		return birthDay;
 	}
 
-	public void setBirthDay(Date birthDay) {
+	public void setBirthDay(LocalDate birthDay) {
 		this.birthDay = birthDay;
 	}
 

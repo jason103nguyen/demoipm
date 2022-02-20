@@ -32,28 +32,24 @@
    </head>
    <body class="">
    <div class="wrapper ">
-       <!--silebarr chèn tại đây-->
        <div class="main-panel">
-           <!-- Navbar -->
-           <!---Navbar chèn tại đây-->
-           <!-- End Navbar -->
-           <!-- <div class="panel-header panel-header-sm">
-     </div> -->
            <div class="content ">
                <div class="row ">
-                   <div class="col-md-4">
+               <div class="col-md-4">
                        <div class="card card-user">
                            <form action="${pageContext.request.contextPath}/entrytest/question" method="get" >
                            <div class="row align-items-center justify-content-center">
                                <div class="col-md-8">
                                    <div class="form-control" style="border:none">
                                        <p><b>Lĩnh vực</b></p>
-                                       <select type="text" id="skill" class="form-control" name="skill">
-                                           <option> Skill</option>
-                                           <option>Java</option>
-                                           <option>C</option>
-                                           <option>Python</option>
-                                       </select>
+                                           <tbody>
+                                           <select type="text" class="form-control" name="skill">
+                                                   <option> Skill</option>
+                                                   <option>Java</option>
+                                                   <option>C</option>
+                                                   <option>Python</option>
+                                           </select>
+                                           </tbody>
                                    </div>
                                </div>
                            </div>
@@ -65,7 +61,6 @@
                                        </div>
                                        <div class="col-md-12">
                                            <div class="row justify-content-center ">
-                                               <p>
                                                <div class="col-md-4">
                                                    <div class="form-group justify-content-center text-center">
                                                        <p>Số lượng câu</p>
@@ -84,6 +79,7 @@
                            </div>
                            </p>
                        </form>
+                       </div>
 
                        <form action="${pageContext.request.contextPath}/entrytest/create" method="post" modelAttribute="entryTestRequest">
                        <div class="card">
@@ -116,17 +112,11 @@
                                            <input id="timeEntryTest" type="time" class="form-control" name="timeEntryTest" placeholder="Thời Lượng">
                                        </div>
                                    </li>
-                                   <li>
-                                       <div>
-                                           <label>Thí sinh thi</label>
-                                       </div>
-                                       <div class="mb-1">
-                                           <input type="text" class="form-control" placeholder="Thí sinh thi">
-                                       </div>
-                                   </li>
+
                                </ul>
                            </div>
                    </div>
+                       </div>
                    <div class="col-md-8">
                        <div class="card card-user">
                            <div class="card-header">
@@ -164,9 +154,7 @@
                <button type="submit" class="btn btn-primary btn-round col-3 float-right">Tạo Đề Thi</button>
                </div>
        </form>
-                       </div>
                    </div>
-               </div>
            </div>
        </div>
    </div>

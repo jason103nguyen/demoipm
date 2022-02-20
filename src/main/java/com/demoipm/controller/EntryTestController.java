@@ -32,6 +32,7 @@ public class EntryTestController {
     public String showEntryTestQuestion(@RequestParam("skill")String skill,@RequestParam("numberofQuestion") Integer numberofQuestion,Model model){
         List<Question> question = entryTestService.getRandBySkillName(skill,numberofQuestion);
         model.addAttribute("question",question);
+        model.addAttribute("skill",skill);
         System.out.println("question: "+ question);
         return "entrytest/entrytest";
     }

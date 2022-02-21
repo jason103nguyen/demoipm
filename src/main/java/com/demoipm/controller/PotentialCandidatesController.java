@@ -2,6 +2,7 @@ package com.demoipm.controller;
 
 
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 
@@ -31,11 +32,24 @@ public class PotentialCandidatesController {
 
 	@GetMapping("view-potential-candidates-info")
 	@Secured(value = "ROLE_HR")
-	public String viewPotentialCandidatesInfo(@RequestParam("id") int id, Model model) throws Exception {
+	public String viewPotentialCandidatesInfo(@RequestParam("id") int id, Model model, HttpSession session) throws Exception {
 
 		CandidateDto candidateDto = potentialCandidateService.getPotentialCandidateByID(id);
 
 		model.addAttribute("candidateDto", candidateDto);
+		
+		String keySearch = (String) session.getAttribute("keySearch");
+		
+		Integer pageNo = (Integer) session.getAttribute("pageNo");
+		
+		String sortBy = (String) session.getAttribute("sortBy");
+		
+		String direction = (String) session.getAttribute("direction");
+		
+		model.addAttribute("keySearch", keySearch);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("sortBy", sortBy);
+		model.addAttribute("direction", direction);
 
 		return "potentialCandidates/potentialCandidatesInfo";
 
@@ -43,7 +57,7 @@ public class PotentialCandidatesController {
 
 	@Secured(value = "ROLE_HR")
 	@GetMapping("view-potential-candidates-list")
-	public String filterPotentialCandidatesList(Model model,
+	public String filterPotentialCandidatesList(Model model, HttpSession session,
 
 			@RequestParam(name = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 
@@ -65,29 +79,60 @@ public class PotentialCandidatesController {
 		model.addAttribute("currentPage", listFilterCandidateDto.getCurrentPage());
 
 		model.addAttribute("keySearch", listFilterCandidateDto.getKeySearch());
+		
+		session.setAttribute("keySearch", keySearch);
 
 		model.addAttribute("pageNo", listFilterCandidateDto.getPageNo());
+		
+		session.setAttribute("pageNo", pageNo);
 
 		model.addAttribute("sortBy", listFilterCandidateDto.getSortBy());
 		
+		session.setAttribute("sortBy", sortBy);
+		
 		model.addAttribute("direction", listFilterCandidateDto.getDirection());
+		
+		session.setAttribute("direction", direction);
 
 		return "potentialCandidates/potentialCandidatesList";
 	}
 
 	@Secured(value = "ROLE_HR")
 	@GetMapping("delete-potential-candidates/{id}")
-	public String deletePotentialCandidate(@PathVariable("id") Integer id) {
+	public String deletePotentialCandidate(@PathVariable("id") Integer id, Model model, HttpSession session) {
 		potentialCandidateService.deletePotentialCandidate(id);
-		return "redirect:/view-potential-candidates-list";
+		
+		String keySearch = (String) session.getAttribute("keySearch");
+		
+		Integer pageNo = (Integer) session.getAttribute("pageNo");
+		
+		String sortBy = (String) session.getAttribute("sortBy");
+		
+		String direction = (String) session.getAttribute("direction");
+
+		return "redirect:/view-potential-candidates-list?keySearch="+keySearch+"&pageNo="+pageNo+"&sortBy="+sortBy+"&direction="+direction;
 	}
 
 	@Secured(value = "ROLE_HR")
 	@GetMapping("add-new-potential-candidates")
-	public String getCreatePotentialCandidate(Model model) {
+	public String getCreatePotentialCandidate(Model model, HttpSession session) {
 
 		CandidateDto candidateDto = new CandidateDto();
 		model.addAttribute("candidateDto", candidateDto);
+		
+		String keySearch = (String) session.getAttribute("keySearch");
+		
+		Integer pageNo = (Integer) session.getAttribute("pageNo");
+		
+		String sortBy = (String) session.getAttribute("sortBy");
+		
+		String direction = (String) session.getAttribute("direction");
+		
+		model.addAttribute("keySearch", keySearch);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("sortBy", sortBy);
+		model.addAttribute("direction", direction);
+		
 		return "potentialCandidates/create-PotentialCandidate";
 	}
 
@@ -106,10 +151,23 @@ public class PotentialCandidatesController {
 
 	@Secured(value = "ROLE_HR")
 	@GetMapping("update-potential-candidates")
-	public String getUpdatePotentialCandidate(@RequestParam("id") int id, @RequestParam("keySearch") String keySearch , Model model) {
+	public String getUpdatePotentialCandidate(@RequestParam("id") int id, Model model, HttpSession session) {
 
 		CandidateDto candidateDto = potentialCandidateService.getPotentialCandidateByID(id);
 		model.addAttribute("candidateDto", candidateDto);
+		
+		String keySearch = (String) session.getAttribute("keySearch");
+		
+		Integer pageNo = (Integer) session.getAttribute("pageNo");
+		
+		String sortBy = (String) session.getAttribute("sortBy");
+		
+		String direction = (String) session.getAttribute("direction");
+		
+		model.addAttribute("keySearch", keySearch);	
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("sortBy", sortBy);
+		model.addAttribute("direction", direction);
 
 		return "potentialCandidates/update-PotentialCandidate";
 	}
@@ -117,14 +175,22 @@ public class PotentialCandidatesController {
 	@Secured(value = "ROLE_HR")
 	@PostMapping("update-potential-candidates")
 	public String postUpdatePotentialCandidate(@ModelAttribute("candidateDto") @Valid CandidateDto candidateDto,
-			BindingResult result) {
+			BindingResult result, HttpSession session) {
 
 		if (result.hasErrors()) {
 			return "potentialCandidates/update-PotentialCandidate";
 		}
 		potentialCandidateService.updatePotentialCandidate(candidateDto);
 
-		return "redirect:/view-potential-candidates-list";
+		String keySearch = (String) session.getAttribute("keySearch");
+		
+		Integer pageNo = (Integer) session.getAttribute("pageNo");
+		
+		String sortBy = (String) session.getAttribute("sortBy");
+		
+		String direction = (String) session.getAttribute("direction");
+
+		return "redirect:/view-potential-candidates-list?keySearch="+keySearch+"&pageNo="+pageNo+"&sortBy="+sortBy+"&direction="+direction;
 	}
 
 }

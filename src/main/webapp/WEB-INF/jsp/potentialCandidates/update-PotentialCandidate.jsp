@@ -112,7 +112,7 @@
 		
 		<div class="form-group">
 			<button type="submit" value="submit" class="btn btn-primary btn-lg">Submit</button> 
-			<a href="view-potential-candidates-list" class="btn btn-primary btn-lg" style="float: right;"> Back</a>
+			<a href="view-potential-candidates-list?pageNo=${pageNo}&keySearch=${keySearch}&sortBy=${sortBy}&direction=${direction }" class="btn btn-primary btn-lg" style="float: right;"> Back</a>
 		</div>
 			
 	</form:form>

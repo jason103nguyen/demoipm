@@ -1,7 +1,7 @@
 package com.demoipm.entities;
 
-import java.time.LocalTime;
-import java.util.Date;
+import com.demoipm.dto.InterviewDto;
+import org.springframework.util.ObjectUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 
 
@@ -22,6 +26,9 @@ public class Interview {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "interview_id")
 	private int id;
+
+	@Column(name = "round")
+	private int round;
 
 	@Column(name = "time_interview")
 	private LocalTime timeInterview;
@@ -64,6 +71,26 @@ public class Interview {
 		this.contactForm = contactForm;
 		this.date = date;
 	}
+
+	public Interview(InterviewDto interview) {
+		super();
+		this.id = interview.getId();
+		if (ObjectUtils.isEmpty(interview)) {
+			this.timeInterview = LocalDateTime.ofInstant(interview.getTimeInterview().toInstant(),
+					ZoneId.systemDefault()).toLocalTime();
+		}
+		this.location = interview.getLocation();
+		this.evaluation = interview.getEvaluation();
+		this.note = interview.getNote();
+		this.result = interview.getResult();
+		this.nameInterviewer = interview.getNameInterviewer();
+
+		Candidate candidate = new Candidate(interview.getCandidate());
+		this.candidate = candidate;
+
+		this.round = interview.getRound();
+	}
+
 
 	public int getId() {
 		return id;
@@ -143,5 +170,14 @@ public class Interview {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public int getRound() {
+		return round;
+	}
+
+	public Interview setRound(int round) {
+		this.round = round;
+		return this;
 	}
 }

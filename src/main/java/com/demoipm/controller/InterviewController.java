@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -20,15 +19,14 @@ public class InterviewController {
     /*@PathVariable("id") Integer id
     @GetMapping("/interview/create/{id}")*/
     @GetMapping("/interview/create")
-    public String showForm(Model model){
-        model.addAttribute("interviewRequest",new InterviewRequest());
+    public String showForm(Model model) {
+        model.addAttribute("interviewRequest", new InterviewRequest());
         return "interview/interview";
     }
 
     @PostMapping("/interview/create")
-    public String createForm(@ModelAttribute("interviewRequest") InterviewRequest interviewRequest, BindingResult result,Model model){
-        model.addAttribute("interviewRequest",interviewService.create(interviewRequest));
-        System.out.println(interviewRequest);
+    public String createForm(@ModelAttribute("interviewRequest") InterviewRequest interviewRequest, BindingResult result, Model model) {
+        model.addAttribute("interviewRequest", interviewService.create(interviewRequest));
         return "interview/setup_success";
     }
 }

@@ -39,6 +39,8 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.demoipm.utils.Constants.RECRUITMENT;
+
 @Controller
 public class RecruitmentManageController {
 
@@ -82,7 +84,7 @@ public class RecruitmentManageController {
     public String createRecruitmentPage(Model model) {
         LOGGER.info("Start show create recruitment page");
         RecruitmentCreateRequestDto recruitment = new RecruitmentCreateRequestDto();
-        model.addAttribute("recruitment", recruitment);
+        model.addAttribute(RECRUITMENT, recruitment);
         return ViewConst.CREATE_RECRUITMENT_PAGE;
     }
 
@@ -92,7 +94,7 @@ public class RecruitmentManageController {
                                         Model model) {
         LOGGER.info("Start show update recruitment page");
         RecruitmentUpdateRequestDto recruitment = recruitmentService.getRecruitmentUpdateInfo(id);
-        model.addAttribute("recruitment", recruitment);
+        model.addAttribute(RECRUITMENT, recruitment);
         return ViewConst.UPDATE_RECRUITMENT_PAGE;
     }
 
@@ -147,14 +149,14 @@ public class RecruitmentManageController {
         return new ResponseEntity<>(jobList, HttpStatus.OK);
     }
 
- /*   @Secured("ROLE_HR")
+    @Secured("ROLE_HR")
     @GetMapping(URLConst.API_GET_SKILL_SELECTION_URL)
     public ResponseEntity<List<SkillSelectionDto>> getSkillSelection(@RequestParam("jobId") Integer jobId) {
         LOGGER.info("Start get list skill selection");
         List<SkillSelectionDto> skillList = skillService.getAllSkill(jobId);
         LOGGER.info("End get list skill selection");
         return new ResponseEntity<>(skillList, HttpStatus.OK);
-    }*/
+    }
 
     @Secured("ROLE_HR")
     @DeleteMapping(URLConst.API_DELETE_RECRUITMENT_URL)
@@ -174,14 +176,14 @@ public class RecruitmentManageController {
         }
         List<FieldError> fieldErrors = new ArrayList<>();
         if (requestDto.getStartDate().isAfter(requestDto.getEndDate())) {
-            FieldError startDateError = new FieldError("recruitment", "startDate", MessageConst.RECRUITMENT_DATE_PAIR_INVALID);
+            FieldError startDateError = new FieldError(RECRUITMENT, "startDate", MessageConst.RECRUITMENT_DATE_PAIR_INVALID);
             fieldErrors.add(startDateError);
         }
         if (requestDto.getMinSalary() > requestDto.getMaxSalary()) {
-            FieldError minSalaryError = new FieldError("recruitment", "minSalary", MessageConst.SALARY_PAIR_INVALID);
+            FieldError minSalaryError = new FieldError(RECRUITMENT, "minSalary", MessageConst.SALARY_PAIR_INVALID);
             fieldErrors.add(minSalaryError);
         }
-        if (fieldErrors.size() > 0) {
+        if (fieldErrors.isEmpty()) {
             responseDto.setError(true);
             responseDto.setFieldErrors(fieldErrors);
         }

@@ -183,7 +183,7 @@ public class RecruitmentManageController {
             FieldError minSalaryError = new FieldError(RECRUITMENT, "minSalary", MessageConst.SALARY_PAIR_INVALID);
             fieldErrors.add(minSalaryError);
         }
-        if (fieldErrors.isEmpty()) {
+        if (fieldErrors.size() > 0) {
             responseDto.setError(true);
             responseDto.setFieldErrors(fieldErrors);
         }

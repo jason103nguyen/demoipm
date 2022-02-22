@@ -150,7 +150,18 @@
 						<td>Activity</td>
 					</tr>
 				  </thead>
+				  
+				   <c:if test="${listCandidateDto.size() == 0 }" >
+					   <tbody>
+					   		<tr>
+					   			<td colspan="9">
+					   				<p style="color: red; text-align: center;">Not found candidate unsatisfactorily condition</p>
+					   			</td>		
+					   		</tr>   
+					   </tbody>
+				   </c:if>
 				   <c:forEach var="listCandidateDto" items="${listCandidateDto }">
+ 
 				  <tbody>
 				    <tr>
 				      <th scope="row">${listCandidateDto.id }</th>
@@ -163,7 +174,6 @@
 							<a href= "view-potential-candidates-info?id=${listCandidateDto.id }">
 								<button type="submit" class="ButtonInfo"> Info </button> 
 							</a>	
-							
 
 						</td>
 						<td>
@@ -188,16 +198,14 @@
 			</table>
 			</div>	
 
-
 			<nav aria-label="Page navigation example">
 			<c:if test="${totalPage >= 1 }">
 		  		<ul class="pagination">
 						
 					<c:if test="${currentPage > 1}">
 		    			<li class="page-item"><a class="page-link" href="view-potential-candidates-list?pageNo=${currentPage - 1}&keySearch=${keySearch}&sortBy=${sortBy}&direction=${direction }">Previous</a></li>
-		    		</c:if>	
-		    		
-		    		<c:forEach  begin="1" end="${totalPage}" var="i">	
+		    		</c:if>		
+		    		<c:forEach  begin="1" end="${totalPage }" var="i">	
     					<li  class="page-item" id="pageNo" value="${i}"><a class="page-link" href="view-potential-candidates-list?pageNo=${i}&keySearch=${keySearch}&sortBy=${sortBy}&direction=${direction }">${i}</a></li>	
 					</c:forEach>
 					

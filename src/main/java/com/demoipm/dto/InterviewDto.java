@@ -1,11 +1,17 @@
 package com.demoipm.dto;
 
-import java.util.Date;
+import com.demoipm.entities.Interview;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.util.ObjectUtils;
+
+import java.math.BigInteger;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 @Data
-@NoArgsConstructor
 public class InterviewDto {
 
 	private int id;
@@ -25,6 +31,26 @@ public class InterviewDto {
 	private String nameInterviewer;
 
 	private CandidateDto candidate;
+
+	public InterviewDto() {}
+
+	public InterviewDto(Interview interview) {
+		super();
+		this.id = interview.getId();
+		if (ObjectUtils.isEmpty(interview)) {
+			this.timeInterview = toDate(interview.getTimeInterview());
+		}
+		this.location = interview.getLocation();
+		this.evaluation = interview.getEvaluation();
+		this.note = interview.getNote();
+		this.result = interview.getResult();
+		this.nameInterviewer = interview.getNameInterviewer();
+
+		CandidateDto candidateDto = new CandidateDto(interview.getCandidate());
+		this.candidate = candidateDto;
+
+		this.round = interview.getRound();
+	}
 
 	public int getRound() {
 		return round;
@@ -96,5 +122,29 @@ public class InterviewDto {
 
 	public void setCandidate(CandidateDto candidate) {
 		this.candidate = candidate;
+	}
+
+	/**
+	 *
+	 * @param localTime
+	 * @return
+	 */
+	private Date toDate(LocalTime localTime) {
+		Instant instant = localTime.atDate(LocalDate.now())
+				.atZone(ZoneId.systemDefault()).toInstant();
+		return toDate(instant);
+	}
+
+	/**
+	 *
+	 * @param instant
+	 * @return
+	 */
+	private Date toDate(Instant instant) {
+		BigInteger milis = BigInteger.valueOf(instant.getEpochSecond()).multiply(
+				BigInteger.valueOf(1000));
+		milis = milis.add(BigInteger.valueOf(instant.getNano()).divide(
+				BigInteger.valueOf(1_000_000)));
+		return new Date(milis.longValue());
 	}
 }

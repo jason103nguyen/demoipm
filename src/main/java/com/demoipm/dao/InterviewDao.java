@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -20,6 +21,6 @@ public interface InterviewDao extends JpaRepository<Interview, Integer> {
             " candidate c ON C.id = t.candidate_id\n" +
             "WHERE\n"+
             "t.candidate_id = :candidateId\n",nativeQuery = true)
-    public Optional<Interview> findByCandidateId(@Param("candidateId") Integer candidateId);
+    Optional<List<Interview>> findByCandidateId(@Param("candidateId") Integer candidateId);
 
 }

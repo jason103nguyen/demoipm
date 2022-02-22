@@ -1,10 +1,10 @@
 package com.demoipm.dto;
 
+import com.demoipm.entities.Skill;
+import org.springframework.util.ObjectUtils;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.demoipm.entities.Skill;
-import com.demoipm.entities.SkillCandidate;
 
 public class SkillDto {
 
@@ -16,12 +16,15 @@ public class SkillDto {
 	
 	private List<JobSkillDto> listJobSkillDto;
 	
-	private List<SkillCandidateDto> listSkillCandidate = new ArrayList<SkillCandidateDto>();
+	private List<SkillCandidateDto> listSkillCandidate = new ArrayList<>();
 	
 	public SkillDto() {}
 
 	public SkillDto(Skill skill) {
 		super();
+		if (ObjectUtils.isEmpty(skill)) {
+			return;
+		}
 		this.id = skill.getId();
 		this.name = skill.getName();
 		this.description = skill.getDescription();

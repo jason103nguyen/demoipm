@@ -47,6 +47,7 @@
   				 
   				 <hr width="100%" color="red" align="left" size="3px">
   				 
+
   				 <div class="group">
                		<span class="icon"><i class="fas fa-user-circle"></i></span>
 					<div class="info"><b>Full Name:</b>  ${candidateDto.fullName}</div>
@@ -74,10 +75,11 @@
   				 </div>
   				 
   				  <hr width="100%" color="red" align="left" size="3px">
-                
+
                   <div class="group">
                		<span class="icon"><i class="fas fa-edit"></i></span>
 					<div class="info"><b>Skill:</b> ${candidateDto.skill}</div>
+
   				 </div> 
   				 
   				  <hr width="100%" color="red" align="left" size="3px">  
@@ -85,6 +87,7 @@
   				   <div class="group">
                		<span class="icon"><i class="fas fa-wrench"></i></span>
 					<div class="info"><b>Activity:</b> ${candidateDto.activity}</div>
+
   				 </div>
   				 
   				  <hr width="100%" color="red" align="left" size="3px">	
@@ -96,6 +99,7 @@
   				 
   				  <hr width="100%" color="red" align="left" size="3px">
   				 
+
   				  <div class="group">
                		<span class="icon"><i class="fas fa-venus-mars"></i></span>
 					<div class="info"><b>Gender:</b> ${candidateDto.sex}</div>

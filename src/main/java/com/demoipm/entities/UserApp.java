@@ -22,9 +22,9 @@ import com.demoipm.dto.UserAppDto;
 
 @Entity
 @Table(name = "user_app")
-/*@SQLDelete(sql = "UPDATE user_app SET is_delete = true WHERE user_id = ?")
+@SQLDelete(sql = "UPDATE user_app SET is_delete = true WHERE user_id = ?")
 @Where(clause = "is_delete = false")
-@Indexed*/
+@Indexed
 public class UserApp extends BaseEntity {
 
 	@Id

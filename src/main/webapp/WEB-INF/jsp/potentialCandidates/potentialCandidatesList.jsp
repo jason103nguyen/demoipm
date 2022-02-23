@@ -180,9 +180,9 @@
 
 						</td>
 						<td>
-							<form:form action="/interview/create?id=${listCandidateDto.id }" method="get"> 					
-								<button type="submit" class="ButtonInfo">Interview</button> 	
-							</form:form>
+							<a href="interview/create?id=${listCandidateDto.id }">
+								<button type="submit" class="ButtonInfo">Interview</button>
+							</a>
 						</td>
 					
 						<td>

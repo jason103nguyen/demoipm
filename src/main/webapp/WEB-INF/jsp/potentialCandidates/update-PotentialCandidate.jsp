@@ -18,8 +18,8 @@
 </head>
 <body>
 
-<div class="header">	
-			<div class="logo"><img src="../img/LogoFPT.jpg" alt="logo fpt" width="40%"></div>
+	<div class="header">	
+			<div class="col-sm-3" style="margin: 20px"><jsp:include page="../logoFpt.jsp" /></div>
 			
 			<div><h1 class="Title" style="color: #00DD00">UPDATE POTENTIAL CANDIDATE</h1></div>		
 	</div>

@@ -27,9 +27,9 @@
 
 <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
 
-<div class="logo"><img src="../img/LogoFPT.jpg" alt="logo fpt" width="30%"></div>
+	<div class="col-sm-3"><jsp:include page="../logoFpt.jsp" /></div>
 	
-	<div><h1 class="Title" style="margin-top: 50px ">Info Potential Candidates</h1></div>
+	<div><h1 class="Title" style="margin-top: 10px; color: #339966; ">Info Potential Candidates</h1></div>
 </div>
 
 

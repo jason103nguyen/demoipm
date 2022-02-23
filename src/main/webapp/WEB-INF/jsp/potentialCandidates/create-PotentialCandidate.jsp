@@ -18,10 +18,10 @@
 </head>
 <body>
 
-<div class="header">	
-			<div class="logo"><img src="../img/LogoFPT.jpg" alt="logo fpt" width="40%"></div>
+	<div class="header">	
+			<div class="col-sm-3" style="margin: 20px"><jsp:include page="../logoFpt.jsp" /></div>
 			
-			<div><h1 class="Title" style="color: #00DD00">CREATE POTENTIAL CANDIDATE</h1></div>		
+			<div><h1 class="Title" style="margin-top: 10px; color: #339966;">CREATE POTENTIAL CANDIDATE</h1></div>		
 	</div>
 
 <div class="signup-form">
@@ -63,14 +63,23 @@
 		<div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fas fa-thermometer-three-quarters"></i></span>
-				<form:input type="text" path="status" class="form-control" placeholder="Status..."/> <form:errors path="status" cssClass="error"/><br/>
+				<form:select class="form-control" path="status" >
+					<form:option value="Close">Close</form:option>
+					<form:option value="Open">Open</form:option>
+					<form:option value="Inprocess">Inprocess</form:option>
+				</form:select>
+				<form:errors path="status" cssClass="error"/><br/>
 			</div>
         </div>
         
         <div class="form-group">
 			<div class="input-group">
-				<span class="input-group-addon"><i class="fas fa-venus-mars"></i></span>
-				<form:input type="text" path="sex" class="form-control" placeholder="Gender..."/> <form:errors path="sex" cssClass="error"/><br/>
+				<span class="input-group-addon"><i class="fas fa-venus-mars"></i></span>	
+				<form:select class="form-control" path="sex" >
+					<form:option value="Male">Male</form:option>
+					<form:option value="Female">Female</form:option>
+				</form:select>
+				<form:errors path="sex" cssClass="error"/><br/>
 			</div>
         </div>
         
@@ -98,16 +107,25 @@
 		<div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fas fa-edit"></i></span>
-				<form:input type="text" path="skill" class="form-control" placeholder="Skill..."/> <form:errors path="skill" cssClass="error"/><br/>
+				<form:select class="form-control" path="skill" >
+					<form:option value="Java">Java</form:option>
+					<form:option value="C">C</form:option>
+					<form:option value="Python">Python</form:option>
+					<form:option value="JavaScript">JavaScript</form:option>
+					<form:option value="PHP">PHP</form:option>
+					<form:option value="Swift">Swift</form:option>
+					<form:option value="C#">C#</form:option>
+					<form:option value="Ruby">Ruby</form:option>
+					<form:option value="Objective-C">Objective-C</form:option>
+				</form:select>
+				<form:errors path="skill" cssClass="error"/><br/>
 			</div>
         </div>
 		
 		<div class="form-group">
 			<button type="submit" value="submit" class="btn btn-primary btn-lg">Submit</button> 
 			<a href="view-potential-candidates-list?pageNo=${pageNo}&keySearch=${keySearch}&sortBy=${sortBy}&direction=${direction }" class="btn btn-primary btn-lg" style="float: right;"> Back</a>
-			
 		</div>
-			
 	</form:form>
 </div>
 </body>

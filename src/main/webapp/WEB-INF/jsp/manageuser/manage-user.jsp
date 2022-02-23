@@ -38,7 +38,7 @@
                 },
                 order: [],
                 columnDefs: [
-                    {"targets": "_all", "orderable": false},
+                    {"targets": "_all", "orderable": false, "className": "text-center"},
                     {
                         "targets": 0,
                         "render": (data, type, row, meta) => {

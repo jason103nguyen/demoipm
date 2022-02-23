@@ -87,7 +87,7 @@
                 order: [],
                 searching: false,
                 columnDefs: [
-                    {"targets": "_all", "orderable": false},
+                    {"targets": "_all", "orderable": false, "className": "text-center"},
                     {"data": "id", "targets": 0},
                     {"data": "job", "targets": 1},
                     {"data": "career", "targets": 2},

@@ -39,4 +39,11 @@ public class URLConst {
     public static final String API_DELETE_RECRUITMENT_URL = "/api/delete-recruitment";
     public static final String UPDATE_RECRUITMENT_PAGE_URL = "/update-recruitment-page";
     public static final String API_PROCESS_UPDATE_RECRUITMENT_URL = "/api/process-update-recruitment";
+
+    /**
+     * URL send email
+     */
+    public static final String API_SEND_EMAIL = "/api/send-email";
+    public static final String API_SEND_EMAIL_ATTACHMENT = "/api/send-email-attachment";
+    public static final String API_SEND_EMAIL_HTML = "/api/send-email-html";
 }

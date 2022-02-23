@@ -102,7 +102,7 @@ public class SkillServiceImpl implements SkillService {
 	@Override
 	public Page<Skill> findByNameSkill(String name, int page, int size) throws Exception {
 		Pageable pageable = PageRequest.of(page, size);
-		return (Page<Skill>) skillRepository.findByNameStartingWith(name, pageable);
+		return skillRepository.findByNameStartingWith(name, pageable);
 	}
 
 	@Override

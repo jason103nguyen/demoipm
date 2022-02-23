@@ -180,9 +180,11 @@
 
 						</td>
 						<td>
+
 							<a href="interview/create?id=${listCandidateDto.id }">
 								<button type="submit" class="ButtonInfo">Interview</button>
 							</a>
+
 						</td>
 					
 						<td>

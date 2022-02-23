@@ -86,9 +86,9 @@
             	
 		            Sorted By <select id="PCsort" onchange="PotentialCandidatesSort()" >    
 		           		 		<option value="id">ID</option>
-		           		 		<option value="fullName">Full Name Z-A</option>
-		           		 		<option value="email">Email Z-A</option>
-		           		 		<option value="status">Status Z-A</option>
+		           		 		<option value="fullName">Full Name</option>
+		           		 		<option value="email">Email</option>
+		           		 		<option value="status">Status</option>
 		           		 	</select>
 
 		           		 	<select id="direction" onchange="PotentialCandidatesSort()">
@@ -139,15 +139,15 @@
             <table class="table">
 				  <thead>
 				    <tr>
-						<td>No.</td>
+						<td>ID</td>
 						<td>Full Name</td>
 						<td>National Identity Card</td>
 						<td>Phone</td>
 						<td>Email</td>
-						<td>Info</td>
-						<td>Interview</td>
 						<td>Status</td>
-						<td>Activity</td>
+						<td>Details</td>
+						<td>Interview</td>
+						<td>Action</td>
 					</tr>
 				  </thead>
 				  
@@ -169,28 +169,30 @@
 						<td>${listCandidateDto.cmnd }</td>
 						<td>${listCandidateDto.phone }</td>
 						<td>${listCandidateDto.email }</td>
+						
+						<td>${listCandidateDto.status }</td>
+						
 						<td>
-										
+			
 							<a href= "view-potential-candidates-info?id=${listCandidateDto.id }">
-								<button type="submit" class="ButtonInfo"> Info </button> 
+								<button type="submit" class="ButtonInfo"> Details </button> 
 							</a>	
 
 						</td>
 						<td>
-							<form:form action="#" method="get"> 					
+							<form:form action="/interview/create?id=${listCandidateDto.id }" method="get"> 					
 								<button type="submit" class="ButtonInfo">Interview</button> 	
 							</form:form>
 						</td>
-					<td>${listCandidateDto.status }</td>
+					
 						<td>
 			
 							<a href= "delete-potential-candidates/${listCandidateDto.id }" onclick="deletePotentialCandidates(event, '${listCandidateDto.id }')">
 								<button type="submit" class="ButtonDelete">Delete</button> 
 							</a>	
-							<a href= "update-potential-candidates?id=${listCandidateDto.id }">
+							<%-- <a href= "update-potential-candidates?id=${listCandidateDto.id }">
 								<button type="submit" class="ButtonUpdate">Update</button> 
-							</a>	
-
+							</a> --%>	
 						</td>
 				    </tr>
 				  </tbody>

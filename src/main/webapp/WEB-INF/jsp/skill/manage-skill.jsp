@@ -15,9 +15,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function onLoadTextSearch() {
+            document.getElementById("txtSearch").value = '${searchKey}';
+        };
+    </script>
 </head>
 
-<body class="bg-light">
+<body class="bg-light" onload="onLoadTextSearch();">
 <div class="container p-5 my-5 border">
     <div class="row">
         <div class="col-sm-3">
@@ -53,8 +58,8 @@
                 <tr class="text-center">
                     <th>No.</th>
                     <th>Skill Name</th>
-                    <th>Description</th>
-                    <th colspan="2">Action</th>
+                    <th style="text-align: center">Description</th>
+                    <th colspan="2" style="text-align: center">Action</th>
                 </tr>
                 <c:forEach items="${skillList}" var="skill" varStatus="theCount">
                     <tr>
@@ -65,7 +70,7 @@
                                 Info
                             </button>
                         </td>
-                        <td class="align-middle">
+                        <td class="align-middle" style="text-align: center">
                             <a href="${pageContext.request.contextPath}${URLConst.EDIT_SKILL_PAGE_URL}?id=${skill.id}" class="btn-sm btn-warning">Edit</a>
                             | <a href="#"  class="btn-sm btn-danger" onclick="deleteSkill(event, '${skill.id}')">Delete</a>
                         </td>
@@ -85,13 +90,23 @@
                                 <%--begin page--%>
                             <c:set var="pgEnd" value="${pageEnd >= totalPages ? (pageStart - 1) : (pageEnd - 5)}"/>
                             <a class="page-link"
-                               href="${pageContext.request.contextPath}${URLConst.MANAGE_SKILL_URL}?pageNo=${currentPage}&pageStart=${1}&pageEnd=${totalPages < 5 ? totalPages : 5}"
+                                    <c:if test="${searchKey == ''}">
+                                        href="${pageContext.request.contextPath}${URLConst.MANAGE_SKILL_URL}?pageNo=${currentPage}&pageStart=${1}&pageEnd=${totalPages < 5 ? totalPages : 5}"
+                                    </c:if>
+                                    <c:if test="${searchKey != ''}">
+                                        href="${pageContext.request.contextPath}${URLConst.SEARCH_SKILL_URL}?searchKey=${searchKey}&pageNo=${currentPage}&pageStart=${1}&pageEnd=${totalPages < 5 ? totalPages : 5}"
+                                    </c:if>
                                aria-label="Previous">
                                 <span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
                             </a>
                                 <%--previous page--%>
                             <a class="page-link"
-                               href="${pageContext.request.contextPath}${URLConst.MANAGE_SKILL_URL}?pageNo=${currentPage}&pageStart=${pageStart-5}&pageEnd=${pgEnd}"
+                                    <c:if test="${searchKey == ''}">
+                                        href="${pageContext.request.contextPath}${URLConst.MANAGE_SKILL_URL}?pageNo=${currentPage}&pageStart=${pageStart-5}&pageEnd=${pgEnd}"
+                                    </c:if>
+                                    <c:if test="${searchKey != ''}">
+                                        href="${pageContext.request.contextPath}${URLConst.SEARCH_SKILL_URL}?searchKey=${searchKey}&pageNo=${currentPage}&pageStart=${pageStart-5}&pageEnd=${pgEnd}"
+                                    </c:if>
                                aria-label="Previous">
                                 <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
                             </a>
@@ -99,7 +114,12 @@
                         <c:forEach var="page" begin="${pageStart}" end="${pageEnd}">
                             <li class="page-item ${currentPage+1 == page ? 'active' : ''}">
                                 <a class="page-link"
-                                   href="${pageContext.request.contextPath}${URLConst.MANAGE_SKILL_URL}?pageNo=${page-1}&pageStart=${pageStart}&pageEnd=${pageEnd}">${page}</a>
+                                <c:if test="${searchKey == ''}">
+                                    href="${pageContext.request.contextPath}${URLConst.MANAGE_SKILL_URL}?pageNo=${page-1}&pageStart=${pageStart}&pageEnd=${pageEnd}">${page}</a>
+                                </c:if>
+                                <c:if test="${searchKey != ''}">
+                                    href="${pageContext.request.contextPath}${URLConst.SEARCH_SKILL_URL}?searchKey=${searchKey}&pageNo=${page-1}&pageStart=${pageStart}&pageEnd=${pageEnd}">${page}</a>
+                                </c:if>
                             </li>
                         </c:forEach>
                         <li class="page-item ${pageEnd >= totalPages ? 'disabled' : ''}">
@@ -107,7 +127,12 @@
                             <c:set var="pgEnd"
                                    value="${pageEnd >= (totalPages - 5) ? (4 - (pageEnd - totalPages)) + pageStart : (pageEnd + 5)}"/>
                             <a class="page-link"
-                               href="${pageContext.request.contextPath}${URLConst.MANAGE_SKILL_URL}?pageNo=${currentPage}&pageStart=${pageStart+5}&pageEnd=${pgEnd}"
+                                    <c:if test="${searchKey == ''}">
+                                        href="${pageContext.request.contextPath}${URLConst.MANAGE_SKILL_URL}?pageNo=${currentPage}&pageStart=${pageStart+5}&pageEnd=${pgEnd}"
+                                    </c:if>
+                                    <c:if test="${searchKey != ''}">
+                                        href="${pageContext.request.contextPath}${URLConst.SEARCH_SKILL_URL}?searchKey=${searchKey}&pageNo=${currentPage}&pageStart=${pageStart+5}&pageEnd=${pgEnd}"
+                                    </c:if>
                                aria-label="Next">
                                 <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
                             </a>
@@ -118,7 +143,12 @@
                                                           (totalPages % 10 == 4 || totalPages % 10 == 9 ? totalPages - 3:
                                                           totalPages - 4)))}"/>
                             <a class="page-link"
-                               href="${pageContext.request.contextPath}${URLConst.MANAGE_SKILL_URL}?pageNo=${currentPage}&pageStart=${pgStart}&pageEnd=${totalPages}"
+                                    <c:if test="${searchKey == ''}">
+                                        href="${pageContext.request.contextPath}${URLConst.MANAGE_SKILL_URL}?pageNo=${currentPage}&pageStart=${pgStart}&pageEnd=${totalPages}"
+                                    </c:if>
+                                    <c:if test="${searchKey != ''}">
+                                        href="${pageContext.request.contextPath}${URLConst.SEARCH_SKILL_URL}?searchKey=${searchKey}&pageNo=${currentPage}&pageStart=${pgStart}&pageEnd=${totalPages}"
+                                    </c:if>
                                aria-label="Next">
                                 <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
                             </a>
@@ -146,7 +176,7 @@
     }
 
     function searchSkillName(event, value) {
-        location.href = "${pageContext.request.contextPath}${URLConst.SEARCH_SKILL_URL}?searchKey=" + value;
+        location.href = "${pageContext.request.contextPath}${URLConst.SEARCH_SKILL_URL}?searchKey=" + value + "&pageNo=0&pageStart=1&pageEnd=5";
     }
 
 

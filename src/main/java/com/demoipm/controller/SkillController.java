@@ -30,49 +30,6 @@ import java.util.List;
 
 @Controller
 public class SkillController {
-
-    @Autowired
-    private UserAppService userAppService;
-
-    @GetMapping(value = "/user-info")
-    public String userInfo() {
-
-        return "userInfo";
-    }
-
-    @GetMapping(value = "/candidate-info")
-    public String candidateInfo() {
-
-        return "candidateInfo";
-    }
-
-    @GetMapping(value = "/403")
-    public String error403() {
-
-        return "403Page";
-    }
-
-    @GetMapping(value = "/register")
-    public String register(Model model) {
-
-        model.addAttribute("userApp", new UserAppDto());
-        return "register";
-    }
-
-    @PostMapping(value = "/register")
-    public String register(@ModelAttribute(name = "userApp") UserAppDto userApp) {
-
-        System.out.println("ID: " + userApp.getId());
-        userAppService.create(userApp);
-        return "homepage";
-    }
-
-    @GetMapping(value = "/login")
-    public String login() {
-
-        return "login";
-    }
-
     private static final Logger LOGGER = LoggerFactory.getLogger(SkillController.class);
 
     @Autowired
@@ -82,12 +39,14 @@ public class SkillController {
     private int pgEnd = 5;
     private int pgNo = 0;
     private int pageSize = 5;
+    private String searchKey = "";
 
     @ModelAttribute
     public void getAttribute(Model model) {
         model.addAttribute("pageNo", pgNo);
         model.addAttribute("pageStart", pgStart);
         model.addAttribute("pageEnd", pgEnd);
+        model.addAttribute("searchKey", searchKey);
     }
 
     @Secured("ROLE_HR")
@@ -103,32 +62,30 @@ public class SkillController {
                                    @RequestParam("pageEnd") int pageEnd,
                                    Model model) throws Exception {
         LOGGER.info("Start get skill list");
-
         pgNo = pageNo;
         pgStart = pageStart;
         pgEnd = pageEnd;
         Page<Skill> skillPage = skillService.paginationSkills(pageNo, pageSize);
-        List<Skill> skillList = skillPage.getContent();
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("pageStart", pageStart);
-        model.addAttribute("pageEnd", pageEnd);
-        model.addAttribute("skillList", skillList);
-        model.addAttribute("totalPages", skillPage.getTotalPages());
+        pageSkills(skillPage, pageNo, pageStart, pageEnd, model);
         LOGGER.info("End get skill list");
         return ViewConst.MANAGE_SKILL_PAGE;
     }
 
     @Secured("ROLE_HR")
     @GetMapping(URLConst.SEARCH_SKILL_URL)
-    public String findBySkillName(@RequestParam("searchKey") String name, Model model) throws Exception {
+    public String findBySkillName(@RequestParam("searchKey") String name,
+                                  @RequestParam("pageNo") int pageNo,
+                                  @RequestParam("pageStart") int pageStart,
+                                  @RequestParam("pageEnd") int pageEnd,
+                                  Model model) throws Exception {
         LOGGER.info("Start search skill name {}");
         if (!"".equals(name.trim())) {
-            List<SkillDto> skillList = skillService.findByNameSkillDto(name);
-            if (skillList != null) {
-                model.addAttribute("skillList", skillList);
-                return ViewConst.MANAGE_SKILL_PAGE;
-            }
+            model.addAttribute("searchKey", name);
+            Page<Skill> skillPage = skillService.findByNameSkill(name, pageNo, pageSize);
+            pageSkills(skillPage, pageNo, pageStart, pageEnd, model);
+            return ViewConst.MANAGE_SKILL_PAGE;
         }
+        searchKey = "";
         LOGGER.info("End search skill name {}");
         return "redirect:".concat(URLConst.MANAGE_SKILL_URL + "?pageNo=" + pgNo + "&pageStart=" + pgStart + "&pageEnd=" + pgEnd);
     }
@@ -150,24 +107,30 @@ public class SkillController {
     @PostMapping(URLConst.EDIT_SKILL_PAGE_URL)
     public String updateSkillDetail(@ModelAttribute("skill") @Valid SkillDto skillDto,
                                     BindingResult result, Model model) throws Exception {
-        String message = "";
+//        String message = "";
+        String error = "";
         if (result.hasErrors()) {
             model.addAttribute("responseStatus", "Error");
             return ViewConst.EDIT_SKILL_PAGE;
         } else {
-            if (skillDto.getId() != 0) {
-                // Case Update existed skill
-                skillService.update(skillDto);
-                message = MessageConst.UPDATE_SKILL_SUCCESS_MESSAGE;
-
+            if(skillService.findByName(skillDto.getName()) != null) {
+                error = MessageConst.SKILL_DUPLICATE;
+                model.addAttribute("responseError", error);
+                return ViewConst.EDIT_SKILL_PAGE;
             } else {
-                // Case Create new skill
-                skillService.create(skillDto);
-                message = MessageConst.CREATE_SKILL_SUCCESS_MESSAGE;
+                if (skillDto.getId() != 0) {
+                    // Case Update existed skill
+                    skillService.update(skillDto);
+//                    message = MessageConst.UPDATE_SKILL_SUCCESS_MESSAGE;
+                } else {
+                    // Case Create new skill
+                    skillService.create(skillDto);
+//                    message = MessageConst.CREATE_SKILL_SUCCESS_MESSAGE;
+                }
             }
-            model.addAttribute("responseStatus", message);
+//            model.addAttribute("responseStatus", message);
         }
-        return ViewConst.EDIT_SKILL_PAGE;
+        return ViewConst.MANAGE_SKILL_PAGE;
     }
 
     @Secured("ROLE_HR")
@@ -179,4 +142,11 @@ public class SkillController {
         return "redirect:".concat(URLConst.MANAGE_SKILL_URL + "?pageNo=" + pgNo + "&pageStart=" + pgStart + "&pageEnd=" + pgEnd);
     }
 
+    private void pageSkills(Page<Skill> skillPage, int pageNo, int pageStart, int pageEnd, Model model) {
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("pageStart", pageStart);
+        model.addAttribute("pageEnd", skillPage.getTotalPages() <= 5 ? skillPage.getTotalPages() : pageEnd);
+        model.addAttribute("skillList", skillPage.getContent());
+        model.addAttribute("totalPages", skillPage.getTotalPages());
+    }
 }

@@ -14,6 +14,26 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function validateForm() {
+            var name = document.getElementById("name").value;
+            if(name.trim() == "") {
+                alert("Input skill name are required!!");
+                document.getElementById("name").style.borderColor = "red";
+                document.getElementById("name").select();
+                document.getElementById("name").value = "";
+                return false;
+            } else {
+                document.getElementById("name").style.borderColor = "none";
+            }
+        }
+    </script>
+    <style>
+        .required:after {
+            content:" *";
+            color: red;
+        }
+    </style>
 </head>
 
 <body class="bg-light">
@@ -40,16 +60,21 @@
 
         <div class="col-sm-9">
             <c:if test="${responseStatus != null}">
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-success" role="alert">
                         ${responseStatus}
                 </div>
             </c:if>
-            <form:form modelAttribute="skill" action="${pageContext.request.contextPath}${URLConst.EDIT_SKILL_PAGE_URL}" method="post">
+            <c:if test="${responseError != null}">
+                <div class="alert alert-danger" role="alert">
+                        ${responseError}
+                </div>
+            </c:if>
+            <form:form modelAttribute="skill" action="${pageContext.request.contextPath}${URLConst.EDIT_SKILL_PAGE_URL}" method="post" onsubmit="return validateForm()">
                 <div class="mb-3" style="display: none">
                     <form:input path="id" type="text" />
                 </div>
                 <div class="mb-3">
-                    <label for="name" class="form-label fw-bold">Skill name</label>
+                    <label for="name" class="form-label fw-bold required">Skill name</label>
                     <form:input path="name" type="text" class="form-control" id="name"/>
                     <form:errors path="name" class="form-text text-danger fst-italic"></form:errors>
                 </div>

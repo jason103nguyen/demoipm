@@ -186,34 +186,34 @@ VALUES (10, 4);
 
 -- CANDIDATE --
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van A', 0 ,'0123456789','avo@gmail.com', 'nam', '1990/3/10', 'Open', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van A', 0 ,'0123456789','avo@gmail.com', 'Male', '1990/3/10', 'Open', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van A', 0 ,'0123456789', 'bvo@gmail.com', 'nam', '1991/3/10', 'Close', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van A', 0 ,'0123456789', 'bvo@gmail.com', 'Male', '1991/3/10', 'Close', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van A', 0 ,'0123456789', 'cvo@gmail.com', 'nam', '1992/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van A', 0 ,'0123456789', 'cvo@gmail.com', 'Male', '1992/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van A', 0 ,'0123456789', 'dvo@gmail.com', 'nam', '1993/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van A', 0 ,'0123456789', 'dvo@gmail.com', 'Male', '1993/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van A', 0 ,'0123456789', 'evo@gmail.com', 'nam', '1994/3/10', 'Open', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van A', 0 ,'0123456789', 'evo@gmail.com', 'Male', '1994/3/10', 'Open', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van A', 0 ,'0123456789', 'fvo@gmail.com', 'nam', '1995/3/10', 'Open', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van A', 0 ,'0123456789', 'fvo@gmail.com', 'Male', '1995/3/10', 'Open', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van B', 0 ,'0123456789', 'gvo@gmail.com', 'nam', '1996/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van B', 0 ,'0123456789', 'gvo@gmail.com', 'Male', '1996/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van B', 0 ,'0123456789', 'hvo@gmail.com', 'nam', '1997/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van B', 0 ,'0123456789', 'hvo@gmail.com', 'Male', '1997/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van B', 0 ,'0123456789', 'yvo@gmail.com', 'nam', '1998/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van B', 0 ,'0123456789', 'yvo@gmail.com', 'Male', '1998/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill) 
-VALUES ('Vo Van K', 0 ,'0123456789', 'kvo@gmail.com', 'nam', '1999/3/10', 'Close', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van K', 0 ,'0123456789', 'kvo@gmail.com', 'Male', '1999/3/10', 'Close', '215460589', 'c', 1, 'Java');
 
 -- SKILL_CANDIDATE --
 INSERT INTO skill_candidate (candidate_id, skill_id)

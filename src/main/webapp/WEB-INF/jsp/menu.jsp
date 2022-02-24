@@ -20,7 +20,9 @@
 			<span><a class="btn btn-success btn-sm" href="${pageContext.request.contextPath}/login">Login</a></span>
 		</sec:authorize>
 	</div>
-	<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4"><i class="me-2 bi bi-person-square"></i>Candidate</a>
+	<sec:authorize access="hasRole('ROLE_INTERVIEWER')">
+		<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4" href="${pageContext.request.contextPath}/view-all-candidate"><i class="me-2 bi bi-person-square"></i>Candidate</a>
+	</sec:authorize>
 	<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4"><i class="me-2 bi bi-signpost-2-fill"></i>Career</a>
 	<sec:authorize access="hasRole('ROLE_HR')">
 		<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4" href="${pageContext.request.contextPath}/manage-recruitment"><i class="me-2 bi bi-binoculars"></i>Recruitment</a>

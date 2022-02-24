@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -20,7 +21,7 @@ public class InterviewRequest {
 
     @NotBlank
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    protected Date date;
+    protected LocalDate date;
 
     @NotBlank
     private String location;
@@ -33,7 +34,7 @@ public class InterviewRequest {
 
     }
 
-    public InterviewRequest(Candidate candidate, LocalTime timeInterview, Date date, String location, String nameInterviewer, String contactForm) {
+    public InterviewRequest(Candidate candidate, LocalTime timeInterview, LocalDate date, String location, String nameInterviewer, String contactForm) {
         this.candidate = candidate;
         this.timeInterview = timeInterview;
         this.date = date;
@@ -66,11 +67,11 @@ public class InterviewRequest {
         this.timeInterview = timeInterview;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

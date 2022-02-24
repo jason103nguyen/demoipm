@@ -275,3 +275,71 @@ VALUES (10, 1);
 
 INSERT INTO skill_candidate (candidate_id, skill_id)
 VALUES (10, 2);
+
+-- ENTRY-TEST --
+INSERT INTO entry_test (point, candidate_id)
+VALUES (10, 1);
+
+INSERT INTO entry_test (point, candidate_id)
+VALUES (20, 2);
+
+INSERT INTO entry_test (point, candidate_id)
+VALUES (30, 3);
+
+INSERT INTO entry_test (point, candidate_id)
+VALUES (40, 4);
+
+INSERT INTO entry_test (point, candidate_id)
+VALUES (50, 5);
+
+INSERT INTO entry_test (point, candidate_id)
+VALUES (60, 6);
+
+INSERT INTO entry_test (point, candidate_id)
+VALUES (70, 7);
+
+INSERT INTO entry_test (point, candidate_id)
+VALUES (80, 8);
+
+INSERT INTO entry_test (point, candidate_id)
+VALUES (90, 9);
+
+INSERT INTO entry_test (point, candidate_id)
+VALUES (100, 10);
+
+-- INTERVIEW --
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 5, 1);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 5, 2);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 6, 1);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 6, 2);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 7, 1);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 7, 2);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 8, 1);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 8, 2);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 9, 1);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 9, 2);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 10, 1);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 10, 2);

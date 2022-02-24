@@ -43,7 +43,7 @@
 							<tbody>
 								<c:forEach items="${candidate.listInterview}" var="interview">
 									<tr>
-										<td>${interview.timeInterview}</td>
+										<td>${interview.date} <span> - </span> ${interview.timeInterview} </td>
 									</tr>
 								</c:forEach>
 							</tbody>

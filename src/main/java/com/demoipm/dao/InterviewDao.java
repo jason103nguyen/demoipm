@@ -13,14 +13,15 @@ import java.util.Optional;
 @Repository
 public interface InterviewDao extends JpaRepository<Interview, Integer> {
 
-    @Query(value = "SELECT \n" +
-            " t.*\n" +
-            " FROM\n" +
-            " interview t\n" +
-            " INNER JOIN\n" +
-            " candidate c ON C.id = t.candidate_id\n" +
-            "WHERE\n"+
-            "t.candidate_id = :candidateId\n",nativeQuery = true)
+    // @Query(value = "SELECT \n" +
+    //         " t.*\n" +
+    //         " FROM\n" +
+    //         " interview t\n" +
+    //         " INNER JOIN\n" +
+    //         " candidate c ON c.id = t.candidate_id\n" +
+    //         "WHERE\n"+
+    //         "t.candidate_id = :candidateId\n",nativeQuery = true)
+    @Query(value = "select i from Interview i where i.candidate.id = :candidateId")
     Optional<List<Interview>> findByCandidateId(@Param("candidateId") Integer candidateId);
 
 }

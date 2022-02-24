@@ -18,7 +18,7 @@ public class InterviewDto {
 	
 	private int round;
 	
-	private Date timeInterview;
+	private LocalTime timeInterview;
 	
 	private String location;
 	
@@ -32,14 +32,14 @@ public class InterviewDto {
 
 	private CandidateDto candidate;
 
+	private LocalDate date;
+
 	public InterviewDto() {}
 
 	public InterviewDto(Interview interview) {
 		super();
 		this.id = interview.getId();
-		if (ObjectUtils.isEmpty(interview)) {
-			this.timeInterview = toDate(interview.getTimeInterview());
-		}
+		this.timeInterview = interview.getTimeInterview();
 		this.location = interview.getLocation();
 		this.evaluation = interview.getEvaluation();
 		this.note = interview.getNote();
@@ -50,6 +50,7 @@ public class InterviewDto {
 		this.candidate = candidateDto;
 
 		this.round = interview.getRound();
+		this.date = interview.getDate();
 	}
 
 	public int getRound() {
@@ -68,11 +69,11 @@ public class InterviewDto {
 		this.id = id;
 	}
 
-	public Date getTimeInterview() {
+	public LocalTime getTimeInterview() {
 		return timeInterview;
 	}
 
-	public void setTimeInterview(Date timeInterview) {
+	public void setTimeInterview(LocalTime timeInterview) {
 		this.timeInterview = timeInterview;
 	}
 
@@ -122,6 +123,14 @@ public class InterviewDto {
 
 	public void setCandidate(CandidateDto candidate) {
 		this.candidate = candidate;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 
 	/**

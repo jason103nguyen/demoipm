@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -56,11 +56,11 @@ public class Interview {
 	private String contactForm;
 
 	@Column(name = "date")
-	protected Date date;
+	protected LocalDate date;
 
 	public Interview() {}
 
-	public Interview(LocalTime timeInterview, String location, String evaluation, String note, String result, String nameInterviewer, Candidate candidate, String contactForm, Date date) {
+	public Interview(LocalTime timeInterview, String location, String evaluation, String note, String result, String nameInterviewer, Candidate candidate, String contactForm, LocalDate date) {
 		this.timeInterview = timeInterview;
 		this.location = location;
 		this.evaluation = evaluation;
@@ -75,10 +75,7 @@ public class Interview {
 	public Interview(InterviewDto interview) {
 		super();
 		this.id = interview.getId();
-		if (ObjectUtils.isEmpty(interview)) {
-			this.timeInterview = LocalDateTime.ofInstant(interview.getTimeInterview().toInstant(),
-					ZoneId.systemDefault()).toLocalTime();
-		}
+		this.timeInterview = interview.getTimeInterview();
 		this.location = interview.getLocation();
 		this.evaluation = interview.getEvaluation();
 		this.note = interview.getNote();
@@ -89,8 +86,8 @@ public class Interview {
 		this.candidate = candidate;
 
 		this.round = interview.getRound();
+		this.date = interview.getDate();
 	}
-
 
 	public int getId() {
 		return id;
@@ -164,11 +161,11 @@ public class Interview {
 		this.contactForm = contactForm;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

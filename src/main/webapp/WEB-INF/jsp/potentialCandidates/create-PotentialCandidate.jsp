@@ -90,10 +90,15 @@
 			</div>
         </div>
         
-        <div class="form-group">
+       <div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fas fa-wrench"></i></span>
-				<form:input type="text" path="activity" class="form-control" placeholder="Activity..."/> <form:errors path="activity" cssClass="error"/><br/>
+				<form:select class="form-control" path="activity" >
+					<form:option value="Running">Running</form:option>
+					<form:option value="Pause">Pause</form:option>
+					<form:option value="Stop">Stop</form:option>
+				</form:select>
+				<form:errors path="activity" cssClass="error"/><br/>
 			</div>
         </div>
         

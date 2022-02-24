@@ -5,6 +5,7 @@ import com.demoipm.dto.QuestionRequest;
 import com.demoipm.entities.Question;
 import com.demoipm.service.EntryTestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,12 +23,14 @@ public class EntryTestController {
     @Autowired
     private EntryTestService entryTestService;
 
+    @Secured("ROLE_HR")
     @GetMapping("/entrytest/create")
     public String showEntryTestForm(Model model){
         model.addAttribute("entryTestRequest",new QuestionRequest());
         return "entrytest/entrytest";
     }
 
+    @Secured("ROLE_HR")
     @GetMapping("/entrytest/question")
     public String showEntryTestQuestion(@RequestParam("skill")String skill,@RequestParam("numberofQuestion") Integer numberofQuestion,Model model){
         List<Question> question = entryTestService.getRandBySkillName(skill,numberofQuestion);
@@ -37,6 +40,7 @@ public class EntryTestController {
         return "entrytest/entrytest";
     }
 
+    @Secured("ROLE_HR")
     @PostMapping("/entrytest/create")
     public String createEntryTestForm(@ModelAttribute("entryTestRequest") EntryTestRequest entryTestRequest, BindingResult result, Model model){
         model.addAttribute("entryTestRequest",entryTestService.create(entryTestRequest));

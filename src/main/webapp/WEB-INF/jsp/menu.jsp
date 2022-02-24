@@ -31,9 +31,14 @@
 	<sec:authorize access="hasRole('ROLE_HR')">
 		<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4" href="${pageContext.request.contextPath}/process-manage-skill"><i class="me-2 bi bi-hammer"></i>Skill</a>
 	</sec:authorize>
-	<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4"><i class="me-2 bi bi-envelope-check"></i>Interview</a>
+	<sec:authorize access="hasRole('ROLE_HR')">
+		<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4" href="${pageContext.request.contextPath}/interview/view"><i class="me-2 bi bi-envelope-check"></i>Interview</a>
+	</sec:authorize>
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4" href="${pageContext.request.contextPath}/manage-user"><i class="me-2 bi bi-people"></i>User</a>
+	</sec:authorize>
+	<sec:authorize access="hasRole('ROLE_HR')">
+		<a class="list-group-item list-group-item-action list-group-item-light py-3 px-4" href="${pageContext.request.contextPath}/question/create"><i class="me-2 bi bi-calculator"></i>Entry Test</a>
 	</sec:authorize>
 
 	<script>

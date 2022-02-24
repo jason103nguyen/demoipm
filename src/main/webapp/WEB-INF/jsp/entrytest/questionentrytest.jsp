@@ -8,7 +8,7 @@
        <link rel="icon" type="image/png" href="../assets/img/favicon.png">
        <meta name="viewport" content="width=device-width, initial-scale=1">
        <title>
-           Thêm Câu Hỏi Bài Test
+           Add question entry test
        </title>
        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
        <!--     Fonts and icons     -->
@@ -30,33 +30,21 @@
        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    </head>
    <body class="">
+
    <div class="wrapper ">
-       <!--silebarr chèn tại đây-->
-<%--
-       <jsp:include page="SideMenuQLCauHoi.jsp"></jsp:include>
---%>
        <div class="main-panel">
-           <!-- Navbar -->
-           <!---Navbar chèn tại đây-->
-<%--
-           <jsp:include page="NavBarQLCauHoi.jsp"></jsp:include>
---%>
-           <!-- End Navbar -->
-           <!-- <div class="panel-header panel-header-sm">
-
-
-     </div> -->
            <div class="content">
                <div class="row">
                    <div class="col-md-12">
                        <div class="card">
                            <div class="">
-
                                <div class="row">
-                                   <div class="col-md-6">
-                                       <h1 class="card-title"><b> Thêm câu hỏi mới </b> </h1>
+                                   <div class="col-md-4">
+                                       <div class="logo"><img src="../img/LogoFPT.jpg" alt="logo fpt" width="20%"></div>
                                    </div>
-
+                                   <div class="col-md-8">
+                                       <div><h1 class="Title" style="color: #00DD00">ADD QUESTION ENTRY TEST</h1></div>
+                                   </div>
                                </div>
 
                            </div>
@@ -82,7 +70,10 @@
                                                            <option> Skill</option>
                                                            <option>Java</option>
                                                            <option>C</option>
+                                                           <option>C#</option>
                                                            <option>Python</option>
+                                                           <option>JavaScript</option>
+                                                           <option>PHP</option>
                                                        </select>
                                                    </div>
                                                </div>
@@ -127,10 +118,17 @@
                                </div>
                            </div>
                        </div>
-                       <div class="row justify-content-center">
-                           <button class="btn btn-info col-3"> <i class="fa fa-save"></i> Entry Test </button>
+                       <div class="mb-3">
+                       <div class="row justify-content-center" style="margin-left: 45%">
+                           <a href="http://localhost:8080/entrytest/create">
+                               <button class="btn btn-primary btn-round col-2 float-right"> <i class="fa fa-save"></i> Entry Test </button>
+                           </a>
+                               <a href="http://localhost:8080"><input type="button" class="btn btn-primary btn-round col-2 float-right" value="Back" /></a>
+
+                       </div>
                        </div>
                    </div>
+
                </div>
 <%--
                <jsp:include page="FooterQLCauHoi.jsp"></jsp:include>

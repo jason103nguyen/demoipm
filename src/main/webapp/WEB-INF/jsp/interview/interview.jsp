@@ -16,12 +16,19 @@
        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    </head>
    <body>
+   <div class="header">
+       <div class="logo"><img src="../img/LogoFPT.jpg" alt="logo fpt" width="5%"></div>
+
+       <div><h1 class="Title" style="color: #00DD00">HẸN LỊCH PHỎNG VẤN</h1></div>
+   </div>
    <div class ="container p-5 my-5 border">
        <div class="row" align="center">
            <div >
                <h1>Hẹn Lịch Phỏng Vấn</h1>
            </div>
+<%--
            <form th:action="@{/interview/create}" method="post" th:object="${interviewRequest}">
+--%>
                <table border = "0">
                    <tbody>
 
@@ -30,7 +37,7 @@
                            <label>Tên:</label>
                        </td>
                           <td>
-                              <input type="text" id="nameInterviewer" class="form-control" name="nameInterviewer">
+                              <input type="text" id="nameInterviewer" class="form-control" name="nameInterviewer" value="${fullName}" disabled>
                           </td>
                    </tr>
 
@@ -57,7 +64,12 @@
                            <label>Địa Điểm:</label>
                        </td>
                        <td>
-                           <input type="text" id="location" class="form-control" name="location">
+                           <select type="text" id="" class="form-control" name="contactForm">
+                               <option>Địa Điểm</option>
+                               <option>F-Town 1</option>
+                               <option>F-Town 2</option>
+                               <option>F-Town 3</option>
+                           </select>
                        </td>
                    </tr>
 
@@ -77,7 +89,9 @@
 
                    <tr>
                        <td>
-                           <input type="reset" value="Huỷ" class="btn btn-primary">
+                           <a href="http://localhost:8080/view-potential-candidates-list?pageNo=${pageNo}&keySearch=${keySearch}&sortBy=${sortBy}&direction=${direction }">
+                               <button class="btn btn-primary">Huỷ</button>
+                           </a>
                        </td>
                        <td>
                            <button type="submit" id="submit" class="btn btn-primary">Liên Hệ</button>
@@ -85,7 +99,9 @@
                    </tr>
                    </tbody>
                </table>
+<%--
            </form>
+--%>
        </div>
    </div>
 <script>

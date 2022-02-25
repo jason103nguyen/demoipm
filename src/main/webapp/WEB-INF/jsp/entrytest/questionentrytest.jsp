@@ -8,7 +8,7 @@
        <link rel="icon" type="image/png" href="../assets/img/favicon.png">
        <meta name="viewport" content="width=device-width, initial-scale=1">
        <title>
-           Thêm Câu Hỏi Bài Test
+           Add question entry test
        </title>
        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
        <!--     Fonts and icons     -->
@@ -30,33 +30,21 @@
        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    </head>
    <body class="">
+
    <div class="wrapper ">
-       <!--silebarr chèn tại đây-->
-<%--
-       <jsp:include page="SideMenuQLCauHoi.jsp"></jsp:include>
---%>
        <div class="main-panel">
-           <!-- Navbar -->
-           <!---Navbar chèn tại đây-->
-<%--
-           <jsp:include page="NavBarQLCauHoi.jsp"></jsp:include>
---%>
-           <!-- End Navbar -->
-           <!-- <div class="panel-header panel-header-sm">
-
-
-     </div> -->
            <div class="content">
                <div class="row">
                    <div class="col-md-12">
                        <div class="card">
                            <div class="">
-
                                <div class="row">
-                                   <div class="col-md-6">
-                                       <h1 class="card-title"><b> Thêm câu hỏi mới </b> </h1>
+                                   <div class="col-md-4">
+                                       <div class="logo"><img src="../img/LogoFPT.jpg" alt="logo fpt" width="20%"></div>
                                    </div>
-
+                                   <div class="col-md-8">
+                                       <div><h1 class="Title" style="color: #00DD00">ADD QUESTION ENTRY TEST</h1></div>
+                                   </div>
                                </div>
 
                            </div>
@@ -70,25 +58,28 @@
                            <div class="justify-content-center">
                                <div class="card card-chart">
                                    <div class="card-header">
-                                       <h5 class="card-title">Danh sách câu trả lời</h5>
+                                       <h5 class="card-title">Create question entry test</h5>
                                    </div>
                                    <div class="card-body">
                                        <form th:action="@{/question/create}" method="post" th:object="${questionRequest}">
                                            <div class="card-body ">
                                                <div class="input-group mb-4">
                                                    <div class="form-control" style="border:none">
-                                                       <p><b>Lĩnh vực</b></p>
+                                                       <p><b>Programming language</b></p>
                                                        <select type="text" id="skill" class="form-control" name="skill">
                                                            <option> Skill</option>
                                                            <option>Java</option>
                                                            <option>C</option>
+                                                           <option>C#</option>
                                                            <option>Python</option>
+                                                           <option>JavaScript</option>
+                                                           <option>PHP</option>
                                                        </select>
                                                    </div>
                                                </div>
 
                                            </div>
-                                           <table><p> <b> Nội dung câu hỏi </b> </p>
+                                           <table><p> <b> Content Questions</b> </p>
                                                <textarea id="content" name="content" class="form-control p-2 my-2" rows="5" ></textarea></table>
                                            <ul class="nav flex-column" name="">
                                                <li class="nav-item">
@@ -119,7 +110,7 @@
                                            <div class="card-footer">
                                                <hr/>
                                                <div class="card-stats">
-                                                   <button type="submit" class="col-md-12 btn btn-success"> <i class="fa fa-plus"></i> Thêm câu hỏi</button>
+                                                   <button type="submit" class="col-md-12 btn btn-success"> <i class="fa fa-plus"></i> Add question</button>
                                                </div>
                                            </div>
                                        </form>
@@ -127,10 +118,17 @@
                                </div>
                            </div>
                        </div>
-                       <div class="row justify-content-center">
-                           <button class="btn btn-info col-3"> <i class="fa fa-save"></i> Entry Test </button>
+                       <div class="mb-3">
+                           <div class="" style="margin-left: 40%">
+                           <a href="http://localhost:8081/entrytest/create">
+                               <button class="btn btn-primary btn-round col-2 float-right"> <i class="fa fa-save"></i> Entry Test </button>
+                           </a>
+                               <a href="http://localhost:8081"><input type="button" class="btn btn-primary btn-round col-2 float-right" value="Back" /></a>
+
+                       </div>
                        </div>
                    </div>
+
                </div>
 <%--
                <jsp:include page="FooterQLCauHoi.jsp"></jsp:include>

@@ -24,7 +24,9 @@ import com.demoipm.dto.UserAppDto;
 @Table(name = "user_app")
 @SQLDelete(sql = "UPDATE user_app SET is_delete = true WHERE user_id = ?")
 @Where(clause = "is_delete = false")
+/*
 @Indexed
+*/
 public class UserApp extends BaseEntity {
 
 	@Id

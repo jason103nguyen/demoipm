@@ -24,10 +24,8 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Override
 	public Interview create(InterviewRequest interviewRequest) {
-
 			Interview interview = parseInterviewRequestToEntities(interviewRequest);
 			return interviewDao.save(interview);
-
 	}
 
 	@Override

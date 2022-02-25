@@ -9,7 +9,7 @@
        <link rel="icon" type="image/png" href="../assets/img/favicon.png">
        <meta name="viewport" content="width=device-width, initial-scale=1">
        <title>
-           Thêm Câu Hỏi Bài Test
+           Create Entry Test
        </title>
        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
        <!--     Fonts and icons     -->
@@ -31,104 +31,137 @@
        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    </head>
    <body class="">
+   <div class="header">
+       <div class="row">
+           <div class="col-md-4">
+               <div class="logo"><img src="../img/LogoFPT.jpg" alt="logo fpt" width="20%"></div>
+           </div>
+           <div class="col-md-8">
+               <div><h1 class="Title" style="color: #00DD00">CREATE ENTRY TEST</h1></div>
+           </div>
+       </div>
    <div class="wrapper ">
        <div class="main-panel">
            <div class="content ">
                <div class="row ">
                <div class="col-md-4">
+                   <div class="mb-3">
                        <div class="card card-user">
                            <form action="${pageContext.request.contextPath}/entrytest/question" method="get" >
-                           <div class="row align-items-center justify-content-center">
-                               <div class="col-md-8">
-                                   <div class="form-control" style="border:none">
-                                       <p><b>Lĩnh vực</b></p>
+                               <div class="row align-items-center justify-content-center">
+                                   <div class="col-md-8">
+                                       <div class="form-control" style="border:none">
+                                           <p><b>Programming language</b></p>
                                            <tbody>
                                            <select type="text" class="form-control" name="skill">
-                                                   <option> Skill</option>
-                                                   <option>Java</option>
-                                                   <option>C</option>
-                                                   <option>Python</option>
+                                               <option> Skill</option>
+                                               <option>Java</option>
+                                               <option>C</option>
+                                               <option>C#</option>
+                                               <option>Python</option>
+                                               <option>JavaScript</option>
+                                               <option>PHP</option>
                                            </select>
                                            </tbody>
+                                       </div>
                                    </div>
                                </div>
-                           </div>
-                           <div class="row justify-content-center">
-                               <div class="col-md-9">
-                                   <div class="card card-user border">
-                                       <div class="card-header">
-                                           <h4 class="card-title">Số câu hỏi</h4>
-                                       </div>
-                                       <div class="col-md-12">
-                                           <div class="row justify-content-center ">
-                                               <div class="col-md-4">
-                                                   <div class="form-group justify-content-center text-center">
-                                                       <p>Số lượng câu</p>
-                                                      <input type="text" id="numberofQuestion" class="form-control" name="numberofQuestion">
+                               <div class="row justify-content-center">
+                                   <div class="col-md-9">
+                                       <div class="card card-user border">
+                                           <div class="card-header">
+                                               <h4 class="card-title">Number of questions</h4>
+                                           </div>
+                                           <div class="col-md-12">
+                                               <div class="row justify-content-center ">
+                                                   <div class="col-md-6">
+                                                       <div class="form-group justify-content-center text-center">
+                                                           <p>Number of questions</p>
+                                                           <input type="text" id="numberofQuestion" class="form-control" name="numberofQuestion">
+                                                       </div>
                                                    </div>
+                                                   </p>
                                                </div>
-                                               </p>
                                            </div>
                                        </div>
                                    </div>
                                </div>
-                           </div>
-                           <p>
-                           <div class="row justify-content-center">
-                           <button type="submit" class="btn btn-primary btn-round col-4">Chọn ngẫu nhiên</button>
-                           </div>
-                           </p>
-                       </form>
+                               <p>
+                               <div class="row justify-content-center">
+                                   <button type="submit" class="btn btn-primary btn-round col-4">Random</button>
+                               </div>
+                               </p>
+                           </form>
                        </div>
-
-                       <form action="${pageContext.request.contextPath}/entrytest/create" method="post" modelAttribute="entryTestRequest">
-                       <div class="card">
-                       <div class="card-header">
-                               <h4 class="card-title">Tùy Chọn</h4>
-                           </div>
-                           <div class="card-body">
-                               <ul class="list-unstyled ">
-                                   <li>
-                                       <div>
-                                           <label>Thời gian bắt đầu</label>
-                                       </div>
-                                       <div class="mb-1">
-                                           <input id="beginTest" type="date" class="form-control" name="beginTest"  placeholder="Select DateTime">
-                                       </div>
-                                   </li>
-                                   <li>
-                                       <div>
-                                           <label>Thời gian kết thúc</label>
-                                       </div>
-                                       <div class="mb-1">
-                                           <input id="finishTest" type="date" class="form-control" name="finishTest" placeholder="Select DateTime">
-                                       </div>
-                                   </li>
-                                   <li>
-                                       <div>
-                                           <label>Thời gian làm bài</label>
-                                       </div>
-                                       <div class="mb-1">
-                                           <input id="timeEntryTest" type="time" class="form-control" name="timeEntryTest" placeholder="Thời Lượng">
-                                       </div>
-                                   </li>
-
-                               </ul>
-                           </div>
                    </div>
+                   <div class="mb-3">
+                       <form action="${pageContext.request.contextPath}/entrytest/create" method="post" modelAttribute="entryTestRequest">
+                           <div class="card">
+                               <div class="card-header">
+                                   <h4 class="card-title">Option</h4>
+                               </div>
+                               <div class="card-body">
+                                   <ul class="list-unstyled ">
+                                       <li>
+                                           <div>
+                                               <label>Start day</label>
+                                           </div>
+                                           <div class="mb-1">
+                                               <input id="beginTest" type="date" class="form-control" name="beginTest"  placeholder="Select DateTime">
+                                           </div>
+                                       </li>
+                                       <li>
+                                           <div>
+                                               <label>End day</label>
+                                           </div>
+                                           <div class="mb-1">
+                                               <input id="finishTest" type="date" class="form-control" name="finishTest" placeholder="Select DateTime">
+                                           </div>
+                                       </li>
+                                       <li>
+                                           <div>
+                                               <label>Start time</label>
+                                           </div>
+                                           <div class="mb-1">
+                                               <input type="time" class="form-control" name="timeEntryTest" placeholder="Thời Lượng">
+                                           </div>
+                                       </li>
+
+                                       <li>
+                                           <div>
+                                               <label>End time</label>
+                                           </div>
+                                           <div class="mb-1">
+                                               <input type="time" class="form-control" name="timeEntryTest2" placeholder="Thời Lượng">
+                                           </div>
+                                       </li>
+
+                                   </ul>
+                               </div>
+                           </div>
+
+                   </div>
+                   <div class="mb-3">
+
+                       <div style="width:700px; margin:auto;padding:15px 32px; border:10px; ">
+                           <button type="submit" class="btn btn-primary btn-round col-3 float-right ">Create Entry Test</button>
+                               <a href="http://localhost:8081/question/create"><input type="button" class="btn btn-primary btn-round col-2 float-right" value="Back" /></a>
                        </div>
+
+                   </div>
+               </div>
                    <div class="col-md-8">
                        <div class="card card-user">
                            <div class="card-header">
-                               <h5 class="card-title">Danh Sách Câu Hỏi</h5>
+                               <h5 class="card-title">List of question</h5>
                            </div>
                            <div class="card-body">
                                <table class="table">
                                    <thead>
                                    <tr>
-                                       <th>Stt</th>
-                                       <th>Nội Dung</th>
-                                       <th>Đáp án</th>
+                                       <th>No.</th>
+                                       <th>Content</th>
+                                       <th>Answer</th>
                                    </tr>
                                    </thead>
                                    <c:forEach var="questionAdd" items="${question}">
@@ -150,9 +183,6 @@
                            </div>
                        </div>
                    </div>
-               <div class="row justify-content-center">
-               <button type="submit" class="btn btn-primary btn-round col-3 float-right">Tạo Đề Thi</button>
-               </div>
        </form>
                    </div>
            </div>

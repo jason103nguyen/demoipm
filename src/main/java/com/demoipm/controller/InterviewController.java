@@ -1,16 +1,22 @@
 package com.demoipm.controller;
 
-import com.demoipm.consts.URLConst;
 import com.demoipm.dto.CandidateDto;
 import com.demoipm.dto.InterviewRequest;
-import com.demoipm.dto.general.DatatableParamRequestDTO;
-import com.demoipm.dto.general.DatatableResponseDTO;
-import com.demoipm.email.model.EmailRequest;
+import com.demoipm.email.controller.EmailController;
 import com.demoipm.service.InterviewService;
 import com.demoipm.service.PotentialCandidateService;
-import javax.servlet.http.HttpSession;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.protocol.HTTP;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,12 +24,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+import java.io.InputStream;
+import java.util.Date;
+
 @Controller
 public class InterviewController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(InterviewController.class);
 
     @Autowired
     private InterviewService interviewService;
@@ -37,21 +48,58 @@ public class InterviewController {
         return "interview/interview";
     }
 
-    @PostMapping(URLConst.API_SEND_EMAIL)
-    public String getRecruitmentByCondition(@RequestParam("id") Integer id) {
-        CandidateDto candidateDto = potentialCandidateService.getPotentialCandidateByID(id);
-        String message = "Mẫu thư mời phỏng vấn là mẫu thư được sử dụng khi các doanh nghiệp tìm kiếm được các ứng viên có nội dung Cv xin việc phù hợp ở vòng loại hồ sơ, quyết định lựa chọn ứng viên đó tham gia vào buổi phỏng vấn để có thể đánh giá chính xác và chi tiết hơn về năng lực.\n"
-            + "Nội dung của mẫu thư mời phỏng vấn khi được soạn thảo "
-            + "phải đảm đảo đầy đủ các nội dung thông tin, thể hiện rõ ràng ý muốn "
-            + "mời tham gia phỏng vấn. Để trình bày mẫu thư mời tham gia phỏng vấn chuẩn, "
-            + "bạn cần viết một cách ngắn gọn, súc tích, viết thông tin cần thiết về buổi phỏng "
-            + "vấn để ứng viên nắm rõ thời gian, địa chỉ buổi phỏng vấn. Các bạn cùng tham khảo "
-            + "các mẫu thư mời tham dự phỏng vấn dưới đây. Bên cạnh đó, bạn đừng quên gọi điện mời ứng viên đến tham gia buổi phỏng vấn sắp tới của công ty.";
-        EmailRequest emailRequest = new EmailRequest();
-        emailRequest.setTo("huyhuy611998@gmail.com" );
-        emailRequest.setSubject("Send to " + candidateDto.getFullName());
-        emailRequest.setMessage(message);
-        return "";
+    @GetMapping("interview/send-email")
+    public String senderEmail(@RequestParam("date") String date,
+                              @RequestParam("time") String time,
+                              @RequestParam("name") String name,
+                              @RequestParam("address") String address, Model model) {
+        Thread t = new Thread() {
+            public void run() {
+                HttpClient client = new DefaultHttpClient();
+                HttpConnectionParams.setConnectionTimeout(client.getParams(), 1000); //Timeout Limit
+                HttpResponse response;
+                JSONObject json = new JSONObject();
+                String message = "Dear Mr. "+ name +
+                        "\n\n" +
+                        "As discussion, FPT software would like to schedule 1st meeting with details as follow: \n" +
+                        "\n" +
+                        "Position: Java Developer" +
+                        "\n" +
+                        "Time: " + date + " - " + time +
+                        "\n" +
+                        "Address: " + address +
+                        "\n" +
+                        "Contact person: Mr. Linh Le" +
+                        "\n" +
+                        "Contact number: 0948228911" +
+
+                        "\n\n" +
+                        "Please submit this Application form and kindly confirm for us whenever you receive our email and let us know if there is any question or concern.\n" +
+                        "\n\n" +
+                        "Thank you & Best Regards,";
+                try {
+                    HttpPost post = new HttpPost ("http://localhost:8081/api/send-email");
+                    json.put("to", "linhln013@gmail.com");
+                    json.put("subject", "Interview Invitation - " + name);
+                    json.put("message", message);
+                    System.out.println(json.toString());
+                    StringEntity se = new StringEntity(json.toString());
+                    post.setHeader(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+                    post.setEntity(se);
+                    response = client.execute(post);
+                    model.addAttribute("message", "Send email successful!");
+                    /*Checking response */
+                    if (response != null) {
+                        InputStream in = response.getEntity().getContent(); //Get the data in the entity
+                    }
+                } catch (Exception e) {
+                    LOGGER.error("Has error when send email", e);
+                    model.addAttribute("error", "Send email fail!");
+                }
+            }
+        };
+        t.start();
+        return "redirect:/view-potential-candidates-list";
     }
 
     @GetMapping("/interview/create")

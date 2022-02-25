@@ -4,6 +4,7 @@
        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
        <%@page contentType="text/html" pageEncoding="UTF-8"%>
        <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+       <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
        <title>Hẹn Lịch Phỏng Vấn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -16,15 +17,20 @@
        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    </head>
    <body>
-   <div class="header">
-       <div class="logo"><img src="../img/LogoFPT.jpg" alt="logo fpt" width="5%"></div>
-
-       <div><h1 class="Title" style="color: #00DD00">HẸN LỊCH PHỎNG VẤN</h1></div>
-   </div>
    <div class ="container p-5 my-5 border">
        <div class="row" align="center">
            <div >
-               <h1>Hẹn Lịch Phỏng Vấn</h1>
+               <div class="logo"><img src="../img/LogoFPT.jpg" alt="logo fpt" width="5%"></div><h1>Hẹn Lịch Phỏng Vấn</h1>
+               <c:if test="${message != null}">
+                   <div class="alert alert-success" role="alert">
+                           ${message}
+                   </div>
+               </c:if>
+               <c:if test="${error != null}">
+                   <div class="alert alert-danger" role="alert">
+                           ${error}
+                   </div>
+               </c:if>
            </div>
 <%--
            <form th:action="@{/interview/create}" method="post" th:object="${interviewRequest}">
@@ -37,7 +43,7 @@
                            <label>Tên:</label>
                        </td>
                           <td>
-                              <input type="text" id="nameInterviewer" class="form-control" name="nameInterviewer" value="${fullName}" disabled>
+                              <input type="text" id="nameInterviewer" class="form-control" name="nameInterviewer" value="${fullName}" ${fullName != null ? 'disabled' : ''}>
                           </td>
                    </tr>
 
@@ -64,7 +70,7 @@
                            <label>Địa Điểm:</label>
                        </td>
                        <td>
-                           <select type="text" id="" class="form-control" name="contactForm">
+                           <select type="text" id="address" class="form-control" name="contactForm">
                                <option>Địa Điểm</option>
                                <option>F-Town 1</option>
                                <option>F-Town 2</option>
@@ -88,13 +94,13 @@
                    </tr>
 
                    <tr>
+                       <td></td>
                        <td>
-                           <a href="http://localhost:8080/view-potential-candidates-list?pageNo=${pageNo}&keySearch=${keySearch}&sortBy=${sortBy}&direction=${direction }">
+                           <a href="${pageContext.request.contextPath}/view-potential-candidates-list?pageNo=${pageNo}&keySearch=${keySearch}&sortBy=${sortBy}&direction=${direction }">
                                <button class="btn btn-primary">Huỷ</button>
                            </a>
-                       </td>
-                       <td>
-                           <button type="submit" id="submit" class="btn btn-primary">Liên Hệ</button>
+                           <button class="btn btn-primary" onclick="contact();">Liên Hệ</button>
+<%--                           <a href="${pageContext.request.contextPath}/interview/send-email" class="btn btn-primary"></a>--%>
                        </td>
                    </tr>
                    </tbody>
@@ -105,6 +111,14 @@
        </div>
    </div>
 <script>
+    function contact() {
+        var date = document.getElementById("date").value;
+        var time = document.getElementById("timeInterview").value;
+        var name = document.getElementById("nameInterviewer").value;
+        var address = document.getElementById("address").value;
+        location.href = "${pageContext.request.contextPath}/interview/send-email?date=" + date + "&time="+time+"&name="+name+"&address="+address;
+
+    }
     $("#submit").click(function(){
         var location = $("#location").val();
         var timeInterview = $("#timeInterview").val();

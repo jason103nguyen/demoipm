@@ -23,7 +23,7 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
     public Integer countRow(CandidateFilter candidateFilter) {
 
         String fromQuery = "SELECT COUNT(DISTINCT c) FROM Candidate c";
-        String joinQuery = " JOIN c.listEntryTest et JOIN c.listSkillCandidate sc JOIN c.listInterview li";
+        String joinQuery = " JOIN c.listEntryTest et JOIN c.listSkillCandidate sc";
         String conditionquery = " WHERE et.point >= " + EntryTestInfoConst.POINT_PASS_ENTRY_TEST + " ";
 
         if (!contentIsEmpty(candidateFilter.getContent())) {
@@ -66,7 +66,7 @@ public class CandidateDaoCustomImpl implements CandidateDaoCustom {
         List<Candidate> listCandidate;
 
         String fromQuery = "SELECT DISTINCT c FROM Candidate c";
-        String joinQuery = " JOIN c.listEntryTest et JOIN c.listSkillCandidate sc JOIN c.listInterview li";
+        String joinQuery = " JOIN c.listEntryTest et JOIN c.listSkillCandidate sc ";
         String conditionquery = " WHERE et.point >= " + EntryTestInfoConst.POINT_PASS_ENTRY_TEST + " ";
 
         if (!contentIsEmpty(candidateFilter.getContent())) {

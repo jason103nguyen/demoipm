@@ -97,7 +97,7 @@
 						&content=${candidateFilter.content}
 						&maxAge=${candidateFilter.maxAge}
 						&minAge=${candidateFilter.minAge}
-						<c:forEach items=" ${candidateFilter.listSkills}" var="skillPage">
+						<c:forEach items="${candidateFilter.listSkills}" var="skillPage">
 							&listSkills=${skillPage}
 						</c:forEach>
 						">${page}</a></li>

@@ -64,6 +64,7 @@
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fas fa-thermometer-three-quarters"></i></span>
 				<form:select class="form-control" path="status" >
+					<form:option value="">Status</form:option>
 					<form:option value="Close">Close</form:option>
 					<form:option value="Open">Open</form:option>
 					<form:option value="Inprocess">Inprocess</form:option>
@@ -76,6 +77,7 @@
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fas fa-venus-mars"></i></span>	
 				<form:select class="form-control" path="sex" >
+					<form:option value="">Gender</form:option>
 					<form:option value="Male">Male</form:option>
 					<form:option value="Female">Female</form:option>
 				</form:select>
@@ -90,10 +92,16 @@
 			</div>
         </div>
         
-        <div class="form-group">
+       <div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fas fa-wrench"></i></span>
-				<form:input type="text" path="activity" class="form-control" placeholder="Activity..."/> <form:errors path="activity" cssClass="error"/><br/>
+				<form:select class="form-control" path="activity" >
+					<form:option value="">Activity</form:option>
+					<form:option value="Running">Running</form:option>
+					<form:option value="Pause">Pause</form:option>
+					<form:option value="Stop">Stop</form:option>
+				</form:select>
+				<form:errors path="activity" cssClass="error"/><br/>
 			</div>
         </div>
         
@@ -108,6 +116,7 @@
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fas fa-edit"></i></span>
 				<form:select class="form-control" path="skill" >
+					<form:option value="">Skill</form:option>
 					<form:option value="Java">Java</form:option>
 					<form:option value="C">C</form:option>
 					<form:option value="Python">Python</form:option>

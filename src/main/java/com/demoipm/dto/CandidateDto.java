@@ -34,9 +34,11 @@ public class CandidateDto {
 	
 	@NotBlank(message = MessageConst.NAME_CANNOT_BE_BLANK)
     @Length(max = 50, message = MessageConst.NAME_EXCEED_LENGTH)
+	@Pattern(regexp = ValidateConst.FULLNAME_REGEX, message = MessageConst.INVALID_FULLNAME)
 	private String fullName;
 	
 	@NotBlank(message = MessageConst.CMND_CANNOT_BE_BLANK) 
+	@Pattern(regexp = ValidateConst.CMND_REGEX, message = MessageConst.INVALID_CMND_MESSAGE)
 	private String cmnd;
 	
 	private Date dateCmnd;

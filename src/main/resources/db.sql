@@ -124,34 +124,34 @@ VALUES (3, 3);
 
 -- RECRUITMENT --
 INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
-VALUES (1000, 500, 5, CURDATE(), CURDATE() , 1, 1, false);
+VALUES (1000, 500, 5, CURDATE(), CURDATE() + 2, 1, 1, false);
 
 INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
-VALUES (1000, 500, 10, CURDATE(), CURDATE() , 2, 2, false);
+VALUES (1000, 500, 10, CURDATE(), CURDATE() + 2, 2, 2, false);
 
 INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
-VALUES (1000, 500, 15, CURDATE(), CURDATE() , 3, 3, false);
+VALUES (1000, 500, 15, CURDATE(), CURDATE() + 2, 3, 3, false);
 
 INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
-VALUES (1000, 500, 20, CURDATE(), CURDATE() , 1, 1, false);
+VALUES (1000, 500, 20, CURDATE(), CURDATE() + 2, 1, 1, false);
 
 INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
-VALUES (1000, 500, 25, CURDATE(), CURDATE() , 2, 2, false);
+VALUES (1000, 500, 25, CURDATE(), CURDATE() + 2, 2, 2, false);
 
 INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
-VALUES (1000, 500, 30, CURDATE(), CURDATE() , 3, 3, false);
+VALUES (1000, 500, 30, CURDATE(), CURDATE() + 2, 3, 3, false);
 
 INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
-VALUES (1000, 500, 35, CURDATE(), CURDATE() , 1, 1, false);
+VALUES (1000, 500, 35, CURDATE(), CURDATE() + 2, 1, 1, false);
 
 INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
-VALUES (1000, 500, 40, CURDATE(), CURDATE() , 2, 2, false);
+VALUES (1000, 500, 40, CURDATE(), CURDATE() + 2, 2, 2, false);
 
 INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
-VALUES (1000, 500, 45, CURDATE(), CURDATE() , 3, 3, false);
+VALUES (1000, 500, 45, CURDATE(), CURDATE() + 2, 3, 3, false);
 
 INSERT INTO recruitment (max_salary, min_salary, number, start_recruitment, end_recruitment, career_id, job_id, is_delete)
-VALUES (1000, 500, 50, CURDATE(), CURDATE() , 1, 1, false);
+VALUES (1000, 500, 50, CURDATE(), CURDATE() + 2, 1, 1, false);
 
 -- RECRUITMENT_SKILL --
 INSERT INTO recruitment_skill (recruitment_id, skill_id) 
@@ -186,34 +186,34 @@ VALUES (10, 4);
 
 -- CANDIDATE --
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van A', 0 ,'0123456789','avo@gmail.com', 'nam', '1990/3/10', 'Open', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van A', 0 ,'0123456789','avo@gmail.com', 'Male', '1990/3/10', 'Open', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van A', 0 ,'0123456789', 'bvo@gmail.com', 'nam', '1991/3/10', 'Close', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van A', 0 ,'0123456789', 'bvo@gmail.com', 'Male', '1991/3/10', 'Close', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van A', 0 ,'0123456789', 'cvo@gmail.com', 'nam', '1992/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van A', 0 ,'0123456789', 'cvo@gmail.com', 'Male', '1992/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van A', 0 ,'0123456789', 'dvo@gmail.com', 'nam', '1993/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van A', 0 ,'0123456789', 'dvo@gmail.com', 'Male', '1993/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van A', 0 ,'0123456789', 'evo@gmail.com', 'nam', '1994/3/10', 'Open', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van A', 0 ,'0123456789', 'evo@gmail.com', 'Male', '1994/3/10', 'Open', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van A', 0 ,'0123456789', 'fvo@gmail.com', 'nam', '1995/3/10', 'Open', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van A', 0 ,'0123456789', 'fvo@gmail.com', 'Male', '1995/3/10', 'Open', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van B', 0 ,'0123456789', 'gvo@gmail.com', 'nam', '1996/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van B', 0 ,'0123456789', 'gvo@gmail.com', 'Male', '1996/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van B', 0 ,'0123456789', 'hvo@gmail.com', 'nam', '1997/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van B', 0 ,'0123456789', 'hvo@gmail.com', 'Male', '1997/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill)
-VALUES ('Vo Van B', 0 ,'0123456789', 'yvo@gmail.com', 'nam', '1998/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van B', 0 ,'0123456789', 'yvo@gmail.com', 'Male', '1998/3/10', 'INPROCESS', '215460589', 'c', 1, 'Java');
 
 INSERT INTO candidate (full_name, is_delete, phone, email, sex, birth_day, status, cmnd, activity, experience_year, skill) 
-VALUES ('Vo Van K', 0 ,'0123456789', 'kvo@gmail.com', 'nam', '1999/3/10', 'Close', '215460589', 'c', 1, 'Java');
+VALUES ('Vo Van K', 0 ,'0123456789', 'kvo@gmail.com', 'Male', '1999/3/10', 'Close', '215460589', 'c', 1, 'Java');
 
 -- SKILL_CANDIDATE --
 INSERT INTO skill_candidate (candidate_id, skill_id)
@@ -275,33 +275,71 @@ VALUES (10, 1);
 
 INSERT INTO skill_candidate (candidate_id, skill_id)
 VALUES (10, 2);
--- QUESTION ENTRY TEST --
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Đâu không phải là một kiểu dữ liệu nguyên thuỷ trong Java', 'double', 'long', 'int', 'long double', 'null','null','null','on', 1);
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Phương thức next() của lớp Scanner dùng để làm gì', 'Nhập một số nguyên', 'Nhập một ký tự', 'Nhập một chuỗi', 'Không có phương thức này', 'null','null','on','null', 1);
+-- ENTRY-TEST --
+INSERT INTO entry_test (point, candidate_id)
+VALUES (10, 1);
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Có mấy cách để truyền tham số vào cho một phương thức', '1', '2', '3', '4', 'null','on','null','null', 1);
+INSERT INTO entry_test (point, candidate_id)
+VALUES (20, 2);
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('OOP có mấy tính chất', '1', '2', '3', '4', 'null','null','null','on', 1);
+INSERT INTO entry_test (point, candidate_id)
+VALUES (30, 3);
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Tính năng nào không phải là tính năng của Java', 'Dynamic (Động)', 'Architecture Neutral (Độc lập với cấu trúc)', 'Use of pointers (Sử dụng các điểm trỏ)', 'Object-oriented (Hướng đối tượng) ', 'null','null','on','null', 1);
+INSERT INTO entry_test (point, candidate_id)
+VALUES (40, 4);
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('File chứa mã nguồn java sau khi được biên dịch có đuôi là gì', ' .java', ' .class', ' .jar', ' .exe', 'null','on','null','null', 1);
+INSERT INTO entry_test (point, candidate_id)
+VALUES (50, 5);
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Java chạy trên hệ điều hành nào sau đây:', 'Microsoft Windows', 'Linux', 'Sun Solaris OS', 'Tất cả các đáp án đều đúng', 'null','null','null','on', 1);
+INSERT INTO entry_test (point, candidate_id)
+VALUES (60, 6);
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Câu lệnh khai báo chuẩn cho cách main như thế nào', 'public static void main(String[] a) {}', 'public static int main(String args) {}', 'public static main(String[] args) {}', 'public static final void main(String[] args) {}', 'on','null','null','null', 1);
+INSERT INTO entry_test (point, candidate_id)
+VALUES (70, 7);
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Một lớp trong Java có thể có bao nhiêu lớp cha', '1', '2', '3', '4', 'on','null','null','null', 1);
+INSERT INTO entry_test (point, candidate_id)
+VALUES (80, 8);
 
-INSERT INTO question_entry_test (content, option1, option2, option3, option4, answer1, answer2, answer3, answer4, skill_id)
-VALUES ('Một lớp trong Java có bao nhiêu lớp con', '1', '2', '3', 'Vô Số', 'null','null','null','on', 1);
+INSERT INTO entry_test (point, candidate_id)
+VALUES (90, 9);
+
+INSERT INTO entry_test (point, candidate_id)
+VALUES (100, 10);
+
+-- INTERVIEW --
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 5, 1);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 5, 2);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 6, 1);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 6, 2);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 7, 1);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 7, 2);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 8, 1);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 8, 2);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 9, 1);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 9, 2);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 10, 1);
+
+INSERT INTO interview (date, time_interview, location, evaluation, note, result, name_interviewer, candidate_id, round)
+VALUES ('2022-4-15', '15:00:00', 'FT_1', 'GOOD', 'GOOD', 'PASS', 'HAI', 10, 2);

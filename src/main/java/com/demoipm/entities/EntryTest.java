@@ -21,21 +21,18 @@ public class EntryTest {
 
 	@Column(name="finish_test")
 	private Date finishTest;
-	
-	@Column(name = "time_entry_test")
-	private LocalTime timeEntryTest;
-	
+
+	@Column(name = "start_time_entry_test")
+	private String timeEntryTest;
+
+	@Column(name = "End_time_entry_test")
+	private String timeEntryTest2;
+
 	@Column(name = "result")
 	private String result;
 	
 	@Column(name = "point")
 	private int point;
-	
-	@Column(name = "name_test")
-	private String nameTest;
-
-	@Column(name = "number_of_question")
-	private Integer numberofQuestion;
 	
 	@ManyToOne
 	@JoinColumn(name = "candidate_id")
@@ -52,14 +49,15 @@ public class EntryTest {
 	
 	public EntryTest() {}
 
-	public EntryTest(Date beginTest, Date finishTest, LocalTime timeEntryTest, String result, int point, String nameTest, Integer numberofQuestion, Candidate candidate, List<Question> questions, List<JobSkill> listJobSkill) {
+	public EntryTest(Date beginTest, Date finishTest, String timeEntryTest,
+		String timeEntryTest2, String result, int point, Candidate candidate,
+		List<Question> questions, List<JobSkill> listJobSkill) {
 		this.beginTest = beginTest;
 		this.finishTest = finishTest;
 		this.timeEntryTest = timeEntryTest;
+		this.timeEntryTest2 = timeEntryTest2;
 		this.result = result;
 		this.point = point;
-		this.nameTest = nameTest;
-		this.numberofQuestion = numberofQuestion;
 		this.candidate = candidate;
 		this.questions = questions;
 		this.listJobSkill = listJobSkill;
@@ -73,11 +71,11 @@ public class EntryTest {
 		this.id = id;
 	}
 
-	public LocalTime getTimeEntryTest() {
+	public String getTimeEntryTest() {
 		return timeEntryTest;
 	}
 
-	public void setTimeEntryTest(LocalTime timeEntryTest) {
+	public void setTimeEntryTest(String timeEntryTest) {
 		this.timeEntryTest = timeEntryTest;
 	}
 
@@ -97,13 +95,6 @@ public class EntryTest {
 		this.point = point;
 	}
 
-	public String getNameTest() {
-		return nameTest;
-	}
-
-	public void setNameTest(String nameTest) {
-		this.nameTest = nameTest;
-	}
 
 	public Candidate getCandidate() {
 		return candidate;
@@ -111,14 +102,6 @@ public class EntryTest {
 
 	public void setCandidate(Candidate candidate) {
 		this.candidate = candidate;
-	}
-
-	public Integer getNumberofQuestion() {
-		return numberofQuestion;
-	}
-
-	public void setNumberofQuestion(Integer numberofQuestion) {
-		this.numberofQuestion = numberofQuestion;
 	}
 
 	public List<Question> getQuestions() {
@@ -151,6 +134,14 @@ public class EntryTest {
 
 	public void setFinishTest(Date finishTest) {
 		this.finishTest = finishTest;
+	}
+
+	public String getTimeEntryTest2() {
+		return timeEntryTest2;
+	}
+
+	public void setTimeEntryTest2(String timeEntryTest2) {
+		this.timeEntryTest2 = timeEntryTest2;
 	}
 
 }

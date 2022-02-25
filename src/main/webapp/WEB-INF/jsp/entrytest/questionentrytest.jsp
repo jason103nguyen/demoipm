@@ -58,14 +58,14 @@
                            <div class="justify-content-center">
                                <div class="card card-chart">
                                    <div class="card-header">
-                                       <h5 class="card-title">Danh sách câu trả lời</h5>
+                                       <h5 class="card-title">Create question entry test</h5>
                                    </div>
                                    <div class="card-body">
                                        <form th:action="@{/question/create}" method="post" th:object="${questionRequest}">
                                            <div class="card-body ">
                                                <div class="input-group mb-4">
                                                    <div class="form-control" style="border:none">
-                                                       <p><b>Lĩnh vực</b></p>
+                                                       <p><b>Programming language</b></p>
                                                        <select type="text" id="skill" class="form-control" name="skill">
                                                            <option> Skill</option>
                                                            <option>Java</option>
@@ -79,7 +79,7 @@
                                                </div>
 
                                            </div>
-                                           <table><p> <b> Nội dung câu hỏi </b> </p>
+                                           <table><p> <b> Content Questions</b> </p>
                                                <textarea id="content" name="content" class="form-control p-2 my-2" rows="5" ></textarea></table>
                                            <ul class="nav flex-column" name="">
                                                <li class="nav-item">
@@ -110,7 +110,7 @@
                                            <div class="card-footer">
                                                <hr/>
                                                <div class="card-stats">
-                                                   <button type="submit" class="col-md-12 btn btn-success"> <i class="fa fa-plus"></i> Thêm câu hỏi</button>
+                                                   <button type="submit" class="col-md-12 btn btn-success"> <i class="fa fa-plus"></i> Add question</button>
                                                </div>
                                            </div>
                                        </form>
@@ -119,11 +119,11 @@
                            </div>
                        </div>
                        <div class="mb-3">
-                       <div class="row justify-content-center" style="margin-left: 45%">
-                           <a href="http://localhost:8080/entrytest/create">
+                           <div class="" style="margin-left: 40%">
+                           <a href="http://localhost:8081/entrytest/create">
                                <button class="btn btn-primary btn-round col-2 float-right"> <i class="fa fa-save"></i> Entry Test </button>
                            </a>
-                               <a href="http://localhost:8080"><input type="button" class="btn btn-primary btn-round col-2 float-right" value="Back" /></a>
+                               <a href="http://localhost:8081"><input type="button" class="btn btn-primary btn-round col-2 float-right" value="Back" /></a>
 
                        </div>
                        </div>

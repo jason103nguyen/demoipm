@@ -90,8 +90,7 @@ public class EntryTestServiceImpl implements EntryTestService {
 		entryTest.setBeginTest(entryTestRequest.getBeginTest());
 		entryTest.setFinishTest(entryTestRequest.getFinishTest());
 		entryTest.setTimeEntryTest(entryTestRequest.getTimeEntryTest());
-		entryTest.setNumberofQuestion(entryTestRequest.getNumberofQuestion());
-		entryTest.setNameTest(entryTestRequest.getNameTest());
+		entryTest.setTimeEntryTest2(entryTestRequest.getTimeEntryTest2());
 		return entryTest;
 	}
 

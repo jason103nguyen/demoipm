@@ -52,7 +52,8 @@ public class InterviewController {
     public String senderEmail(@RequestParam("date") String date,
                               @RequestParam("time") String time,
                               @RequestParam("name") String name,
-                              @RequestParam("address") String address, Model model) {
+                              @RequestParam("address") String address,
+                              @RequestParam("email") String email,Model model) {
         Thread t = new Thread() {
             public void run() {
                 HttpClient client = new DefaultHttpClient();
@@ -69,9 +70,9 @@ public class InterviewController {
                         "\n" +
                         "Address: " + address +
                         "\n" +
-                        "Contact person: Mr. Linh Le" +
+                        "Contact person: Mr. Gia Huy" +
                         "\n" +
-                        "Contact number: 0948228911" +
+                        "Contact number: 0949094321" +
 
                         "\n\n" +
                         "Please submit this Application form and kindly confirm for us whenever you receive our email and let us know if there is any question or concern.\n" +
@@ -79,7 +80,7 @@ public class InterviewController {
                         "Thank you & Best Regards,";
                 try {
                     HttpPost post = new HttpPost ("http://localhost:8081/api/send-email");
-                    json.put("to", "linhln013@gmail.com");
+                    json.put("to", email);
                     json.put("subject", "Interview Invitation - " + name);
                     json.put("message", message);
                     System.out.println(json.toString());
@@ -106,6 +107,7 @@ public class InterviewController {
     public String showForm(Model model,@RequestParam("id") Integer id, HttpSession httpSession) {
         model.addAttribute("interviewRequest", new InterviewRequest());
         CandidateDto candidateDto = potentialCandidateService.getPotentialCandidateByID(id);
+        model.addAttribute("email", candidateDto.getEmail());
         model.addAttribute("fullName", candidateDto.getFullName());
         String keySearch = (String) httpSession.getAttribute("keySearch");
 

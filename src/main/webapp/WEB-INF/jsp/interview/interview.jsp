@@ -47,6 +47,15 @@
                           </td>
                    </tr>
 
+                   <tr class="my-1">
+                       <td>
+                           <label>Email:</label>
+                       </td>
+                       <td>
+                           <input type="text" id="email" class="form-control" name="email" value="${email}" >
+                       </td>
+                   </tr>
+
                    <tr>
                        <td>
                            <label>Ngày Phỏng Vấn:</label>
@@ -116,7 +125,8 @@
         var time = document.getElementById("timeInterview").value;
         var name = document.getElementById("nameInterviewer").value;
         var address = document.getElementById("address").value;
-        location.href = "${pageContext.request.contextPath}/interview/send-email?date=" + date + "&time="+time+"&name="+name+"&address="+address;
+        var email = document.getElementById("email").value;
+        location.href = "${pageContext.request.contextPath}/interview/send-email?date=" + date + "&time="+time+"&name="+name+"&address="+address+"&email="+email;
 
     }
     $("#submit").click(function(){

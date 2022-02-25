@@ -22,7 +22,9 @@ public class EntryTestRequest {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date finishTest;
 
-    private LocalTime timeEntryTest;
+    private String timeEntryTest;
+
+    private String timeEntryTest2;
 
     private String result;
 
@@ -30,7 +32,7 @@ public class EntryTestRequest {
 
     private String nameTest;
 
-    private Integer numberofQuestion;
+    private Integer numberOfQuestion;
 
     private Candidate candidate;
 
@@ -42,16 +44,22 @@ public class EntryTestRequest {
 
     }
 
-    public EntryTestRequest(Integer questionId, List<Integer> questionIds, Date beginTest, Date finishTest, LocalTime timeEntryTest, String result, int point, String nameTest, Integer numberofQuestion, Candidate candidate, List<Question> questions, List<JobSkill> listJobSkill) {
+
+    public EntryTestRequest(Integer questionId, List<Integer> questionIds, Date beginTest,
+        Date finishTest, String timeEntryTest, String timeEntryTest2, String result,
+        int point,
+        String nameTest, Integer numberOfQuestion, Candidate candidate,
+        List<Question> questions, List<JobSkill> listJobSkill) {
         this.questionId = questionId;
         this.questionIds = questionIds;
         this.beginTest = beginTest;
         this.finishTest = finishTest;
         this.timeEntryTest = timeEntryTest;
+        this.timeEntryTest2 = timeEntryTest2;
         this.result = result;
         this.point = point;
         this.nameTest = nameTest;
-        this.numberofQuestion = numberofQuestion;
+        this.numberOfQuestion = numberOfQuestion;
         this.candidate = candidate;
         this.questions = questions;
         this.listJobSkill = listJobSkill;
@@ -65,11 +73,11 @@ public class EntryTestRequest {
         this.id = id;
     }
 
-    public LocalTime getTimeEntryTest() {
+    public String getTimeEntryTest() {
         return timeEntryTest;
     }
 
-    public void setTimeEntryTest(LocalTime timeEntryTest) {
+    public void setTimeEntryTest(String timeEntryTest) {
         this.timeEntryTest = timeEntryTest;
     }
 
@@ -97,12 +105,20 @@ public class EntryTestRequest {
         this.nameTest = nameTest;
     }
 
-    public Integer getNumberofQuestion() {
-        return numberofQuestion;
+    public String getTimeEntryTest2() {
+        return timeEntryTest2;
     }
 
-    public void setNumberofQuestion(Integer numberofQuestion) {
-        this.numberofQuestion = numberofQuestion;
+    public void setTimeEntryTest2(String timeEntryTest2) {
+        this.timeEntryTest2 = timeEntryTest2;
+    }
+
+    public Integer getNumberOfQuestion() {
+        return numberOfQuestion;
+    }
+
+    public void setNumberOfQuestion(Integer numberOfQuestion) {
+        this.numberOfQuestion = numberOfQuestion;
     }
 
     public Candidate getCandidate() {
@@ -161,38 +177,23 @@ public class EntryTestRequest {
         this.questionIds = questionIds;
     }
 
-    public EntryTestRequest(Integer id, Integer questionId, List<Integer> questionIds, Date beginTest, Date finishTest, LocalTime timeEntryTest, String result, int point, String nameTest, Integer numberofQuestion, Candidate candidate, List<Question> questions, List<JobSkill> listJobSkill) {
-        this.id = id;
-        this.questionId = questionId;
-        this.questionIds = questionIds;
-        this.beginTest = beginTest;
-        this.finishTest = finishTest;
-        this.timeEntryTest = timeEntryTest;
-        this.result = result;
-        this.point = point;
-        this.nameTest = nameTest;
-        this.numberofQuestion = numberofQuestion;
-        this.candidate = candidate;
-        this.questions = questions;
-        this.listJobSkill = listJobSkill;
-    }
-
     @Override
     public String toString() {
         return "EntryTestRequest{" +
-                "id=" + id +
-                ", questionId=" + questionId +
-                ", questionIds=" + questionIds +
-                ", beginTest=" + beginTest +
-                ", finishTest=" + finishTest +
-                ", timeEntryTest=" + timeEntryTest +
-                ", result='" + result + '\'' +
-                ", point=" + point +
-                ", nameTest='" + nameTest + '\'' +
-                ", numberofQuestion=" + numberofQuestion +
-                ", candidate=" + candidate +
-                ", questions=" + questions +
-                ", listJobSkill=" + listJobSkill +
-                '}';
+            "id=" + id +
+            ", questionId=" + questionId +
+            ", questionIds=" + questionIds +
+            ", beginTest=" + beginTest +
+            ", finishTest=" + finishTest +
+            ", timeEntryTest=" + timeEntryTest +
+            ", timeEntryTest2=" + timeEntryTest2 +
+            ", result='" + result + '\'' +
+            ", point=" + point +
+            ", nameTest='" + nameTest + '\'' +
+            ", numberOfQuestion=" + numberOfQuestion +
+            ", candidate=" + candidate +
+            ", questions=" + questions +
+            ", listJobSkill=" + listJobSkill +
+            '}';
     }
 }
